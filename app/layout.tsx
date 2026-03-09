@@ -4,6 +4,7 @@ import "./globals.css";
 import { SmoothScroll } from "@/components/layout/SmoothScroll";
 import { CustomCursor } from "@/components/ui/CustomCursor";
 import { Navigation } from "@/components/layout/Navigation";
+import { Footer } from "@/components/layout/Footer";
 
 const cormorant = Cormorant({
   subsets: ["latin"],
@@ -52,7 +53,10 @@ export default function RootLayout({
         <div className="grain-overlay" aria-hidden="true" />
         <CustomCursor />
         <Navigation />
-        <SmoothScroll>{children}</SmoothScroll>
+        <SmoothScroll>
+          {children}
+          <Footer />
+        </SmoothScroll>
       </body>
     </html>
   );

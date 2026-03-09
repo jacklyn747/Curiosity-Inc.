@@ -13,48 +13,79 @@ const navLinks = [
 ];
 
 /* ─────────────────────────────────────────────
-   SIGNAL TRIGGER — animated equalizer bars
-   Opens the BroadcastMenu on click
+   BROADCAST TRIGGER
+   Transmission tower + pulsing signal arcs.
+   Reads unambiguously as "broadcast" — not music.
 ───────────────────────────────────────────── */
-function SignalTrigger({ onClick }: { onClick: () => void }) {
-  const barsRef = useRef<SVGGElement>(null);
+function BroadcastTrigger({ onClick }: { onClick: () => void }) {
+  const arc1Ref = useRef<SVGPathElement>(null);
+  const arc2Ref = useRef<SVGPathElement>(null);
+  const arc3Ref = useRef<SVGPathElement>(null);
 
   useEffect(() => {
-    const g = barsRef.current;
-    if (!g) return;
-    const bars = Array.from(g.querySelectorAll("rect"));
-    bars.forEach((bar, i) => {
-      gsap.to(bar, {
-        scaleY: () => 0.25 + Math.random() * 0.75,
-        duration: 0.35 + i * 0.08,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-        delay: i * 0.1,
-        transformOrigin: "bottom center",
-      });
+    const arcs = [arc1Ref.current, arc2Ref.current, arc3Ref.current];
+    // Each arc pulses inner→outer in sequence, creating a "transmitting" wave
+    const tl = gsap.timeline({ repeat: -1, repeatDelay: 0.6 });
+    arcs.forEach((arc, i) => {
+      if (!arc) return;
+      tl.to(arc, { opacity: 0.85, duration: 0.18, ease: "power2.out" }, i * 0.2)
+        .to(arc, { opacity: 0.15, duration: 0.38, ease: "power2.in" }, i * 0.2 + 0.18);
     });
-    return () => {
-      if (g) gsap.killTweensOf(g.querySelectorAll("rect"));
-    };
+    return () => { tl.kill(); };
   }, []);
 
   return (
     <button
       onClick={onClick}
-      className="flex items-center gap-2 group"
+      className="flex items-center gap-2.5 group"
       style={{ background: "none", border: "none", cursor: "none", padding: "4px 0" }}
       aria-label="Open broadcast navigation"
     >
-      <svg width="30" height="18" viewBox="0 0 30 18" fill="none">
-        <g ref={barsRef}>
-          <rect x="0"  y="6"  width="4" height="12" fill="#808BC5" opacity="0.65" rx="1" />
-          <rect x="6"  y="0"  width="4" height="18" fill="#808BC5" opacity="0.65" rx="1" />
-          <rect x="12" y="7"  width="4" height="11" fill="#808BC5" opacity="0.65" rx="1" />
-          <rect x="18" y="2"  width="4" height="16" fill="#808BC5" opacity="0.65" rx="1" />
-          <rect x="24" y="9"  width="4" height="9"  fill="#808BC5" opacity="0.65" rx="1" />
-        </g>
+      {/* Transmission tower SVG */}
+      <svg width="24" height="20" viewBox="0 0 24 20" fill="none">
+        {/* Mast */}
+        <line
+          x1="12" y1="20" x2="12" y2="11"
+          stroke="#808BC5" strokeWidth="1.2" strokeLinecap="round" opacity="0.7"
+        />
+        {/* Left arm */}
+        <line
+          x1="8" y1="15" x2="12" y2="11"
+          stroke="#808BC5" strokeWidth="1.2" strokeLinecap="round" opacity="0.7"
+        />
+        {/* Right arm */}
+        <line
+          x1="16" y1="15" x2="12" y2="11"
+          stroke="#808BC5" strokeWidth="1.2" strokeLinecap="round" opacity="0.7"
+        />
+        {/* Base */}
+        <line
+          x1="7" y1="20" x2="17" y2="20"
+          stroke="#808BC5" strokeWidth="1.2" strokeLinecap="round" opacity="0.45"
+        />
+        {/* Arc 1 — inner */}
+        <path
+          ref={arc1Ref}
+          d="M9.5 11.5 Q12 8.5 14.5 11.5"
+          stroke="#808BC5" strokeWidth="1.1" fill="none" strokeLinecap="round"
+          opacity="0.15"
+        />
+        {/* Arc 2 — mid */}
+        <path
+          ref={arc2Ref}
+          d="M7 13.5 Q12 6.5 17 13.5"
+          stroke="#808BC5" strokeWidth="1.1" fill="none" strokeLinecap="round"
+          opacity="0.15"
+        />
+        {/* Arc 3 — outer */}
+        <path
+          ref={arc3Ref}
+          d="M4.5 15.5 Q12 4.5 19.5 15.5"
+          stroke="#808BC5" strokeWidth="1.1" fill="none" strokeLinecap="round"
+          opacity="0.15"
+        />
       </svg>
+
       <span
         style={{
           fontFamily: "var(--font-inter)",
@@ -65,9 +96,8 @@ function SignalTrigger({ onClick }: { onClick: () => void }) {
           color: "rgba(234,228,218,0.35)",
           transition: "color 0.2s ease",
         }}
-        className="group-hover:text-[rgba(234,228,218,0.7)]"
       >
-        Tune
+        Broadcast
       </span>
     </button>
   );
@@ -170,7 +200,7 @@ export function Navigation() {
                   }}
                 />
                 {link.label}
-                {/* Active underline — uses link's own color */}
+                {/* Active underline — each link's own color */}
                 <span
                   className="absolute -bottom-1 left-0 h-px transition-all duration-300"
                   style={{
@@ -182,14 +212,12 @@ export function Navigation() {
             ))}
           </div>
 
-          {/* Right side: Signal trigger + CTA */}
+          {/* Right side: Broadcast trigger + CTA */}
           <div className="flex items-center gap-6">
-            {/* Signal trigger — opens BroadcastMenu */}
             <div className="hidden md:block">
-              <SignalTrigger onClick={() => setMenuOpen(true)} />
+              <BroadcastTrigger onClick={() => setMenuOpen(true)} />
             </div>
 
-            {/* CTA */}
             <Link
               href="/contact"
               className="hidden md:flex btn-primary text-[0.65rem] px-5 py-2.5 gap-2"
@@ -206,7 +234,7 @@ export function Navigation() {
               </svg>
             </Link>
 
-            {/* Mobile: hamburger-style signal trigger */}
+            {/* Mobile trigger */}
             <button
               className="md:hidden flex items-center"
               onClick={() => setMenuOpen(true)}
@@ -223,7 +251,6 @@ export function Navigation() {
         </div>
       </nav>
 
-      {/* Broadcast Menu — rendered outside nav to cover full viewport */}
       <BroadcastMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
     </>
   );
