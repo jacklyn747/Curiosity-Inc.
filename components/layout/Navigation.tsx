@@ -6,9 +6,9 @@ import { usePathname } from "next/navigation";
 import { gsap } from "gsap";
 
 const navLinks = [
-  { href: "/builds", label: "Builds" },
-  { href: "/proof", label: "Proof" },
-  { href: "/about", label: "About" },
+  { href: "/builds", label: "The Systems" },
+  { href: "/proof", label: "The Work" },
+  { href: "/about", label: "Who We Are" },
 ];
 
 export function Navigation() {
@@ -91,7 +91,7 @@ export function Navigation() {
 
         {/* CTA */}
         <Link href="/contact" className="hidden md:flex btn-primary text-[0.65rem] px-5 py-2.5 gap-2">
-          <span>Book a Build Call</span>
+          <span>Start Here</span>
           <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
             <path d="M1 6h10M6 1l5 5-5 5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
           </svg>

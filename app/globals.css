@@ -212,6 +212,12 @@
     border: 1px solid rgba(234, 228, 218, 0.1);
   }
 
+  /* Cursor-ready: hides native cursor when custom cursor is active */
+  body.cursor-ready,
+  body.cursor-ready * {
+    cursor: none !important;
+  }
+
   /* Grain overlay */
   .grain-overlay {
     position: fixed;
