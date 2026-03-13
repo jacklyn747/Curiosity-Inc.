@@ -7,6 +7,36 @@
 @import "tailwindcss";
 
 /* ─────────────────────────────────────────
+   TAILWIND THEME EXTENSIONS
+───────────────────────────────────────── */
+@theme {
+  /* Brand colors — enables bg-tang, text-tang, border-tang, etc. */
+  --color-black: #1D1D1B;
+  --color-shell: #EAE4DA;
+  --color-tang:  #ED773C;
+  --color-lav:   #808BC5;
+  --color-tea:   #245E55;
+  --color-must:  #EAC119;
+  --color-pink:  #EAA7C7;
+  --color-sky:   #9ED6DF;
+  --color-red:   #C63F3E;
+
+  /* Fonts — enables font-display, font-body */
+  --font-display: 'Josefin Sans', sans-serif;
+  --font-body:    'Satoshi', sans-serif;
+
+  /* Letter spacing — enables tracking-eyebrow, tracking-label, tracking-nav, tracking-wide */
+  --tracking-eyebrow: 0.32em;
+  --tracking-label:   0.22em;
+  --tracking-nav:     0.20em;
+  --tracking-wide:    0.28em;
+
+  /* Line heights — enables leading-tight-headline, leading-reading */
+  --leading-tight-headline: 0.93;
+  --leading-reading:        1.75;
+}
+
+/* ─────────────────────────────────────────
    DESIGN TOKENS
 ───────────────────────────────────────── */
 :root {
