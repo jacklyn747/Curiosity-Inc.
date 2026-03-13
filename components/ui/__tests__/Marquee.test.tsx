@@ -14,8 +14,22 @@ describe('Marquee', () => {
     expect(screen.getAllByText('Custom Word').length).toBeGreaterThanOrEqual(1)
   })
 
-  it('is aria-hidden (decorative)', () => {
+  it('exposes vocabulary via aria-label on outer container', () => {
     const { container } = render(<Marquee />)
-    expect(container.firstChild).toHaveAttribute('aria-hidden', 'true')
+    const outer = container.firstChild as HTMLElement
+    expect(outer).not.toHaveAttribute('aria-hidden')
+    expect(outer).toHaveAttribute('aria-label')
+    expect(outer.getAttribute('aria-label')).toContain('Behavior Design')
+  })
+
+  it('sets scroll speed via CSS custom property', () => {
+    const { container } = render(<Marquee speed="40s" />)
+    const el = container.firstChild as HTMLElement
+    expect(el.style.getPropertyValue('--speed')).toBe('40s')
+  })
+
+  it('forwards className to outer container', () => {
+    const { container } = render(<Marquee className="my-marquee" />)
+    expect(container.firstChild).toHaveClass('my-marquee')
   })
 })

@@ -23,18 +23,19 @@ export function Marquee({
   speed = '22s',
   className = '',
 }: MarqueeProps) {
-  // Duplicate the set for seamless loop
+  // Exactly 2 copies needed: the CSS animation translates by -50%,
+  // moving one full set off-screen while the second set fills the gap — creating a seamless loop.
   const allWords = [...words, ...words]
 
   return (
     <div
       className={`${styles.marquee} ${className}`}
       style={{ '--speed': speed } as CSSProperties}
-      aria-hidden="true"
+      aria-label={`Services: ${words.join(', ')}`}
     >
-      <div className={styles.track}>
+      <div className={styles.track} aria-hidden="true">
         {allWords.map((word, i) => (
-          <span key={`${word}-${i}`} className={styles.item}>
+          <span key={`${i < words.length ? 'a' : 'b'}-${word}-${i % words.length}`} className={styles.item}>
             <span className={styles.word}>{word}</span>
             <span className={styles.dot} />
           </span>
