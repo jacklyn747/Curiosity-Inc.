@@ -21,4 +21,16 @@ describe('Orb', () => {
     const el = container.firstChild as HTMLElement
     expect(el.getAttribute('aria-hidden')).toBe('true')
   })
+
+  it('sets animation duration via CSS custom property', () => {
+    const { container } = render(<Orb duration="5s" />)
+    const el = container.firstChild as HTMLElement
+    expect(el.style.getPropertyValue('--duration')).toBe('5s')
+  })
+
+  it('forwards className to span', () => {
+    const { container } = render(<Orb className="absolute" />)
+    const el = container.firstChild as HTMLElement
+    expect(el.className).toContain('absolute')
+  })
 })

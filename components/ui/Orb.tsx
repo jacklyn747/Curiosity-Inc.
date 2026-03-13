@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react'
 import styles from './Orb.module.css'
 
 interface OrbProps {
@@ -14,7 +15,7 @@ export function Orb({ size = 14, duration = '3.5s', className = '' }: OrbProps) 
         width: size,
         height: size,
         '--duration': duration,
-      } as React.CSSProperties}
+      } as CSSProperties}
       aria-hidden="true"
     />
   )
