@@ -1,17 +1,12 @@
-import React from 'react'
-
 interface EyebrowProps {
   children: React.ReactNode
-  color?: string   // CSS color value, defaults to tang
+  color?: string   // CSS color for both rule line and text; rule defaults to var(--tang), text defaults to var(--shell-35) via .t-eyebrow
   className?: string
 }
 
 export function Eyebrow({ children, color, className = '' }: EyebrowProps) {
   return (
-    <div
-      className={`flex items-center gap-3 ${className}`}
-      style={{ color: color ?? 'var(--shell-35)' }}
-    >
+    <div className={`flex items-center gap-3 ${className}`}>
       {/* Rule line */}
       <span
         className="block shrink-0 h-px w-7"
@@ -19,13 +14,8 @@ export function Eyebrow({ children, color, className = '' }: EyebrowProps) {
         aria-hidden="true"
       />
       <span
-        style={{
-          fontFamily: 'var(--font-display)',
-          fontSize: '10px',
-          fontWeight: 400,
-          letterSpacing: '0.32em',
-          textTransform: 'uppercase',
-        }}
+        className="t-eyebrow"
+        style={color ? { color } : undefined}
       >
         {children}
       </span>
