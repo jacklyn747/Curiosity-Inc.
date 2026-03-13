@@ -1,5 +1,5 @@
 // Tests that the gsap module exports what components expect
-import { gsap, ScrollTrigger, SplitText } from '../gsap'
+import { gsap, ScrollTrigger, SplitText, ScrambleTextPlugin } from '../gsap'
 
 describe('gsap module', () => {
   it('exports gsap instance', () => {
@@ -15,5 +15,9 @@ describe('gsap module', () => {
 
   it('exports SplitText', () => {
     expect(SplitText).toBeDefined()
+  })
+
+  it('exports ScrambleTextPlugin', () => {
+    expect(ScrambleTextPlugin).toBeDefined()
   })
 })

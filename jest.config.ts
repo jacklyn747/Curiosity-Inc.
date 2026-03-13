@@ -8,5 +8,6 @@ const config: Config = {
     '\\.module\\.css$': '<rootDir>/__mocks__/styleMock.ts',
   },
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
+  transformIgnorePatterns: ['/node_modules/'],
 }
 export default config
