@@ -1,0 +1,103 @@
+.footer {
+  position: relative;
+  background: #111110;
+  border-top: 1px solid rgba(234, 228, 218, 0.06);
+  padding: 80px 60px 48px;
+  overflow: hidden;
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 48px;
+  margin-bottom: 64px;
+}
+
+.logo {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--shell);
+  text-decoration: none;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.logoAccent { color: var(--tang); }
+
+.tagline {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 300;
+  color: rgba(234, 228, 218, 0.3);
+  line-height: 1.6;
+  max-width: 220px;
+}
+
+.navGroup h3 {
+  font-family: var(--font-display);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(234, 228, 218, 0.2);
+  margin-bottom: 20px;
+}
+
+.navGroup ul { list-style: none; }
+
+.navGroup li { margin-bottom: 12px; }
+
+.navGroup a {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 300;
+  letter-spacing: 0.12em;
+  color: rgba(234, 228, 218, 0.4);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.navGroup a:hover { color: var(--shell); }
+
+.email {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--tang);
+  text-decoration: none;
+  display: block;
+  margin-bottom: 8px;
+  transition: opacity 0.2s;
+}
+
+.email:hover { opacity: 0.7; }
+
+.bottom {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 32px;
+  border-top: 1px solid rgba(234, 228, 218, 0.06);
+}
+
+.copyright {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 300;
+  color: rgba(234, 228, 218, 0.2);
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 768px) {
+  .footer { padding: 60px 24px 40px; }
+  .inner { grid-template-columns: 1fr; gap: 40px; }
+  .bottom { flex-direction: column; gap: 16px; text-align: center; }
+}
