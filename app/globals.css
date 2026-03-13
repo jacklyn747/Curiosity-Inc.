@@ -10,7 +10,9 @@
    TAILWIND THEME EXTENSIONS
 ───────────────────────────────────────── */
 @theme {
-  /* Brand colors — enables bg-tang, text-tang, border-tang, etc. */
+  /* Brand colors — enables bg-*, text-*, border-* utilities.
+     NOTE: --color-black and --color-red intentionally override Tailwind
+     defaults — our brand values are the only black/red in this design system. */
   --color-black: #1D1D1B;
   --color-shell: #EAE4DA;
   --color-tang:  #ED773C;
@@ -21,7 +23,9 @@
   --color-sky:   #9ED6DF;
   --color-red:   #C63F3E;
 
-  /* Fonts — enables font-display, font-body */
+  /* Fonts — enables font-display, font-body utilities.
+     NOTE: mirrors :root vars intentionally — @theme generates utilities,
+     :root vars are used directly by hand-authored CSS via var() */
   --font-display: 'Josefin Sans', sans-serif;
   --font-body:    'Satoshi', sans-serif;
 
