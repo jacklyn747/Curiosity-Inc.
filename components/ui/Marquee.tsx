@@ -29,7 +29,8 @@ export function Marquee({
 
   return (
     <div
-      className={`${styles.marquee} ${className}`}
+      role="region"
+      className={[styles.marquee, className].filter(Boolean).join(' ')}
       style={{ '--speed': speed } as CSSProperties}
       aria-label={`Services: ${words.join(', ')}`}
     >

@@ -32,4 +32,11 @@ describe('Marquee', () => {
     const { container } = render(<Marquee className="my-marquee" />)
     expect(container.firstChild).toHaveClass('my-marquee')
   })
+
+  it('marks the animated track as aria-hidden', () => {
+    const { container } = render(<Marquee />)
+    // The track is the first child of the outer container
+    const track = container.firstChild?.firstChild as HTMLElement
+    expect(track).toHaveAttribute('aria-hidden', 'true')
+  })
 })
