@@ -26,6 +26,7 @@
   --shell-50:  rgba(234, 228, 218, 0.50);
   --shell-35:  rgba(234, 228, 218, 0.35);
   --shell-20:  rgba(234, 228, 218, 0.20);
+  --shell-15:  rgba(234, 228, 218, 0.15);
   --shell-10:  rgba(234, 228, 218, 0.10);
   --shell-06:  rgba(234, 228, 218, 0.06);
 
@@ -33,7 +34,7 @@
   --font-display: 'Josefin Sans', sans-serif;
   --font-body:    'Satoshi', sans-serif;
 
-  /* Spacing scale (8px base) */
+  /* Spacing scale (4px base: --space-N = N×4px) */
   --space-1:  4px;
   --space-2:  8px;
   --space-3:  12px;
@@ -50,7 +51,7 @@
 
   /* Borders */
   --border-subtle: 1px solid var(--shell-10);
-  --border-dim:    1px solid rgba(234, 228, 218, 0.06);
+  --border-dim:    1px solid var(--shell-06);
 
   /* Transitions */
   --ease-out:   cubic-bezier(0.16, 1, 0.3, 1);
@@ -86,7 +87,7 @@ body {
 /* Scrollbar (dark) */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--black); }
-::-webkit-scrollbar-thumb { background: rgba(234, 228, 218, 0.15); border-radius: 2px; }
+::-webkit-scrollbar-thumb { background: var(--shell-15); border-radius: 2px; }
 
 /* Selection */
 ::selection { background: var(--tang); color: var(--black); }
@@ -95,7 +96,7 @@ body {
    TYPOGRAPHY BASE CLASSES
 ───────────────────────────────────────── */
 
-/* Display / Josefin Sans */
+/* Font-switch utility: apply Josefin Sans to any element */
 .t-display {
   font-family: var(--font-display);
 }
