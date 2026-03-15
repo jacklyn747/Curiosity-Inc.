@@ -20,7 +20,7 @@ export function Nav() {
       </Link>
 
       <ul className={styles.links}>
-        <li><Link href="/work"       className={styles.link}>Work</Link></li>
+        <li><Link href="/#work"      className={styles.link}>Work</Link></li>
         <li><Link href="/the-system" className={styles.link}>The System</Link></li>
         <li><Link href="/about"      className={styles.link}>About</Link></li>
       </ul>
