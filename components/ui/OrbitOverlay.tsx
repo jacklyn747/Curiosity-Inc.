@@ -1,11 +1,10 @@
-'use client'
-
 interface OrbitOverlayProps {
   color: string           // e.g. 'var(--tang)' or '#ED773C'
   cx?: number             // center x within viewBox (default 150)
   cy?: number             // center y within viewBox (default 130)
   viewBoxWidth?: number   // default 300
   viewBoxHeight?: number  // default 375
+  className?: string
 }
 
 export function OrbitOverlay({
@@ -14,6 +13,7 @@ export function OrbitOverlay({
   cy = 130,
   viewBoxWidth = 300,
   viewBoxHeight = 375,
+  className,
 }: OrbitOverlayProps) {
   const crosshairSize = 12
 
@@ -21,6 +21,8 @@ export function OrbitOverlay({
     <svg
       viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}
       fill="none"
+      aria-hidden="true"
+      className={className}
       style={{
         position: 'absolute',
         inset: 0,

@@ -1,5 +1,9 @@
 // lib/case-studies.ts
 
+export type FrictionType = 'clarity' | 'identity' | 'trust' | 'attention' | 'decision'
+
+export type NarrativeStory = 'Mastery' | 'Intelligence' | 'Freedom' | 'Simplicity' | 'Wealth'
+
 export interface LearningStep {
   from: string
   to: string
@@ -24,7 +28,7 @@ export interface CaseStudy {
   situation: string[]
   situationQuote: string
   coreChallenge: string
-  frictionTypes: string[]
+  frictionTypes: FrictionType[]
   behavioralMoves: {
     attention: string[]
     cognitiveAnchors: string[]
@@ -33,8 +37,8 @@ export interface CaseStudy {
   }
   learningFlow: [LearningStep, LearningStep, LearningStep, LearningStep]
   narrativeSystem: {
-    stories: string[]
-    dominant: string
+    stories: NarrativeStory[]
+    dominant: NarrativeStory
     description: string
     quote: string
   }
