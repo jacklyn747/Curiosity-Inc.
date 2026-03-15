@@ -25,7 +25,7 @@ export function CaseStudySystemSection({ data }: { data: CaseStudy }) {
   }, [])
 
   return (
-    <SectionWrapper symbol={sym} eyebrow="06 / System" alt>
+    <SectionWrapper id="cs-system" symbol={sym} eyebrow="06 / System" alt>
       <div ref={ref}>
         <h2 className="anim-line t-headline" style={{ fontSize: 'clamp(24px, 3.5vw, 40px)', marginBottom: '48px', maxWidth: '640px' }}>
           The Architecture

@@ -29,7 +29,7 @@ export function AuthoritySection({ data }: { data: CaseStudy }) {
   }, [])
 
   return (
-    <SectionWrapper symbol={sym} eyebrow="07 / Authority">
+    <SectionWrapper id="cs-authority" symbol={sym} eyebrow="07 / Authority">
       <div ref={ref}>
         <h2 className="anim-line t-headline" style={{ fontSize: 'clamp(24px, 3.5vw, 40px)', marginBottom: '40px', maxWidth: '640px' }}>
           The Curiosity Upgrade

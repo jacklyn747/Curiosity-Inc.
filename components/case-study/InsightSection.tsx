@@ -32,7 +32,7 @@ export function InsightSection({ data }: { data: CaseStudy }) {
   }, [])
 
   return (
-    <SectionWrapper symbol={sym} eyebrow="03 / Insight">
+    <SectionWrapper id="cs-insight" symbol={sym} eyebrow="03 / Insight">
       <div ref={ref}>
         <h2 className="anim-line t-headline" style={{ fontSize: 'clamp(24px, 3.5vw, 40px)', marginBottom: '40px', maxWidth: '640px' }}>
           Behavioral Moves

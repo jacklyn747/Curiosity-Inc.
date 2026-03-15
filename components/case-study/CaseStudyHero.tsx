@@ -29,6 +29,7 @@ export function CaseStudyHero({ data }: { data: CaseStudy }) {
 
   return (
     <section
+      id="cs-hero"
       ref={ref}
       style={{
         position: 'relative',

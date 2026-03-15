@@ -27,7 +27,7 @@ export function AwarenessSection({ data }: { data: CaseStudy }) {
   }, [])
 
   return (
-    <SectionWrapper symbol={sym} eyebrow="02 / Awareness" alt>
+    <SectionWrapper id="cs-awareness" symbol={sym} eyebrow="02 / Awareness" alt>
       <div ref={ref}>
         <h2 className="anim-line t-headline" style={{ fontSize: 'clamp(24px, 3.5vw, 40px)', marginBottom: '40px', maxWidth: '640px' }}>
           The Situation &amp; The Challenge

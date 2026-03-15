@@ -9,11 +9,12 @@ interface SectionWrapperProps {
   children:  React.ReactNode
   alt?:      boolean
   style?:    React.CSSProperties
+  id?:       string
 }
 
-export function SectionWrapper({ symbol, eyebrow, children, alt = false, style }: SectionWrapperProps) {
+export function SectionWrapper({ symbol, eyebrow, children, alt = false, style, id }: SectionWrapperProps) {
   return (
-    <section style={{
+    <section id={id} style={{
       position: 'relative',
       padding: '96px 60px',
       maxWidth: '1200px',
