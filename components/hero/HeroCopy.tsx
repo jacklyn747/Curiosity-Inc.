@@ -32,27 +32,27 @@ export const HeroCopy = forwardRef<HeroCopyRefs>(
     return (
       <div
         ref={containerRef}
-        className="relative z-30 flex flex-col items-center justify-end flex-1 px-6 text-center"
-        style={{ paddingTop: '100px', paddingBottom: '140px' }}
+        className="relative z-30 flex flex-col justify-end flex-1 px-6"
+        style={{ paddingBottom: 'clamp(48px, 8vh, 100px)' }}
       >
         {/* Eyebrow — ScrambleText target */}
         <p
           ref={eyebrowRef}
-          className="t-eyebrow mb-8"
+          className="t-eyebrow mb-4"
           style={{ letterSpacing: '0.32em', opacity: 0 }}
         >
           Behavioral Design Studio
         </p>
 
-        {/* Headline — word stagger */}
+        {/* Headline — word stagger, left-aligned to clear face */}
         <h1
           ref={headlineRef}
           className="t-headline"
           style={{
-            fontSize: 'clamp(52px, 8vw, 96px)',
+            fontSize: 'clamp(40px, 6vw, 72px)',
             letterSpacing: '-0.01em',
-            lineHeight: 0.93,
-            maxWidth: '900px',
+            lineHeight: 0.95,
+            maxWidth: '700px',
             opacity: 0,
           }}
         >
@@ -70,11 +70,11 @@ export const HeroCopy = forwardRef<HeroCopyRefs>(
         {/* Subhead */}
         <p
           ref={subheadRef}
-          className="t-body mt-8"
+          className="t-body mt-5"
           style={{
-            fontSize: '17px',
-            maxWidth: '520px',
-            lineHeight: 1.6,
+            fontSize: '16px',
+            maxWidth: '420px',
+            lineHeight: 1.55,
             opacity: 0,
             textShadow: '0 1px 12px rgba(29,29,27,0.9)',
           }}
@@ -85,7 +85,7 @@ export const HeroCopy = forwardRef<HeroCopyRefs>(
         {/* Dual CTAs */}
         <div
           ref={ctasRef}
-          className="mt-12 flex items-center gap-8"
+          className="mt-8 flex items-center gap-8"
           style={{ opacity: 0 }}
         >
           <Link

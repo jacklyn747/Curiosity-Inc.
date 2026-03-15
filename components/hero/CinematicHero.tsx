@@ -134,10 +134,11 @@ export function CinematicHero() {
             background: `
               linear-gradient(
                 to bottom,
-                rgba(29,29,27,0.60) 0%,
-                rgba(29,29,27,0.05) 25%,
-                rgba(29,29,27,0.30) 55%,
-                rgba(29,29,27,0.85) 100%
+                rgba(29,29,27,0.45) 0%,
+                rgba(29,29,27,0.0)  20%,
+                rgba(29,29,27,0.05) 45%,
+                rgba(29,29,27,0.50) 65%,
+                rgba(29,29,27,0.92) 100%
               )
             `,
           }}
