@@ -82,7 +82,7 @@ export function CaseStudyHero({ data }: { data: CaseStudy }) {
       {/* Right — title + meta */}
       <div ref={txtRef}>
         <Link
-          href="/#work"
+          href="/case-studies"
           className="anim-line"
           style={{
             display: 'inline-block',

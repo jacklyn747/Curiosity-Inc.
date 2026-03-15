@@ -185,7 +185,7 @@ export function CTASection() {
 
         {/* Button */}
         <Link
-          href="/contact"
+          href="/work-together"
           className="cta-line"
           onMouseEnter={() => setBtnHovered(true)}
           onMouseLeave={() => setBtnHovered(false)}

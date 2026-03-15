@@ -21,7 +21,7 @@ export function HeroSection() {
   const eyebrowRef  = useRef<HTMLParagraphElement>(null)
   const headlineRef = useRef<HTMLHeadingElement>(null)
   const subRef      = useRef<HTMLParagraphElement>(null)
-  const ctaRef      = useRef<HTMLAnchorElement>(null)
+  const ctaRef      = useRef<HTMLDivElement>(null)
   const bandsRef    = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -147,7 +147,7 @@ export function HeroSection() {
             maxWidth: '900px',
           }}
         >
-          {['Noise', 'to', 'Signal.'].map((word) => (
+          {['Strong', 'Opinions', 'Turn', 'Theory', 'into', 'Culture.'].map((word) => (
             <span
               key={word}
               className="word"
@@ -170,27 +170,40 @@ export function HeroSection() {
             textShadow: '0 1px 12px rgba(29,29,27,0.9)',
           }}
         >
-          People don&apos;t make decisions. They make defaults.{' '}
-          We design better defaults.
+          Cognitive Design Systems for Intellectual Creators.
         </p>
 
-        {/* CTA */}
-        <Link
+        {/* Dual CTAs */}
+        <div
           ref={ctaRef}
-          href="/work"
-          className="t-eyebrow mt-12 inline-flex items-center gap-3"
-          style={{
-            color: 'var(--tang)',
-            fontSize: '11px',
-            opacity: 0,     // GSAP will animate this in
-            textDecoration: 'none',
-          }}
+          className="mt-12 flex items-center gap-8"
+          style={{ opacity: 0 }}
         >
-          Read the cases
-          <span style={{ display: 'inline-block', transform: 'translateX(0)', transition: 'transform 0.2s' }}>
-            →
-          </span>
-        </Link>
+          <Link
+            href="/framework"
+            className="t-eyebrow inline-flex items-center gap-2"
+            style={{
+              color: 'var(--tang)',
+              fontSize: '11px',
+              textDecoration: 'none',
+            }}
+          >
+            Explore Framework
+            <span style={{ display: 'inline-block' }}>→</span>
+          </Link>
+          <Link
+            href="/the-accidental-educator"
+            className="t-eyebrow inline-flex items-center gap-2"
+            style={{
+              color: 'rgba(234,228,218,0.45)',
+              fontSize: '11px',
+              textDecoration: 'none',
+            }}
+          >
+            See Who This Is For
+            <span style={{ display: 'inline-block' }}>→</span>
+          </Link>
+        </div>
       </div>
 
       {/* ── Cognitive Bands ───────────────────────────────────── */}

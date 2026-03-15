@@ -31,22 +31,22 @@ describe('Nav', () => {
 
   it('renders all navigation links', () => {
     render(<Nav />)
-    expect(screen.getByText('Work')).toBeInTheDocument()
-    expect(screen.getByText('The System')).toBeInTheDocument()
-    expect(screen.getByText('About')).toBeInTheDocument()
+    expect(screen.getByText('Insights')).toBeInTheDocument()
+    expect(screen.getByText('Framework')).toBeInTheDocument()
+    expect(screen.getByText('Case Studies')).toBeInTheDocument()
   })
 
   it('renders CTA link', () => {
     render(<Nav />)
-    expect(screen.getByText('Start a Project')).toBeInTheDocument()
+    expect(screen.getByText('Work Together')).toBeInTheDocument()
   })
 
   it('links to correct hrefs', () => {
     render(<Nav />)
-    expect(screen.getByText('Work').closest('a')).toHaveAttribute('href', '/work')
-    expect(screen.getByText('The System').closest('a')).toHaveAttribute('href', '/the-system')
-    expect(screen.getByText('About').closest('a')).toHaveAttribute('href', '/about')
-    expect(screen.getByText('Start a Project').closest('a')).toHaveAttribute('href', '/contact')
+    expect(screen.getByText('Insights').closest('a')).toHaveAttribute('href', '/insights')
+    expect(screen.getByText('Framework').closest('a')).toHaveAttribute('href', '/framework')
+    expect(screen.getByText('Case Studies').closest('a')).toHaveAttribute('href', '/case-studies')
+    expect(screen.getByText('Work Together').closest('a')).toHaveAttribute('href', '/work-together')
     expect(screen.getByText(/Curiosity/).closest('a')).toHaveAttribute('href', '/')
   })
 

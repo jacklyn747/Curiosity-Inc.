@@ -77,7 +77,7 @@ export function AuthoritySection({ data }: { data: CaseStudy }) {
 
         {/* Navigation */}
         <div className="anim-line" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid rgba(234,228,218,0.06)', paddingTop: '32px' }}>
-          <Link href="/#work" style={{ fontFamily: 'var(--font-display)', fontSize: '10px', letterSpacing: '0.22em', textTransform: 'uppercase', color: 'var(--shell)', opacity: 0.3, textDecoration: 'none' }}>
+          <Link href="/case-studies" style={{ fontFamily: 'var(--font-display)', fontSize: '10px', letterSpacing: '0.22em', textTransform: 'uppercase', color: 'var(--shell)', opacity: 0.3, textDecoration: 'none' }}>
             ← All Case Studies
           </Link>
           <Link href={`/case-studies/${next.slug}`} style={{ fontFamily: 'var(--font-display)', fontSize: '10px', letterSpacing: '0.22em', textTransform: 'uppercase', color: next.color, opacity: 0.75, textDecoration: 'none' }}>

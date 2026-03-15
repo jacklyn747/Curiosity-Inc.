@@ -20,13 +20,13 @@ export function Nav() {
       </Link>
 
       <ul className={styles.links}>
-        <li><Link href="/#work"      className={styles.link}>Work</Link></li>
-        <li><Link href="/the-system" className={styles.link}>The System</Link></li>
-        <li><Link href="/about"      className={styles.link}>About</Link></li>
+        <li><Link href="/insights"      className={styles.link}>Insights</Link></li>
+        <li><Link href="/framework"     className={styles.link}>Framework</Link></li>
+        <li><Link href="/case-studies"  className={styles.link}>Case Studies</Link></li>
       </ul>
 
-      <Link href="/contact" className={styles.cta}>
-        Start a Project
+      <Link href="/work-together" className={styles.cta}>
+        Work Together
       </Link>
     </nav>
   )

@@ -22,10 +22,10 @@ export function Footer() {
         <nav className={styles.navGroup}>
           <h3>Navigate</h3>
           <ul>
-            <li><Link href="/work">Work</Link></li>
-            <li><Link href="/the-system">The System</Link></li>
-            <li><Link href="/about">About</Link></li>
-            <li><Link href="/contact">Contact</Link></li>
+            <li><Link href="/insights">Insights</Link></li>
+            <li><Link href="/framework">Framework</Link></li>
+            <li><Link href="/case-studies">Case Studies</Link></li>
+            <li><Link href="/work-together">Work Together</Link></li>
           </ul>
         </nav>
 
