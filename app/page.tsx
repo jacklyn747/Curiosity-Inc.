@@ -1,9 +1,17 @@
+import { HeroSection }    from '@/components/sections/HeroSection'
+import { NoiseSection }   from '@/components/sections/NoiseSection'
+import { SystemSection }  from '@/components/sections/SystemSection'
+import { AboutSection }   from '@/components/sections/AboutSection'
+import { CTASection }     from '@/components/sections/CTASection'
+
 export default function HomePage() {
   return (
-    <section className="min-h-screen flex items-center justify-center">
-      <h1 className="font-display text-4xl font-light tracking-tight text-shell/50">
-        Homepage — coming in Plan 2
-      </h1>
-    </section>
+    <>
+      <HeroSection />
+      <NoiseSection />
+      <SystemSection />
+      <AboutSection />
+      <CTASection />
+    </>
   )
 }
