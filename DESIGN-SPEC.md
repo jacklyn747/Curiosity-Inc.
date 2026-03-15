@@ -25,18 +25,62 @@ Next.js · Tailwind · Framer Motion · Josefin Sans + Inter (Google Fonts)
 
 ---
 
-## Symbol → Section Map
+## Behavioral Design Symbol Language
 
-| Symbol | Meaning | Used In |
-|--------|---------|---------|
-| Focal Circle + Glow | Signal / Insight | Hero, CTA |
-| Concentric Circles | Depth of understanding | Hero bg, System section |
-| Horizontal Bands | Noise → Signal layers | Hero, every section divider |
-| Orbit Lines + Nodes | Influence / Distribution | Services, About |
-| Triangle | Direction / Strategy | Services |
-| Grid (radial) | Knowledge architecture | System section |
-| Overlapping Circles | Intersection thinking | About/positioning |
-| Spiral | Cognitive journey | Scroll path animation |
+The 7-stage transformation model. Every surface that shows the Curiosity method
+uses these symbols in sequence. Source of truth: `lib/symbols.ts`.
+
+### The Progression
+
+```
+CONFUSION → AWARENESS → INSIGHT → ACTION → FRAMEWORK → SYSTEM → AUTHORITY
+```
+
+| Stage | Symbol | Geometry | Color Token | Semantic Meaning |
+|-------|--------|----------|-------------|-----------------|
+| 1 — Confusion | Scattered Dots | Noise field | shell @ 20% | Where every audience starts — fragmented, no signal |
+| 2 — Awareness | Incomplete Circle | 270° arc, open gap | `--pink` | Recognizing the gap — seeing what's missing |
+| 3 — Insight | Vesica Piscis | Two overlapping circles | `--must` | Two frames intersect — the overlap IS the breakthrough |
+| 4 — Action | Triangle | Equilateral, points up | `--tea` | Direction chosen — behavior follows cognition |
+| 5 — Framework | Flower of Life | 7 overlapping circles | `--lav` | The repeating pattern beneath everything becomes visible |
+| 6 — System | Isometric Cube | 3-face cube outline | `--lav` | Structure is solid, repeatable, architectural |
+| 7 — Authority | Radiant Circle | Circle + 12 rays | `--tang` | Signal radiates outward — others orient to it |
+
+### Rules
+
+- **Symbols are semantic, never decorative.** Each one means exactly one thing.
+- **Color = the cognitive layer active at that stage.** Don't mix.
+- **Scale signals importance.** Larger symbol = this stage is the focus of the section.
+- **Opacity signals completion.** Full opacity = resolved. Low opacity = potential/emerging.
+- **Progression is always forward.** Never use a later symbol to describe an earlier state.
+
+### Case Study Section Mapping
+
+Each case study section is anchored to one symbol. The reader moves from Confusion
+(the audience's starting state) to Authority (where the creator operates) over 10 sections.
+
+| Section | Symbol | Why |
+|---------|--------|-----|
+| 01 Hero | Authority (Radiant Circle) | Where this creator already is |
+| 02 Situation | Confusion (Scattered Dots) | The noisy landscape they navigated |
+| 03 Challenge | Awareness (Incomplete Circle) | Recognizing the friction |
+| 04 Behavioral Moves | Insight (Vesica Piscis) | Behavior × design intersection |
+| 05 Learning Flow | Action (Triangle) | Direction of the audience journey |
+| 06 Narrative System | Framework (Flower of Life) | The repeating pattern beneath the content |
+| 07 What Works | System (Cube) | Solid, crystallized, repeatable |
+| 08 Missed Opportunities | Awareness (Incomplete Circle) | Where signal breaks down |
+| 09 Curiosity Upgrade | Framework → System | The pattern they could unlock |
+| 10 Takeaways | Authority (Radiant Circle) | Signal the reader carries away |
+
+### Legacy Symbol Map (visual motifs still in use)
+
+| Symbol | Used In |
+|--------|---------|
+| Focal Circle + Glow | CTA section (Authority symbol, large) |
+| Concentric Circles | About portrait overlay, card orbit overlays |
+| Horizontal Bands | Hero bottom, section dividers |
+| Orbit Lines + Nodes | SystemSection diagram, card overlays |
+| ThinLineSystem | NoiseSection bg, SituationSection bg (Confusion support) |
 
 ---
 

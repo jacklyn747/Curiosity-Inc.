@@ -418,6 +418,31 @@ Closing element: `<Orb size={10} />` centered below list — the Glow = breakthr
 
 ---
 
+## Behavioral Symbol Progression
+
+**Source of truth:** `lib/symbols.ts` — all SVG geometry, colors, and semantic definitions live there.
+
+Every case study section renders its assigned symbol as a section accent (top-right corner, `width: 40px`, `opacity: 0.18`). On scroll entry, the symbol draws in via `strokeDashoffset` animation (0.6s, `ease.inOut`). The symbol brightens to `opacity: 0.55` while the section is in view, dims back on exit.
+
+The reader experiences a complete arc from Confusion → Authority across 10 sections:
+
+| Section | Symbol | Geometry | Accent color |
+|---------|--------|----------|-------------|
+| 01 Hero | Authority | Radiant Circle | creator color, full opacity — the established signal |
+| 02 Situation | Confusion | Scattered Dots | shell @ 20% — the landscape before the system |
+| 03 Challenge | Awareness | Incomplete Circle | `--pink` — the gap is now visible |
+| 04 Behavioral Moves | Insight | Vesica Piscis | `--must` — two worlds overlap |
+| 05 Learning Flow | Action | Triangle | `--tea` — direction chosen |
+| 06 Narrative System | Framework | Flower of Life | `--lav` — the repeating pattern |
+| 07 What Works | System | Isometric Cube | `--lav` — crystallized structure |
+| 08 Missed Opportunities | Awareness | Incomplete Circle | `--pink` @ 50% — signal breaks down |
+| 09 Curiosity Upgrade | Framework | Flower of Life | creator color — the potential unlocked |
+| 10 Takeaways | Authority | Radiant Circle | creator color, full opacity — signal transmitted |
+
+**Implementation note:** Use `getSectionSymbol(sectionKey)` from `lib/symbols.ts` to retrieve the correct symbol for each section. Pass `symbol.color` and `symbol.svgData.elements` to the `<Symbol />` component at `components/geo/Symbol.tsx` (to be built).
+
+---
+
 ## Visual System Mapping (complete)
 
 | Symbol | Used in |
