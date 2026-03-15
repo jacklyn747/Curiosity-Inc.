@@ -1,81 +1,93 @@
-// components/case-study/CaseStudyHero.tsx
 'use client'
 
 import { useEffect, useRef } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import { gsap } from '@/lib/gsap'
-import { OrbitOverlay } from '@/components/ui/OrbitOverlay'
-import { ease, dur } from '@/lib/motion-config'
+import { symbols } from '@/lib/symbols'
+import { Symbol } from '@/components/geo/Symbol'
 import type { CaseStudy } from '@/lib/case-studies'
+import { dur, ease } from '@/lib/motion-config'
 
 export function CaseStudyHero({ data }: { data: CaseStudy }) {
-  const heroRef = useRef<HTMLDivElement>(null)
+  const sym    = symbols.confusion
+  const ref    = useRef<HTMLElement>(null)
+  const imgRef = useRef<HTMLDivElement>(null)
+  const txtRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const lines = heroRef.current?.querySelectorAll('.animate-line')
-      if (lines?.length) {
-        gsap.from(lines, {
-          opacity: 0, y: 20,
-          duration: dur.base,
-          stagger: 0.08,
-          ease: ease.out,
-          delay: 0.2,
-        })
-      }
-    }, heroRef)
+      const tl = gsap.timeline()
+      tl.from(imgRef.current, { x: -30, opacity: 0, duration: dur.base, ease: ease.out })
+        .from(
+          txtRef.current?.querySelectorAll('.anim-line') ?? [],
+          { opacity: 0, y: 20, duration: dur.base, stagger: 0.08, ease: ease.out },
+          '-=0.4',
+        )
+    }, ref)
     return () => ctx.revert()
   }, [])
 
   return (
-    <div
-      ref={heroRef}
+    <section
+      ref={ref}
       style={{
+        position: 'relative',
         display: 'grid',
         gridTemplateColumns: '280px 1fr',
-        gap: '60px',
-        padding: '80px 60px 60px',
+        gap: '64px',
+        alignItems: 'start',
+        padding: '80px 60px 96px',
         maxWidth: '1200px',
         margin: '0 auto',
-        alignItems: 'start',
       }}
     >
-      {/* Portrait column */}
-      <div style={{ position: 'relative' }}>
-        <div style={{ position: 'relative', aspectRatio: '4/5', overflow: 'hidden', background: '#111' }}>
-          <Image
+      {/* Confusion symbol accent */}
+      <div style={{ position: 'absolute', top: '40px', right: '60px', opacity: 0.18, pointerEvents: 'none' }}>
+        <Symbol symbol={sym} size={40} animated />
+      </div>
+
+      {/* Left — portrait */}
+      <div ref={imgRef} style={{ position: 'relative' }}>
+        <div style={{ position: 'relative', aspectRatio: '4/5', overflow: 'hidden', background: '#242420' }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
             src={data.image}
             alt={data.name}
-            fill
-            priority
-            sizes="280px"
-            style={{
-              objectFit: 'cover',
-              filter: 'grayscale(100%) contrast(1.05)',
-            }}
-            onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
+            style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'grayscale(100%) contrast(1.05)' }}
+            onError={e => { (e.target as HTMLImageElement).style.display = 'none' }}
           />
-          <OrbitOverlay color={data.color} />
-          {/* Fade right into text column */}
-          <div style={{
-            position: 'absolute',
-            inset: 0,
-            background: 'linear-gradient(to right, transparent 60%, var(--black) 100%)',
-          }} />
+          {/* Gradient fades right edge */}
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, transparent 60%, var(--black) 100%)' }} />
+          {/* Orbit overlay in creator color */}
+          <svg
+            viewBox="0 0 280 350"
+            fill="none"
+            stroke={data.color}
+            strokeWidth={0.75}
+            strokeLinecap="round"
+            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none' }}
+            aria-hidden="true"
+          >
+            <circle cx={140} cy={120} r={90}  opacity={0.20} />
+            <circle cx={140} cy={120} r={60}  opacity={0.30} />
+            <circle cx={140} cy={120} r={34}  opacity={0.40} />
+            <line x1={0}   y1={120} x2={280} y2={120} opacity={0.10} />
+            <line x1={140} y1={0}   x2={140} y2={350} opacity={0.10} />
+            <circle cx={140} cy={120} r={2.5} fill={data.color} opacity={0.7} />
+          </svg>
         </div>
       </div>
 
-      {/* Title column */}
-      <div style={{ paddingTop: '8px' }}>
+      {/* Right — title + meta */}
+      <div ref={txtRef}>
         <Link
           href="/#work"
-          className="animate-line"
+          className="anim-line"
           style={{
             display: 'inline-block',
             fontFamily: 'var(--font-display)',
             fontSize: '10px',
-            letterSpacing: '0.2em',
+            letterSpacing: '0.22em',
             textTransform: 'uppercase',
             color: 'var(--shell)',
             opacity: 0.35,
@@ -86,94 +98,56 @@ export function CaseStudyHero({ data }: { data: CaseStudy }) {
           ← Case Studies
         </Link>
 
-        <p
-          className="animate-line"
-          style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: '10px',
-            letterSpacing: '0.25em',
-            textTransform: 'uppercase',
-            color: data.color,
-            opacity: 0.7,
-            marginBottom: '12px',
-          }}
-        >
+        <p className="anim-line" style={{
+          fontFamily: 'var(--font-display)',
+          fontSize: '10px',
+          letterSpacing: '0.32em',
+          textTransform: 'uppercase',
+          color: data.color,
+          opacity: 0.6,
+          marginBottom: '16px',
+        }}>
           {data.index} / {data.outcome}
         </p>
 
-        <h1
-          className="animate-line"
-          style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: 'clamp(24px, 3.5vw, 42px)',
-            letterSpacing: '0.04em',
-            textTransform: 'uppercase',
-            color: 'var(--shell)',
-            lineHeight: 1.15,
-            marginBottom: '12px',
-          }}
-        >
+        <h1 className="anim-line t-headline" style={{ fontSize: 'clamp(28px, 4vw, 48px)', lineHeight: 1.1, marginBottom: '12px' }}>
           {data.headline}
         </h1>
 
-        <p
-          className="animate-line"
-          style={{
-            fontFamily: 'var(--font-body)',
-            fontSize: '13px',
-            color: 'var(--shell)',
-            opacity: 0.4,
-            marginBottom: '36px',
-            letterSpacing: '0.04em',
-          }}
-        >
+        <p className="anim-line" style={{ opacity: 0.4, fontSize: '14px', marginBottom: '40px' }}>
           {data.subhead}
         </p>
 
-        {/* Meta strip */}
-        <div
-          className="animate-line"
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(2, 1fr)',
-            gap: '20px 40px',
-            borderTop: '1px solid rgba(234,228,218,0.06)',
-            paddingTop: '24px',
-          }}
-        >
-          <MetaItem label="Platforms analyzed" value={data.meta.platforms.join(' · ')} color={data.color} />
-          <MetaItem label="Audience type" value={data.meta.audienceType} color={data.color} />
-          <MetaItem label="Offers analyzed" value={data.meta.offers.join(' · ')} color={data.color} />
-          <MetaItem label="Audience size" value={data.meta.audienceSize} color={data.color} />
+        {/* Meta grid */}
+        <div className="anim-line" style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          gap: '20px',
+          borderTop: '1px solid rgba(234,228,218,0.06)',
+          paddingTop: '24px',
+        }}>
+          <div>
+            <p style={{ fontFamily: 'var(--font-display)', fontSize: '9px', letterSpacing: '0.28em', textTransform: 'uppercase', opacity: 0.3, marginBottom: '6px' }}>Audience</p>
+            <p style={{ fontSize: '13px', opacity: 0.75 }}>{data.meta.audienceSize}</p>
+          </div>
+          <div>
+            <p style={{ fontFamily: 'var(--font-display)', fontSize: '9px', letterSpacing: '0.28em', textTransform: 'uppercase', opacity: 0.3, marginBottom: '6px' }}>Audience Type</p>
+            <p style={{ fontSize: '13px', opacity: 0.75 }}>{data.meta.audienceType}</p>
+          </div>
+          <div>
+            <p style={{ fontFamily: 'var(--font-display)', fontSize: '9px', letterSpacing: '0.28em', textTransform: 'uppercase', opacity: 0.3, marginBottom: '6px' }}>Platforms Analyzed</p>
+            {data.meta.platforms.map((p, i) => (
+              <p key={i} style={{ fontSize: '12px', opacity: 0.6, lineHeight: 1.6 }}>{p}</p>
+            ))}
+          </div>
+          <div>
+            <p style={{ fontFamily: 'var(--font-display)', fontSize: '9px', letterSpacing: '0.28em', textTransform: 'uppercase', opacity: 0.3, marginBottom: '6px' }}>Offers Analyzed</p>
+            {data.meta.offers.map((o, i) => (
+              <p key={i} style={{ fontSize: '12px', opacity: 0.6, lineHeight: 1.6 }}>{o}</p>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
-  )
-}
-
-function MetaItem({ label, value, color }: { label: string; value: string; color: string }) {
-  return (
-    <div>
-      <p style={{
-        fontFamily: 'var(--font-display)',
-        fontSize: '9px',
-        letterSpacing: '0.2em',
-        textTransform: 'uppercase',
-        color,
-        opacity: 0.5,
-        marginBottom: '4px',
-      }}>
-        {label}
-      </p>
-      <p style={{
-        fontFamily: 'var(--font-body)',
-        fontSize: '12px',
-        color: 'var(--shell)',
-        opacity: 0.55,
-        lineHeight: 1.5,
-      }}>
-        {value}
-      </p>
-    </div>
+    </section>
   )
 }
