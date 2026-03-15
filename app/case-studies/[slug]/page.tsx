@@ -1,11 +1,16 @@
 // app/case-studies/[slug]/page.tsx
 import { notFound } from 'next/navigation'
 import { caseStudies, getCaseStudy } from '@/lib/case-studies'
-
-// Uncomment imports as each section component is created:
-// import { CaseStudyHero } from '@/components/case-study/CaseStudyHero'
-// import { SituationSection } from '@/components/case-study/SituationSection'
-// ... etc
+import { CaseStudyHero } from '@/components/case-study/CaseStudyHero'
+import { SituationSection } from '@/components/case-study/SituationSection'
+import { ChallengeSection } from '@/components/case-study/ChallengeSection'
+import { MovesSection } from '@/components/case-study/MovesSection'
+import { LearningFlowSection } from '@/components/case-study/LearningFlowSection'
+import { NarrativeSection } from '@/components/case-study/NarrativeSection'
+import { WhatWorksSection } from '@/components/case-study/WhatWorksSection'
+import { MissedOpsSection } from '@/components/case-study/MissedOpsSection'
+import { CuriosityUpgradeSection } from '@/components/case-study/CuriosityUpgradeSection'
+import { TakeawaysSection } from '@/components/case-study/TakeawaysSection'
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -32,14 +37,16 @@ export default async function CaseStudyPage({ params }: Props) {
 
   return (
     <main style={{ background: 'var(--black)', minHeight: '100vh' }}>
-      {/* Section components render here — add as built */}
-      <div style={{ padding: '120px 60px', color: 'var(--shell)', fontFamily: 'var(--font-display)' }}>
-        <p style={{ opacity: 0.4, fontSize: '12px', letterSpacing: '0.2em' }}>
-          {cs.index} / {cs.outcome}
-        </p>
-        <h1 style={{ fontSize: '48px', marginTop: '16px' }}>{cs.headline}</h1>
-        <p style={{ marginTop: '12px', opacity: 0.4 }}>Sections loading...</p>
-      </div>
+      <CaseStudyHero data={cs} />
+      <SituationSection data={cs} />
+      <ChallengeSection data={cs} />
+      <MovesSection data={cs} />
+      <LearningFlowSection data={cs} />
+      <NarrativeSection data={cs} />
+      <WhatWorksSection data={cs} />
+      <MissedOpsSection data={cs} />
+      <CuriosityUpgradeSection data={cs} />
+      <TakeawaysSection data={cs} />
     </main>
   )
 }
