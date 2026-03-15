@@ -299,34 +299,27 @@ export const symbolSequence: BehavioralSymbol[] = [
 
 // ─── Case Study Section → Symbol Mapping ────────────────────────────────────
 //
-// Each of the 10 case study template sections maps to a symbol.
-// The reader is guided from Confusion (where audiences start) to Authority
-// (where the creator operates). The progression is the argument.
-//
-// Sections 07 (Missed Ops) intentionally returns to Awareness — the gap
-// shows where they lost signal. Section 09 (Upgrade) shows the leap.
-
+// 7 sections, 7 symbols, no repeats.
 // The reader arrives confused. The reader leaves with authority.
-// The arc is the argument. Every section is one step in that journey.
-export const caseStudySectionSymbols: Record<string, SymbolId> = {
-  hero:            'confusion',    // S01 — Reader arrives in the noise
-  situation:       'awareness',    // S02 — The gap becomes visible
-  challenge:       'awareness',    // S03 — Friction named precisely
-  moves:           'insight',      // S04 — Behavior × design intersect (Vesica)
-  learningFlow:    'action',       // S05 — Direction chosen, movement begins
-  narrative:       'framework',    // S06 — The repeating pattern beneath everything
-  whatWorks:       'system',       // S07 — Crystallized, solid, repeatable
-  missed:          'awareness',    // S08 — Where signal breaks down (back to gap)
-  upgrade:         'system',       // S09 — The structure they could build
-  takeaways:       'authority',    // S10 — Signal transmitted, reader carries it away
-}
+// The arc is the argument.
+
+export const caseStudySectionSymbols = {
+  hero:       'confusion',   // S01 — reader arrives in the noise
+  awareness:  'awareness',   // S02 — situation + challenge: the gap becomes visible
+  insight:    'insight',     // S03 — behavioral moves: behavior × design intersect
+  action:     'action',      // S04 — learning flow: direction chosen
+  framework:  'framework',   // S05 — narrative system: the repeating pattern
+  system:     'system',      // S06 — what works + missed: the architecture
+  authority:  'authority',   // S07 — upgrade + takeaways: signal transmitted
+} as const satisfies Record<string, SymbolId>
+
+export type CaseStudySectionKey = keyof typeof caseStudySectionSymbols
 
 
 // ─── Helper: get symbol for a case study section ─────────────────────────────
 
-export function getSectionSymbol(sectionKey: keyof typeof caseStudySectionSymbols): BehavioralSymbol {
-  const id = caseStudySectionSymbols[sectionKey]
-  return symbols[id]
+export function getSectionSymbol(key: CaseStudySectionKey): BehavioralSymbol {
+  return symbols[caseStudySectionSymbols[key]]
 }
 
 
