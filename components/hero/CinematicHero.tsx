@@ -2,18 +2,12 @@
 
 import { useEffect, useRef } from 'react'
 import Image from 'next/image'
-import { gsap } from '@/lib/gsap'
+import { gsap, ScrollTrigger } from '@/lib/gsap'
 import { SacredGeometrySVG, type SacredGeometryRefs } from './SacredGeometrySVG'
 import { NoiseCanvas, type NoiseCanvasRefs } from './NoiseCanvas'
 import { HeroCopy, type HeroCopyRefs } from './HeroCopy'
 import { CognitiveBands, type CognitiveBandsRefs } from './CognitiveBands'
-import {
-  buildHeroTimeline,
-  buildCondensedTimeline,
-  buildMobileTimeline,
-} from '@/lib/hero-timeline'
-
-const SESSION_KEY = 'curiosity-hero-seen'
+import { buildScrollTimeline } from '@/lib/hero-timeline'
 
 export function CinematicHero() {
   const sectionRef  = useRef<HTMLElement>(null)
@@ -48,38 +42,37 @@ export function CinematicHero() {
       return
     }
 
-    // ── Determine variant ─────────────────────────────────────
-    const isMobile     = window.innerWidth < 768
-    const isFirstVisit = !sessionStorage.getItem(SESSION_KEY)
+    // ── Start grain animation (runs while in noise stage) ─────
+    noise.startGrain()
 
+    // ── Build scroll-driven timeline ──────────────────────────
     const refs = { section, image, geometry, noise, copy, bands }
+    const tl = buildScrollTimeline(refs)
 
-    let tl: gsap.core.Timeline
+    // ── Stop grain when we leave noise stage (scroll past ~40%) ──
+    ScrollTrigger.create({
+      trigger: section,
+      start: 'top top',
+      end: '+=500%',
+      onUpdate: (self) => {
+        // Grain runs during first ~35% of scroll (Acts 1+2)
+        if (self.progress > 0.35) {
+          noise.stopGrain()
+        } else if (self.progress < 0.35) {
+          // Restart if scrolling back up into noise zone
+          if (!noise.canvas?.getContext('2d')) return
+          noise.startGrain()
+        }
+      },
+    })
 
-    if (!isFirstVisit) {
-      // Return visit — condensed
-      gsap.set(noise.canvas, { opacity: 0 })
-      tl = buildCondensedTimeline(refs)
-      tl.play()
-    } else if (isMobile) {
-      // Mobile first visit — compressed
-      noise.startGrain()
-      tl = buildMobileTimeline(refs)
-      tl.play()
-      sessionStorage.setItem(SESSION_KEY, '1')
-      tl.call(() => noise.stopGrain(), [], 2.5)
-    } else {
-      // Desktop first visit — full cinematic
-      noise.startGrain()
-      tl = buildHeroTimeline(refs)
-      tl.play()
-      sessionStorage.setItem(SESSION_KEY, '1')
-      tl.call(() => noise.stopGrain(), [], 4)
-    }
-
-    // ── Breathing loop after timeline completes ───────────────
-    tl.call(
-      () => {
+    // ── Breathing loop: starts after scroll completes ─────────
+    ScrollTrigger.create({
+      trigger: section,
+      start: 'top top',
+      end: '+=500%',
+      onLeave: () => {
+        // User has scrolled past the hero — start breathing
         gsap.to(image, {
           scale: 1.04,
           ease: 'sine.inOut',
@@ -88,20 +81,24 @@ export function CinematicHero() {
           yoyo: true,
         })
       },
-      [],
-      tl.duration()
-    )
+      onEnterBack: () => {
+        // User scrolled back — kill breathing, reset scale
+        gsap.killTweensOf(image, 'scale')
+        gsap.set(image, { scale: 1 })
+      },
+    })
 
     return () => {
       tl.kill()
       noise.stopGrain()
+      ScrollTrigger.getAll().forEach((st) => st.kill())
     }
   }, [])
 
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen flex flex-col overflow-hidden"
+      className="relative h-screen flex flex-col overflow-hidden"
       aria-label="Hero"
       style={{ backgroundColor: 'var(--black)' }}
     >
