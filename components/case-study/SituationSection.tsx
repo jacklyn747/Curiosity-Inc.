@@ -85,7 +85,7 @@ export function SituationSection({ data }: { data: CaseStudy }) {
           </p>
         ))}
 
-        <PullQuote text={data.situationQuote} color={data.color} />
+        <PullQuote text={data.awarenessQuote} color={data.color} />
         <InsightBlock
           label="Market position"
           text={`${data.name} is positioned as the ${data.outcome.toLowerCase()} architect for ${data.meta.audienceType.toLowerCase()}.`}

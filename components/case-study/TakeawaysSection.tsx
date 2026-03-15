@@ -45,7 +45,7 @@ export function TakeawaysSection({ data }: { data: CaseStudy }) {
 
         {/* 5 large numbered insights */}
         <div style={{ maxWidth: '800px' }}>
-          {data.founderTakeaways.map((takeaway, i) => (
+          {data.takeaways.map((takeaway, i) => (
             <div
               key={i}
               className="animate-item"

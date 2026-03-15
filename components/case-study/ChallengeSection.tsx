@@ -72,10 +72,10 @@ export function ChallengeSection({ data }: { data: CaseStudy }) {
           maxWidth: '720px',
           marginBottom: '24px',
         }}>
-          {data.coreChallenge}
+          {data.challenge}
         </p>
 
-        <PullQuote text={data.coreChallenge.split('.')[0] + '.'} color={data.color} />
+        <PullQuote text={data.challenge.split('.')[0] + '.'} color={data.color} />
         <InsightBlock
           label="Primary lever"
           text={`${data.frictionTypes[0].charAt(0).toUpperCase() + data.frictionTypes[0].slice(1)} friction is the dominant barrier — the system must resolve this before any other layer.`}
