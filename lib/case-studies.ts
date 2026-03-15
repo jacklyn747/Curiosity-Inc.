@@ -2,7 +2,7 @@
 
 export type FrictionType = 'clarity' | 'identity' | 'trust' | 'attention' | 'decision'
 
-export type NarrativeStory = 'Mastery' | 'Intelligence' | 'Freedom' | 'Simplicity' | 'Wealth'
+export type NarrativeStory = 'Rebellion' | 'Mastery' | 'Intelligence' | 'Freedom' | 'Simplicity' | 'Wealth'
 
 export interface LearningStep {
   from: string

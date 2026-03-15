@@ -4,7 +4,6 @@
 import { useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { gsap } from '@/lib/gsap'
-import { ScrollTrigger } from '@/lib/gsap'
 import { SectionShell } from './SectionShell'
 import { Orb } from '@/components/ui/Orb'
 import { caseStudies, type CaseStudy } from '@/lib/case-studies'

@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from 'react'
 import { gsap } from '@/lib/gsap'
-import { ScrollTrigger } from '@/lib/gsap'
 import { SectionShell, PullQuote, InsightBlock } from './SectionShell'
 import type { CaseStudy } from '@/lib/case-studies'
 
