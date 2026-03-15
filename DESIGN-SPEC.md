@@ -36,15 +36,17 @@ uses these symbols in sequence. Source of truth: `lib/symbols.ts`.
 CONFUSION → AWARENESS → INSIGHT → ACTION → FRAMEWORK → SYSTEM → AUTHORITY
 ```
 
-| Stage | Symbol | Geometry | Color Token | Semantic Meaning |
-|-------|--------|----------|-------------|-----------------|
-| 1 — Confusion | Scattered Dots | Noise field | shell @ 20% | Where every audience starts — fragmented, no signal |
-| 2 — Awareness | Incomplete Circle | 270° arc, open gap | `--pink` | Recognizing the gap — seeing what's missing |
-| 3 — Insight | Vesica Piscis | Two overlapping circles | `--must` | Two frames intersect — the overlap IS the breakthrough |
-| 4 — Action | Triangle | Equilateral, points up | `--tea` | Direction chosen — behavior follows cognition |
-| 5 — Framework | Flower of Life | 7 overlapping circles | `--lav` | The repeating pattern beneath everything becomes visible |
-| 6 — System | Isometric Cube | 3-face cube outline | `--lav` | Structure is solid, repeatable, architectural |
-| 7 — Authority | Radiant Circle | Circle + 12 rays | `--tang` | Signal radiates outward — others orient to it |
+Colors follow a temperature arc — cold uncertainty to warm radiance. Every color is a brand token.
+
+| Stage | Symbol | Geometry | Color | Hex | Color Psychology |
+|-------|--------|----------|-------|-----|-----------------|
+| 1 — Confusion | Scattered Dots | Noise field | `--sky` | `#9ED6DF` | Cold, diffuse, formless. The undifferentiated field before signal. |
+| 2 — Awareness | Incomplete Circle | 270° arc, open gap | `--pink` | `#EAA7C7` | Soft, receptive. The moment of noticing. First signal arriving. |
+| 3 — Insight | Vesica Piscis | Two overlapping circles | `--must` | `#EAC119` | Yellow/gold = illumination. The cognitive "aha." Understanding switching on. |
+| 4 — Action | Triangle | Equilateral, points up | `--tea` | `#245E55` | Dark green = grounded forward motion. Nature's growth energy. Doing, not thinking. |
+| 5 — Framework | Flower of Life | 7 overlapping circles | `--lav` | `#808BC5` | Violet = wisdom, pattern recognition, sacred geometry. Seeing the whole system. |
+| 6 — System | Isometric Cube | 3-face cube outline | `--shell @ 75%` | `rgba(234,228,218,0.75)` | Near-white = crystalline clarity. Structure so solid it becomes transparent. |
+| 7 — Authority | Radiant Circle | Circle + 12 rays | `--tang` | `#ED773C` | Orange = the radiant signal. Warm, transmitting, impossible to ignore. The source. |
 
 ### Rules
 

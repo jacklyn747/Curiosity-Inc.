@@ -8,15 +8,28 @@
  * Journey arc: Confusion → Awareness → Insight → Action → Framework → System → Authority
  *
  * These symbols govern:
- *  - Case study section decorators
+ *  - Case study section decorators (one per section, no repeats)
  *  - Section transition markers
  *  - Diagram accents throughout the site
  *  - Any place the Curiosity method is visualized
  *
  * Source of truth for SVG geometry. All paths use viewBox "0 0 80 80".
+ *
+ * ─── Color Psychology ──────────────────────────────────────────────────────────
+ *
+ * Colors follow a temperature arc: cold uncertainty → warm radiance.
+ * Every color is a brand palette token — no new colors introduced.
+ *
+ * sky  (#9ED6DF)  Confusion  — Cold, diffuse, formless. The undifferentiated field.
+ * pink (#EAA7C7)  Awareness  — Soft, receptive. The moment of noticing. First signal.
+ * must (#EAC119)  Insight    — Yellow/gold = illumination. The cognitive "aha."
+ * tea  (#245E55)  Action     — Dark green = grounded motion. Nature's growth energy.
+ * lav  (#808BC5)  Framework  — Violet = wisdom, pattern recognition, sacred geometry.
+ * shell@ 75%      System     — Near-white = crystalline clarity. Structure made transparent.
+ * tang (#ED773C)  Authority  — Orange = the radiant signal. Warm, transmitting, the source.
  */
 
-import { colors } from './design-tokens'
+import { colors, shellAt } from './design-tokens'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -66,7 +79,7 @@ export const symbols: Record<SymbolId, BehavioralSymbol> = {
     name:        'Confusion',
     concept:     'Noise',
     description: 'The scattered state — fragmented inputs, no organizing principle. Where every audience begins.',
-    color:       'rgba(234,228,218,0.20)',  // shell at 20% — dimmed, no signal yet
+    color:       colors.sky,   // cold, diffuse, formless — the undifferentiated field
     geometry:    'Scattered Dots',
     viewBox:     '0 0 80 80',
     svgData: {
@@ -97,7 +110,7 @@ export const symbols: Record<SymbolId, BehavioralSymbol> = {
     name:        'Awareness',
     concept:     'Recognition',
     description: 'The incomplete circle — seeing the gap. Recognition that something is missing, that the current frame is insufficient.',
-    color:       colors.pink,  // stimulus layer — first input signal arrives
+    color:       colors.pink,  // soft, receptive — the moment of noticing, first signal
     geometry:    'Incomplete Circle',
     viewBox:     '0 0 80 80',
     svgData: {
@@ -121,7 +134,7 @@ export const symbols: Record<SymbolId, BehavioralSymbol> = {
     name:        'Insight',
     concept:     'Intersection',
     description: 'The Vesica Piscis — where two frames of reference overlap and something new becomes visible. The overlap IS the breakthrough.',
-    color:       colors.must,  // cognition layer — understanding forms
+    color:       colors.must,  // yellow/gold = illumination — the cognitive "aha"
     geometry:    'Vesica Piscis',
     viewBox:     '0 0 80 80',
     svgData: {
@@ -146,7 +159,7 @@ export const symbols: Record<SymbolId, BehavioralSymbol> = {
     name:        'Action',
     concept:     'Direction',
     description: 'The triangle — direction chosen, momentum engaged. The point shows where to go. Behavior follows cognition.',
-    color:       colors.tea,   // behavior layer — the doing
+    color:       colors.tea,   // dark green = grounded forward motion — nature's growth energy
     geometry:    'Triangle',
     viewBox:     '0 0 80 80',
     svgData: {
@@ -169,7 +182,7 @@ export const symbols: Record<SymbolId, BehavioralSymbol> = {
     name:        'Framework',
     concept:     'Pattern',
     description: 'The Flower of Life — the repeating pattern beneath all structure. When the framework is seen, everything becomes teachable, transferable, scalable.',
-    color:       colors.lav,   // system layer — pattern recognition
+    color:       colors.lav,   // violet = wisdom, pattern recognition, sacred geometry
     geometry:    'Flower of Life',
     viewBox:     '0 0 80 80',
     svgData: {
@@ -203,7 +216,7 @@ export const symbols: Record<SymbolId, BehavioralSymbol> = {
     name:        'System',
     concept:     'Structure',
     description: 'The cube — solid, repeatable, architectural. Three faces: what you see, what you build, what sustains it. The system holds weight.',
-    color:       colors.lav,   // system layer
+    color:       shellAt[75],  // near-white = crystalline clarity — structure made transparent
     geometry:    'Isometric Cube',
     viewBox:     '0 0 80 80',
     svgData: {
@@ -230,7 +243,7 @@ export const symbols: Record<SymbolId, BehavioralSymbol> = {
     name:        'Authority',
     concept:     'Signal',
     description: 'The radiant circle — signal transmitted outward. Authority is not claimed; it radiates. Others orient to it automatically.',
-    color:       colors.tang,  // signal layer — the final output
+    color:       colors.tang,  // orange = the radiant signal — warm, transmitting, the source
     geometry:    'Radiant Circle',
     viewBox:     '0 0 80 80',
     svgData: {
