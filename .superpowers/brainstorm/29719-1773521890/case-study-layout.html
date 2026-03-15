@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case Study Page Layout</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #1D1D1B;
+    color: #EAE4DA;
+    font-family: 'Inter', system-ui, sans-serif;
+    padding: 32px;
+  }
+  .page-title {
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #ED773C;
+    opacity: 0.7;
+    margin-bottom: 8px;
+    font-family: 'Georgia', serif;
+  }
+  .page-subtitle {
+    font-size: 16px;
+    color: rgba(234,228,218,0.5);
+    margin-bottom: 40px;
+    font-weight: 300;
+  }
+  .option-label {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #ED773C;
+    opacity: 0.7;
+    margin-bottom: 10px;
+    margin-top: 48px;
+  }
+  .option-desc {
+    font-size: 12px;
+    color: rgba(234,228,218,0.4);
+    margin-bottom: 20px;
+  }
+  .choose-btn {
+    display: inline-block;
+    margin-top: 14px;
+    padding: 8px 24px;
+    border: 1px solid rgba(237,119,60,0.4);
+    color: #ED773C;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    background: transparent;
+    transition: all 0.2s;
+  }
+  .choose-btn.selected { background: #ED773C; color: #1D1D1B; border-color: #ED773C; }
+  hr { border: none; border-top: 1px solid rgba(234,228,218,0.05); margin: 48px 0; }
+
+  /* shared mini-components */
+  .mini-eyebrow {
+    font-size: 7px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #ED773C;
+    opacity: 0.6;
+    margin-bottom: 5px;
+  }
+  .mini-headline {
+    font-family: 'Georgia', serif;
+    font-size: 18px;
+    letter-spacing: 0.03em;
+    line-height: 1.1;
+    margin-bottom: 6px;
+  }
+  .mini-meta {
+    font-size: 8px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(234,228,218,0.25);
+    margin-bottom: 3px;
+  }
+  .mini-body {
+    font-size: 9px;
+    line-height: 1.6;
+    color: rgba(234,228,218,0.5);
+  }
+  .mini-quote {
+    border-left: 2px solid #ED773C;
+    padding: 6px 12px;
+    font-style: italic;
+    font-size: 10px;
+    color: rgba(234,228,218,0.65);
+    line-height: 1.5;
+    background: rgba(237,119,60,0.04);
+  }
+  .mini-insight {
+    background: rgba(234,228,218,0.03);
+    border: 1px solid rgba(234,228,218,0.07);
+    padding: 10px 12px;
+    font-size: 9px;
+    color: rgba(234,228,218,0.55);
+    line-height: 1.5;
+  }
+  .mini-insight strong { color: #ED773C; font-weight: 400; }
+  .mini-section-label {
+    font-size: 7px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(234,228,218,0.2);
+    border-top: 1px solid rgba(234,228,218,0.06);
+    padding-top: 8px;
+    margin-bottom: 6px;
+    margin-top: 12px;
+  }
+  .mini-bullet {
+    font-size: 8px;
+    color: rgba(234,228,218,0.45);
+    padding-left: 12px;
+    position: relative;
+    line-height: 1.8;
+  }
+  .mini-bullet::before { content: '—'; position: absolute; left: 0; color: #ED773C; opacity: 0.5; }
+
+  /* ── LAYOUT A: Long-form article, single column ── */
+  .layout-a {
+    max-width: 720px;
+    border: 1px solid rgba(234,228,218,0.07);
+    overflow: hidden;
+  }
+  .la-hero {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    height: 160px;
+  }
+  .la-photo {
+    background: linear-gradient(160deg, #2a2928 0%, #1a1918 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 40px;
+    border-right: 1px solid rgba(234,228,218,0.06);
+  }
+  .la-hero-text {
+    padding: 24px 28px;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .la-back { font-size: 8px; letter-spacing: 0.2em; color: rgba(234,228,218,0.2); margin-bottom: 12px; }
+  .la-body { padding: 0 32px 24px; }
+  .la-section { padding: 20px 0; border-top: 1px solid rgba(234,228,218,0.05); }
+
+  /* ── LAYOUT B: Sticky sidebar + main content ── */
+  .layout-b {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    border: 1px solid rgba(234,228,218,0.07);
+    max-width: 720px;
+    min-height: 480px;
+  }
+  .lb-sidebar {
+    padding: 24px 16px;
+    border-right: 1px solid rgba(234,228,218,0.06);
+    background: rgba(0,0,0,0.15);
+  }
+  .lb-photo {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(160deg, #2a2928 0%, #1a1918 100%);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+    margin-bottom: 12px;
+  }
+  .lb-nav-item {
+    font-size: 8px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(234,228,218,0.25);
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(234,228,218,0.04);
+    cursor: pointer;
+  }
+  .lb-nav-item.active { color: #ED773C; opacity: 0.8; }
+  .lb-main { padding: 28px 28px; overflow: hidden; }
+
+  /* ── LAYOUT C: Full-bleed sections ── */
+  .layout-c {
+    border: 1px solid rgba(234,228,218,0.07);
+    max-width: 720px;
+    overflow: hidden;
+  }
+  .lc-hero {
+    background: linear-gradient(160deg, #232320 0%, #1D1D1B 100%);
+    padding: 28px 32px 24px;
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 28px;
+    border-bottom: 1px solid rgba(234,228,218,0.06);
+    align-items: center;
+  }
+  .lc-photo {
+    height: 140px;
+    background: linear-gradient(160deg, #2a2928 0%, #1a1918 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 36px;
+  }
+  .lc-section-alt {
+    background: rgba(0,0,0,0.18);
+    padding: 20px 32px;
+    border-bottom: 1px solid rgba(234,228,218,0.04);
+  }
+  .lc-section-normal {
+    padding: 20px 32px;
+    border-bottom: 1px solid rgba(234,228,218,0.04);
+  }
+  .lc-diagram {
+    height: 40px;
+    background: rgba(237,119,60,0.04);
+    border: 1px dashed rgba(237,119,60,0.15);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 8px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(237,119,60,0.4);
+    margin: 8px 0;
+  }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .tang { color: #ED773C; }
+  .lav { color: #9B8EC4; }
+  .teal { color: #2EC4B6; }
+</style>
+</head>
+<body>
+
+<div class="page-title">Case Study Page — Layout Options</div>
+<div class="page-subtitle">Once you click "Read Analysis →" on a card, what does the full case study look like?</div>
+
+<!-- LAYOUT A -->
+<div class="option-label tang">Option A — Long-form Article</div>
+<div class="option-desc">Single column. Flows top to bottom like a well-designed essay. Clean, focused, reader-first. No sidebar distractions.</div>
+<div class="layout-a">
+  <div class="la-hero">
+    <div class="la-photo">◎</div>
+    <div class="la-hero-text">
+      <div class="la-back">← Case Studies</div>
+      <div class="mini-eyebrow">01 / Authority</div>
+      <div class="mini-headline">How Dan Koe Engineers Authority</div>
+      <div class="mini-meta">2.1M followers · X / Twitter · YouTube · Newsletter</div>
+    </div>
+  </div>
+  <div class="la-body">
+    <div class="la-section">
+      <div class="mini-section-label">The Situation</div>
+      <div class="mini-body">Dan Koe entered the creator space through fitness content, then made a deliberate pivot toward philosophical productivity — a category he effectively invented for himself...</div>
+      <div style="margin-top:10px">
+        <div class="mini-quote">"Most people are optimizing their cage. Dan Koe is selling the key."</div>
+      </div>
+    </div>
+    <div class="la-section">
+      <div class="mini-section-label">Core Challenge</div>
+      <div class="mini-body">Selling intangible transformation at premium price points to an audience that's been burned by self-help before...</div>
+      <div style="margin-top:10px">
+        <div class="mini-insight"><strong>Triple friction:</strong> trust + identity + clarity — resolved in that order.</div>
+      </div>
+    </div>
+    <div class="la-section">
+      <div class="mini-section-label">Behavioral Moves</div>
+      <div class="grid-2">
+        <div>
+          <div class="mini-meta tang" style="margin-bottom:4px">Attention</div>
+          <div class="mini-bullet">Identity disruption hooks</div>
+          <div class="mini-bullet">Philosophical contrarianism</div>
+        </div>
+        <div>
+          <div class="mini-meta tang" style="margin-bottom:4px">Anchors</div>
+          <div class="mini-bullet">"The 1-person business"</div>
+          <div class="mini-bullet">"Modern Polymath"</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<button class="choose-btn" id="btn-a">Choose Option A</button>
+
+<hr>
+
+<!-- LAYOUT B -->
+<div class="option-label lav">Option B — Sticky Sidebar Nav</div>
+<div class="option-desc">Left sidebar has portrait + section navigation (always visible). Right side scrolls through the 10 sections. More structured, easier to jump around.</div>
+<div class="layout-b">
+  <div class="lb-sidebar">
+    <div class="lb-photo">◎</div>
+    <div class="mini-headline" style="font-size:13px; margin-bottom:4px">Dan Koe</div>
+    <div class="mini-meta tang" style="margin-bottom:16px">Engineers Authority</div>
+    <div class="lb-nav-item active">01 Situation</div>
+    <div class="lb-nav-item">02 Challenge</div>
+    <div class="lb-nav-item">03 Moves</div>
+    <div class="lb-nav-item">04 Flow</div>
+    <div class="lb-nav-item">05 Narrative</div>
+    <div class="lb-nav-item">06 Works</div>
+    <div class="lb-nav-item">07 Gaps</div>
+    <div class="lb-nav-item">08 Upgrade</div>
+    <div class="lb-nav-item">09 Takeaways</div>
+  </div>
+  <div class="lb-main">
+    <div class="mini-eyebrow">The Situation</div>
+    <div class="mini-body" style="margin-bottom:10px">Dan Koe entered the creator space through fitness content, then made a deliberate pivot toward philosophical productivity — a category he effectively invented for himself...</div>
+    <div class="mini-quote">"Most people are optimizing their cage. Dan Koe is selling the key."</div>
+    <div class="mini-section-label" style="margin-top:14px">Core Challenge</div>
+    <div class="mini-body" style="margin-bottom:10px">Selling intangible transformation at premium price points to an audience that's been burned by self-help before...</div>
+    <div class="mini-insight"><strong>Triple friction:</strong> trust + identity + clarity — all present, resolved in order.</div>
+  </div>
+</div>
+<button class="choose-btn" id="btn-b">Choose Option B</button>
+
+<hr>
+
+<!-- LAYOUT C -->
+<div class="option-label teal">Option C — Full-Bleed Sections</div>
+<div class="option-desc">Each of the 10 template sections is a distinct full-width block with alternating backgrounds. Bold visual rhythm. Every section has its own diagram + quote + insight. Most dramatic.</div>
+<div class="layout-c">
+  <div class="lc-hero">
+    <div class="lc-photo">◎</div>
+    <div>
+      <div class="mini-eyebrow tang">01 / Authority · 2.1M Followers</div>
+      <div class="mini-headline" style="font-size:22px; margin-bottom:8px">How Dan Koe Engineers Authority</div>
+      <div class="mini-meta">Platforms: X / Twitter · YouTube · Newsletter</div>
+      <div class="mini-meta">Offers: Digital Economics · 2 Hour Writer · Community</div>
+    </div>
+  </div>
+  <div class="lc-section-normal">
+    <div class="mini-eyebrow">The Situation</div>
+    <div class="mini-body">Dan Koe entered the creator space through fitness content, then pivoted toward philosophical productivity — a category he invented...</div>
+    <div class="lc-diagram">[ Market Position Diagram ]</div>
+    <div class="mini-quote">"Most people are optimizing their cage. Dan Koe is selling the key."</div>
+  </div>
+  <div class="lc-section-alt">
+    <div class="mini-eyebrow">Behavioral Moves</div>
+    <div class="grid-2" style="margin-bottom:8px">
+      <div>
+        <div class="mini-meta tang" style="margin-bottom:4px">Attention</div>
+        <div class="mini-bullet">Identity disruption hooks</div>
+        <div class="mini-bullet">Philosophical contrarianism</div>
+      </div>
+      <div>
+        <div class="mini-meta tang" style="margin-bottom:4px">Anchors</div>
+        <div class="mini-bullet">"The 1-person business"</div>
+        <div class="mini-bullet">"Modern Polymath"</div>
+      </div>
+    </div>
+    <div class="lc-diagram">[ Learning Flow: Confused → Curious → Understanding → Belief → Action ]</div>
+    <div class="mini-insight"><strong>Key move:</strong> Anti-guru positioning that requires a genuine product to sustain.</div>
+  </div>
+  <div class="lc-section-normal">
+    <div class="mini-eyebrow">The Curiosity Upgrade</div>
+    <div class="mini-bullet">Design a "Modern Polymath Stack" visual</div>
+    <div class="mini-bullet">Create a $49–97 entry-point bridge product</div>
+    <div class="mini-bullet">Build a philosophy-primer email onboarding</div>
+  </div>
+</div>
+<button class="choose-btn" id="btn-c">Choose Option C</button>
+
+<script>
+document.querySelectorAll('.choose-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.choose-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+  });
+});
+</script>
+</body>
+</html>

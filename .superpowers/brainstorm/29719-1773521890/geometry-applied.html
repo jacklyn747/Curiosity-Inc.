@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sacred Geometry Applied</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #1D1D1B; color: #EAE4DA; font-family: 'Inter', system-ui, sans-serif; padding: 32px; }
+  .label { font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; color: #ED773C; opacity: 0.6; margin-bottom: 10px; display: block; }
+  .desc { font-size: 11px; color: rgba(234,228,218,0.4); margin-bottom: 20px; }
+  hr { border: none; border-top: 1px solid rgba(234,228,218,0.05); margin: 40px 0; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+  /* ── Card with orbit overlay ── */
+  .card {
+    border: 1px solid rgba(234,228,218,0.08);
+    position: relative;
+  }
+  .card-photo {
+    position: relative;
+    height: 240px;
+    overflow: hidden;
+    background: linear-gradient(160deg,#2a2a28,#1a1a18);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .face-icon { font-size: 60px; opacity: 0.1; }
+  .card-body { padding: 18px 20px 22px; }
+  .card-num { font-size: 9px; letter-spacing: 0.28em; margin-bottom: 10px; }
+  .card-name { font-family: 'Georgia', serif; font-size: 19px; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 3px; }
+  .card-outcome { font-size: 11px; color: rgba(234,228,218,0.4); margin-bottom: 14px; }
+  .card-stat { font-size: 26px; font-family: 'Georgia', serif; line-height: 1; margin-bottom: 3px; }
+  .card-plat { font-size: 8px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(234,228,218,0.25); margin-bottom: 16px; }
+  .card-link { font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: #ED773C; opacity: 0.7; }
+  .tang { color: #ED773C; }
+  .lav  { color: #9B8EC4; }
+  .teal { color: #2EC4B6; }
+
+  /* ── Section layout strip ── */
+  .section-strip {
+    border: 1px solid rgba(234,228,218,0.07);
+    overflow: hidden;
+    max-width: 700px;
+  }
+  .section-hero {
+    display: grid; grid-template-columns: 160px 1fr; gap: 0;
+    border-bottom: 1px solid rgba(234,228,218,0.06);
+  }
+  .section-hero-photo {
+    height: 160px;
+    background: linear-gradient(160deg,#2a2928,#1a1918);
+    position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    border-right: 1px solid rgba(234,228,218,0.06);
+  }
+  .section-hero-text { padding: 24px 28px; display: flex; flex-direction: column; justify-content: center; }
+  .back { font-size: 8px; letter-spacing: 0.2em; color: rgba(234,228,218,0.2); margin-bottom: 10px; }
+  .hero-hl { font-family: 'Georgia', serif; font-size: 16px; letter-spacing: 0.03em; margin-bottom: 6px; line-height: 1.2; }
+  .meta { font-size: 8px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(234,228,218,0.22); line-height: 1.8; }
+
+  .s-block { padding: 22px 28px; border-bottom: 1px solid rgba(234,228,218,0.05); position: relative; overflow: hidden; }
+  .s-block-alt { background: rgba(0,0,0,0.15); padding: 22px 28px; border-bottom: 1px solid rgba(234,228,218,0.05); position: relative; overflow: hidden; }
+  .s-eyebrow { font-size: 8px; letter-spacing: 0.22em; text-transform: uppercase; color: #ED773C; opacity: 0.6; margin-bottom: 8px; }
+  .s-body { font-size: 10px; line-height: 1.7; color: rgba(234,228,218,0.5); margin-bottom: 10px; }
+  .s-quote { border-left: 1.5px solid #ED773C; padding: 6px 12px; font-style: italic; font-size: 10px; color: rgba(234,228,218,0.65); margin: 10px 0; background: rgba(237,119,60,0.03); }
+  .s-insight { background: rgba(234,228,218,0.03); border: 1px solid rgba(234,228,218,0.07); padding: 8px 12px; font-size: 9px; color: rgba(234,228,218,0.5); margin-top: 8px; }
+  .s-insight strong { color: #ED773C; font-weight: 400; }
+  .s-divider { width: 28px; height: 1px; background: #ED773C; opacity: 0.4; margin: 10px 0; }
+
+  /* ── Learning flow diagram (orbit nodes) ── */
+  .flow-wrap { padding: 16px; background: rgba(0,0,0,0.2); margin: 10px 0; border: 1px solid rgba(234,228,218,0.05); overflow: hidden; }
+
+  /* ── 2x2 behavioral grid ── */
+  .moves-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: rgba(234,228,218,0.06); margin: 10px 0; }
+  .moves-cell { background: #1D1D1B; padding: 10px 12px; }
+  .moves-label { font-size: 7px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 6px; }
+  .moves-bullet { font-size: 8px; color: rgba(234,228,218,0.45); line-height: 1.8; padding-left: 10px; position: relative; }
+  .moves-bullet::before { content: '—'; position: absolute; left: 0; color: #ED773C; opacity: 0.5; font-size: 8px; }
+
+  /* crosshair marker */
+  .xhair { display: inline-block; width: 12px; height: 12px; position: relative; }
+</style>
+</head>
+<body>
+
+<div class="label">How the sacred geometry system maps onto case studies</div>
+<div class="desc">Cards use orbit rings over the headshot (like AboutSection). Sections use existing ThinLineSystem + orbit nodes for diagrams.</div>
+
+<!-- CARD GRID with orbit overlays -->
+<div class="label" style="margin-top:0">WorkSection — Portrait Cards with Orbit Overlay</div>
+<div class="grid-3">
+
+  <!-- Dan Koe -->
+  <div class="card">
+    <div class="card-photo">
+      <div class="face-icon">◎</div>
+      <!-- Orbit SVG overlay — same pattern as AboutSection, tang color -->
+      <svg viewBox="0 0 300 375" fill="none" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none" aria-hidden="true">
+        <circle class="orbit-draw" cx="150" cy="130" r="105" stroke="#ED773C" strokeWidth="0.6" strokeOpacity="0.22"/>
+        <circle class="orbit-draw" cx="150" cy="130" r="70"  stroke="#ED773C" strokeWidth="0.6" strokeOpacity="0.3"/>
+        <circle class="orbit-draw" cx="150" cy="130" r="40"  stroke="#ED773C" strokeWidth="0.85" strokeOpacity="0.38"/>
+        <line x1="0" y1="130" x2="300" y2="130" stroke="#ED773C" strokeWidth="0.4" strokeOpacity="0.1"/>
+        <line x1="150" y1="0"  x2="150" y2="375" stroke="#ED773C" strokeWidth="0.4" strokeOpacity="0.08"/>
+        <!-- crosshairs at orbit intersections -->
+        <g><line x1="42"  y1="130" x2="54"  y2="130" stroke="#ED773C" strokeWidth="0.6" strokeOpacity="0.35"/><line x1="48"  y1="124" x2="48"  y2="136" stroke="#ED773C" strokeWidth="0.6" strokeOpacity="0.35"/></g>
+        <g><line x1="246" y1="130" x2="258" y2="130" stroke="#ED773C" strokeWidth="0.6" strokeOpacity="0.35"/><line x1="252" y1="124" x2="252" y2="136" stroke="#ED773C" strokeWidth="0.6" strokeOpacity="0.35"/></g>
+        <g><line x1="144" y1="22"  x2="156" y2="22"  stroke="#ED773C" strokeWidth="0.6" strokeOpacity="0.35"/><line x1="150" y1="16"  x2="150" y2="28"  stroke="#ED773C" strokeWidth="0.6" strokeOpacity="0.35"/></g>
+        <circle cx="150" cy="130" r="3" fill="#ED773C" fillOpacity="0.6"/>
+      </svg>
+      <!-- gradient fade to card body -->
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 45%,#1D1D1B 100%)"></div>
+      <span style="position:absolute;top:12px;left:12px;font-size:8px;letter-spacing:0.25em;color:#ED773C;opacity:0.7">01</span>
+    </div>
+    <div class="card-body">
+      <div class="card-name">Dan Koe</div>
+      <div class="card-outcome">Engineers Authority</div>
+      <div class="card-stat tang">2.1M</div>
+      <div class="card-plat">X / Twitter · YouTube · Newsletter</div>
+      <div class="card-link">Read Analysis ——→</div>
+    </div>
+  </div>
+
+  <!-- Ali Abdaal -->
+  <div class="card">
+    <div class="card-photo">
+      <div class="face-icon">◎</div>
+      <svg viewBox="0 0 300 375" fill="none" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none" aria-hidden="true">
+        <circle cx="150" cy="130" r="105" stroke="#9B8EC4" strokeWidth="0.6" strokeOpacity="0.22"/>
+        <circle cx="150" cy="130" r="70"  stroke="#9B8EC4" strokeWidth="0.6" strokeOpacity="0.3"/>
+        <circle cx="150" cy="130" r="40"  stroke="#9B8EC4" strokeWidth="0.85" strokeOpacity="0.38"/>
+        <line x1="0" y1="130" x2="300" y2="130" stroke="#9B8EC4" strokeWidth="0.4" strokeOpacity="0.1"/>
+        <line x1="150" y1="0"  x2="150" y2="375" stroke="#9B8EC4" strokeWidth="0.4" strokeOpacity="0.08"/>
+        <g><line x1="42"  y1="130" x2="54"  y2="130" stroke="#9B8EC4" strokeWidth="0.6" strokeOpacity="0.35"/><line x1="48"  y1="124" x2="48"  y2="136" stroke="#9B8EC4" strokeWidth="0.6" strokeOpacity="0.35"/></g>
+        <g><line x1="246" y1="130" x2="258" y2="130" stroke="#9B8EC4" strokeWidth="0.6" strokeOpacity="0.35"/><line x1="252" y1="124" x2="252" y2="136" stroke="#9B8EC4" strokeWidth="0.6" strokeOpacity="0.35"/></g>
+        <g><line x1="144" y1="22"  x2="156" y2="22"  stroke="#9B8EC4" strokeWidth="0.6" strokeOpacity="0.35"/><line x1="150" y1="16"  x2="150" y2="28"  stroke="#9B8EC4" strokeWidth="0.6" strokeOpacity="0.35"/></g>
+        <circle cx="150" cy="130" r="3" fill="#9B8EC4" fillOpacity="0.6"/>
+      </svg>
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 45%,#1D1D1B 100%)"></div>
+      <span style="position:absolute;top:12px;left:12px;font-size:8px;letter-spacing:0.25em;color:#9B8EC4;opacity:0.7">02</span>
+    </div>
+    <div class="card-body">
+      <div class="card-name">Ali Abdaal</div>
+      <div class="card-outcome">Engineers Trust</div>
+      <div class="card-stat lav">5.8M</div>
+      <div class="card-plat">YouTube · Newsletter · Twitter</div>
+      <div class="card-link">Read Analysis ——→</div>
+    </div>
+  </div>
+
+  <!-- Justin Welsh -->
+  <div class="card">
+    <div class="card-photo">
+      <div class="face-icon">◎</div>
+      <svg viewBox="0 0 300 375" fill="none" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none" aria-hidden="true">
+        <circle cx="150" cy="130" r="105" stroke="#2EC4B6" strokeWidth="0.6" strokeOpacity="0.22"/>
+        <circle cx="150" cy="130" r="70"  stroke="#2EC4B6" strokeWidth="0.6" strokeOpacity="0.3"/>
+        <circle cx="150" cy="130" r="40"  stroke="#2EC4B6" strokeWidth="0.85" strokeOpacity="0.38"/>
+        <line x1="0" y1="130" x2="300" y2="130" stroke="#2EC4B6" strokeWidth="0.4" strokeOpacity="0.1"/>
+        <line x1="150" y1="0"  x2="150" y2="375" stroke="#2EC4B6" strokeWidth="0.4" strokeOpacity="0.08"/>
+        <g><line x1="42"  y1="130" x2="54"  y2="130" stroke="#2EC4B6" strokeWidth="0.6" strokeOpacity="0.35"/><line x1="48"  y1="124" x2="48"  y2="136" stroke="#2EC4B6" strokeWidth="0.6" strokeOpacity="0.35"/></g>
+        <g><line x1="246" y1="130" x2="258" y2="130" stroke="#2EC4B6" strokeWidth="0.6" strokeOpacity="0.35"/><line x1="252" y1="124" x2="252" y2="136" stroke="#2EC4B6" strokeWidth="0.6" strokeOpacity="0.35"/></g>
+        <g><line x1="144" y1="22"  x2="156" y2="22"  stroke="#2EC4B6" strokeWidth="0.6" strokeOpacity="0.35"/><line x1="150" y1="16"  x2="150" y2="28"  stroke="#2EC4B6" strokeWidth="0.6" strokeOpacity="0.35"/></g>
+        <circle cx="150" cy="130" r="3" fill="#2EC4B6" fillOpacity="0.6"/>
+      </svg>
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 45%,#1D1D1B 100%)"></div>
+      <span style="position:absolute;top:12px;left:12px;font-size:8px;letter-spacing:0.25em;color:#2EC4B6;opacity:0.7">03</span>
+    </div>
+    <div class="card-body">
+      <div class="card-name">Justin Welsh</div>
+      <div class="card-outcome">Engineers Demand</div>
+      <div class="card-stat teal">640K</div>
+      <div class="card-plat">LinkedIn · Newsletter · Twitter</div>
+      <div class="card-link">Read Analysis ——→</div>
+    </div>
+  </div>
+
+</div>
+
+<hr>
+
+<!-- CASE STUDY PAGE SECTIONS -->
+<div class="label">Case Study Page — Geometry in Sections</div>
+<div class="section-strip">
+
+  <!-- Hero -->
+  <div class="section-hero">
+    <div class="section-hero-photo">
+      <div class="face-icon" style="font-size:40px;opacity:0.12">◎</div>
+      <!-- ThinLineSystem minimal variant equivalent -->
+      <svg viewBox="0 0 160 160" fill="none" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none">
+        <circle cx="80" cy="70" r="60" stroke="#ED773C" strokeWidth="0.5" strokeOpacity="0.18"/>
+        <circle cx="80" cy="70" r="40" stroke="#ED773C" strokeWidth="0.5" strokeOpacity="0.24"/>
+        <circle cx="80" cy="70" r="22" stroke="#ED773C" strokeWidth="0.75" strokeOpacity="0.32"/>
+        <line x1="0" y1="70" x2="160" y2="70" stroke="#ED773C" strokeWidth="0.3" strokeOpacity="0.1"/>
+        <line x1="80" y1="0"  x2="80"  y2="160" stroke="#ED773C" strokeWidth="0.3" strokeOpacity="0.08"/>
+        <circle cx="80" cy="70" r="2.5" fill="#ED773C" fillOpacity="0.65"/>
+      </svg>
+      <div style="position:absolute;inset:0;background:linear-gradient(to right,transparent 60%,#1D1D1B 100%)"></div>
+    </div>
+    <div class="section-hero-text">
+      <div class="back">← Case Studies</div>
+      <div class="s-eyebrow" style="margin-bottom:6px">01 / Authority · 2.1M</div>
+      <div class="hero-hl">How Dan Koe Engineers Authority</div>
+      <div class="meta">X / Twitter · YouTube · Newsletter<br>Digital Economics · 2 Hour Writer</div>
+    </div>
+  </div>
+
+  <!-- Situation -->
+  <div class="s-block" style="position:relative;overflow:hidden">
+    <!-- ThinLineSystem system variant ghost -->
+    <svg viewBox="0 0 400 200" fill="none" style="position:absolute;right:-40px;top:-40px;width:220px;height:220px;pointer-events:none;opacity:0.5" aria-hidden="true">
+      <circle cx="200" cy="100" r="160" stroke="rgba(234,228,218,0.025)" strokeWidth="0.75"/>
+      <circle cx="200" cy="100" r="110" stroke="rgba(234,228,218,0.03)" strokeWidth="0.75"/>
+      <circle cx="200" cy="100" r="68"  stroke="rgba(237,119,60,0.08)" strokeWidth="0.75"/>
+      <circle cx="200" cy="100" r="36"  stroke="rgba(237,119,60,0.12)" strokeWidth="1"/>
+      <polygon points="200,10 310,170 90,170" stroke="rgba(234,228,218,0.04)" strokeWidth="0.75" fill="none"/>
+    </svg>
+    <div class="s-eyebrow">The Situation</div>
+    <div class="s-body">Dan Koe entered the creator space through fitness content, then pivoted toward philosophical productivity — a category he effectively invented for himself. His audience is sophisticated enough to reject surface-level self-help, but hungry for depth.</div>
+    <div class="s-quote">"Most people are optimizing their cage. Dan Koe is selling the key."</div>
+    <div class="s-insight"><strong>Market position:</strong> Sells identity reformation at scale. Not tactics — a complete worldview restructure.</div>
+  </div>
+
+  <!-- Behavioral Moves — 2×2 grid (Grid symbol) -->
+  <div class="s-block-alt">
+    <div class="s-eyebrow">Behavioral Moves</div>
+    <div class="moves-grid">
+      <div class="moves-cell">
+        <div class="moves-label tang">Attention Strategy</div>
+        <div class="moves-bullet">Identity disruption hooks</div>
+        <div class="moves-bullet">Philosophical contrarianism</div>
+        <div class="moves-bullet">Long-form threads as essays</div>
+      </div>
+      <div class="moves-cell">
+        <div class="moves-label tang">Cognitive Anchors</div>
+        <div class="moves-bullet">"The 1-person business"</div>
+        <div class="moves-bullet">"Modern Polymath"</div>
+        <div class="moves-bullet">"Most people" framing</div>
+      </div>
+      <div class="moves-cell" style="border-top:1px solid rgba(234,228,218,0.06)">
+        <div class="moves-label tang">Knowledge Packaging</div>
+        <div class="moves-bullet">Tweet → Thread → Essay → Newsletter</div>
+        <div class="moves-bullet">Each format is an on-ramp</div>
+      </div>
+      <div class="moves-cell" style="border-top:1px solid rgba(234,228,218,0.06)">
+        <div class="moves-label tang">Authority Signals</div>
+        <div class="moves-bullet">Income transparency</div>
+        <div class="moves-bullet">Aesthetic consistency</div>
+        <div class="moves-bullet">Anti-guru positioning</div>
+      </div>
+    </div>
+    <div class="s-quote">"Anti-guru positioning (while functioning as a guru) — sophisticated audience flattery."</div>
+  </div>
+
+  <!-- Learning Flow — orbit nodes SVG -->
+  <div class="s-block">
+    <div class="s-eyebrow">Learning Flow</div>
+    <div class="flow-wrap">
+      <svg viewBox="0 0 600 90" fill="none" style="width:100%;overflow:visible">
+        <!-- connector lines -->
+        <line x1="60"  y1="45" x2="120" y2="45" stroke="rgba(237,119,60,0.25)" strokeWidth="0.75"/>
+        <line x1="180" y1="45" x2="240" y2="45" stroke="rgba(237,119,60,0.25)" strokeWidth="0.75"/>
+        <line x1="300" y1="45" x2="360" y2="45" stroke="rgba(237,119,60,0.25)" strokeWidth="0.75"/>
+        <line x1="420" y1="45" x2="480" y2="45" stroke="rgba(237,119,60,0.25)" strokeWidth="0.75"/>
+        <!-- arrowheads -->
+        <polygon points="120,42 128,45 120,48" fill="rgba(237,119,60,0.35)"/>
+        <polygon points="240,42 248,45 240,48" fill="rgba(237,119,60,0.35)"/>
+        <polygon points="360,42 368,45 360,48" fill="rgba(237,119,60,0.35)"/>
+        <polygon points="480,42 488,45 480,48" fill="rgba(237,119,60,0.35)"/>
+        <!-- nodes: concentric orbit rings + dot -->
+        <!-- Node 1: Confused -->
+        <circle cx="30"  cy="45" r="22" stroke="rgba(234,228,218,0.06)" strokeWidth="0.75"/>
+        <circle cx="30"  cy="45" r="14" stroke="rgba(234,228,218,0.09)" strokeWidth="0.75"/>
+        <circle cx="30"  cy="45" r="6"  stroke="rgba(234,228,218,0.15)" strokeWidth="0.75"/>
+        <circle cx="30"  cy="45" r="2.5" fill="rgba(234,228,218,0.35)"/>
+        <!-- Node 2: Curious -->
+        <circle cx="150" cy="45" r="22" stroke="rgba(237,119,60,0.1)" strokeWidth="0.75"/>
+        <circle cx="150" cy="45" r="14" stroke="rgba(237,119,60,0.15)" strokeWidth="0.75"/>
+        <circle cx="150" cy="45" r="6"  stroke="rgba(237,119,60,0.25)" strokeWidth="0.75"/>
+        <circle cx="150" cy="45" r="2.5" fill="rgba(237,119,60,0.6)"/>
+        <!-- Node 3: Understanding -->
+        <circle cx="270" cy="45" r="22" stroke="rgba(237,119,60,0.15)" strokeWidth="0.75"/>
+        <circle cx="270" cy="45" r="14" stroke="rgba(237,119,60,0.22)" strokeWidth="0.75"/>
+        <circle cx="270" cy="45" r="6"  stroke="rgba(237,119,60,0.35)" strokeWidth="0.75"/>
+        <circle cx="270" cy="45" r="2.5" fill="rgba(237,119,60,0.75)"/>
+        <!-- Node 4: Belief -->
+        <circle cx="390" cy="45" r="22" stroke="rgba(237,119,60,0.22)" strokeWidth="0.75"/>
+        <circle cx="390" cy="45" r="14" stroke="rgba(237,119,60,0.32)" strokeWidth="0.75"/>
+        <circle cx="390" cy="45" r="6"  stroke="rgba(237,119,60,0.45)" strokeWidth="0.75"/>
+        <circle cx="390" cy="45" r="2.5" fill="rgba(237,119,60,0.85)"/>
+        <!-- Node 5: Action — glowing -->
+        <circle cx="510" cy="45" r="22" stroke="rgba(237,119,60,0.35)" strokeWidth="0.75"/>
+        <circle cx="510" cy="45" r="14" stroke="rgba(237,119,60,0.5)" strokeWidth="0.75"/>
+        <circle cx="510" cy="45" r="6"  stroke="rgba(237,119,60,0.7)" strokeWidth="1"/>
+        <circle cx="510" cy="45" r="2.5" fill="#ED773C"/>
+        <circle cx="510" cy="45" r="10" fill="rgba(237,119,60,0.08)"/>
+        <!-- labels -->
+        <text x="30"  y="80" textAnchor="middle" fontFamily="'Georgia',serif" fontSize="7" fill="rgba(234,228,218,0.3)" letterSpacing="1">CONFUSED</text>
+        <text x="150" y="80" textAnchor="middle" fontFamily="'Georgia',serif" fontSize="7" fill="rgba(237,119,60,0.5)" letterSpacing="1">CURIOUS</text>
+        <text x="270" y="80" textAnchor="middle" fontFamily="'Georgia',serif" fontSize="7" fill="rgba(237,119,60,0.6)" letterSpacing="1">UNDERSTANDING</text>
+        <text x="390" y="80" textAnchor="middle" fontFamily="'Georgia',serif" fontSize="7" fill="rgba(237,119,60,0.75)" letterSpacing="1">BELIEF</text>
+        <text x="510" y="80" textAnchor="middle" fontFamily="'Georgia',serif" fontSize="7" fill="#ED773C" letterSpacing="1">ACTION</text>
+      </svg>
+    </div>
+    <div class="s-insight"><strong>Trigger:</strong> Identity disruption hook → "Wait, this isn't like the others"</div>
+  </div>
+
+</div>
+
+<hr>
+<div class="desc" style="font-size:11px;color:rgba(234,228,218,0.35)">
+  Every card uses orbit rings over the headshot (same SVG pattern as AboutSection, color-coded per creator).<br>
+  Every case study section uses ThinLineSystem ghost in background + orbit-node chain for Learning Flow + 2×2 grid for Behavioral Moves.<br>
+  Section dividers use tang cross-hair markers. Pull quotes use tang left-border. Insight blocks use the dark panel pattern.
+</div>
+
+</body>
+</html>

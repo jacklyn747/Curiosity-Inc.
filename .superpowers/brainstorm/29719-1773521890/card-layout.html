@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WorkSection Card Layout</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #1D1D1B;
+    color: #EAE4DA;
+    font-family: 'Inter', system-ui, sans-serif;
+    padding: 32px;
+    min-height: 100vh;
+  }
+  .page-title {
+    font-family: 'Georgia', serif;
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #ED773C;
+    opacity: 0.7;
+    margin-bottom: 8px;
+  }
+  .page-subtitle {
+    font-size: 18px;
+    color: rgba(234,228,218,0.6);
+    margin-bottom: 40px;
+    font-weight: 300;
+  }
+  .option-label {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #ED773C;
+    opacity: 0.6;
+    margin-bottom: 12px;
+    margin-top: 40px;
+  }
+  .option-desc {
+    font-size: 12px;
+    color: rgba(234,228,218,0.45);
+    margin-bottom: 20px;
+    letter-spacing: 0.03em;
+  }
+  .choose-btn {
+    display: inline-block;
+    margin-top: 16px;
+    padding: 8px 24px;
+    border: 1px solid rgba(237,119,60,0.4);
+    color: #ED773C;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    background: transparent;
+    transition: all 0.2s;
+  }
+  .choose-btn:hover, .choose-btn.selected {
+    background: #ED773C;
+    color: #1D1D1B;
+    border-color: #ED773C;
+  }
+  hr { border: none; border-top: 1px solid rgba(234,228,218,0.06); margin: 40px 0; }
+
+  /* ── OPTION A: Portrait Cards ── */
+  .grid-a {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .card-a {
+    border: 1px solid rgba(234,228,218,0.08);
+    position: relative;
+    cursor: pointer;
+    transition: border-color 0.3s;
+  }
+  .card-a:hover { border-color: rgba(237,119,60,0.3); }
+  .card-a-photo {
+    height: 260px;
+    background: linear-gradient(135deg, #2a2a28 0%, #1a1a18 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .card-a-photo-label {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: rgba(234,228,218,0.2);
+    text-transform: uppercase;
+  }
+  /* fake grayscale face using geometric shapes */
+  .face-placeholder {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: rgba(234,228,218,0.08);
+    border: 1px solid rgba(234,228,218,0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+  }
+  .card-a-photo-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 40%, #1D1D1B 100%);
+  }
+  .card-a-color-num {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    font-family: 'Georgia', serif;
+  }
+  .card-a-body {
+    padding: 20px 20px 24px;
+  }
+  .card-a-name {
+    font-family: 'Georgia', serif;
+    font-size: 20px;
+    letter-spacing: 0.06em;
+    color: #EAE4DA;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+  }
+  .card-a-outcome {
+    font-size: 11px;
+    color: rgba(234,228,218,0.45);
+    font-weight: 300;
+    margin-bottom: 16px;
+    letter-spacing: 0.04em;
+  }
+  .card-a-stat {
+    font-size: 24px;
+    font-family: 'Georgia', serif;
+    color: #ED773C;
+    margin-bottom: 4px;
+  }
+  .card-a-platforms {
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(234,228,218,0.3);
+    margin-bottom: 20px;
+  }
+  .card-a-link {
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #ED773C;
+    opacity: 0.7;
+  }
+
+  /* ── OPTION B: Horizontal Rows ── */
+  .grid-b {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .card-b {
+    display: grid;
+    grid-template-columns: 200px 1fr auto;
+    gap: 0;
+    border: 1px solid rgba(234,228,218,0.06);
+    transition: border-color 0.3s;
+    cursor: pointer;
+    position: relative;
+  }
+  .card-b:hover { border-color: rgba(237,119,60,0.25); }
+  .card-b-photo {
+    height: 140px;
+    background: linear-gradient(135deg, #2a2a28 0%, #1a1a18 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .card-b-body {
+    padding: 24px 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-left: 1px solid rgba(234,228,218,0.06);
+  }
+  .card-b-num {
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    opacity: 0.3;
+    margin-bottom: 8px;
+    font-family: 'Georgia', serif;
+  }
+  .card-b-name {
+    font-family: 'Georgia', serif;
+    font-size: 22px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .card-b-outcome {
+    font-size: 12px;
+    color: rgba(234,228,218,0.4);
+    font-weight: 300;
+  }
+  .card-b-right {
+    padding: 24px 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 8px;
+    border-left: 1px solid rgba(234,228,218,0.06);
+    min-width: 180px;
+  }
+  .card-b-stat {
+    font-size: 28px;
+    font-family: 'Georgia', serif;
+  }
+  .card-b-platforms {
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(234,228,218,0.3);
+    text-align: right;
+  }
+  .card-b-link {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #ED773C;
+    opacity: 0.7;
+    margin-top: 4px;
+  }
+
+  /* ── OPTION C: Geometric / No Photo ── */
+  .grid-c {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    border: 1px solid rgba(234,228,218,0.06);
+  }
+  .card-c {
+    padding: 40px 32px 36px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: background 0.3s;
+    border-right: 1px solid rgba(234,228,218,0.06);
+  }
+  .card-c:last-child { border-right: none; }
+  .card-c:hover { background: rgba(237,119,60,0.03); }
+  .card-c-orbit {
+    position: absolute;
+    top: -60px;
+    right: -60px;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    border: 1px solid rgba(234,228,218,0.04);
+    pointer-events: none;
+  }
+  .card-c-orbit-2 {
+    position: absolute;
+    top: -30px;
+    right: -30px;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 1px solid rgba(234,228,218,0.05);
+    pointer-events: none;
+  }
+  .card-c-num {
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    font-family: 'Georgia', serif;
+    margin-bottom: 48px;
+    display: block;
+    opacity: 0.3;
+  }
+  .card-c-name {
+    font-family: 'Georgia', serif;
+    font-size: 26px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    line-height: 1;
+  }
+  .card-c-outcome {
+    font-size: 12px;
+    font-weight: 300;
+    color: rgba(234,228,218,0.4);
+    margin-bottom: 32px;
+  }
+  .card-c-divider {
+    width: 28px;
+    height: 1px;
+    background: #ED773C;
+    opacity: 0.5;
+    margin-bottom: 24px;
+  }
+  .card-c-stat {
+    font-size: 36px;
+    font-family: 'Georgia', serif;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .card-c-platforms {
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(234,228,218,0.25);
+    margin-bottom: 32px;
+  }
+  .card-c-link {
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #ED773C;
+    opacity: 0.6;
+  }
+  .color-tang { color: #ED773C; }
+  .color-lav { color: #9B8EC4; }
+  .color-teal { color: #2EC4B6; }
+</style>
+</head>
+<body>
+
+<div class="page-title">04 / Work — Case Studies</div>
+<div class="page-subtitle">Which card layout feels right for the three creator profiles?</div>
+
+<!-- OPTION A -->
+<div class="option-label color-tang">Option A — Portrait Cards</div>
+<div class="option-desc">Photo-dominant. Image takes 60% of card height, stats below. Classic editorial feel.</div>
+<div class="grid-a">
+  <div class="card-a">
+    <div class="card-a-photo">
+      <div class="face-placeholder">◎</div>
+      <div class="card-a-photo-overlay"></div>
+      <span class="card-a-color-num color-tang">01</span>
+    </div>
+    <div class="card-a-body">
+      <div class="card-a-name">Dan Koe</div>
+      <div class="card-a-outcome">Engineers Authority</div>
+      <div class="card-a-stat color-tang">2.1M</div>
+      <div class="card-a-platforms">X / Twitter · YouTube · Newsletter</div>
+      <div class="card-a-link">Read Analysis ——→</div>
+    </div>
+  </div>
+  <div class="card-a">
+    <div class="card-a-photo">
+      <div class="face-placeholder">◎</div>
+      <div class="card-a-photo-overlay"></div>
+      <span class="card-a-color-num color-lav">02</span>
+    </div>
+    <div class="card-a-body">
+      <div class="card-a-name">Ali Abdaal</div>
+      <div class="card-a-outcome">Engineers Trust</div>
+      <div class="card-a-stat color-lav">5.8M</div>
+      <div class="card-a-platforms">YouTube · Newsletter · Twitter</div>
+      <div class="card-a-link">Read Analysis ——→</div>
+    </div>
+  </div>
+  <div class="card-a">
+    <div class="card-a-photo">
+      <div class="face-placeholder">◎</div>
+      <div class="card-a-photo-overlay"></div>
+      <span class="card-a-color-num color-teal">03</span>
+    </div>
+    <div class="card-a-body">
+      <div class="card-a-name">Justin Welsh</div>
+      <div class="card-a-outcome">Engineers Demand</div>
+      <div class="card-a-stat color-teal">640K</div>
+      <div class="card-a-platforms">LinkedIn · Newsletter · Twitter</div>
+      <div class="card-a-link">Read Analysis ——→</div>
+    </div>
+  </div>
+</div>
+<button class="choose-btn" onclick="this.classList.toggle('selected'); document.querySelectorAll('.choose-btn').forEach(b => b !== this && b.classList.remove('selected'))">Choose Option A</button>
+
+<hr>
+
+<!-- OPTION B -->
+<div class="option-label color-lav">Option B — Horizontal Rows</div>
+<div class="option-desc">Landscape rows. Photo left, name center, stats right. More analytical, less editorial.</div>
+<div class="grid-b">
+  <div class="card-b">
+    <div class="card-b-photo"><div class="face-placeholder">◎</div></div>
+    <div class="card-b-body">
+      <div class="card-b-num color-tang">01</div>
+      <div class="card-b-name">Dan Koe</div>
+      <div class="card-b-outcome">Engineers Authority</div>
+    </div>
+    <div class="card-b-right">
+      <div class="card-b-stat color-tang">2.1M</div>
+      <div class="card-b-platforms">X / Twitter<br>YouTube<br>Newsletter</div>
+      <div class="card-b-link">Read Analysis →</div>
+    </div>
+  </div>
+  <div class="card-b">
+    <div class="card-b-photo"><div class="face-placeholder">◎</div></div>
+    <div class="card-b-body">
+      <div class="card-b-num color-lav">02</div>
+      <div class="card-b-name">Ali Abdaal</div>
+      <div class="card-b-outcome">Engineers Trust</div>
+    </div>
+    <div class="card-b-right">
+      <div class="card-b-stat color-lav">5.8M</div>
+      <div class="card-b-platforms">YouTube<br>Newsletter<br>Twitter</div>
+      <div class="card-b-link">Read Analysis →</div>
+    </div>
+  </div>
+  <div class="card-b">
+    <div class="card-b-photo"><div class="face-placeholder">◎</div></div>
+    <div class="card-b-body">
+      <div class="card-b-num color-teal">03</div>
+      <div class="card-b-name">Justin Welsh</div>
+      <div class="card-b-outcome">Engineers Demand</div>
+    </div>
+    <div class="card-b-right">
+      <div class="card-b-stat color-teal">640K</div>
+      <div class="card-b-platforms">LinkedIn<br>Newsletter<br>Twitter</div>
+      <div class="card-b-link">Read Analysis →</div>
+    </div>
+  </div>
+</div>
+<button class="choose-btn" onclick="this.classList.toggle('selected'); document.querySelectorAll('.choose-btn').forEach(b => b !== this && b.classList.remove('selected'))">Choose Option B</button>
+
+<hr>
+
+<!-- OPTION C -->
+<div class="option-label color-teal">Option C — Geometric / No Photo</div>
+<div class="option-desc">Typography-first. Large audience number, geometric orbit circles as decoration. No headshot needed — works immediately.</div>
+<div class="grid-c">
+  <div class="card-c">
+    <div class="card-c-orbit"></div>
+    <div class="card-c-orbit-2"></div>
+    <span class="card-c-num color-tang">01</span>
+    <div class="card-c-name">Dan Koe</div>
+    <div class="card-c-outcome">Engineers Authority</div>
+    <div class="card-c-divider" style="background: #ED773C;"></div>
+    <div class="card-c-stat color-tang">2.1M</div>
+    <div class="card-c-platforms">X / Twitter · YouTube · Newsletter</div>
+    <div class="card-c-link">Read Analysis ——→</div>
+  </div>
+  <div class="card-c">
+    <div class="card-c-orbit"></div>
+    <div class="card-c-orbit-2"></div>
+    <span class="card-c-num color-lav">02</span>
+    <div class="card-c-name">Ali Abdaal</div>
+    <div class="card-c-outcome">Engineers Trust</div>
+    <div class="card-c-divider" style="background: #9B8EC4;"></div>
+    <div class="card-c-stat color-lav">5.8M</div>
+    <div class="card-c-platforms">YouTube · Newsletter · Twitter</div>
+    <div class="card-c-link">Read Analysis ——→</div>
+  </div>
+  <div class="card-c">
+    <div class="card-c-orbit"></div>
+    <div class="card-c-orbit-2"></div>
+    <span class="card-c-num color-teal">03</span>
+    <div class="card-c-name">Justin Welsh</div>
+    <div class="card-c-outcome">Engineers Demand</div>
+    <div class="card-c-divider" style="background: #2EC4B6;"></div>
+    <div class="card-c-stat color-teal">640K</div>
+    <div class="card-c-platforms">LinkedIn · Newsletter · Twitter</div>
+    <div class="card-c-link">Read Analysis ——→</div>
+  </div>
+</div>
+<button class="choose-btn" onclick="this.classList.toggle('selected'); document.querySelectorAll('.choose-btn').forEach(b => b !== this && b.classList.remove('selected'))">Choose Option C</button>
+
+<script>
+// Wire up buttons so only one can be selected at a time and log to events
+document.querySelectorAll('.choose-btn').forEach((btn, i) => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.choose-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+  });
+});
+</script>
+</body>
+</html>
