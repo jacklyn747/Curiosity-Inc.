@@ -293,17 +293,19 @@ export const symbolSequence: BehavioralSymbol[] = [
 // Sections 07 (Missed Ops) intentionally returns to Awareness — the gap
 // shows where they lost signal. Section 09 (Upgrade) shows the leap.
 
+// The reader arrives confused. The reader leaves with authority.
+// The arc is the argument. Every section is one step in that journey.
 export const caseStudySectionSymbols: Record<string, SymbolId> = {
-  hero:            'authority',    // S01 — Where this creator operates now
-  situation:       'confusion',    // S02 — The noisy landscape they navigated
-  challenge:       'awareness',    // S03 — Recognizing the friction
-  moves:           'insight',      // S04 — Behavior × design overlap (Vesica)
-  learningFlow:    'action',       // S05 — Direction of the journey (Triangle)
+  hero:            'confusion',    // S01 — Reader arrives in the noise
+  situation:       'awareness',    // S02 — The gap becomes visible
+  challenge:       'awareness',    // S03 — Friction named precisely
+  moves:           'insight',      // S04 — Behavior × design intersect (Vesica)
+  learningFlow:    'action',       // S05 — Direction chosen, movement begins
   narrative:       'framework',    // S06 — The repeating pattern beneath everything
-  whatWorks:       'system',       // S07 — Solid, crystallized, repeatable
+  whatWorks:       'system',       // S07 — Crystallized, solid, repeatable
   missed:          'awareness',    // S08 — Where signal breaks down (back to gap)
-  upgrade:         'framework',    // S09 — The pattern they could unlock (→ System)
-  takeaways:       'authority',    // S10 — The signal the reader carries away
+  upgrade:         'system',       // S09 — The structure they could build
+  takeaways:       'authority',    // S10 — Signal transmitted, reader carries it away
 }
 
 

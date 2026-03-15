@@ -428,15 +428,15 @@ The reader experiences a complete arc from Confusion → Authority across 10 sec
 
 | Section | Symbol | Geometry | Accent color |
 |---------|--------|----------|-------------|
-| 01 Hero | Authority | Radiant Circle | creator color, full opacity — the established signal |
-| 02 Situation | Confusion | Scattered Dots | shell @ 20% — the landscape before the system |
-| 03 Challenge | Awareness | Incomplete Circle | `--pink` — the gap is now visible |
-| 04 Behavioral Moves | Insight | Vesica Piscis | `--must` — two worlds overlap |
-| 05 Learning Flow | Action | Triangle | `--tea` — direction chosen |
-| 06 Narrative System | Framework | Flower of Life | `--lav` — the repeating pattern |
-| 07 What Works | System | Isometric Cube | `--lav` — crystallized structure |
-| 08 Missed Opportunities | Awareness | Incomplete Circle | `--pink` @ 50% — signal breaks down |
-| 09 Curiosity Upgrade | Framework | Flower of Life | creator color — the potential unlocked |
+| 01 Hero | Confusion | Scattered Dots | shell @ 20% — reader arrives in the noise |
+| 02 Situation | Awareness | Incomplete Circle | `--pink` — the gap becomes visible |
+| 03 Challenge | Awareness | Incomplete Circle | `--pink` deeper — friction named precisely |
+| 04 Behavioral Moves | Insight | Vesica Piscis | `--must` — behavior × design intersect |
+| 05 Learning Flow | Action | Triangle | `--tea` — direction chosen, movement begins |
+| 06 Narrative System | Framework | Flower of Life | `--lav` — the repeating pattern beneath everything |
+| 07 What Works | System | Isometric Cube | `--lav` — crystallized, solid, repeatable |
+| 08 Missed Opportunities | Awareness | Incomplete Circle | `--pink` @ 40% — where signal breaks down |
+| 09 Curiosity Upgrade | System | Isometric Cube | creator color — the structure they could build |
 | 10 Takeaways | Authority | Radiant Circle | creator color, full opacity — signal transmitted |
 
 **Implementation note:** Use `getSectionSymbol(sectionKey)` from `lib/symbols.ts` to retrieve the correct symbol for each section. Pass `symbol.color` and `symbol.svgData.elements` to the `<Symbol />` component at `components/geo/Symbol.tsx` (to be built).

@@ -56,21 +56,21 @@ CONFUSION → AWARENESS → INSIGHT → ACTION → FRAMEWORK → SYSTEM → AUTH
 
 ### Case Study Section Mapping
 
-Each case study section is anchored to one symbol. The reader moves from Confusion
-(the audience's starting state) to Authority (where the creator operates) over 10 sections.
+Each case study section is anchored to one symbol. The reader arrives confused
+and leaves with authority. The progression IS the argument.
 
 | Section | Symbol | Why |
 |---------|--------|-----|
-| 01 Hero | Authority (Radiant Circle) | Where this creator already is |
-| 02 Situation | Confusion (Scattered Dots) | The noisy landscape they navigated |
-| 03 Challenge | Awareness (Incomplete Circle) | Recognizing the friction |
-| 04 Behavioral Moves | Insight (Vesica Piscis) | Behavior × design intersection |
-| 05 Learning Flow | Action (Triangle) | Direction of the audience journey |
-| 06 Narrative System | Framework (Flower of Life) | The repeating pattern beneath the content |
-| 07 What Works | System (Cube) | Solid, crystallized, repeatable |
+| 01 Hero | Confusion (Scattered Dots) | Reader arrives in the noise |
+| 02 Situation | Awareness (Incomplete Circle) | The gap becomes visible |
+| 03 Challenge | Awareness (Incomplete Circle) | Friction named precisely |
+| 04 Behavioral Moves | Insight (Vesica Piscis) | Behavior × design intersect |
+| 05 Learning Flow | Action (Triangle) | Direction chosen, movement begins |
+| 06 Narrative System | Framework (Flower of Life) | The repeating pattern beneath everything |
+| 07 What Works | System (Cube) | Crystallized, solid, repeatable |
 | 08 Missed Opportunities | Awareness (Incomplete Circle) | Where signal breaks down |
-| 09 Curiosity Upgrade | Framework → System | The pattern they could unlock |
-| 10 Takeaways | Authority (Radiant Circle) | Signal the reader carries away |
+| 09 Curiosity Upgrade | System (Cube) | The structure they could build |
+| 10 Takeaways | Authority (Radiant Circle) | Signal transmitted — reader carries it away |
 
 ### Legacy Symbol Map (visual motifs still in use)
 
