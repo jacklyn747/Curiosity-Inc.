@@ -133,7 +133,7 @@ export function HeroSection() {
           className="t-eyebrow mb-8"
           style={{ letterSpacing: '0.32em', opacity: 0.5 }}
         >
-          Behavioral Design
+          Behavioral Design Studio
         </p>
 
         {/* Headline — split into spans for stagger */}
@@ -170,8 +170,8 @@ export function HeroSection() {
             textShadow: '0 1px 12px rgba(29,29,27,0.9)',
           }}
         >
-          We design for how people actually think, decide, and act —
-          then build systems that work with it.
+          People don&apos;t make decisions. They make defaults.{' '}
+          We design better defaults.
         </p>
 
         {/* CTA */}
@@ -186,7 +186,7 @@ export function HeroSection() {
             textDecoration: 'none',
           }}
         >
-          See the Work
+          Read the cases
           <span style={{ display: 'inline-block', transform: 'translateX(0)', transition: 'transform 0.2s' }}>
             →
           </span>
