@@ -5,7 +5,6 @@ import Image from 'next/image'
 import { gsap, ScrollTrigger } from '@/lib/gsap'
 import { SacredGeometrySVG, type SacredGeometryRefs } from './SacredGeometrySVG'
 import { NoiseCanvas, type NoiseCanvasRefs } from './NoiseCanvas'
-import { HeroCopy, type HeroCopyRefs } from './HeroCopy'
 import { CognitiveBands, type CognitiveBandsRefs } from './CognitiveBands'
 import { buildScrollTimeline } from '@/lib/hero-timeline'
 
@@ -14,7 +13,6 @@ export function CinematicHero() {
   const imageRef    = useRef<HTMLDivElement>(null)
   const geometryRef = useRef<SacredGeometryRefs>(null)
   const noiseRef    = useRef<NoiseCanvasRefs>(null)
-  const copyRef     = useRef<HeroCopyRefs>(null)
   const bandsRef    = useRef<CognitiveBandsRefs>(null)
 
   useEffect(() => {
@@ -22,10 +20,9 @@ export function CinematicHero() {
     const image    = imageRef.current
     const geometry = geometryRef.current
     const noise    = noiseRef.current
-    const copy     = copyRef.current
     const bands    = bandsRef.current
 
-    if (!section || !image || !geometry || !noise || !copy || !bands) return
+    if (!section || !image || !geometry || !noise || !bands) return
 
     // ── Reduced motion: skip to final state ───────────────────
     const prefersReduced = window.matchMedia(
@@ -34,10 +31,6 @@ export function CinematicHero() {
 
     if (prefersReduced) {
       gsap.set(image, { clipPath: 'circle(100% at 50% 50%)' })
-      if (copy.eyebrow)    gsap.set(copy.eyebrow, { opacity: 0.5 })
-      if (copy.headline)   gsap.set(copy.headline, { opacity: 1 })
-      if (copy.subhead)    gsap.set(copy.subhead, { opacity: 0.75 })
-      if (copy.ctas)       gsap.set(copy.ctas, { opacity: 1 })
       if (bands.container) gsap.set(bands.container, { opacity: 1 })
       return
     }
@@ -46,7 +39,7 @@ export function CinematicHero() {
     noise.startGrain()
 
     // ── Build scroll-driven timeline ──────────────────────────
-    const refs = { section, image, geometry, noise, copy, bands }
+    const refs = { section, image, geometry, noise, bands }
     const tl = buildScrollTimeline(refs)
 
     // ── Stop grain when we leave noise stage (scroll past ~40%) ──
@@ -145,10 +138,7 @@ export function CinematicHero() {
         />
       </div>
 
-      {/* Layer 3: Typography */}
-      <HeroCopy ref={copyRef} />
-
-      {/* Layer 4: Cognitive bands */}
+      {/* Layer 3: Cognitive bands */}
       <CognitiveBands ref={bandsRef} />
     </section>
   )

@@ -13,7 +13,6 @@ import { gsap, ScrollTrigger, ScrambleTextPlugin } from '@/lib/gsap'
 import { dur, ease } from '@/lib/motion-config'
 import type { SacredGeometryRefs } from '@/components/hero/SacredGeometrySVG'
 import type { NoiseCanvasRefs } from '@/components/hero/NoiseCanvas'
-import type { HeroCopyRefs } from '@/components/hero/HeroCopy'
 import type { CognitiveBandsRefs } from '@/components/hero/CognitiveBands'
 
 // Ensure plugins are registered
@@ -25,7 +24,6 @@ export interface TimelineRefs {
   image: HTMLDivElement
   geometry: SacredGeometryRefs
   noise: NoiseCanvasRefs
-  copy: HeroCopyRefs
   bands: CognitiveBandsRefs
 }
 
@@ -160,51 +158,6 @@ export function buildScrollTimeline(refs: TimelineRefs): gsap.core.Timeline {
   drawOn(tl, refs.geometry.metatron, 6.5, 0.8, 0.01)
 
   tl.to(refs.geometry.metatron!, { opacity: 0.04, duration: 1 }, 7.5)
-
-  // Eyebrow fade in (ScrambleText doesn't scrub well, use simple fade)
-  if (refs.copy.eyebrow) {
-    tl.fromTo(
-      refs.copy.eyebrow,
-      { opacity: 0, y: 8 },
-      { opacity: 0.5, y: 0, duration: 0.6 },
-      6.8
-    )
-  }
-
-  // Headline — word stagger
-  if (refs.copy.headline) {
-    tl.set(refs.copy.headline, { opacity: 1 }, 7.0)
-    tl.from(
-      refs.copy.headline.querySelectorAll('.word'),
-      {
-        opacity: 0,
-        y: 32,
-        duration: 0.8,
-        stagger: { each: 0.07 },
-      },
-      7.0
-    )
-  }
-
-  // Subhead — fade up
-  if (refs.copy.subhead) {
-    tl.fromTo(
-      refs.copy.subhead,
-      { opacity: 0, y: 16 },
-      { opacity: 0.75, y: 0, duration: 0.6 },
-      7.8
-    )
-  }
-
-  // CTAs — fade in
-  if (refs.copy.ctas) {
-    tl.fromTo(
-      refs.copy.ctas,
-      { opacity: 0, y: 10 },
-      { opacity: 1, y: 0, duration: 0.5 },
-      8.2
-    )
-  }
 
   // ═══════════════════════════════════════════════════════════════
   // ACT 5 — LIVING SYSTEM (8.5 – 11)
