@@ -32,27 +32,27 @@ export const HeroCopy = forwardRef<HeroCopyRefs>(
     return (
       <div
         ref={containerRef}
-        className="relative z-30 flex flex-col justify-end flex-1 px-6"
-        style={{ paddingBottom: 'clamp(48px, 8vh, 100px)' }}
+        className="absolute inset-0 z-30 flex flex-col items-center justify-center px-6 text-center"
+        style={{ opacity: 0 }}
       >
-        {/* Eyebrow — ScrambleText target */}
+        {/* Eyebrow */}
         <p
           ref={eyebrowRef}
-          className="t-eyebrow mb-4"
+          className="t-eyebrow mb-6"
           style={{ letterSpacing: '0.32em', opacity: 0 }}
         >
           Behavioral Design Studio
         </p>
 
-        {/* Headline — word stagger, left-aligned to clear face */}
+        {/* Headline — centered, large, takes over the frame */}
         <h1
           ref={headlineRef}
           className="t-headline"
           style={{
-            fontSize: 'clamp(40px, 6vw, 72px)',
-            letterSpacing: '-0.01em',
+            fontSize: 'clamp(44px, 7vw, 88px)',
+            letterSpacing: '-0.02em',
             lineHeight: 0.95,
-            maxWidth: '700px',
+            maxWidth: '800px',
             opacity: 0,
           }}
         >
@@ -70,13 +70,12 @@ export const HeroCopy = forwardRef<HeroCopyRefs>(
         {/* Subhead */}
         <p
           ref={subheadRef}
-          className="t-body mt-5"
+          className="t-body mt-8"
           style={{
-            fontSize: '16px',
-            maxWidth: '420px',
-            lineHeight: 1.55,
+            fontSize: '18px',
+            maxWidth: '480px',
+            lineHeight: 1.6,
             opacity: 0,
-            textShadow: '0 1px 12px rgba(29,29,27,0.9)',
           }}
         >
           Cognitive Design Systems for Intellectual Creators.
@@ -85,7 +84,7 @@ export const HeroCopy = forwardRef<HeroCopyRefs>(
         {/* Dual CTAs */}
         <div
           ref={ctasRef}
-          className="mt-8 flex items-center gap-8"
+          className="mt-12 flex items-center gap-8"
           style={{ opacity: 0 }}
         >
           <Link

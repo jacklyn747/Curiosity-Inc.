@@ -5,14 +5,15 @@
  * the 5-stage sequence. ScrollTrigger scrubs the timeline based on
  * scroll position — no auto-play, the user controls the pace.
  *
- * Scroll distance: 500vh (5 viewport heights of scroll room).
- * Each act gets ~1 viewport height of scroll.
+ * Scroll distance: 600vh (6 viewport heights of scroll room).
+ * Acts 1–5 are the visual sequence, Act 6 is the dissolve → text takeover.
  */
 
 import { gsap, ScrollTrigger, ScrambleTextPlugin } from '@/lib/gsap'
 import { dur, ease } from '@/lib/motion-config'
 import type { SacredGeometryRefs } from '@/components/hero/SacredGeometrySVG'
 import type { NoiseCanvasRefs } from '@/components/hero/NoiseCanvas'
+import type { HeroCopyRefs } from '@/components/hero/HeroCopy'
 import type { CognitiveBandsRefs } from '@/components/hero/CognitiveBands'
 
 // Ensure plugins are registered
@@ -24,6 +25,7 @@ export interface TimelineRefs {
   image: HTMLDivElement
   geometry: SacredGeometryRefs
   noise: NoiseCanvasRefs
+  copy: HeroCopyRefs
   bands: CognitiveBandsRefs
 }
 
@@ -69,15 +71,15 @@ function drawOn(
 // ─── Scroll-Driven Timeline ──────────────────────────────────────────────────
 //
 // Timeline uses abstract "seconds" as scroll-proportional units.
-// Total duration = 11 units → mapped across the full scroll distance.
-// Each unit ≈ 1/11 of the scroll distance.
+// Total duration = 14 units → mapped across the full scroll distance.
+// Acts 1-5 = visual sequence (11 units), Act 6 = dissolve + text (3 units).
 
 export function buildScrollTimeline(refs: TimelineRefs): gsap.core.Timeline {
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: refs.section,
       start: 'top top',
-      end: '+=500%',           // 5 viewport heights of scroll
+      end: '+=600%',           // 6 viewport heights of scroll
       pin: true,               // pin the section while scrolling
       scrub: 1,                // smooth scrub with 1s lag
       anticipatePin: 1,        // prevent jump on pin
@@ -193,6 +195,80 @@ export function buildScrollTimeline(refs: TimelineRefs): gsap.core.Timeline {
   // All geometry settles to very faint
   if (refs.geometry.svg) {
     tl.to(refs.geometry.svg, { opacity: 0.03, duration: 1.5 }, 9.5)
+  }
+
+  // ═══════════════════════════════════════════════════════════════
+  // ACT 6 — DISSOLVE / TEXT TAKEOVER (11 – 14)
+  // She was the signal. Now the signal is named.
+  // Portrait fades to ghost, text rises to take her place.
+  // ═══════════════════════════════════════════════════════════════
+  tl.addLabel('dissolve', 11)
+
+  // Image dissolves to a faint ghost
+  tl.to(
+    refs.image,
+    { opacity: 0.12, duration: 1.5 },
+    11
+  )
+
+  // Bands fade with the image
+  if (refs.bands.container) {
+    tl.to(refs.bands.container, { opacity: 0, duration: 1 }, 11)
+  }
+
+  // Geometry fades out completely
+  if (refs.geometry.svg) {
+    tl.to(refs.geometry.svg, { opacity: 0, duration: 1 }, 11)
+  }
+
+  // Copy container fades in
+  if (refs.copy.container) {
+    tl.to(refs.copy.container, { opacity: 1, duration: 0.8 }, 11.5)
+  }
+
+  // Eyebrow
+  if (refs.copy.eyebrow) {
+    tl.fromTo(
+      refs.copy.eyebrow,
+      { opacity: 0, y: 12 },
+      { opacity: 0.5, y: 0, duration: 0.6 },
+      11.8
+    )
+  }
+
+  // Headline — word stagger, rising up
+  if (refs.copy.headline) {
+    tl.set(refs.copy.headline, { opacity: 1 }, 12)
+    tl.from(
+      refs.copy.headline.querySelectorAll('.word'),
+      {
+        opacity: 0,
+        y: 40,
+        duration: 0.8,
+        stagger: { each: 0.08 },
+      },
+      12
+    )
+  }
+
+  // Subhead
+  if (refs.copy.subhead) {
+    tl.fromTo(
+      refs.copy.subhead,
+      { opacity: 0, y: 20 },
+      { opacity: 0.75, y: 0, duration: 0.6 },
+      13
+    )
+  }
+
+  // CTAs
+  if (refs.copy.ctas) {
+    tl.fromTo(
+      refs.copy.ctas,
+      { opacity: 0, y: 10 },
+      { opacity: 1, y: 0, duration: 0.5 },
+      13.4
+    )
   }
 
   return tl

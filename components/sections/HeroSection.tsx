@@ -1,21 +1,20 @@
 'use client'
 
 import { CinematicHero } from '@/components/hero/CinematicHero'
-import { HeroTextPanel } from '@/components/hero/HeroTextPanel'
 
 /**
  * HeroSection
  *
- * Two-part hero:
- *   1. CinematicHero — pinned visual sequence (geometry + iris reveal + image)
- *   2. HeroTextPanel — dark panel with headline that scrolls into view after
- *      the visual sequence unpins. Text gets its own moment.
+ * 6-act cinematic scroll sequence:
+ *   1. Noise — night sky, twinkling stars
+ *   2. Emergence — sacred geometry draws
+ *   3. Perception — portrait iris-reveals
+ *   4. Signal — Metatron's Cube snaps
+ *   5. Living System — full reveal, bands
+ *   6. Dissolve — portrait fades, text takes her place
+ *
+ * "She was the signal. Now the signal is named."
  */
 export function HeroSection() {
-  return (
-    <>
-      <CinematicHero />
-      <HeroTextPanel />
-    </>
-  )
+  return <CinematicHero />
 }
