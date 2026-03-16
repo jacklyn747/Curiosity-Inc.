@@ -1,19 +1,19 @@
 /**
  * Hero Timeline Builder — GSAP scroll-driven timeline for the cinematic hero.
  *
- * The hero section pins to the viewport while the user scrolls through
- * the 5-stage sequence. ScrollTrigger scrubs the timeline based on
- * scroll position — no auto-play, the user controls the pace.
+ * 6-act scroll sequence pinned to the viewport.
+ * Sacred geometry draws on screen AND simultaneously reveals the headline
+ * through an SVG mask — structure literally makes meaning visible.
  *
- * Scroll distance: 600vh (6 viewport heights of scroll room).
- * Acts 1–5 are the visual sequence, Act 6 is the dissolve → text takeover.
+ * Scroll distance: 600vh (6 viewport heights).
+ * Acts 1–5 = visual sequence + progressive text reveal
+ * Act 6 = full mask release + image dissolve + CTAs
  */
 
 import { gsap, ScrollTrigger, ScrambleTextPlugin } from '@/lib/gsap'
-import { dur, ease } from '@/lib/motion-config'
 import type { SacredGeometryRefs } from '@/components/hero/SacredGeometrySVG'
 import type { NoiseCanvasRefs } from '@/components/hero/NoiseCanvas'
-import type { HeroCopyRefs } from '@/components/hero/HeroCopy'
+import type { GeometryRevealTextRefs } from '@/components/hero/GeometryRevealText'
 import type { CognitiveBandsRefs } from '@/components/hero/CognitiveBands'
 
 // Ensure plugins are registered
@@ -25,7 +25,8 @@ export interface TimelineRefs {
   image: HTMLDivElement
   geometry: SacredGeometryRefs
   noise: NoiseCanvasRefs
-  copy: HeroCopyRefs
+  reveal: GeometryRevealTextRefs
+  ctas: HTMLDivElement
   bands: CognitiveBandsRefs
 }
 
@@ -68,39 +69,56 @@ function drawOn(
   )
 }
 
+/** Draw on BOTH the visible geometry AND its mask twin simultaneously */
+function drawOnPair(
+  tl: gsap.core.Timeline,
+  visible: SVGGElement | null,
+  mask: SVGGElement | null,
+  position: string | number,
+  duration: number = 1.5,
+  stagger: number = 0.03
+) {
+  drawOn(tl, visible, position, duration, stagger)
+  drawOn(tl, mask, position, duration, stagger)
+}
+
 // ─── Scroll-Driven Timeline ──────────────────────────────────────────────────
-//
-// Timeline uses abstract "seconds" as scroll-proportional units.
-// Total duration = 14 units → mapped across the full scroll distance.
-// Acts 1-5 = visual sequence (11 units), Act 6 = dissolve + text (3 units).
 
 export function buildScrollTimeline(refs: TimelineRefs): gsap.core.Timeline {
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: refs.section,
       start: 'top top',
-      end: '+=600%',           // 6 viewport heights of scroll
-      pin: true,               // pin the section while scrolling
-      scrub: 1,                // smooth scrub with 1s lag
-      anticipatePin: 1,        // prevent jump on pin
+      end: '+=600%',
+      pin: true,
+      scrub: 1,
+      anticipatePin: 1,
     },
-    defaults: { ease: 'none' }, // linear for scroll — easing fights scrub
+    defaults: { ease: 'none' },
   })
 
-  // Prepare all geometry for draw-on
+  // Prepare all visible geometry for draw-on
   prepareDrawPaths(refs.geometry.seed)
   prepareDrawPaths(refs.geometry.flower)
   prepareDrawPaths(refs.geometry.metatron)
   prepareDrawPaths(refs.geometry.fibonacci)
   prepareDrawPaths(refs.geometry.mandala)
 
+  // Prepare all mask geometry for draw-on (mirrors visible geometry)
+  prepareDrawPaths(refs.reveal.maskSeed)
+  prepareDrawPaths(refs.reveal.maskFlower)
+  prepareDrawPaths(refs.reveal.maskMetatron)
+  prepareDrawPaths(refs.reveal.maskFibonacci)
+  prepareDrawPaths(refs.reveal.maskMandala)
+
   // ═══════════════════════════════════════════════════════════════
   // ACT 1 — NOISE (0 – 2)
-  // Dark field, grain visible, particles scattered, faint geometry
+  // Dark field, grain visible, faint geometry shimmer
+  // Text is present but invisible (mask is black)
   // ═══════════════════════════════════════════════════════════════
   tl.addLabel('noise', 0)
 
-  // Faint geometry shimmer
+  // Faint geometry shimmer — visible geometry only (mask stays hidden)
   tl.fromTo(
     refs.geometry.seed!,
     { opacity: 0 },
@@ -110,12 +128,16 @@ export function buildScrollTimeline(refs: TimelineRefs): gsap.core.Timeline {
 
   // ═══════════════════════════════════════════════════════════════
   // ACT 2 — EMERGENCE (2 – 4.5)
-  // Seed of Life draws, Flower extends, particles converge
+  // Seed + Flower draw on. Text begins to appear through geometry.
+  // "Structure starts to form — meaning starts to show."
   // ═══════════════════════════════════════════════════════════════
   tl.addLabel('emergence', 2)
 
-  drawOn(tl, refs.geometry.seed, 2, 1.5, 0.06)
-  drawOn(tl, refs.geometry.flower, 3, 1.2, 0.04)
+  // Draw Seed on both visible + mask (text peeks through seed circles)
+  drawOnPair(tl, refs.geometry.seed, refs.reveal.maskSeed, 2, 1.5, 0.06)
+
+  // Draw Flower on both (more text reveals)
+  drawOnPair(tl, refs.geometry.flower, refs.reveal.maskFlower, 3, 1.2, 0.04)
 
   // Particles converge toward center
   tl.to(
@@ -136,7 +158,7 @@ export function buildScrollTimeline(refs: TimelineRefs): gsap.core.Timeline {
 
   // ═══════════════════════════════════════════════════════════════
   // ACT 3 — PERCEPTION (4.5 – 6.5)
-  // Image iris-reveals, geometry recedes
+  // Image iris-reveals behind the geometry+text layers
   // ═══════════════════════════════════════════════════════════════
   tl.addLabel('perception', 4.5)
 
@@ -147,27 +169,30 @@ export function buildScrollTimeline(refs: TimelineRefs): gsap.core.Timeline {
     4.5
   )
 
+  // Visible geometry recedes as image comes in
   if (refs.geometry.svg) {
     tl.to(refs.geometry.svg, { opacity: 0.08, duration: 1.5 }, 5)
   }
 
   // ═══════════════════════════════════════════════════════════════
   // ACT 4 — SIGNAL (6.5 – 8.5)
-  // Metatron's Cube snaps, typography enters
+  // Metatron's Cube snaps — more text revealed through the grid
   // ═══════════════════════════════════════════════════════════════
   tl.addLabel('signal', 6.5)
 
-  drawOn(tl, refs.geometry.metatron, 6.5, 0.8, 0.01)
+  drawOnPair(tl, refs.geometry.metatron, refs.reveal.maskMetatron, 6.5, 0.8, 0.01)
 
+  // Visible Metatron fades to ghost
   tl.to(refs.geometry.metatron!, { opacity: 0.04, duration: 1 }, 7.5)
 
   // ═══════════════════════════════════════════════════════════════
   // ACT 5 — LIVING SYSTEM (8.5 – 11)
-  // Fibonacci + Mandala resolve, full reveal, bands
+  // Fibonacci + Mandala draw, full image, bands
+  // Text now almost fully visible through accumulated geometry
   // ═══════════════════════════════════════════════════════════════
   tl.addLabel('living', 8.5)
 
-  drawOn(tl, refs.geometry.fibonacci, 8.5, 1.5, 0)
+  drawOnPair(tl, refs.geometry.fibonacci, refs.reveal.maskFibonacci, 8.5, 1.5, 0)
 
   tl.to(
     refs.image,
@@ -175,7 +200,7 @@ export function buildScrollTimeline(refs: TimelineRefs): gsap.core.Timeline {
     8.5
   )
 
-  drawOn(tl, refs.geometry.mandala, 9, 1.5, 0.02)
+  drawOnPair(tl, refs.geometry.mandala, refs.reveal.maskMandala, 9, 1.5, 0.02)
 
   // Cognitive bands slide in
   if (refs.bands.container) {
@@ -192,84 +217,47 @@ export function buildScrollTimeline(refs: TimelineRefs): gsap.core.Timeline {
     )
   }
 
-  // All geometry settles to very faint
+  // Visible geometry settles to very faint
   if (refs.geometry.svg) {
     tl.to(refs.geometry.svg, { opacity: 0.03, duration: 1.5 }, 9.5)
   }
 
   // ═══════════════════════════════════════════════════════════════
-  // ACT 6 — DISSOLVE / TEXT TAKEOVER (11 – 14)
-  // She was the signal. Now the signal is named.
-  // Portrait fades to ghost, text rises to take her place.
+  // ACT 6 — FULL REVEAL (11 – 14)
+  // Mask opens completely. Image dissolves. Text owns the frame.
+  // "She was the signal. Now the signal is named."
   // ═══════════════════════════════════════════════════════════════
-  tl.addLabel('dissolve', 11)
+  tl.addLabel('reveal', 11)
 
-  // Image dissolves to a faint ghost
-  tl.to(
-    refs.image,
-    { opacity: 0.12, duration: 1.5 },
-    11
-  )
+  // Image dissolves to ghost
+  tl.to(refs.image, { opacity: 0.12, duration: 1.5 }, 11)
 
-  // Bands fade with the image
+  // Bands fade
   if (refs.bands.container) {
     tl.to(refs.bands.container, { opacity: 0, duration: 1 }, 11)
   }
 
-  // Geometry fades out completely
+  // Visible geometry fades out
   if (refs.geometry.svg) {
     tl.to(refs.geometry.svg, { opacity: 0, duration: 1 }, 11)
   }
 
-  // Copy container fades in
-  if (refs.copy.container) {
-    tl.to(refs.copy.container, { opacity: 1, duration: 0.8 }, 11.5)
-  }
-
-  // Eyebrow
-  if (refs.copy.eyebrow) {
-    tl.fromTo(
-      refs.copy.eyebrow,
-      { opacity: 0, y: 12 },
-      { opacity: 0.5, y: 0, duration: 0.6 },
-      11.8
+  // THE MOMENT: mask opens to full white — text fully revealed
+  if (refs.reveal.maskReveal) {
+    tl.to(
+      refs.reveal.maskReveal,
+      { opacity: 1, duration: 1.5 },
+      11.5
     )
   }
 
-  // Headline — word stagger, rising up
-  if (refs.copy.headline) {
-    tl.set(refs.copy.headline, { opacity: 1 }, 12)
-    tl.from(
-      refs.copy.headline.querySelectorAll('.word'),
-      {
-        opacity: 0,
-        y: 40,
-        duration: 0.8,
-        stagger: { each: 0.08 },
-      },
-      12
-    )
-  }
-
-  // Subhead
-  if (refs.copy.subhead) {
-    tl.fromTo(
-      refs.copy.subhead,
-      { opacity: 0, y: 20 },
-      { opacity: 0.75, y: 0, duration: 0.6 },
-      13
-    )
-  }
-
-  // CTAs
-  if (refs.copy.ctas) {
-    tl.fromTo(
-      refs.copy.ctas,
-      { opacity: 0, y: 10 },
-      { opacity: 1, y: 0, duration: 0.5 },
-      13.4
-    )
-  }
+  // CTAs fade in (HTML links)
+  tl.fromTo(
+    refs.ctas,
+    { opacity: 0, y: 10 },
+    { opacity: 1, y: 0, duration: 0.8 },
+    12.5
+  )
 
   return tl
 }

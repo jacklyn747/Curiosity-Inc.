@@ -2,10 +2,11 @@
 
 import { useEffect, useRef } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { gsap, ScrollTrigger } from '@/lib/gsap'
 import { SacredGeometrySVG, type SacredGeometryRefs } from './SacredGeometrySVG'
 import { NoiseCanvas, type NoiseCanvasRefs } from './NoiseCanvas'
-import { HeroCopy, type HeroCopyRefs } from './HeroCopy'
+import { GeometryRevealText, type GeometryRevealTextRefs } from './GeometryRevealText'
 import { CognitiveBands, type CognitiveBandsRefs } from './CognitiveBands'
 import { buildScrollTimeline } from '@/lib/hero-timeline'
 
@@ -14,7 +15,8 @@ export function CinematicHero() {
   const imageRef    = useRef<HTMLDivElement>(null)
   const geometryRef = useRef<SacredGeometryRefs>(null)
   const noiseRef    = useRef<NoiseCanvasRefs>(null)
-  const copyRef     = useRef<HeroCopyRefs>(null)
+  const revealRef   = useRef<GeometryRevealTextRefs>(null)
+  const ctasRef     = useRef<HTMLDivElement>(null)
   const bandsRef    = useRef<CognitiveBandsRefs>(null)
 
   useEffect(() => {
@@ -22,10 +24,11 @@ export function CinematicHero() {
     const image    = imageRef.current
     const geometry = geometryRef.current
     const noise    = noiseRef.current
-    const copy     = copyRef.current
+    const reveal   = revealRef.current
+    const ctas     = ctasRef.current
     const bands    = bandsRef.current
 
-    if (!section || !image || !geometry || !noise || !copy || !bands) return
+    if (!section || !image || !geometry || !noise || !reveal || !ctas || !bands) return
 
     // ── Reduced motion: skip to final state ───────────────────
     const prefersReduced = window.matchMedia(
@@ -34,10 +37,8 @@ export function CinematicHero() {
 
     if (prefersReduced) {
       gsap.set(image, { clipPath: 'circle(100% at 50% 50%)', opacity: 0.15 })
-      if (copy.eyebrow)    gsap.set(copy.eyebrow, { opacity: 0.5 })
-      if (copy.headline)   gsap.set(copy.headline, { opacity: 1 })
-      if (copy.subhead)    gsap.set(copy.subhead, { opacity: 0.75 })
-      if (copy.ctas)       gsap.set(copy.ctas, { opacity: 1 })
+      if (reveal.maskReveal) gsap.set(reveal.maskReveal, { opacity: 1 })
+      gsap.set(ctas, { opacity: 1 })
       if (bands.container) gsap.set(bands.container, { opacity: 1 })
       return
     }
@@ -46,20 +47,18 @@ export function CinematicHero() {
     noise.startGrain()
 
     // ── Build scroll-driven timeline ──────────────────────────
-    const refs = { section, image, geometry, noise, copy, bands }
+    const refs = { section, image, geometry, noise, reveal, ctas, bands }
     const tl = buildScrollTimeline(refs)
 
-    // ── Stop grain when we leave noise stage (scroll past ~40%) ──
+    // ── Stop grain when we leave noise stage (scroll past ~30%) ──
     ScrollTrigger.create({
       trigger: section,
       start: 'top top',
       end: '+=600%',
       onUpdate: (self) => {
-        // Grain runs during first ~35% of scroll (Acts 1+2)
-        if (self.progress > 0.35) {
+        if (self.progress > 0.30) {
           noise.stopGrain()
-        } else if (self.progress < 0.35) {
-          // Restart if scrolling back up into noise zone
+        } else if (self.progress < 0.30) {
           if (!noise.canvas?.getContext('2d')) return
           noise.startGrain()
         }
@@ -72,7 +71,6 @@ export function CinematicHero() {
       start: 'top top',
       end: '+=600%',
       onLeave: () => {
-        // User has scrolled past the hero — start breathing
         gsap.to(image, {
           scale: 1.04,
           ease: 'sine.inOut',
@@ -82,7 +80,6 @@ export function CinematicHero() {
         })
       },
       onEnterBack: () => {
-        // User scrolled back — kill breathing, reset scale
         gsap.killTweensOf(image, 'scale')
         gsap.set(image, { scale: 1 })
       },
@@ -105,7 +102,7 @@ export function CinematicHero() {
       {/* Layer 0: Canvas noise/grain */}
       <NoiseCanvas ref={noiseRef} />
 
-      {/* Layer 1: Sacred geometry */}
+      {/* Layer 1: Sacred geometry (visible, thin lines) */}
       <SacredGeometrySVG ref={geometryRef} />
 
       {/* Layer 2: Hero image with iris reveal */}
@@ -145,10 +142,47 @@ export function CinematicHero() {
         />
       </div>
 
-      {/* Layer 3: Typography — hidden until dissolve act */}
-      <HeroCopy ref={copyRef} />
+      {/* Layer 3: Text revealed through geometry mask */}
+      <GeometryRevealText ref={revealRef} />
 
-      {/* Layer 4: Cognitive bands */}
+      {/* Layer 4: HTML CTAs (need to be clickable links) */}
+      <div
+        ref={ctasRef}
+        className="absolute z-30 flex items-center gap-8"
+        style={{
+          bottom: 'clamp(80px, 12vh, 140px)',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          opacity: 0,
+        }}
+      >
+        <Link
+          href="/framework"
+          className="t-eyebrow inline-flex items-center gap-2"
+          style={{
+            color: 'var(--tang)',
+            fontSize: '11px',
+            textDecoration: 'none',
+          }}
+        >
+          Explore Framework
+          <span style={{ display: 'inline-block' }}>→</span>
+        </Link>
+        <Link
+          href="/the-accidental-educator"
+          className="t-eyebrow inline-flex items-center gap-2"
+          style={{
+            color: 'rgba(234,228,218,0.45)',
+            fontSize: '11px',
+            textDecoration: 'none',
+          }}
+        >
+          See Who This Is For
+          <span style={{ display: 'inline-block' }}>→</span>
+        </Link>
+      </div>
+
+      {/* Layer 5: Cognitive bands */}
       <CognitiveBands ref={bandsRef} />
     </section>
   )
