@@ -1,20 +1,17 @@
 'use client'
 
-import { CinematicHero } from '@/components/hero/CinematicHero'
+import { ParallaxHero } from '@/components/hero/ParallaxHero'
 
 /**
  * HeroSection
  *
- * 6-act cinematic scroll sequence:
- *   1. Noise — night sky, twinkling stars
- *   2. Emergence — sacred geometry draws
- *   3. Perception — portrait iris-reveals
- *   4. Signal — Metatron's Cube snaps
- *   5. Living System — full reveal, bands
- *   6. Dissolve — portrait fades, text takes her place
+ * Cinematic parallax hero with 5 layered PNG images:
+ *   Stars → Lines → Woman → Clouds → Planets
  *
- * "She was the signal. Now the signal is named."
+ * Each layer moves at a different speed on scroll,
+ * creating depth. Layers reveal sequentially as the
+ * user scrolls, building from noise to signal.
  */
 export function HeroSection() {
-  return <CinematicHero />
+  return <ParallaxHero />
 }
