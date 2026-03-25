@@ -21,7 +21,7 @@ export function HeroFallback() {
   const svgClass = reduced ? 'flower-static' : 'flower-draw';
 
   return (
-    <div style={{
+    <div data-testid="hero-fallback" style={{
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
