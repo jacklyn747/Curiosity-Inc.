@@ -47,7 +47,7 @@ export function HeroFallback() {
           .flower-draw circle:nth-child(5) { animation-delay: 480ms; }
           .flower-draw circle:nth-child(6) { animation-delay: 600ms; }
           .flower-draw circle:nth-child(7) { animation-delay: 720ms; }
-          .flower-static circle { stroke-dashoffset: 0; }
+          .flower-static circle { stroke-dasharray: none; stroke-dashoffset: 0; }
           @keyframes drawCircle {
             to { stroke-dashoffset: 0; }
           }
@@ -73,7 +73,7 @@ export function HeroFallback() {
           fontStyle: 'italic',
           color: 'var(--color-text)',
           marginBottom: '1rem',
-          animation: reduced ? 'none' : 'fadeIn 600ms ease forwards 1300ms',
+          animation: reduced ? 'none' : 'fadeIn 600ms ease forwards 2520ms',
           opacity: reduced ? 1 : 0,
         }}>
           Your audience is learning from you.
@@ -84,7 +84,7 @@ export function HeroFallback() {
           fontStyle: 'italic',
           color: 'var(--color-text-dim)',
           opacity: reduced ? 0.8 : 0,
-          animation: reduced ? 'none' : 'fadeIn 600ms ease forwards 1600ms',
+          animation: reduced ? 'none' : 'fadeIn 600ms ease forwards 2820ms',
         }}>
           You just haven't designed what they're learning.
         </p>
