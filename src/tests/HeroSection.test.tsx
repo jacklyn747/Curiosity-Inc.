@@ -7,7 +7,7 @@ vi.mock('../hooks/useReducedMotion', () => ({
   useReducedMotion: vi.fn(() => false),
 }));
 vi.mock('../hooks/useHeroScroll', () => ({
-  useHeroScroll: vi.fn(() => 0),
+  useHeroScroll: vi.fn(),
 }));
 
 import { useReducedMotion } from '../hooks/useReducedMotion';

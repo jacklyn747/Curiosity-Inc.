@@ -1,5 +1,5 @@
 // src/components/hero/HeroSection.tsx
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useCallback } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
@@ -30,21 +30,23 @@ function isTouchDevice() {
 export function HeroSection() {
   const reduced = useReducedMotion();
   const containerRef = useRef<HTMLDivElement>(null);
-  const progress = useHeroScroll(containerRef);
-  // Note: useHeroScroll is called unconditionally (hooks must not be conditional).
-  // On the fallback path, containerRef.current is null and the hook safely no-ops.
-  const [isVisible, setIsVisible] = useState(true);
 
-  // Unmount canvas once hero scrolls fully out of view
-  useEffect(() => {
-    if (!containerRef.current) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsVisible(entry.isIntersecting),
-      { threshold: 0 }
-    );
-    observer.observe(containerRef.current);
-    return () => observer.disconnect();
+  // Progress lives in a ref — no React state, no re-renders from scroll.
+  const progressRef = useRef(0);
+
+  // Text elements updated directly via DOM refs to avoid React re-renders.
+  const text1Ref = useRef<HTMLParagraphElement>(null);
+  const text2Ref = useRef<HTMLParagraphElement>(null);
+
+  const handleProgress = useCallback((p: number) => {
+    progressRef.current = p;
+    if (text1Ref.current) text1Ref.current.style.opacity = p >= 0.85 ? '1' : '0';
+    if (text2Ref.current) text2Ref.current.style.opacity = p >= 0.9 ? '0.8' : '0';
   }, []);
+
+  // useHeroScroll is called unconditionally (hooks must not be conditional).
+  // On the fallback path, containerRef.current is null and the hook safely no-ops.
+  useHeroScroll(containerRef, handleProgress);
 
   const useFallback = reduced || isTouchDevice() || !supportsWebGL();
 
@@ -58,25 +60,24 @@ export function HeroSection() {
       id="hero"
       style={{ width: '100%', height: '100vh', position: 'relative', backgroundColor: 'var(--color-void)' }}
     >
-      {isVisible && (
-        <Canvas
-          frameloop="demand"
-          camera={{ position: [0, 0, 6], fov: 60 }}
-          style={{ position: 'absolute', inset: 0 }}
-          onCreated={() => {
-            // Refresh ScrollTrigger AFTER canvas has committed dimensions to DOM.
-            // Must be here (onCreated), not before mount — premature refresh produces
-            // wrong pinned-spacer height and corrupts scroll positions for sections below.
-            // ScrollTrigger is statically imported above — no dynamic import needed.
-            ScrollTrigger.refresh();
-          }}
-          gl={{ antialias: false, powerPreference: 'high-performance' }}
-        >
-          <ParticleField progress={progress} />
-        </Canvas>
-      )}
+      <Canvas
+        frameloop="demand"
+        camera={{ position: [0, 0, 6], fov: 60 }}
+        style={{ position: 'absolute', inset: 0 }}
+        onCreated={() => {
+          // Refresh ScrollTrigger AFTER canvas has committed dimensions to DOM.
+          // Must be here (onCreated), not before mount — premature refresh produces
+          // wrong pinned-spacer height and corrupts scroll positions for sections below.
+          ScrollTrigger.refresh();
+        }}
+        gl={{ antialias: false, powerPreference: 'high-performance' }}
+      >
+        {/* Explicit dark background prevents white clear-color flash between frames */}
+        <color attach="background" args={['#1D1E20']} />
+        <ParticleField progressRef={progressRef} />
+      </Canvas>
 
-      {/* Text overlay — fades in at progress 0.85+ */}
+      {/* Text overlay — opacity driven imperatively via text1Ref/text2Ref, not React state */}
       <div style={{
         position: 'absolute',
         inset: 0,
@@ -91,25 +92,31 @@ export function HeroSection() {
         margin: '0 auto',
         left: 0, right: 0,
       }}>
-        <p style={{
-          fontFamily: 'var(--font-display)',
-          fontSize: 'clamp(24px, 4vw, 48px)',
-          fontStyle: 'italic',
-          color: 'var(--color-text)',
-          opacity: progress >= 0.85 ? 1 : 0,
-          transition: 'opacity 600ms ease',
-          marginBottom: '1rem',
-        }}>
+        <p
+          ref={text1Ref}
+          style={{
+            fontFamily: 'var(--font-display)',
+            fontSize: 'clamp(24px, 4vw, 48px)',
+            fontStyle: 'italic',
+            color: 'var(--color-text)',
+            opacity: 0,
+            transition: 'opacity 600ms ease',
+            marginBottom: '1rem',
+          }}
+        >
           Your audience is learning from you.
         </p>
-        <p style={{
-          fontFamily: 'var(--font-display)',
-          fontSize: 'clamp(24px, 4vw, 48px)',
-          fontStyle: 'italic',
-          color: 'var(--color-text-dim)',
-          opacity: progress >= 0.9 ? 0.8 : 0,
-          transition: 'opacity 600ms ease',
-        }}>
+        <p
+          ref={text2Ref}
+          style={{
+            fontFamily: 'var(--font-display)',
+            fontSize: 'clamp(24px, 4vw, 48px)',
+            fontStyle: 'italic',
+            color: 'var(--color-text-dim)',
+            opacity: 0,
+            transition: 'opacity 600ms ease',
+          }}
+        >
           You just haven't designed what they're learning.
         </p>
       </div>

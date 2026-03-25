@@ -1,5 +1,5 @@
 // src/components/hero/ParticleField.tsx
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, type RefObject } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { AdaptiveDpr } from '@react-three/drei';
 import * as THREE from 'three';
@@ -21,16 +21,12 @@ function lerpArrays(out: Float32Array, a: Float32Array, b: Float32Array, t: numb
 }
 
 interface ParticleFieldProps {
-  progress: number; // 0–1 from useHeroScroll
+  progressRef: RefObject<number>; // updated directly by GSAP, no React re-renders
 }
 
-export function ParticleField({ progress }: ParticleFieldProps) {
+export function ParticleField({ progressRef }: ParticleFieldProps) {
   const { invalidate } = useThree();
   const { targets, colors } = useParticleTargets(PARTICLE_COUNT);
-
-  // Use a ref so useFrame always reads the latest progress without stale closures
-  const progressRef = useRef(progress);
-  useEffect(() => { progressRef.current = progress; }, [progress]);
 
   const pointsRef = useRef<THREE.Points>(null);
   const geometryRef = useRef<THREE.BufferGeometry>(null);
@@ -60,7 +56,7 @@ export function ParticleField({ progress }: ParticleFieldProps) {
   // GSAP scrub: 1 on the ScrollTrigger already smooths progress — no extra tween needed.
   useFrame(({ clock }) => {
     if (!geometryRef.current) return;
-    const p = progressRef.current;
+    const p = progressRef.current ?? 0;
     const elapsed = clock.getElapsedTime();
     const pos = geometryRef.current.attributes.position as THREE.BufferAttribute;
     const col = geometryRef.current.attributes.color as THREE.BufferAttribute;
