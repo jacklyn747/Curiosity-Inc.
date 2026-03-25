@@ -13,6 +13,8 @@ function lerp(a: number, b: number, t: number) {
 function buildScattered(count: number): Float32Array {
   const arr = new Float32Array(count * 3);
   for (let i = 0; i < count; i++) {
+    // Golden ratio conjugate (φ-1 ≈ 0.618) and complement (1-φ ≈ 0.382) used as
+    // low-discrepancy quasi-random sequences for uniform sphere distribution
     const theta = Math.acos(2 * ((i * 0.618033988749895) % 1) - 1);
     const phi = 2 * Math.PI * ((i * 0.381966011250105) % 1);
     const r = 4 * Math.cbrt((i + 0.5) / count);
@@ -50,6 +52,7 @@ function buildFlowerOfLife(count: number): Float32Array {
   let idx = 0;
   for (let c = 0; c < 7; c++) {
     const [cx, cy] = centers[c];
+    // Last circle (index 6) absorbs the remainder when count is not divisible by 7
     const circleCount = c < 6 ? perCircle : count - idx;
     for (let i = 0; i < circleCount; i++) {
       const angle = (i / circleCount) * 2 * Math.PI;
@@ -86,7 +89,7 @@ function buildColors(count: number): Float32Array {
       g = lerp(TEAL[1], ORANGE[1], t);
       b = lerp(TEAL[2], ORANGE[2], t);
     } else {
-      const t = (i - mid) / (count - mid);
+      const t = (i - mid) / (count - 1 - mid);
       r = lerp(ORANGE[0], PINK[0], t);
       g = lerp(ORANGE[1], PINK[1], t);
       b = lerp(ORANGE[2], PINK[2], t);
