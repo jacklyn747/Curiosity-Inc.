@@ -51,7 +51,7 @@ Top-level component. Renders the r3f `<Canvas>` with `<ParticleField>` inside, p
 Unmounts the r3f canvas via IntersectionObserver once the hero section is fully scrolled out of view.
 
 **`ParticleField.tsx`**
-The r3f scene. Contains: `<PerspectiveCamera>`, `<ambientLight>`, and a `<points>` mesh. The `<Canvas>` parent uses `frameloop="demand"` — renders only when `invalidate()` is called. The idle drift `useFrame` callback must call `invalidate()` on every tick to produce visible output under `frameloop="demand"`. Accepts a `progress` prop (0–1) from `HeroSection`.
+The r3f scene. Contains: `<ambientLight>` and a `<points>` mesh. Camera is configured via the `camera` prop on `<Canvas>` in `HeroSection` — no `<PerspectiveCamera>` element inside this component. The `<Canvas>` parent uses `frameloop="demand"` — renders only when `invalidate()` is called. The idle drift `useFrame` callback must call `invalidate()` on every tick to produce visible output under `frameloop="demand"`. Accepts a `progress` prop (0–1) from `HeroSection`.
 
 **`useParticleTargets.ts`**
 Hook. Called once on mount. Pre-computes 4 `Float32Array`s of 800×3 positions:
