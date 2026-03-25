@@ -11,6 +11,11 @@ const CENTERS: [number, number][] = [
   ]),
 ];
 
+// Total SVG draw time: last circle delay (720ms) + draw duration (1200ms) = 1920ms
+const SVG_DRAW_COMPLETE_MS = 720 + 1200;  // 1920ms
+const TEXT_LINE_1_DELAY_MS = SVG_DRAW_COMPLETE_MS + 600;  // 2520ms — 600ms after draw
+const TEXT_LINE_2_DELAY_MS = TEXT_LINE_1_DELAY_MS + 300;  // 2820ms — 300ms stagger
+
 export function HeroFallback() {
   const reduced = useReducedMotion();
   const svgClass = reduced ? 'flower-static' : 'flower-draw';
@@ -51,6 +56,9 @@ export function HeroFallback() {
           @keyframes drawCircle {
             to { stroke-dashoffset: 0; }
           }
+          @keyframes fadeIn {
+            to { opacity: 1; }
+          }
         `}</style>
         {CENTERS.map(([cx, cy], i) => (
           <circle
@@ -73,7 +81,7 @@ export function HeroFallback() {
           fontStyle: 'italic',
           color: 'var(--color-text)',
           marginBottom: '1rem',
-          animation: reduced ? 'none' : 'fadeIn 600ms ease forwards 2520ms',
+          animation: reduced ? 'none' : `fadeIn 600ms ease forwards ${TEXT_LINE_1_DELAY_MS}ms`,
           opacity: reduced ? 1 : 0,
         }}>
           Your audience is learning from you.
@@ -84,15 +92,11 @@ export function HeroFallback() {
           fontStyle: 'italic',
           color: 'var(--color-text-dim)',
           opacity: reduced ? 0.8 : 0,
-          animation: reduced ? 'none' : 'fadeIn 600ms ease forwards 2820ms',
+          animation: reduced ? 'none' : `fadeIn 600ms ease forwards ${TEXT_LINE_2_DELAY_MS}ms`,
         }}>
           You just haven't designed what they're learning.
         </p>
       </div>
-
-      <style>{`
-        @keyframes fadeIn { to { opacity: 1; } }
-      `}</style>
     </div>
   );
 }
