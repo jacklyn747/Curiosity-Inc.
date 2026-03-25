@@ -1,0 +1,31 @@
+<h2>Hero Animation Trigger</h2>
+<p class="subtitle">The blueprint says particles coalesce "on scroll" — but how does the sequence feel before and during?</p>
+
+<div class="options">
+  <div class="option" data-choice="a" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Idle drift → scroll morphs</h3>
+      <p>On load: particles float gently in a slow, ambient drift. The ground is alive but formless. When user scrolls: particles coalesce → geometry → sphere → text. Scroll position drives the morph (scrub-linked).</p>
+      <p style="margin-top:8px;font-size:12px;opacity:0.6;">Feels like: breathing void. The site is waiting for you.</p>
+    </div>
+  </div>
+
+  <div class="option" data-choice="b" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Auto-play sequence → scroll to continue</h3>
+      <p>On load: particles auto-animate through the full sequence (field → geometry → sphere → text) without any scroll. After text appears, scrolling continues to the next section. First-time cinematic feel.</p>
+      <p style="margin-top:8px;font-size:12px;opacity:0.6;">Feels like: an opening title sequence. You watch, then navigate.</p>
+    </div>
+  </div>
+
+  <div class="option" data-choice="c" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>Completely still → first scroll triggers</h3>
+      <p>On load: a completely static field. Truly silent ground — no motion at all until the user acts. First scroll pixel fires the entire sequence. Maximum contrast between stillness and movement.</p>
+      <p style="margin-top:8px;font-size:12px;opacity:0.6;">Feels like: the site holds its breath until you arrive.</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,40 @@
+<h2>Three Approaches to the WebGL Hero</h2>
+<p class="subtitle">React Three Fiber · Idle drift → scroll morphs · Mobile SVG fallback · Implied sphere</p>
+
+<div class="options">
+  <div class="option" data-choice="a" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Single Unified Shader</h3>
+      <p>One particle system, one GLSL shader that morphs between 4 states (scattered → Fibonacci → Flower of Life → sphere cluster) using attribute lerping. Pure GPU-driven. Smoothest transitions, hardest to build.</p>
+      <div class="pros-cons">
+        <div class="pros"><h4>Pros</h4><ul><li>Perfectly continuous morph</li><li>Best performance (all on GPU)</li><li>No geometry swaps mid-sequence</li></ul></div>
+        <div class="cons"><h4>Cons</h4><ul><li>Requires custom GLSL shaders</li><li>Hard to debug, long build</li><li>Overkill for this use case</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="b" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>GSAP-Scrubbed Position Targets ⭐ Recommended</h3>
+      <p>Particles are Three.js Points. Each particle has a "home" position for each stage (random → fibonacci → flower-of-life → cluster). GSAP ScrollTrigger scrubs between position targets. No custom shaders — just lerping BufferGeometry attributes with GSAP timelines.</p>
+      <div class="pros-cons">
+        <div class="pros"><h4>Pros</h4><ul><li>Uses GSAP already in project</li><li>No custom shaders needed</li><li>Each stage independently tunable</li><li>Scroll scrub is native GSAP</li></ul></div>
+        <div class="cons"><h4>Cons</h4><ul><li>CPU-side position updates each frame</li><li>Morph slightly less fluid than shader</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="c" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>Stage-by-Stage Opacity Swap</h3>
+      <p>Three separate particle systems, one per key stage (field, geometry, sphere). Cross-fade between them on scroll rather than morphing positions. Simpler logic, but transitions are fades not true morphs.</p>
+      <div class="pros-cons">
+        <div class="pros"><h4>Pros</h4><ul><li>Simplest to build</li><li>Easiest to tweak each stage independently</li></ul></div>
+        <div class="cons"><h4>Cons</h4><ul><li>Cross-fades, not true particle morphing</li><li>Loses the "chaos becoming order" visual</li><li>Betrays the core concept</li></ul></div>
+      </div>
+    </div>
+  </div>
+</div>

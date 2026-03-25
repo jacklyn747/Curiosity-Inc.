@@ -1,0 +1,44 @@
+<h2>Current vs. Proposed Architecture — Visualization</h2>
+<p class="subtitle">How should we show the shift from the funnel model to the Orbital Gravity Well? Each approach tells the same story differently.</p>
+
+<div class="options">
+
+  <div class="option" data-choice="a" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Side-by-Side Diagrams</h3>
+      <p>Two SVG diagrams rendered next to each other. Left: the traditional funnel (wide top, narrow bottom, annotated with drop-off points). Right: the Orbital Gravity Well (concentric rings, each representing a depth level, with arrows showing audience moving inward). Labels explain each layer. The contrast is immediate — one shape narrows and loses people, the other deepens and retains them.</p>
+      <div style="margin-top:10px;padding:10px;background:rgba(255,255,255,0.04);border-radius:4px;font-size:11px;opacity:0.7;">
+        <strong>Best for:</strong> Visual learners who grasp structure from shape. The funnel silhouette is already culturally understood — the contrast lands fast.
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="b" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Annotated Flow Comparison (Expanded FlowPulse)</h3>
+      <p>An expanded version of the FlowPulse component already built — two parallel flows, but with much richer annotation. Each stage is labeled with: what it is in the current model, what it becomes in the new model, and why the change matters. The current model's drop-off is shown in Pink as a loss signal. The proposed model's retention is shown in Teal expanding outward.</p>
+      <div style="margin-top:10px;padding:10px;background:rgba(255,255,255,0.04);border-radius:4px;font-size:11px;opacity:0.7;">
+        <strong>Best for:</strong> Showing the <em>process</em> difference, not just the shape difference. Reuses established visual language from the homepage — the visitor has already seen this format and trusts it.
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="c" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>Stacked Scaffold — Before / After Layers</h3>
+      <p>Two sets of Scaffold bands stacked vertically. The first set (Teal borders, labelled "CURRENT") shows Dan Koe's three existing funnel stages with an honest description of what's working and what's leaking. A thin Pink divider line reads "THE SHIFT". Below it, a second set (Orange borders, labelled "PROPOSED") shows the five Orbital Gravity Well phases — each band expanding on hover to reveal the learning science principle behind it.</p>
+      <div style="margin-top:10px;padding:10px;background:rgba(255,255,255,0.04);border-radius:4px;font-size:11px;opacity:0.7;">
+        <strong>Best for:</strong> Demonstrating depth of thinking. Each band is a paragraph, not a label. The visitor reads their way through the analysis. Fully reuses the Scaffold component already built.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="section" style="margin-top:32px;padding:20px;background:rgba(247,38,88,0.05);border:0.5px solid rgba(247,38,88,0.2);border-radius:4px;">
+  <div class="label" style="color:#F72658;">NOTE ON SEQUENCING</div>
+  <p style="margin-top:8px;font-size:13px;opacity:0.8;">These options are not mutually exclusive. Options A or B work well for Act 2 (Current State diagnosis — fast, visual, visceral). Option C works well for Act 3 (Our Architecture — deep, annotated, methodical). The most powerful approach may be: <strong>A or B first to diagnose</strong>, then <strong>C to prescribe</strong>.</p>
+</div>

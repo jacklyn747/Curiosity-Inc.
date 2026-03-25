@@ -1,0 +1,192 @@
+<h2>Dan Koe Case Study — Full Design</h2>
+<p class="subtitle">Review each act and let me know if anything needs changing before we write the spec.</p>
+
+<div class="section">
+  <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:6px;">
+    <span style="font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-tertiary);font-family:monospace;">Page Shell</span>
+  </div>
+  <div style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:10px;padding:16px 20px;">
+    <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">Single editorial scroll. Act 1 is <code>min-height: 90vh</code> — cinematic entry. Acts 2–5 are content-height. Route: <code>/work/dan-koe-brand-architecture</code>. Existing Layout component wraps everything.</p>
+  </div>
+</div>
+
+<div class="section">
+  <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:6px;">
+    <span style="font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-tertiary);font-family:monospace;">Situation</span>
+    <span style="font-size:11px;font-weight:600;color:var(--text-primary);">Act 1 — The Profile</span>
+  </div>
+  <div style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:10px;overflow:hidden;">
+    <div style="padding:14px 20px;border-bottom:1px solid var(--border);background:var(--bg-tertiary);">
+      <p style="font-size:12px;color:var(--text-secondary);">Full editorial profile card — three horizontal bands in one unified block.</p>
+    </div>
+    <div style="padding:14px 20px;border-bottom:1px solid var(--border);">
+      <p style="font-size:12px;font-weight:600;color:var(--text-primary);margin-bottom:6px;">Top band — Name + Hook + Portrait</p>
+      <ul style="font-size:12px;color:var(--text-secondary);line-height:1.8;margin-left:16px;">
+        <li><code>✦ CURIOSITY INC. / CASE STUDY 01</code> — JetBrains Mono, Teal, 10px</li>
+        <li>"Dan Koe" — Instrument Serif Italic, ~56px</li>
+        <li>Hook in Pink italic: <em>"What if 2.3M followers were students, not subscribers?"</em></li>
+        <li>Black and white portrait thumbnail floated right</li>
+      </ul>
+    </div>
+    <div style="padding:14px 20px;border-bottom:1px solid var(--border);">
+      <p style="font-size:12px;font-weight:600;color:var(--text-primary);margin-bottom:6px;">Middle band — Metadata (5 columns, no abbreviations)</p>
+      <p style="font-size:12px;color:var(--text-secondary);">DOMAIN &nbsp;/&nbsp; APPROACH &nbsp;/&nbsp; FLAGSHIP ENGINE &nbsp;/&nbsp; ESTABLISHED &nbsp;/&nbsp; TOTAL REACH</p>
+    </div>
+    <div style="padding:14px 20px;">
+      <p style="font-size:12px;font-weight:600;color:var(--text-primary);margin-bottom:6px;">Bottom band — split two columns</p>
+      <ul style="font-size:12px;color:var(--text-secondary);line-height:1.8;margin-left:16px;">
+        <li><strong>Left:</strong> Network Bandwidth — X, YouTube, Instagram with Teal progress bars proportional to follower count</li>
+        <li><strong>Right:</strong> Target Topology — creator's own description of their audience in quotes, dim body text</li>
+      </ul>
+      <p style="font-size:11px;color:var(--text-tertiary);margin-top:8px;font-style:italic;">Concept study disclaimer sits below the card in JetBrains Mono, 10px, very dim.</p>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:6px;">
+    <span style="font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-tertiary);font-family:monospace;">Situation (cont.) + Complication</span>
+    <span style="font-size:11px;font-weight:600;color:var(--text-primary);">Act 2 — The Diagnosis</span>
+  </div>
+  <div style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:10px;overflow:hidden;">
+    <div style="padding:14px 20px;border-bottom:1px solid var(--border);">
+      <p style="font-size:12px;font-weight:600;color:var(--text-primary);margin-bottom:6px;">What's Working — 3-band Scaffold, Teal accents</p>
+      <p style="font-size:12px;color:var(--text-secondary);line-height:1.7;">Three genuine strengths of Koe's current architecture: intellectual brand, newsletter depth, product ladder. Bands expand on hover to show why each strength is real.</p>
+    </div>
+    <div style="padding:14px 20px;">
+      <p style="font-size:12px;font-weight:600;color:var(--text-primary);margin-bottom:6px;">The Structural Constraint — side-by-side architecture diagram</p>
+      <p style="font-size:12px;color:var(--text-secondary);line-height:1.7;margin-bottom:10px;">One "however" paragraph — not criticism, structural diagnosis. Then the comparison graphic:</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div style="background:var(--bg-tertiary);border-radius:8px;padding:12px;">
+          <p style="font-size:11px;font-weight:600;color:var(--text-primary);margin-bottom:6px;">Current Model (left)</p>
+          <p style="font-size:11px;color:var(--text-secondary);line-height:1.6;">Funnel SVG — 3 layers: Free Content → Newsletter → Course/Product. Pink drop-off annotations between each layer.</p>
+        </div>
+        <div style="background:var(--bg-tertiary);border-radius:8px;padding:12px;">
+          <p style="font-size:11px;font-weight:600;color:var(--text-primary);margin-bottom:6px;">Orbital Gravity Well (right)</p>
+          <p style="font-size:11px;color:var(--text-secondary);line-height:1.6;">Concentric rings SVG — 4 rings: Awareness → Engagement → Learning → Identity. Arrows showing audience moving inward. No drop-off.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:6px;">
+    <span style="font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-tertiary);font-family:monospace;">Question</span>
+    <span style="font-size:11px;font-weight:600;color:var(--text-primary);">Act 3 — The Orbital Gravity Well</span>
+  </div>
+  <div style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:10px;overflow:hidden;">
+    <div style="padding:14px 20px;border-bottom:1px solid var(--border);">
+      <p style="font-size:12px;color:var(--text-secondary);line-height:1.7;font-style:italic;">"What if the architecture was rebuilt from scratch around the question Dan Koe's content is already asking — how do you become the person you want to be?"</p>
+    </div>
+    <div style="padding:14px 20px;">
+      <p style="font-size:12px;font-weight:600;color:var(--text-primary);margin-bottom:10px;">5-band Scaffold — color progression encodes the build</p>
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        <div style="display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--bg-tertiary);border-radius:6px;border-left:3px solid #3A9EA4;">
+          <span style="font-size:11px;font-weight:600;color:var(--text-primary);min-width:220px;">1. ATTENTION / RESONANCE</span>
+          <span style="font-size:11px;color:var(--text-secondary);">Concept + Application expand on hover</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--bg-tertiary);border-radius:6px;border-left:3px solid #888;">
+          <span style="font-size:11px;font-weight:600;color:var(--text-primary);min-width:220px;">2. DECISION / CALIBRATION</span>
+          <span style="font-size:11px;color:var(--text-secondary);">Concept + Application expand on hover</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--bg-tertiary);border-radius:6px;border-left:3px solid #888;">
+          <span style="font-size:11px;font-weight:600;color:var(--text-primary);min-width:220px;">3. INTENTION / SIMULATION</span>
+          <span style="font-size:11px;color:var(--text-secondary);">Concept + Application expand on hover</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--bg-tertiary);border-radius:6px;border-left:3px solid #FA7714;">
+          <span style="font-size:11px;font-weight:600;color:var(--text-primary);min-width:220px;">4. ACTION / EXECUTION</span>
+          <span style="font-size:11px;color:var(--text-secondary);">Concept + Application expand on hover</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--bg-tertiary);border-radius:6px;border-left:3px solid #F72658;">
+          <span style="font-size:11px;font-weight:600;color:var(--text-primary);min-width:220px;">5. CAPABILITY / THE CORE</span>
+          <span style="font-size:11px;color:var(--text-secondary);">Concept + Application expand on hover</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:6px;">
+    <span style="font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-tertiary);font-family:monospace;">Answer</span>
+    <span style="font-size:11px;font-weight:600;color:var(--text-primary);">Act 4 — The Shift (Projected Outcomes)</span>
+  </div>
+  <div style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:10px;overflow:hidden;">
+    <div style="padding:14px 20px;border-bottom:1px solid var(--border);">
+      <p style="font-size:12px;font-weight:600;color:var(--text-primary);margin-bottom:4px;">The Lens — hero stat, centered</p>
+      <p style="font-size:12px;color:var(--text-secondary);">3.2× LTV multiplier. Vesica Piscis draws simultaneously on scroll trigger. Pink value fades in at intersection.</p>
+    </div>
+    <div style="padding:14px 20px;">
+      <p style="font-size:12px;font-weight:600;color:var(--text-primary);margin-bottom:10px;">The Delta Bridge — 5 rows, 200ms stagger</p>
+      <table style="width:100%;border-collapse:collapse;font-size:11px;">
+        <thead>
+          <tr style="border-bottom:1px solid var(--border);">
+            <th style="text-align:left;padding:6px 10px;color:var(--text-tertiary);font-weight:500;">Metric</th>
+            <th style="text-align:left;padding:6px 10px;color:var(--text-tertiary);font-weight:500;">Category</th>
+            <th style="text-align:center;padding:6px 10px;color:var(--text-tertiary);font-weight:500;">Before</th>
+            <th style="text-align:center;padding:6px 10px;color:var(--text-tertiary);font-weight:500;">After</th>
+            <th style="text-align:center;padding:6px 10px;color:var(--text-tertiary);font-weight:500;">Delta</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:7px 10px;color:var(--text-primary);">Repeat Engagement Rate</td>
+            <td style="padding:7px 10px;color:var(--text-secondary);">Audience Behavior</td>
+            <td style="padding:7px 10px;text-align:center;color:var(--text-secondary);">12%</td>
+            <td style="padding:7px 10px;text-align:center;color:var(--text-secondary);">38%</td>
+            <td style="padding:7px 10px;text-align:center;font-weight:600;color:#F72658;">+217%</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:7px 10px;color:var(--text-primary);">Revenue per Subscriber</td>
+            <td style="padding:7px 10px;color:var(--text-secondary);">Business Outcome</td>
+            <td style="padding:7px 10px;text-align:center;color:var(--text-secondary);">$0.82</td>
+            <td style="padding:7px 10px;text-align:center;color:var(--text-secondary);">$2.62</td>
+            <td style="padding:7px 10px;text-align:center;font-weight:600;color:#F72658;">+220%</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:7px 10px;color:var(--text-primary);">Curriculum Completion Rate</td>
+            <td style="padding:7px 10px;color:var(--text-secondary);">Learning Outcome</td>
+            <td style="padding:7px 10px;text-align:center;color:var(--text-secondary);">0%</td>
+            <td style="padding:7px 10px;text-align:center;color:var(--text-secondary);">64%</td>
+            <td style="padding:7px 10px;text-align:center;font-weight:600;color:#F72658;">new metric</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:7px 10px;color:var(--text-primary);">Identity Language in Community</td>
+            <td style="padding:7px 10px;color:var(--text-secondary);">Transformation Signal</td>
+            <td style="padding:7px 10px;text-align:center;color:var(--text-secondary);">4%</td>
+            <td style="padding:7px 10px;text-align:center;color:var(--text-secondary);">31%</td>
+            <td style="padding:7px 10px;text-align:center;font-weight:600;color:#F72658;">+675%</td>
+          </tr>
+          <tr>
+            <td style="padding:7px 10px;color:var(--text-primary);">Time to First Purchase</td>
+            <td style="padding:7px 10px;color:var(--text-secondary);">Conversion Velocity</td>
+            <td style="padding:7px 10px;text-align:center;color:var(--text-secondary);">47 days</td>
+            <td style="padding:7px 10px;text-align:center;color:var(--text-secondary);">28 days</td>
+            <td style="padding:7px 10px;text-align:center;font-weight:600;color:#F72658;">−40%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:6px;">
+    <span style="font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-tertiary);font-family:monospace;">Answer (cont.)</span>
+    <span style="font-size:11px;font-weight:600;color:var(--text-primary);">Act 5 — The Reflection</span>
+  </div>
+  <div style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:10px;padding:16px 20px;">
+    <ul style="font-size:12px;color:var(--text-secondary);line-height:1.8;margin-left:16px;">
+      <li>Reflective paragraph connecting Dan Koe's transformation to the visitor's own situation</li>
+      <li>Pull quote in Pink italic serif: <em>"Every creator with an audience over 50K is sitting on an unstructured curriculum..."</em></li>
+      <li>"Request a Curiosity Audit" — Pink outline button</li>
+      <li>Prev/next case study navigation: ← Justin Welsh &nbsp;/&nbsp; Tiago Forte →</li>
+    </ul>
+  </div>
+</div>
+
+<div style="margin-top:24px;padding:16px 20px;background:rgba(0,113,227,0.06);border:1px solid rgba(0,113,227,0.2);border-radius:8px;">
+  <p style="font-size:12px;font-weight:600;color:var(--text-primary);margin-bottom:4px;">New component needed</p>
+  <p style="font-size:12px;color:var(--text-secondary);line-height:1.7;">Act 2 requires a new SVG comparison graphic: the funnel vs. the Orbital Gravity Well side by side. This is the only net-new visualization — all other components (Scaffold, Lens, Delta Bridge) are already built.</p>
+</div>

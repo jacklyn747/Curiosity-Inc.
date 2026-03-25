@@ -1,0 +1,37 @@
+<h2>Dan Koe Case Study — Page Layout</h2>
+<p class="subtitle">How should the five acts flow? The blueprint prescribes content — this is about pacing and visual weight.</p>
+
+<div class="options">
+  <div class="option" data-choice="a" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Cinematic Scroll — Full Bleed Acts</h3>
+      <p>Each act is a full-screen section (100vh). Act 1 hero fills the viewport — just the name, hook, and void. The visitor <em>arrives</em> in the case study, then scrolls through five distinct rooms. Maximum atmosphere, maximum drama. Matches the homepage feel exactly.</p>
+      <div style="margin-top:12px;padding:12px;background:rgba(255,255,255,0.04);border-radius:4px;font-size:12px;opacity:0.7;">
+        <strong>Tradeoff:</strong> Long scroll. Acts 3 (architecture phases) and 4 (delta bridge rows) can feel buried deep in the page.
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="b" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Editorial Scroll — Variable Height Acts</h3>
+      <p>Act 1 is tall and cinematic (80-100vh). Acts 2–5 are content-height — they expand to fit what's in them, not a fixed viewport. Feels like reading a long-form essay that <em>starts</em> with presence and then flows into depth. Most natural reading rhythm.</p>
+      <div style="margin-top:12px;padding:12px;background:rgba(255,255,255,0.04);border-radius:4px;font-size:12px;opacity:0.7;">
+        <strong>Tradeoff:</strong> Less cinematic after Act 1. The dramatic pacing relaxes once the content starts.
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="c" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>Act Navigation — Sticky Progress</h3>
+      <p>A fixed left-rail (or top indicator) shows the five acts as you scroll: ① ② ③ ④ ⑤. Each act is full-height. The visitor always knows where they are in the loop. Adds a layer of wayfinding — the journey IS the product.</p>
+      <div style="margin-top:12px;padding:12px;background:rgba(255,255,255,0.04);border-radius:4px;font-size:12px;opacity:0.7;">
+        <strong>Tradeoff:</strong> More complex to build. The left rail competes with the content for attention. Risk of feeling like a timeline rather than a narrative.
+      </div>
+    </div>
+  </div>
+</div>

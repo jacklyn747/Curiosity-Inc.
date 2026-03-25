@@ -1,0 +1,42 @@
+<h2>Design — Part 1 of 4: Component Architecture</h2>
+<p class="subtitle">How the hero fits into the existing codebase</p>
+
+<div class="section">
+  <h3>New Files</h3>
+  <div class="mockup">
+    <div class="mockup-header">src/components/hero/</div>
+    <div class="mockup-body" style="font-family:monospace;font-size:13px;line-height:2">
+      <div><span style="color:#3A9EA4">HeroSection.tsx</span> — Top-level component. Renders the canvas + text overlay. Owns the ScrollTrigger setup. Replaces the placeholder &lt;section&gt; in index.tsx.</div>
+      <div><span style="color:#3A9EA4">ParticleField.tsx</span> — r3f scene: camera, lights, the Points mesh. Accepts a <code>stage</code> prop (0–3) that drives which target positions are active.</div>
+      <div><span style="color:#3A9EA4">useParticleTargets.ts</span> — Hook. Computes the 4 sets of particle positions: scattered, fibonacci spiral, flower-of-life, sphere cluster. Memoized — calculated once on mount.</div>
+      <div><span style="color:#3A9EA4">useHeroScroll.ts</span> — Hook. Wraps GSAP ScrollTrigger scrub. Returns a 0–1 progress value that HeroSection uses to drive the stage transitions.</div>
+      <div><span style="color:#FA7714">HeroFallback.tsx</span> — Mobile fallback. Static SVG Flower of Life that fades in with the text. Shown when WebGL is unavailable or on touch devices.</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Integration Point</h3>
+  <div class="mockup">
+    <div class="mockup-header">src/pages/index.tsx — hero section (line ~43)</div>
+    <div class="mockup-body" style="font-family:monospace;font-size:13px">
+      <div style="opacity:0.4">{'/* PHASE 8: Replace with WebGL particle → geometry → Phönix morph */'}</div>
+      <div style="color:#3A9EA4">{'<HeroSection />'}</div>
+      <div style="opacity:0.4">{'// replaces the existing <section id="hero"> block entirely'}</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Dependencies to add</h3>
+  <div class="mockup">
+    <div class="mockup-body" style="font-family:monospace;font-size:13px;line-height:2">
+      <div><span style="color:#FA7714">@react-three/fiber</span> — r3f core</div>
+      <div><span style="color:#FA7714">@react-three/drei</span> — helpers (OrbitControls not needed, but AdaptiveDpr for perf)</div>
+      <div><span style="color:#FA7714">three</span> — Three.js (peer dep)</div>
+      <div style="opacity:0.5">gsap + ScrollTrigger — already installed ✓</div>
+    </div>
+  </div>
+</div>
+
+<p style="margin-top:24px;font-size:13px;opacity:0.6">Does this component breakdown look right? → Next: Animation sequence & scroll map</p>

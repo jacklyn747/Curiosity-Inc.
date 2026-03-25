@@ -1,0 +1,85 @@
+<h2>WebGL Hero — Full Design</h2>
+<p class="subtitle">React Three Fiber · GSAP scroll scrub · 800 particles · Mobile SVG fallback</p>
+
+<div class="section">
+  <h3>1. What the visitor sees</h3>
+  <div class="mockup">
+    <div class="mockup-body" style="line-height:2;font-size:13px">
+      <div><strong style="color:#3A9EA4">On load</strong> — Dark void. 800 white particles drifting slowly in random positions. No text. The ground breathes.</div>
+      <div><strong style="color:#3A9EA4">First scroll</strong> — Particles begin converging. As you scroll down, they lock into a Fibonacci spiral, then unfold into the Flower of Life ring pattern.</div>
+      <div><strong style="color:#FA7714">Mid scroll</strong> — Geometry tightens into a radial sphere cluster. The Teal→Orange→Pink gradient bleeds across the particle colors at the moment of convergence.</div>
+      <div><strong style="color:#F72658">Scroll completes</strong> — Two lines of text fade in over the geometry:<br/>
+        <em style="opacity:0.8">"Your audience is learning from you."</em><br/>
+        <em style="opacity:0.5">"You just haven't designed what they're learning."</em>
+      </div>
+      <div><strong style="color:#888">Continue scrolling</strong> — Hero section exits, Section 1 (The Scaffold) enters normally.</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>2. Scroll map (GSAP ScrollTrigger scrub)</h3>
+  <div class="mockup">
+    <div class="mockup-body" style="font-family:monospace;font-size:12px;line-height:2.2">
+      <div><span style="color:#888">0%</span> ──── Idle drift (ambient only, no scroll dependency)</div>
+      <div><span style="color:#888">0–30%</span> ─── Scattered → Fibonacci spiral</div>
+      <div><span style="color:#888">30–60%</span> ── Fibonacci → Flower of Life</div>
+      <div><span style="color:#888">60–85%</span> ── Flower of Life → Sphere cluster + color gradient fires</div>
+      <div><span style="color:#888">85–100%</span> ─ Text lines fade in (opacity 0→1, staggered 300ms)</div>
+      <div style="margin-top:8px;opacity:0.5">Hero section is pinned (position:sticky) during the full scroll sequence (~300vh total scroll distance)</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>3. Particle system</h3>
+  <div class="mockup">
+    <div class="mockup-body" style="font-size:13px;line-height:2">
+      <div><strong>Count:</strong> 800 particles on desktop, 300 on mobile WebGL (if ever used)</div>
+      <div><strong>Geometry:</strong> Three.js <code>BufferGeometry</code> with <code>position</code> attribute — 4 pre-computed target arrays, each 800×3 floats</div>
+      <div><strong>Material:</strong> <code>PointsMaterial</code>, size 1.5px, white at 70% opacity. Particle color shifts to Teal→Orange→Pink during sphere stage via <code>vertexColors</code></div>
+      <div><strong>Idle drift:</strong> Each particle has a random phase offset. A <code>useFrame</code> loop adds a slow sine-wave displacement (amplitude 0.3 units) — imperceptible as structure, just life</div>
+      <div><strong>Morph:</strong> GSAP tweens the <code>position</code> BufferAttribute values between target arrays. <code>invalidateFrameloop</code> ensures r3f only renders when something changes</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>4. Mobile fallback</h3>
+  <div class="mockup">
+    <div class="mockup-body" style="font-size:13px;line-height:2">
+      <div>Triggered when: <code>window.matchMedia('(pointer: coarse)')</code> or WebGL context creation fails</div>
+      <div>Shows: Static SVG Flower of Life (~12 overlapping circles, Teal strokes, 0.5px, 30% opacity) — drawn via <code>stroke-dashoffset</code> on mount</div>
+      <div>Text appears after SVG draw completes (~1.2s). Same two lines, same stagger. No scroll dependency.</div>
+      <div>Matches the project's existing SVG animation vocabulary exactly.</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>5. Performance guardrails</h3>
+  <div class="mockup">
+    <div class="mockup-body" style="font-size:13px;line-height:2">
+      <div><code>AdaptiveDpr</code> from drei — scales canvas pixel ratio down automatically if FPS drops below 30</div>
+      <div><code>frameloop="demand"</code> on Canvas — r3f only renders on scroll or idle drift tick, not every frame</div>
+      <div>Pre-computed geometry targets (calculated once on mount, not per frame)</div>
+      <div>Hero unmounts the r3f canvas once it scrolls fully out of view (IntersectionObserver)</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>6. What doesn't change</h3>
+  <div class="mockup">
+    <div class="mockup-body" style="font-size:13px;line-height:2;opacity:0.8">
+      <div>✓ No changes to Navigation, Layout, or any existing component</div>
+      <div>✓ The two text lines are identical to the current placeholder copy</div>
+      <div>✓ All existing sections (Scaffold, FlowPulse, etc.) are untouched</div>
+      <div>✓ Route structure unchanged</div>
+    </div>
+  </div>
+</div>
+
+<div style="margin-top:32px;padding:20px;border:1px solid rgba(247,38,88,0.3);border-radius:8px;background:rgba(247,38,88,0.05)">
+  <p style="font-size:14px;margin:0"><strong style="color:#F72658">The one question for you:</strong> Does this overall experience feel right for the hero — or is anything about the sequence, pacing, or visual feel off?</p>
+</div>

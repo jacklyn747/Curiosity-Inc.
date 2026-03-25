@@ -1,0 +1,40 @@
+<h2>WebGL Hero — Technical Approach</h2>
+<p class="subtitle">The hero animates: particle field → sacred geometry → Phönix sphere → text reveal (scroll-driven). Which implementation path fits best?</p>
+
+<div class="options">
+  <div class="option" data-choice="a" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Pure Three.js</h3>
+      <p>Raw WebGL. Shader-level particle morphing, full GPU control. Most faithful to the vision — real 3D geometry, true volumetric particles. Heaviest to build and maintain.</p>
+      <div class="pros-cons">
+        <div class="pros"><h4>Pros</h4><ul><li>Maximum visual fidelity</li><li>True 3D depth & lighting</li><li>Shader-driven morphing</li></ul></div>
+        <div class="cons"><h4>Cons</h4><ul><li>Lives outside React lifecycle</li><li>Hardest to maintain</li><li>Longest build time</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="b" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>React Three Fiber (r3f)</h3>
+      <p>Three.js inside React. Fits the existing Vite + React stack naturally. Component-based scene graph, hooks for animation, GSAP-compatible scroll triggers. Recommended.</p>
+      <div class="pros-cons">
+        <div class="pros"><h4>Pros</h4><ul><li>Fits existing stack</li><li>Component-based, maintainable</li><li>Same visual capability as pure Three.js</li></ul></div>
+        <div class="cons"><h4>Cons</h4><ul><li>Adds r3f + drei dependencies</li><li>Slightly more abstraction overhead</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="c" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>Canvas 2D + GSAP</h3>
+      <p>No WebGL. Particles and geometry drawn on a 2D canvas, animated with GSAP (already in the project). Simpler, more accessible, zero new dependencies.</p>
+      <div class="pros-cons">
+        <div class="pros"><h4>Pros</h4><ul><li>No new dependencies</li><li>Works everywhere, including low-end mobile</li><li>Simpler codebase</li></ul></div>
+        <div class="cons"><h4>Cons</h4><ul><li>No real 3D depth</li><li>Less immersive particle morphing</li><li>Can't do true volumetric effects</li></ul></div>
+      </div>
+    </div>
+  </div>
+</div>
