@@ -3,7 +3,6 @@ import { useRef, useEffect } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { AdaptiveDpr } from '@react-three/drei';
 import * as THREE from 'three';
-import { gsap } from 'gsap';
 import { useParticleTargets } from '../../hooks/useParticleTargets';
 
 const PARTICLE_COUNT = 800;
@@ -29,6 +28,10 @@ export function ParticleField({ progress }: ParticleFieldProps) {
   const { invalidate } = useThree();
   const { targets, colors } = useParticleTargets(PARTICLE_COUNT);
 
+  // Use a ref so useFrame always reads the latest progress without stale closures
+  const progressRef = useRef(progress);
+  useEffect(() => { progressRef.current = progress; }, [progress]);
+
   const pointsRef = useRef<THREE.Points>(null);
   const geometryRef = useRef<THREE.BufferGeometry>(null);
   // #E8E6E0 normalized: R=232/255≈0.910, G=230/255≈0.902, B=224/255≈0.878
@@ -52,69 +55,54 @@ export function ParticleField({ progress }: ParticleFieldProps) {
     );
   }, [targets]);
 
-  // Idle drift — runs every frame, calls invalidate() so frameloop="demand" actually renders
+  // All animation in one useFrame — drift when idle, morph when scrolling.
+  // Calls invalidate() every tick to drive continuous rendering under frameloop="demand".
+  // GSAP scrub: 1 on the ScrollTrigger already smooths progress — no extra tween needed.
   useFrame(({ clock }) => {
     if (!geometryRef.current) return;
-    const t = clock.getElapsedTime();
+    const p = progressRef.current;
+    const elapsed = clock.getElapsedTime();
     const pos = geometryRef.current.attributes.position as THREE.BufferAttribute;
+    const col = geometryRef.current.attributes.color as THREE.BufferAttribute;
 
-    // Only apply drift when no morph is in progress (progress < 0.01)
-    if (progress < 0.01) {
+    if (p < 0.01) {
+      // Idle drift: sine-wave displacement per particle
       const base = targets[0];
       for (let i = 0; i < PARTICLE_COUNT; i++) {
         const phase = DRIFT_PHASES[i];
-        pos.array[i * 3]     = base[i * 3]     + Math.sin(t * 0.3 + phase) * 0.3;
-        pos.array[i * 3 + 1] = base[i * 3 + 1] + Math.cos(t * 0.2 + phase) * 0.3;
+        pos.array[i * 3]     = base[i * 3]     + Math.sin(elapsed * 0.3 + phase) * 0.3;
+        pos.array[i * 3 + 1] = base[i * 3 + 1] + Math.cos(elapsed * 0.2 + phase) * 0.3;
         pos.array[i * 3 + 2] = base[i * 3 + 2];
       }
-      pos.needsUpdate = true;
-      invalidate();
-    }
-  });
-
-  // Morph positions and colors on scroll progress change
-  useEffect(() => {
-    if (!geometryRef.current || progress < 0.01) return;
-    const geo = geometryRef.current;
-    const pos = geo.attributes.position as THREE.BufferAttribute;
-    const col = geo.attributes.color as THREE.BufferAttribute;
-
-    // Map 0–1 progress across 3 stage transitions
-    // Stage transitions: 0→1 at 0–0.3, 1→2 at 0.3–0.6, 2→3 at 0.6–0.85
-    let stageFrom: Float32Array, stageTo: Float32Array, t: number;
-    if (progress <= 0.3) {
-      stageFrom = targets[0]; stageTo = targets[1]; t = progress / 0.3;
-    } else if (progress <= 0.6) {
-      stageFrom = targets[1]; stageTo = targets[2]; t = (progress - 0.3) / 0.3;
-    } else if (progress <= 0.85) {
-      stageFrom = targets[2]; stageTo = targets[3]; t = (progress - 0.6) / 0.25;
+      col.array.set(whiteColors.current);
     } else {
-      stageFrom = targets[3]; stageTo = targets[3]; t = 1;
+      // Scroll morph: lerp directly between stage targets
+      // Stage transitions: 0→1 at 0–0.3, 1→2 at 0.3–0.6, 2→3 at 0.6–0.85
+      let stageFrom: Float32Array, stageTo: Float32Array, t: number;
+      if (p <= 0.3) {
+        stageFrom = targets[0]; stageTo = targets[1]; t = p / 0.3;
+      } else if (p <= 0.6) {
+        stageFrom = targets[1]; stageTo = targets[2]; t = (p - 0.3) / 0.3;
+      } else if (p <= 0.85) {
+        stageFrom = targets[2]; stageTo = targets[3]; t = (p - 0.6) / 0.25;
+      } else {
+        stageFrom = targets[3]; stageTo = targets[3]; t = 1;
+      }
+      lerpArrays(pos.array as Float32Array, stageFrom, stageTo, t);
+
+      // Color: white below progress 0.6, lerp to indexed colors above
+      if (p >= 0.6) {
+        const colorT = Math.min((p - 0.6) / 0.25, 1);
+        lerpArrays(col.array as Float32Array, whiteColors.current, colors, colorT);
+      } else {
+        col.array.set(whiteColors.current);
+      }
     }
 
-    // Proxy pattern — GSAP cannot tween Float32Array directly
-    const proxy = { t: 0 };
-    const tween = gsap.to(proxy, {
-      t: t,
-      duration: 0.05,
-      onUpdate: () => {
-        lerpArrays(pos.array as Float32Array, stageFrom, stageTo, proxy.t);
-        pos.needsUpdate = true;
-
-        // Color: white below 0.6 progress, lerp to indexed colors above
-        if (progress >= 0.6) {
-          const colorT = Math.min((progress - 0.6) / 0.25, 1);
-          lerpArrays(col.array as Float32Array, whiteColors.current, colors, colorT);
-        } else {
-          col.array.set(whiteColors.current);
-        }
-        col.needsUpdate = true;
-        invalidate();
-      },
-    });
-
-    return () => { tween.kill(); };
-  }, [progress, targets, colors, invalidate]);
+    pos.needsUpdate = true;
+    col.needsUpdate = true;
+    invalidate();
+  });
 
   return (
     <>
