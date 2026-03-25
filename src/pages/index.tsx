@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { DanKoeCaseStudy } from './DanKoeCaseStudy';
 import { gsap } from 'gsap';
@@ -9,6 +8,7 @@ import { Scaffold } from '../components/visualizations/Scaffold';
 import { FlowPulse } from '../components/visualizations/FlowPulse';
 import { GridReveal } from '../components/visualizations/GridReveal';
 import { ConvergenceMap } from '../components/visualizations/ConvergenceMap';
+import { HeroSection } from '../components/hero/HeroSection';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -18,63 +18,10 @@ gsap.registerPlugin(ScrollTrigger);
  * The Homepage IS a Curiosity Loop.
  */
 export function HomePage() {
-  
-  useEffect(() => {
-    // Initial hero text animations
-    gsap.from(".hero-line-1", {
-      opacity: 0,
-      y: 20,
-      duration: 1.2,
-      ease: "power2.out",
-      delay: 0.5
-    });
-    gsap.from(".hero-line-2", {
-      opacity: 0,
-      y: 20,
-      duration: 1.2,
-      ease: "power2.out",
-      delay: 0.8
-    });
-  }, []);
 
   return (
     <div className="homepage-root">
-      {/* 
-        HERO SECTION — Before the Loop Begins
-        PHASE 8: Replace with WebGL particle → geometry → Phönix morph
-      */}
-      <section 
-        id="hero" 
-        className="flex flex-col items-center justify-center min-vh-100 px-6 py-40" 
-        style={{ minHeight: '100vh', textAlign: 'center' }}
-      >
-        <div className="max-w-[800px]">
-          <h1 
-            className="hero-line-1"
-            style={{ 
-              fontFamily: 'var(--font-display)', 
-              fontSize: 'clamp(28px, 4vw, 48px)', 
-              fontStyle: 'italic',
-              color: 'var(--color-text)',
-              marginBottom: '1rem'
-            }}
-          >
-            Your audience is learning from you.
-          </h1>
-          <h2 
-            className="hero-line-2"
-            style={{ 
-              fontFamily: 'var(--font-display)', 
-              fontSize: 'clamp(28px, 4vw, 48px)', 
-              fontStyle: 'italic',
-              color: 'var(--color-text-dim)',
-              opacity: 0.8
-            }}
-          >
-            You just haven't designed what they're learning.
-          </h2>
-        </div>
-      </section>
+      <HeroSection />
 
       {/* 
         SECTION 1: ATTENTION — The Pattern
