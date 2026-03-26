@@ -20,7 +20,7 @@ function ScqaMarker({ phase, act, title }: { phase: string; act: string; title: 
         {phase}
       </span>
       <div style={{ flex: 1, height: '0.5px', backgroundColor: 'rgba(58,158,164,0.18)' }} />
-      <span style={{ fontFamily: 'var(--font-mono)', fontSize: '9px', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--color-context)', opacity: 0.4, whiteSpace: 'nowrap' }}>
+      <span style={{ fontFamily: 'var(--font-mono)', fontSize: '9px', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--color-context)', opacity: 0.45, whiteSpace: 'nowrap' }}>
         {act} / {title}
       </span>
     </div>
