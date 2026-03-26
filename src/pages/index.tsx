@@ -1,5 +1,6 @@
 import { useParams, Link } from 'react-router-dom';
 import { DanKoeCaseStudy } from './DanKoeCaseStudy';
+import { JustinWelshCaseStudy } from './JustinWelshCaseStudy';
 import { SectionLabel } from '../components/typography/SectionLabel';
 import { DisplayHeading } from '../components/typography/DisplayHeading';
 import { Scaffold } from '../components/visualizations/Scaffold';
@@ -324,6 +325,10 @@ export function CaseStudyPage() {
 
   if (slug === 'dan-koe-brand-architecture') {
     return <DanKoeCaseStudy />;
+  }
+
+  if (slug === 'justin-welsh-conversion-design') {
+    return <JustinWelshCaseStudy />;
   }
 
   // Shell for case studies not yet built
