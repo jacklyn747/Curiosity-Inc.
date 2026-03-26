@@ -31,7 +31,7 @@ export function ArticlePage() {
     <>
       {/* React 19 native metadata — hoists to <head> on client navigation.
           Static head tags are injected by scripts/prerender.ts at build time. */}
-      <title>{article.title} — Curiosity Inc.</title>
+      <title>{`${article.title} — Curiosity Inc.`}</title>
       <meta name="description" content={article.subtitle} />
       <meta property="og:title" content={article.title} />
       <meta property="og:description" content={article.subtitle} />

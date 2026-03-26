@@ -421,6 +421,40 @@ interface CTAProps {
 
 ---
 
+## Component 8: Architecture Comparison
+
+**Purpose:** Side-by-side visual comparison of two architectural models. Used in Dan Koe case study Act 02 to contrast the current funnel model with the proposed orbital gravity well.
+
+**Note:** This component emerged organically during Phase 7 and was not in the original spec.
+
+```typescript
+// No props — renders a fixed comparison between funnel and orbital models.
+const ArchitectureComparison: React.FC = () => { ... }
+```
+
+**Layout:** Two-column grid on desktop (1fr 1px 1fr), stacks vertically on mobile. Each column contains a label, an SVG diagram, and a caption.
+
+**Left column — Funnel Model (SVG viewBox 0 0 300 310):**
+- Three trapezoidal layers: Free Content (Teal) → Newsletter (Orange) → Course/Product (Pink)
+- Drop-off annotations between layers (−92% exit, −96% exit) in Pink mono 8px
+
+**Right column — Orbital Gravity Well (SVG viewBox 0 0 300 310):**
+- Four concentric circles: Awareness (r=112, Teal 22%) → Engagement (r=80, Teal 48%) → Learning (r=50, Orange 70%) → Identity (r=22, Pink fill + 1.5px stroke)
+- Inward arrows at compass points between outer rings
+- Ring labels at 12 o'clock positions in mono 8px
+
+**Animation sequence (GSAP timeline, delay 0.3s):**
+1. Funnel layers stagger top-to-bottom (opacity 0→1, y −8→0, 550ms each, stagger 200ms)
+2. Drop-off annotations fade in (400ms)
+3. Rings draw simultaneously outside-in via stroke-dashoffset (900ms each, stagger 70ms)
+4. Arrows and ring labels fade in (500ms, stagger 120ms)
+
+**Reduced motion:** All elements visible at full opacity. No draw animation.
+
+**Responsive:** Stacks vertically on mobile (<768px). Divider hidden on mobile.
+
+---
+
 ## Global Rules
 
 1. **Every SVG element** uses `stroke-dasharray` + `stroke-dashoffset` for self-drawing. No exceptions for primary data elements.
