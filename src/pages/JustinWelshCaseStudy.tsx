@@ -52,6 +52,7 @@ function EditorialPortrait() {
 
 export function JustinWelshCaseStudy() {
   const profileRef = useRef<HTMLDivElement>(null);
+  const { ref: auditRef, inView: auditInView } = useScrollTrigger(0.15);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -66,6 +67,14 @@ export function JustinWelshCaseStudy() {
     }, profileRef);
     return () => ctx.revert();
   }, []);
+
+  useEffect(() => {
+    if (!auditInView) return;
+    gsap.fromTo('.jw-audit-row',
+      { opacity: 0, y: 12 },
+      { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: 'power2.out' }
+    );
+  }, [auditInView]);
 
   return (
     <div style={{ backgroundColor: 'var(--color-void)', minHeight: '100vh' }}>
@@ -128,9 +137,9 @@ export function JustinWelshCaseStudy() {
                   Platform Distribution
                 </div>
                 {[
-                  { platform: 'LinkedIn', value: '500,000', pct: 0.76, idRole: 'Activation + Demonstration' },
-                  { platform: 'Newsletter', value: '150,000', pct: 0.23, idRole: 'Demonstration only' },
-                  { platform: 'Courses', value: '—', pct: 0.05, idRole: 'Partial Application' },
+                  { platform: 'LinkedIn', value: '500,000', pct: 0.76, idRole: 'ID Phase: Act. + Demo.' },
+                  { platform: 'Newsletter', value: '150,000', pct: 0.23, idRole: 'ID Phase: Demo. only' },
+                  { platform: 'Courses', value: '—', pct: 0.05, idRole: 'ID Phase: Partial App.' },
                 ].map((net, i) => (
                   <div key={i} style={{ marginBottom: '18px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '4px' }}>
@@ -184,7 +193,143 @@ export function JustinWelshCaseStudy() {
           </div>
         </div>
       </section>
-      {/* Acts 02–05 placeholder — filled in subsequent tasks */}
+      {/* ═══ SITUATION CONTINUED — ACT 02 / THE PLATFORM AUDIT ═══ */}
+      <section ref={auditRef} style={{ padding: '120px 0' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 48px' }}>
+          <ScqaMarker phase="SITUATION (CONTINUED)" act="ACT 02" title="THE PLATFORM AUDIT" />
+
+          <div style={{ maxWidth: '720px', marginBottom: '48px' }}>
+            <p style={{ fontFamily: 'var(--font-body)', fontSize: '16px', lineHeight: 1.8, color: 'var(--color-text)', opacity: 0.75, marginBottom: '20px' }}>
+              The question is not whether the content is good. The content is exceptional. The question is whether the platform architecture supports the full learning journey.
+            </p>
+            <p style={{ fontFamily: 'var(--font-body)', fontSize: '14px', lineHeight: 1.7, color: 'var(--color-text-dim)' }}>
+              Merrill's First Principles of Instruction defines the phases that produce durable learning — not momentary inspiration. Here is Justin Welsh's platform architecture audited against each one.
+            </p>
+          </div>
+
+          {/* Section A — Per-Platform Breakdown */}
+          <div style={{ marginBottom: '64px' }}>
+            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '9px', letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--color-context)', opacity: 0.5, marginBottom: '24px' }}>
+              Section A — Platform Architecture
+            </div>
+            {[
+              {
+                platform: 'LinkedIn',
+                funnel: 'TOFU',
+                format: 'Hook → Insight → Takeaway. Self-contained. Nothing asked of the reader.',
+                principles: 'Act. ✓  Demo. ✓',
+                gap: 'Practice never designed. Insight delivered, nothing asked back.',
+                status: 'partial' as const,
+              },
+              {
+                platform: 'Newsletter',
+                funnel: 'MOFU',
+                format: 'One insight expanded. Deep, well-written, passive. No assignment, no reply mechanism.',
+                principles: 'Demo. ✓',
+                gap: 'No designed practice, no outcome measurement.',
+                status: 'partial' as const,
+              },
+              {
+                platform: 'Courses',
+                funnel: 'BOFU',
+                format: 'Video library. Self-paced. No checkpoints, no cohort, no peer review.',
+                principles: 'Partial practice ◐',
+                gap: 'No outcome documentation, zero data flows back.',
+                status: 'partial' as const,
+              },
+              {
+                platform: '— MISSING —',
+                funnel: 'POST-CONVERSION',
+                format: 'Nothing. The learning ends at the transaction.',
+                principles: '—',
+                gap: 'No community, no loop, no IP foundation.',
+                status: 'absent' as const,
+              },
+            ].map((row, i) => (
+              <div key={i} className="jw-audit-row" style={{
+                display: 'grid',
+                gridTemplateColumns: '160px 80px 1fr 160px 1fr',
+                gap: '0',
+                borderBottom: '0.5px solid rgba(136,136,136,0.08)',
+                borderLeft: `4px solid ${row.status === 'absent' ? 'rgba(247,38,88,0.4)' : 'rgba(58,158,164,0.4)'}`,
+                marginBottom: '2px',
+                opacity: 0,
+              }}>
+                {[
+                  { label: 'Platform', value: row.platform, mono: true },
+                  { label: 'Funnel', value: row.funnel, mono: true },
+                  { label: 'Current Format', value: row.format, mono: false },
+                  { label: 'ID Served', value: row.principles, mono: true },
+                  { label: 'Gap', value: row.gap, mono: false },
+                ].map((cell, j) => (
+                  <div key={j} style={{ padding: '16px 20px', borderRight: j < 4 ? '0.5px solid rgba(136,136,136,0.06)' : 'none' }}>
+                    <div style={{ fontFamily: 'var(--font-mono)', fontSize: '8px', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--color-context)', opacity: 0.4, marginBottom: '6px' }}>
+                      {cell.label}
+                    </div>
+                    <div style={{ fontFamily: cell.mono ? 'var(--font-mono)' : 'var(--font-body)', fontSize: cell.mono ? '10px' : '12px', color: row.status === 'absent' ? 'rgba(247,38,88,0.7)' : 'var(--color-text)', lineHeight: 1.5, opacity: row.status === 'absent' ? 1 : 0.75 }}>
+                      {cell.value}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+
+          {/* Section B — Merrill's Principles Summary */}
+          <div>
+            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '9px', letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--color-context)', opacity: 0.5, marginBottom: '8px' }}>
+              Section B — Merrill's First Principles
+            </div>
+            <p style={{ fontFamily: 'var(--font-body)', fontSize: '13px', lineHeight: 1.6, color: 'var(--color-text-dim)', marginBottom: '24px' }}>
+              The pattern across every platform is the same. The first two phases are excellent. The final three are absent from the architecture entirely.
+            </p>
+            {[
+              { principle: 'Activation', platform: 'LinkedIn', status: 'present' as const, note: 'Resonance is high. Posts connect to the solopreneur identity.' },
+              { principle: 'Demonstration', platform: 'LinkedIn + Newsletter', status: 'present' as const, note: 'Tactical examples throughout. Well executed.' },
+              { principle: 'Application', platform: 'Newsletter (ideal)', status: 'absent' as const, note: 'No designed practice anywhere in the architecture.' },
+              { principle: 'Feedback', platform: 'Courses', status: 'absent' as const, note: 'No outcome measurement. No correction mechanism.' },
+              { principle: 'Integration', platform: 'Practitioner Community (missing)', status: 'absent' as const, note: 'No platform exists for this phase.' },
+            ].map((row, i) => (
+              <div key={i} className="jw-audit-row" style={{
+                display: 'flex',
+                alignItems: 'flex-start',
+                gap: '0',
+                padding: '14px 0',
+                borderBottom: '0.5px solid rgba(136,136,136,0.06)',
+                borderLeft: `4px solid ${row.status === 'present' ? 'var(--color-structure)' : 'rgba(247,38,88,0.35)'}`,
+                paddingLeft: '20px',
+                opacity: 0,
+              }}>
+                <div style={{ width: '140px', flexShrink: 0 }}>
+                  <div style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', letterSpacing: '0.1em', textTransform: 'uppercase', color: row.status === 'present' ? 'var(--color-structure)' : 'rgba(247,38,88,0.7)', marginBottom: '2px' }}>
+                    {row.principle}
+                  </div>
+                  <div style={{ fontFamily: 'var(--font-mono)', fontSize: '8px', color: 'var(--color-context)', opacity: 0.4 }}>
+                    {row.status === 'present' ? 'PRESENT' : 'ABSENT'}
+                  </div>
+                </div>
+                <div style={{ width: '220px', flexShrink: 0, paddingRight: '24px' }}>
+                  <div style={{ fontFamily: 'var(--font-body)', fontSize: '12px', color: 'var(--color-text)', opacity: 0.55 }}>{row.platform}</div>
+                </div>
+                <div style={{ fontFamily: 'var(--font-body)', fontSize: '13px', color: 'var(--color-text)', opacity: 0.65, lineHeight: 1.5 }}>
+                  {row.note}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Closing narrative */}
+          <div style={{ maxWidth: '680px', marginTop: '64px' }}>
+            <p style={{ fontFamily: 'var(--font-body)', fontSize: '16px', lineHeight: 1.8, color: 'var(--color-text)', opacity: 0.75, marginBottom: '20px' }}>
+              Justin Welsh has built a world-class broadcast infrastructure. Every platform delivers content. None of them ask anything back.
+            </p>
+            <p style={{ fontFamily: 'var(--font-body)', fontSize: '16px', lineHeight: 1.8, color: 'var(--color-text-dim)' }}>
+              Without a response loop, there is no outcome data. Without outcome data, there is no framework. Without a framework, there is no licensable IP. The platform architecture isn't just a learning problem — it is what stands between Justin Welsh's ideas and their permanent contribution to the field.
+            </p>
+          </div>
+        </div>
+      </section>
+      {/* Acts 03–05 placeholder */}
     </div>
   );
 }
