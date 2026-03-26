@@ -55,6 +55,13 @@ const routes: Route[] = [
       description: 'How aligning instructional design principles with the marketing funnel transforms an audience into a learning community — and a creator into a discipline founder.',
     },
   },
+  {
+    path: '/work/tiago-forte-cognitive-interfaces',
+    workMeta: {
+      title: 'Tiago Forte — Cognitive Interfaces | Curiosity Inc.',
+      description: 'The Second Brain already has a curriculum. It just isn\'t built yet. A cognitive interface case study.',
+    },
+  },
   ...articles.map(a => ({ path: `/writing/${a.slug}`, article: a })),
 ];
 

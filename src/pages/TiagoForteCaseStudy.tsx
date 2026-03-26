@@ -1,4 +1,4 @@
-// src/pages/JustinWelshCaseStudy.tsx
+// src/pages/TiagoForteCaseStudy.tsx
 import { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
@@ -32,15 +32,15 @@ function EditorialPortrait() {
     <div className="cs-portrait">
       <svg viewBox="0 0 160 200" style={{ width: '100%', height: '100%', display: 'block' }}>
         <defs>
-          <linearGradient id="portrait-bg-jw" x1="0" y1="0" x2="0" y2="1">
+          <linearGradient id="portrait-bg-tf" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stopColor="#3A9EA4" stopOpacity="0.07" />
             <stop offset="100%" stopColor="#1D1E20" stopOpacity="0.5" />
           </linearGradient>
         </defs>
-        <rect width="160" height="200" fill="url(#portrait-bg-jw)" />
+        <rect width="160" height="200" fill="url(#portrait-bg-tf)" />
         <text x="80" y="116" textAnchor="middle" dominantBaseline="middle"
           style={{ fontFamily: 'Georgia, serif', fontSize: '54px', fontStyle: 'italic', fill: 'rgba(58,158,164,0.22)', letterSpacing: '-0.04em' }}>
-          JW
+          TF
         </text>
         {[40, 55, 70, 140, 155, 170].map((y) => (
           <line key={y} x1="12" y1={y} x2="148" y2={y} stroke="rgba(58,158,164,0.06)" strokeWidth="0.5" />
@@ -50,17 +50,17 @@ function EditorialPortrait() {
   );
 }
 
-export function JustinWelshCaseStudy() {
+export function TiagoForteCaseStudy() {
   const profileRef = useRef<HTMLDivElement>(null);
   const { ref: auditRef, inView: auditInView } = useScrollTrigger({ threshold: 0.15 });
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo('.jw-profile-band',
+      gsap.fromTo('.tf-profile-band',
         { opacity: 0, y: 18 },
         { opacity: 1, y: 0, duration: 0.9, stagger: 0.14, ease: 'power2.out', delay: 0.4 }
       );
-      gsap.fromTo('.jw-profile-meta-col',
+      gsap.fromTo('.tf-profile-meta-col',
         { opacity: 0 },
         { opacity: 1, duration: 0.5, stagger: 0.08, ease: 'power2.out', delay: 0.9 }
       );
@@ -71,7 +71,7 @@ export function JustinWelshCaseStudy() {
   useEffect(() => {
     if (!auditInView) return;
     const ctx = gsap.context(() => {
-      gsap.fromTo('.jw-audit-row',
+      gsap.fromTo('.tf-audit-row',
         { opacity: 0, y: 12 },
         { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: 'power2.out' }
       );
@@ -82,18 +82,18 @@ export function JustinWelshCaseStudy() {
   return (
     <div style={{ backgroundColor: 'var(--color-void)', minHeight: '100vh' }}>
 
-      {/* ═══ SITUATION — ACT 01 / THE PROFESSOR ═══ */}
+      {/* ═══ SITUATION — ACT 01 / THE ARCHITECT ═══ */}
       <section ref={profileRef} className="cs-act-hero">
         <div className="cs-section">
 
           {/* Case study identifier row */}
-          <div className="jw-profile-band cs-scqa-marker" style={{ marginBottom: '40px' }}>
+          <div className="tf-profile-band cs-scqa-marker" style={{ marginBottom: '40px' }}>
             <span style={{ fontFamily: 'var(--font-mono)', fontSize: '9px', letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--color-structure)', whiteSpace: 'nowrap' }}>
-              ✦ Curiosity Inc. / Case Study 02
+              ✦ Curiosity Inc. / Case Study 03
             </span>
             <div className="cs-scqa-line" />
             <span style={{ fontFamily: 'var(--font-mono)', fontSize: '9px', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--color-context)', opacity: 0.4, whiteSpace: 'nowrap' }}>
-              Situation — Act 01 / The Professor
+              Situation — Act 01 / The Architect
             </span>
           </div>
 
@@ -101,28 +101,28 @@ export function JustinWelshCaseStudy() {
           <div style={{ border: '0.5px solid rgba(136,136,136,0.14)', backgroundColor: 'rgba(255,255,255,0.018)', overflow: 'hidden' }}>
 
             {/* TOP BAND — Name + Hook + Portrait */}
-            <div className="jw-profile-band cs-profile-top">
+            <div className="tf-profile-band cs-profile-top">
               <div>
                 <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(40px, 8vw, 96px)', fontStyle: 'italic', fontWeight: 400, color: 'var(--color-text)', lineHeight: 1, letterSpacing: '-0.025em', margin: 0, marginBottom: '24px' }}>
-                  Justin Welsh
+                  Tiago Forte
                 </h1>
                 <p style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(15px, 1.8vw, 22px)', fontStyle: 'italic', color: 'var(--color-insight)', lineHeight: 1.45, maxWidth: '560px', margin: 0 }}>
-                  "What if the ideas Justin Welsh teaches outlive the platforms he teaches them on?"
+                  "The Second Brain already has a curriculum. It just isn't built yet."
                 </p>
               </div>
               <EditorialPortrait />
             </div>
 
             {/* MIDDLE BAND — 5-column metadata */}
-            <div className="jw-profile-band cs-meta-grid">
+            <div className="tf-profile-band cs-meta-grid">
               {[
-                { label: 'Domain', value: 'Solopreneurship' },
-                { label: 'Approach', value: 'Conversion Design' },
-                { label: 'Flagship', value: 'The Operating System' },
-                { label: 'Est.', value: '2019' },
-                { label: 'Reach', value: '500K+ Followers' },
+                { label: 'Domain', value: 'Personal Knowledge Management' },
+                { label: 'Approach', value: 'Cognitive Interfaces' },
+                { label: 'Flagship', value: 'Building a Second Brain' },
+                { label: 'Est.', value: '2017' },
+                { label: 'Reach', value: '624K+ Followers' },
               ].map((meta, i) => (
-                <div key={i} className="jw-profile-meta-col cs-meta-col">
+                <div key={i} className="tf-profile-meta-col cs-meta-col">
                   <div style={{ fontFamily: 'var(--font-mono)', fontSize: '9px', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--color-context)', opacity: 0.45, marginBottom: '8px' }}>
                     {meta.label}
                   </div>
@@ -134,16 +134,17 @@ export function JustinWelshCaseStudy() {
             </div>
 
             {/* BOTTOM BAND — Platform Distribution + Target Topology */}
-            <div className="jw-profile-band cs-split-grid">
+            <div className="tf-profile-band cs-split-grid">
               {/* Platform Distribution */}
               <div className="cs-split-col">
                 <div style={{ fontFamily: 'var(--font-mono)', fontSize: '9px', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--color-context)', opacity: 0.45, marginBottom: '20px' }}>
                   Platform Distribution
                 </div>
                 {[
-                  { platform: 'LinkedIn', value: '500,000', pct: 0.76, idRole: 'ID Phase: Act. + Demo.' },
-                  { platform: 'Newsletter', value: '150,000', pct: 0.23, idRole: 'ID Phase: Demo. only' },
-                  { platform: 'Courses', value: '—', pct: 0.05, idRole: 'ID Phase: Partial App.' },
+                  { platform: 'YouTube', value: '373,000', pct: 0.60, idRole: 'ID Phase: Demo. only' },
+                  { platform: 'Newsletter', value: '125,000', pct: 0.20, idRole: 'ID Phase: Demo. only' },
+                  { platform: 'Twitter / X', value: '154,000', pct: 0.25, idRole: 'ID Phase: Act. only' },
+                  { platform: 'Circle Community', value: '13,000', pct: 0.02, idRole: 'ID Phase: Partial Int.' },
                 ].map((net, i) => (
                   <div key={i} style={{ marginBottom: '18px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '4px' }}>
@@ -169,10 +170,10 @@ export function JustinWelshCaseStudy() {
                   Target Topology
                 </div>
                 <p style={{ fontFamily: 'var(--font-display)', fontSize: '15px', fontStyle: 'italic', color: 'var(--color-text)', opacity: 0.6, lineHeight: 1.65, margin: 0, marginBottom: '14px' }}>
-                  "The corporate professional who wants to build a one-person business and escape the nine-to-five permanently."
+                  "The knowledge worker drowning in information who wants to build an external system for their thinking — so they can be more creative, productive, and effective."
                 </p>
                 <p style={{ fontFamily: 'var(--font-mono)', fontSize: '9px', color: 'var(--color-context)', opacity: 0.35, letterSpacing: '0.08em', margin: 0 }}>
-                  — Justin Welsh's own description of his audience
+                  — Derived from BASB positioning and Forte Labs content
                 </p>
               </div>
             </div>
@@ -180,19 +181,19 @@ export function JustinWelshCaseStudy() {
 
           {/* Concept study disclaimer */}
           <p style={{ fontFamily: 'var(--font-mono)', fontSize: '9px', color: 'var(--color-context)', opacity: 0.28, marginTop: '14px', letterSpacing: '0.06em' }}>
-            ✦ Concept study — All projections are analytical estimates. Curiosity Inc. has no affiliation with Justin Welsh.
+            ✦ Concept study — All projections are analytical estimates. Curiosity Inc. has no affiliation with Tiago Forte.
           </p>
 
           {/* Act 01 narrative */}
           <div style={{ marginTop: '64px', maxWidth: '680px' }}>
             <p style={{ fontFamily: 'var(--font-body)', fontSize: '16px', lineHeight: 1.8, color: 'var(--color-text)', opacity: 0.75, marginBottom: '24px' }}>
-              500,000 LinkedIn followers. 150,000 newsletter subscribers. Two courses with thousands of students and $5M+ in revenue. Every post delivers one clean insight, one lesson, one clear takeaway. The delivery is exceptional.
+              500,000 books sold. 373,000 YouTube subscribers. A methodology — PARA — that has become the default language of personal knowledge management. The idea is everywhere. The framework is taught in Fortune 500 companies and Ivy League classrooms alike.
             </p>
             <p style={{ fontFamily: 'var(--font-body)', fontSize: '16px', lineHeight: 1.8, color: 'var(--color-text)', opacity: 0.75, marginBottom: '24px' }}>
-              The ideas land. They inspire. The tab closes. Most of the audience does not change how they work.
+              And yet: 13,000 community members, 550 paying. A $499 course that delivers two hours of video and then releases you into the wild. A book that cost $1.13M to produce and lost $146K. Revenue concentrated in enterprise cohorts that depend entirely on Tiago's personal time.
             </p>
             <p style={{ fontFamily: 'var(--font-body)', fontSize: '16px', lineHeight: 1.8, color: 'var(--color-text-dim)' }}>
-              This is not a reach problem. Not a content problem. Not a marketing problem. It is a curriculum problem.
+              The methodology teaches layered thinking. The business delivers it linearly. PARA says: organise by depth. The product architecture says: buy once, figure it out alone.
             </p>
           </div>
         </div>
@@ -205,10 +206,10 @@ export function JustinWelshCaseStudy() {
 
           <div style={{ maxWidth: '720px', marginBottom: '48px' }}>
             <p style={{ fontFamily: 'var(--font-body)', fontSize: '16px', lineHeight: 1.8, color: 'var(--color-text)', opacity: 0.75, marginBottom: '20px' }}>
-              The question is not whether the content is good. The content is exceptional. The question is whether the platform architecture supports the full learning journey.
+              Tiago Forte built the definitive methodology for organising knowledge. The question is whether the platforms that deliver it are aligned with the instructional design principles his own methodology demands.
             </p>
             <p style={{ fontFamily: 'var(--font-body)', fontSize: '14px', lineHeight: 1.7, color: 'var(--color-text-dim)' }}>
-              Merrill's First Principles of Instruction defines the phases that produce durable learning — not momentary inspiration. Here is Justin Welsh's platform architecture audited against each one.
+              PARA teaches four layers of depth. CODE teaches four phases of processing. Each platform should serve a specific position in both the marketing funnel and the ID framework. Here is where they actually sit.
             </p>
           </div>
 
@@ -220,39 +221,55 @@ export function JustinWelshCaseStudy() {
             <div className="cs-audit-scroll">
               {[
                 {
-                  platform: 'LinkedIn',
+                  platform: 'YouTube',
                   funnel: 'TOFU',
-                  format: 'Hook → Insight → Takeaway. Self-contained. Nothing asked of the reader.',
+                  format: 'Tutorials, case studies, tool reviews. 53% of all audience growth. Weekly cadence. High production value.',
                   principles: 'Act. ✓  Demo. ✓',
-                  gap: 'Practice never designed. Insight delivered, nothing asked back.',
+                  gap: 'No designed practice. Viewer watches, learns concept, leaves. No bridge to application.',
                   status: 'partial' as const,
                 },
                 {
                   platform: 'Newsletter',
                   funnel: 'MOFU',
-                  format: 'One insight expanded. Deep, well-written, passive. No assignment, no reply mechanism.',
+                  format: 'Weekly essays. 125K subscribers, 48.6% open rate. Growth declining 39% YoY.',
                   principles: 'Demo. ✓',
-                  gap: 'No designed practice, no outcome measurement.',
+                  gap: 'No practice layer. No assignments. No reply mechanism. Passive consumption.',
                   status: 'partial' as const,
                 },
                 {
-                  platform: 'Courses',
+                  platform: 'BASB Course',
                   funnel: 'BOFU',
-                  format: 'Video library. Self-paced. No checkpoints, no cohort, no peer review.',
-                  principles: 'Partial practice ◐',
-                  gap: 'No outcome documentation, zero data flows back.',
+                  format: '6 self-paced modules, ~2hrs video. $499 one-time. Notion template included. No live component.',
+                  principles: 'Demo. ✓  Partial App. ◐',
+                  gap: 'No feedback loop. No peer review. No outcome measurement. Student is alone after purchase.',
+                  status: 'partial' as const,
+                },
+                {
+                  platform: 'Membership',
+                  funnel: 'RETENTION',
+                  format: '$649/yr. Monthly Q&A, weekly sessions. 13K members, only 550 paying (4.2% conversion).',
+                  principles: 'Partial Int. ◐',
+                  gap: 'Community exists but lacks structured practice. Sessions are events, not curriculum.',
+                  status: 'partial' as const,
+                },
+                {
+                  platform: 'Enterprise',
+                  funnel: 'PREMIUM',
+                  format: 'Cohort-based, 3 weeks, 10 live sessions. ~$1.5M revenue. Requires Tiago\'s personal time.',
+                  principles: 'App. ✓  Feed. ✓',
+                  gap: 'The only product with real ID coverage — but doesn\'t scale. Revenue ceiling = Tiago\'s hours.',
                   status: 'partial' as const,
                 },
                 {
                   platform: '— MISSING —',
-                  funnel: 'POST-CONVERSION',
-                  format: 'Nothing. The learning ends at the transaction.',
+                  funnel: 'COGNITIVE INTERFACE',
+                  format: 'Nothing. No persistent tool that connects the methodology to the learner\'s daily practice.',
                   principles: '—',
-                  gap: 'No community, no loop, no IP foundation.',
+                  gap: 'PARA is tool-agnostic by design — but that means zero data flows back. No measurement, no iteration.',
                   status: 'absent' as const,
                 },
               ].map((row, i) => (
-                <div key={i} className="jw-audit-row cs-audit-row" style={{
+                <div key={i} className="tf-audit-row cs-audit-row" style={{
                   borderLeft: `4px solid ${row.status === 'absent' ? 'rgba(247,38,88,0.4)' : 'rgba(58,158,164,0.4)'}`,
                   opacity: 0,
                 }}>
@@ -277,22 +294,22 @@ export function JustinWelshCaseStudy() {
             </div>
           </div>
 
-          {/* Section B — Merrill's Principles Summary */}
+          {/* Section B — ID Principles Summary */}
           <div>
             <div style={{ fontFamily: 'var(--font-mono)', fontSize: '9px', letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--color-context)', opacity: 0.5, marginBottom: '8px' }}>
               Section B — Merrill's First Principles
             </div>
             <p style={{ fontFamily: 'var(--font-body)', fontSize: '13px', lineHeight: 1.6, color: 'var(--color-text-dim)', marginBottom: '24px' }}>
-              The pattern across every platform is the same. The first two phases are excellent. The final three are absent from the architecture entirely.
+              The irony: Tiago teaches a system built on iterative depth — Capture, Organise, Distill, Express — but his platforms only serve the first two phases of instructional design. The methodology demands depth. The architecture delivers breadth.
             </p>
             {[
-              { principle: 'Activation', platform: 'LinkedIn', status: 'present' as const, note: 'Resonance is high. Posts connect to the solopreneur identity.' },
-              { principle: 'Demonstration', platform: 'LinkedIn + Newsletter', status: 'present' as const, note: 'Tactical examples throughout. Well executed.' },
-              { principle: 'Application', platform: 'Newsletter (ideal)', status: 'absent' as const, note: 'No designed practice anywhere in the architecture.' },
-              { principle: 'Feedback', platform: 'Courses', status: 'absent' as const, note: 'No outcome measurement. No correction mechanism.' },
-              { principle: 'Integration', platform: 'Practitioner Community (missing)', status: 'absent' as const, note: 'No platform exists for this phase.' },
+              { principle: 'Activation', platform: 'YouTube + Twitter/X', status: 'present' as const, note: 'Strong. The "Second Brain" concept activates prior experience with information overload.' },
+              { principle: 'Demonstration', platform: 'YouTube + Newsletter + Course', status: 'present' as const, note: 'Extensive. Tutorials, walkthroughs, case studies across every platform.' },
+              { principle: 'Application', platform: 'Course (partial)', status: 'absent' as const, note: 'The course has exercises but no feedback loop. Students apply in isolation.' },
+              { principle: 'Feedback', platform: 'Enterprise only', status: 'absent' as const, note: 'Only the $5K+ enterprise cohort has real feedback. Individual learners get none.' },
+              { principle: 'Integration', platform: '— Missing —', status: 'absent' as const, note: 'No platform bridges the methodology to daily practice. Tool-agnostic = data-blind.' },
             ].map((row, i) => (
-              <div key={i} className="jw-audit-row cs-principle-row" style={{
+              <div key={i} className="tf-audit-row cs-principle-row" style={{
                 borderLeft: `4px solid ${row.status === 'present' ? 'var(--color-structure)' : 'rgba(247,38,88,0.35)'}`,
                 opacity: 0,
               }}>
@@ -317,26 +334,26 @@ export function JustinWelshCaseStudy() {
           {/* Closing narrative */}
           <div style={{ maxWidth: '680px', marginTop: '64px' }}>
             <p style={{ fontFamily: 'var(--font-body)', fontSize: '16px', lineHeight: 1.8, color: 'var(--color-text)', opacity: 0.75, marginBottom: '20px' }}>
-              Justin Welsh has built a world-class broadcast infrastructure. Every platform delivers content. None of them ask anything back.
+              Tiago Forte has built the most influential methodology in personal knowledge management. Half a million people have read the book. Tens of thousands have taken the course. The ideas have reached critical mass.
             </p>
             <p style={{ fontFamily: 'var(--font-body)', fontSize: '16px', lineHeight: 1.8, color: 'var(--color-text-dim)' }}>
-              Without a response loop, there is no outcome data. Without outcome data, there is no framework. Without a framework, there is no licensable IP. The platform architecture isn't just a learning problem — it is what stands between Justin Welsh's ideas and their permanent contribution to the field.
+              But the architecture delivers the methodology as content — not as a cognitive interface. PARA lives in the learner's head, or in whatever tool they happen to use, with no structured connection back to the source. The Second Brain methodology teaches people to build a second brain. It does not give them one.
             </p>
           </div>
         </div>
       </section>
 
-      {/* ═══ QUESTION — ACT 03 / THE COMMITMENT LADDER ═══ */}
+      {/* ═══ QUESTION — ACT 03 / THE COGNITIVE INTERFACE ═══ */}
       <section className="cs-act">
         <div className="cs-section">
-          <ScqaMarker phase="QUESTION" act="ACT 03" title="THE COMMITMENT LADDER" />
+          <ScqaMarker phase="QUESTION" act="ACT 03" title="THE COGNITIVE INTERFACE" />
 
           <div style={{ maxWidth: '680px', marginBottom: '64px' }}>
             <p style={{ fontFamily: 'var(--font-body)', fontSize: '16px', lineHeight: 1.8, color: 'var(--color-text)', opacity: 0.75, marginBottom: '20px' }}>
-              The marketing funnel doesn't disappear. It gets a curriculum. Each platform is redesigned around a specific instructional purpose — and each purpose creates the demand that makes the next rung inevitable.
+              The marketing funnel positions each platform by transaction distance. The ID framework positions each platform by learning depth. The redesign aligns both: every platform serves a specific funnel position AND a specific instructional purpose. Where they were misaligned, we reposition. Where there was a gap, we propose.
             </p>
             <p style={{ fontFamily: 'var(--font-body)', fontSize: '14px', lineHeight: 1.7, color: 'var(--color-text-dim)' }}>
-              This answers the implicit question: if the early rungs are freely available, why would anyone buy the course? Because each free rung creates the problem the next paid rung solves.
+              The key intervention: a cognitive interface — a persistent layer between the methodology and the learner's practice that transforms PARA from a concept people learn into a system people inhabit.
             </p>
           </div>
 
@@ -345,37 +362,37 @@ export function JustinWelshCaseStudy() {
             bands={[
               {
                 accentColor: 'structure',
-                label: 'ATTENTION — LinkedIn',
-                content: 'Hook → Insight → Micro-commitment prompt. "Map your skills to a market this week. Drop what you found below." The reader acts as a solopreneur before they believe they are one.',
-                detail: 'The post ends with a small, designed ask. Partial success follows — and partial success reveals the gap. "This works. I don\'t know what to do next." That gap is what the newsletter is designed to fill. The attention rung creates demand for the practice rung.',
+                label: 'CAPTURE — YouTube + Twitter/X',
+                content: 'Reposition free content as diagnostic entry points. Each video and thread ends not with "subscribe" but with a specific PARA-aligned prompt: "What project would change if you organised it this way?" The audience enters the methodology by using it, not by watching someone explain it.',
+                detail: 'The content creates the first cognitive dissonance: "I have information everywhere and no system." This is the activation that makes the newsletter feel necessary — not because it promises more content, but because it promises a way to process the content they already have.',
               },
               {
                 accentColor: 'context',
-                label: 'MICRO-ACT — Newsletter',
-                content: 'Concept → Worked example → Weekly assignment. "Apply it this week and reply with what you found." One technique per week, applied in isolation. Replies become outcome data.',
-                detail: 'The newsletter creates momentum — and exposes the absence of a coherent system. Individual techniques don\'t connect. The student feels: "I\'m applying ideas but I have no architecture." The course becomes the obvious answer. The newsletter buyer is not a cold lead. They have already proved the methodology works for them.',
+                label: 'ORGANISE — Newsletter + Blog',
+                content: 'Restructure the weekly newsletter around CODE phases. Each issue is a single phase applied to a single context: "This week: Distill your meeting notes using Progressive Summarisation." The reader practices one technique per week in their own environment.',
+                detail: 'The newsletter stops being a broadcast and becomes a paced curriculum. Replies become outcome data: "I tried Progressive Summarisation on my project notes. Here is what happened." For the first time, the methodology generates evidence from real practice — not from course exercises.',
               },
               {
                 accentColor: 'transformation',
-                label: 'INTENT — Courses',
-                content: 'Each module: Lesson → Exercise → Peer review. Cohort rhythm. Progress milestones. "Module complete when you submit X." The full operating system — not more content, but the designed progression that connects all the techniques.',
-                detail: 'The course sells certainty, not information. The buyer has already done ten newsletter assignments. They know the methodology works for them. The course gives them the structure the newsletter couldn\'t — and for the first time, outcomes are documented. The framework begins to accumulate evidence.',
+                label: 'DISTILL — BASB Course (Redesigned)',
+                content: 'The course becomes a 12-week structured implementation — not a video library. Each module maps to a PARA layer. Cohort checkpoints replace self-paced isolation. The student builds their actual Second Brain during the course, not after it.',
+                detail: 'The course buyer is no longer cold. They have been practising CODE techniques through the newsletter for weeks. They know the methodology works for them. The course gives them the architectural layer — PARA as a lived system — and for the first time, outcomes are documented and reviewed by peers.',
               },
               {
                 accentColor: 'insight',
-                label: 'IDENTITY / ACTION — Practitioner Community',
-                content: 'Weekly challenges. Case study submissions. Peer review cycles. The student practises with peers. Identity adoption is reinforced through action, not aspiration. Justin shifts from publisher to curator and validator.',
-                detail: 'This is the response loop. Every challenge submission is a data point. Every peer review surfaces a failure mode. Every case study documents a real-world use of the methodology. The community generates the evidence base that transforms great content into a provable, refineable, licensable framework. Without this layer, the IP cannot exist.',
+                label: 'EXPRESS — The Cognitive Interface (New)',
+                content: 'A persistent practice layer that connects the methodology to the learner\'s daily workflow. Not another app — a structured protocol within whatever tool the learner already uses. Weekly reviews, monthly architecture audits, quarterly system retrospectives. The Second Brain becomes a living practice, not a one-time setup.',
+                detail: 'This is the missing layer. Tool-agnostic does not have to mean data-blind. The cognitive interface is a structured feedback loop: the learner\'s practice generates data, the data flows back to the methodology, the methodology improves. Every practitioner becomes a proof point. Every proof point strengthens the IP. The interface is where PARA stops being a concept and becomes a measurable, refinable, licensable framework.',
               },
             ]}
           />
 
           <div style={{ maxWidth: '680px', marginTop: '64px' }}>
             <p style={{ fontFamily: 'var(--font-body)', fontSize: '16px', lineHeight: 1.8, color: 'var(--color-text)', opacity: 0.75, marginBottom: '20px' }}>
-              When the ladder is designed, conversion stops being a cliff. The audience doesn't decide to buy. They arrive at purchase having already made a hundred smaller commitments that made it inevitable.
+              When the platforms are aligned, the funnel stops extracting and starts cultivating. The audience doesn't buy a course — they graduate into a practice. The practice generates the evidence that makes the methodology undeniable.
             </p>
             <p style={{ fontFamily: 'var(--font-body)', fontSize: '16px', lineHeight: 1.8, color: 'var(--color-text-dim)' }}>
-              And for the first time: every step is measured. The outcome data accumulates. The methodology improves. The framework becomes real.
+              And the AI pivot Tiago is pursuing? It becomes dramatically more powerful when the Second Brain isn't a static note collection but a living cognitive interface with structured data flowing through it.
             </p>
           </div>
         </div>
@@ -388,55 +405,55 @@ export function JustinWelshCaseStudy() {
 
           <div style={{ maxWidth: '680px', marginBottom: '80px' }}>
             <p style={{ fontFamily: 'var(--font-body)', fontSize: '16px', lineHeight: 1.8, color: 'var(--color-text)', opacity: 0.75 }}>
-              When the ladder is designed, the numbers follow. Not because the CTA changed. Not because the marketing improved. Because everything before the CTA was built to make the purchase feel inevitable.
+              When the platforms are redesigned around instructional depth — not transaction distance — the numbers shift. Not because the marketing improved. Because the architecture now produces what the methodology always promised: transformed practitioners, not passive consumers.
             </p>
           </div>
 
           <Lens
-            value="5.1×"
-            sublabel="SUBSCRIBER LTV MULTIPLIER"
-            beforeLabel={['CURRENT', 'ARCHITECTURE']}
-            afterLabel={['COMMITMENT', 'CURRICULUM']}
+            value="4.7×"
+            sublabel="PRACTITIONER LTV MULTIPLIER"
+            beforeLabel={['LINEAR', 'DELIVERY']}
+            afterLabel={['COGNITIVE', 'INTERFACE']}
           />
 
           <div style={{ maxWidth: '680px', margin: '64px auto' }}>
             <p style={{ fontFamily: 'var(--font-body)', fontSize: '14px', lineHeight: 1.7, color: 'var(--color-text-dim)', textAlign: 'center' }}>
-              The intersection is the alignment: great content that now has a designed path through it.
+              The intersection: a methodology that finally delivers depth through an architecture designed for depth.
             </p>
           </div>
 
           <DeltaBridge
             metrics={[
               {
-                label: 'Micro-Commitment Rate',
+                label: 'Practice Adoption Rate',
                 category: 'Learning Behaviour',
-                before: '4%',
-                after: '41%',
-                delta: '+925%',
-                magnitude: 0.95,
+                before: '4.2%',
+                after: '34%',
+                delta: '+710%',
+                magnitude: 0.92,
               },
               {
-                label: 'Identity Adoption Rate',
+                label: 'Methodology Retention (12mo)',
                 category: 'Learning Outcome',
-                before: '2%',
-                after: '17%',
-                delta: '+750%',
-                magnitude: 0.90,
+                before: '8%',
+                after: '52%',
+                delta: '+550%',
+                magnitude: 0.88,
               },
               {
-                label: 'Subscriber LTV',
+                label: 'Practitioner LTV',
                 category: 'Business Outcome',
-                before: '$28',
-                after: '$143',
-                delta: '+411%',
-                magnitude: 0.85,
+                before: '$86',
+                after: '$404',
+                delta: '+370%',
+                magnitude: 0.82,
               },
             ]}
           />
 
           <div style={{ maxWidth: '680px', marginTop: '64px' }}>
             <p style={{ fontFamily: 'var(--font-body)', fontSize: '14px', lineHeight: 1.7, color: 'var(--color-text-dim)' }}>
-              Read the categories in order: a Learning Behaviour metric improved by 925%. A Learning Outcome metric improved by 750%. The Business Outcome is the downstream effect of both. This is the ID argument in numbers.
+              The categories tell the story: a Learning Behaviour metric (practice adoption) drives a Learning Outcome metric (retention at 12 months) which drives the Business Outcome (lifetime value). The ID framework produces the business result — not the other way around.
             </p>
           </div>
         </div>
@@ -449,36 +466,36 @@ export function JustinWelshCaseStudy() {
 
           <div style={{ maxWidth: '720px' }}>
             <p style={{ fontFamily: 'var(--font-body)', fontSize: '18px', lineHeight: 1.8, color: 'var(--color-text)', opacity: 0.85, marginBottom: '32px' }}>
-              Justin Welsh did not build a content business. He built a curriculum for a generation of people rethinking how they work and live. The distinction matters because the first is measured by transactions. The second is measured by transformation.
+              Tiago Forte did not build a productivity business. He built the first language for how humans organise their thinking in the digital age. PARA and CODE are not course material — they are cognitive infrastructure. The distinction matters because courses expire. Infrastructure endures.
             </p>
 
             <p style={{ fontFamily: 'var(--font-body)', fontSize: '16px', lineHeight: 1.8, color: 'var(--color-text)', opacity: 0.7, marginBottom: '32px' }}>
-              When the ID principles are applied and the funnel is aligned, what emerges is a formalised methodology that can be named, documented, and licensed. Not the courses. Not the newsletter. The framework those platforms, together, are capable of producing.
+              When the cognitive interface is built — when the methodology has a persistent, measurable connection to the learner's daily practice — what emerges is not a better course or a more engaged community. What emerges is a living framework with thousands of practitioners generating evidence that the system works. That evidence is the most valuable asset in the entire ecosystem.
             </p>
 
             <p style={{ fontFamily: 'var(--font-body)', fontSize: '16px', lineHeight: 1.8, color: 'var(--color-text)', opacity: 0.7, marginBottom: '32px' }}>
-              That methodology — the structured progression from autonomous aspiration to practised solopreneurship — is Justin Welsh's most valuable asset. It can be taught by others under licence. It can be adopted by business schools and corporate L&D programmes. Future practitioners of independent work will not cite a LinkedIn post. They will cite the framework.
+              The AI pivot becomes obvious in this context. A Second Brain connected to a cognitive interface is not a static note collection that AI can search. It is a structured knowledge architecture that AI can reason with. The difference between "search my notes" and "think with my knowledge" is the difference between a tool and a partner. The cognitive interface makes the second possible.
             </p>
 
             <p style={{ fontFamily: 'var(--font-body)', fontSize: '16px', lineHeight: 1.8, color: 'var(--color-text-dim)', marginBottom: '0' }}>
-              This is what Curiosity Inc. builds: not better marketing, but intellectual infrastructure that endures.
+              This is what Curiosity Inc. builds: not better products, but the cognitive infrastructure that makes ideas permanent.
             </p>
           </div>
 
           {/* Closing CTA line */}
           <p style={{ fontFamily: 'var(--font-display)', fontStyle: 'italic', fontSize: 'clamp(16px, 2vw, 20px)', color: 'var(--color-text)', opacity: 0.35, textAlign: 'center', marginTop: '120px' }}>
-            "If your work deserves to outlast you — it probably needs a curriculum."
+            "The Second Brain already has a curriculum. It just isn't built yet."
           </p>
 
           {/* Navigation */}
           <div className="cs-nav" style={{ marginTop: '80px' }}>
             <Link
-              to="/work/dan-koe-brand-architecture"
+              to="/work/justin-welsh-conversion-design"
               style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', letterSpacing: '0.1em', color: 'var(--color-context)', opacity: 0.35, textDecoration: 'none', transition: 'opacity 0.3s ease' }}
               onMouseEnter={e => (e.currentTarget.style.opacity = '0.7')}
               onMouseLeave={e => (e.currentTarget.style.opacity = '0.35')}
             >
-              ← Previous: Dan Koe
+              ← Previous: Justin Welsh
             </Link>
 
             <Link
@@ -488,14 +505,9 @@ export function JustinWelshCaseStudy() {
               Back to The Laboratory
             </Link>
 
-            <Link
-              to="/work/tiago-forte-cognitive-interfaces"
-              style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', letterSpacing: '0.1em', color: 'var(--color-context)', opacity: 0.35, textDecoration: 'none', transition: 'opacity 0.3s ease' }}
-              onMouseEnter={e => (e.currentTarget.style.opacity = '0.7')}
-              onMouseLeave={e => (e.currentTarget.style.opacity = '0.35')}
-            >
-              Next: Tiago Forte →
-            </Link>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', letterSpacing: '0.1em', color: 'var(--color-context)', opacity: 0.3 }}>
+              More Case Studies Coming →
+            </span>
           </div>
         </div>
       </section>

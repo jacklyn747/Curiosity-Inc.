@@ -378,7 +378,7 @@ export function DanKoeCaseStudy() {
           {/* Navigation */}
           <div className="cs-nav" style={{ marginTop: '80px' }}>
             <span style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', letterSpacing: '0.1em', color: 'var(--color-context)', opacity: 0.3 }}>
-              ← Previous Case Study Coming Soon
+              ← First Case Study
             </span>
 
             <Link

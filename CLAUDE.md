@@ -5,8 +5,8 @@
 - **Lint**: `npm run lint`
 - **Component Proofing**: [http://localhost:5173/test-components](http://localhost:5173/test-components)
 
-## Current Status (March 25, 2026)
-**Completed Phase 7**. Phases 1–7 are stable and deployed. Dan Koe Case Study (all 5 SCQA acts) is live.
+## Current Status (March 26, 2026)
+**Completed Phase 9**. Phases 1–9 are stable. All 3 case studies live. 51 tests passing across 9 test files.
 
 ## Components Built & Proven:
 1.  **The Scaffold** — Staggered Methodology Bands.
@@ -20,9 +20,13 @@
 9.  **Navigation** — Fixed transition menu with active section monitoring.
 10. **Homepage** — All 5 sections assembled and wired.
 11. **Dan Koe Case Study** — Full 5-act SCQA narrative at `/work/dan-koe-brand-architecture`.
+12. **Justin Welsh Case Study** — Full 5-act SCQA narrative at `/work/justin-welsh-conversion-design`.
+13. **Tiago Forte Case Study** — Full 5-act SCQA narrative at `/work/tiago-forte-cognitive-interfaces`.
+14. **Article Pages** — 4 articles with TOC sidebar, prev/next nav, static prerendering.
+15. **WebGL Hero** — ParticleField (800 particles, 4-stage morph), HeroSection, HeroFallback.
 
-## Next Mission: Phase 8
-**Objective**: WebGL Hero — particle field → geometry → Phönix morph. Replaces placeholder hero in `src/pages/index.tsx`.
+## Next Mission: Phase 10 (TBD)
+**No phase defined yet.** Candidates: contact/audit form, SEO + analytics, fourth case study, Annotation Thread, performance audit.
 
 ## Style Constraints (The Constitution):
 - **Colors**: Void (#1D1E20), Structure (#3A9EA4), Transformation (#FA7714), Insight (#F72658).

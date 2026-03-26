@@ -2,7 +2,7 @@
 
 ## Current Status
 
-**Phase 9 Complete** — Article pages live with static prerendering, TOC sidebar, and prev/next navigation. 43 tests passing. Next up: remaining case studies (Justin Welsh, Tiago Forte).
+**Phase 9 Complete** — Article pages live with static prerendering, TOC sidebar, and prev/next navigation. All 3 case studies fully built and routed. **51 tests passing** across 9 test files.
 
 ---
 
@@ -50,9 +50,19 @@
 - **Section 1 — The Pattern**: Scaffold with 3 bands (Attention/Transformation, Decision/Cultivation, Intention/Depth).
 - **Section 2 — The Insight**: FlowPulse comparing Funnel Model vs. Learning Architecture.
 - **Section 3 — The Laboratory**: GridReveal with 3 case study cards (Dan Koe, Justin Welsh, Tiago Forte).
-- **Section 4 — The Library**: Inline article list with 4 deep reading entries; placeholder routes.
+- **Section 4 — The Library**: Inline article list with 4 deep reading entries.
 - **Section 5 — The Constellation**: ConvergenceMap with CTA ("Request a Curiosity Audit").
-- **Routing**: Dan Koe case study live at `/work/dan-koe-brand-architecture`. Other case studies and articles route to placeholder shells.
+- **Routing**: All 3 case studies wired via `CaseStudyPage` dispatcher.
+
+### Phase 7: Dan Koe Case Study
+
+- **All 5 SCQA Acts complete** in `src/pages/DanKoeCaseStudy.tsx`.
+  - **Act 01 — Situation / The Profile**: Creator profile card with editorial portrait placeholder, metadata bands (platform, audience size, content format, revenue model).
+  - **Act 02 — Situation Continued / The Diagnosis**: Scaffold visualization showing the structural breakdown of content vs. curriculum.
+  - **Act 03 — Question / The Orbital Gravity Well**: ArchitectureComparison — side-by-side SVG of Current Funnel Model vs. Proposed Orbital Gravity Well (self-drawing with staggered GSAP).
+  - **Act 04 — Answer / The Shift**: Lens (Vesica Piscis with 3.2× LTV multiplier) + DeltaBridge metrics (Repeat Engagement Rate, Content-to-Purchase Velocity, LTV Multiplier).
+  - **Act 05 — Answer Continued / The Reflection**: Closing narrative, back-navigation.
+- **Extra Component Built**: `ArchitectureComparison` — not in original component spec, emerged from case study needs.
 
 ### Phase 8: WebGL Hero
 
@@ -60,36 +70,36 @@
 - **HeroSection** (`src/components/hero/HeroSection.tsx`): `<Canvas>` wrapped in `<Suspense>`. HeroFallback for reduced-motion and touch devices. `frameloop="demand"` for performance. `progressRef` passed to ParticleField — no React re-renders during scroll.
 - **HeroFallback** (`src/components/hero/HeroFallback.tsx`): Static SVG particle simulation for accessibility.
 - **Hooks**: `useHeroScroll` (GSAP ScrollTrigger scrub), `useParticleTargets` (precomputed 4-stage Float32Array positions), `useReducedMotion`.
-- **Upgrade**: React 18 → React 19, `@react-three/fiber` + `@react-three/drei`, Vite 7 → Vite 8 (at some point in this phase).
+- **Upgrade**: React 18 → React 19, `@react-three/fiber` + `@react-three/drei`, Vite 7 → Vite 8.
 - **Tests**: HeroSection renders HeroFallback for reduced-motion and touch devices.
 
-### Phase 9: Article Pages
+### Phase 9: Article Pages & Remaining Case Studies
 
+- **Justin Welsh Case Study** (`src/pages/JustinWelshCaseStudy.tsx`) — Full 5-act SCQA narrative at `/work/justin-welsh-conversion-design`.
+  - Act 01: The Professor (profile card, platform distribution, target topology)
+  - Act 02: The Platform Audit (per-platform breakdown + Merrill's First Principles grid)
+  - Act 03: The Commitment Ladder (Scaffold — 4 bands: LinkedIn → Newsletter → Courses → Community)
+  - Act 04: The Architecture (Lens 5.1× + DeltaBridge: Micro-Commitment Rate, Identity Adoption, Subscriber LTV)
+  - Act 05: The Framework (closing narrative, prev/next navigation)
+- **Tiago Forte Case Study** (`src/pages/TiagoForteCaseStudy.tsx`) — Full 5-act SCQA narrative at `/work/tiago-forte-cognitive-interfaces`.
+  - Act 01: The Architect (profile card, 4-platform distribution, target topology)
+  - Act 02: The Platform Audit (6-platform grid including missing "Cognitive Interface" + Merrill's)
+  - Act 03: The Cognitive Interface (Scaffold — 4 bands: Capture → Organise → Distill → Express)
+  - Act 04: The Architecture (Lens 4.7× + DeltaBridge: Practice Adoption, Methodology Retention, Practitioner LTV)
+  - Act 05: The Framework (closing narrative + AI pivot angle)
 - **4 articles authored** in `src/data/articles.ts` with full section content and pull quotes:
   - `the-accidental-educator` (LEARNING SCIENCE, 12 min)
   - `negative-space-as-active-agent` (DESIGN THEORY, 8 min)
   - `the-curiosity-loop-protocol` (METHODOLOGY, 15 min)
   - `eureka-as-practice` (PHILOSOPHY, 10 min)
 - **ArticlePage** (`src/pages/ArticlePage.tsx`): Two-column flex layout — sticky TOC sidebar + main content. React 19 native metadata tags (`<title>`, `<meta>`) for client-side navigation.
-- **ArticleTOC** (`src/components/article/ArticleTOC.tsx`): Sticky sidebar with CONTENTS label (Teal), section anchor links, active-section highlighting via `IntersectionObserver` in `useEffect` only (SSG-safe).
+- **ArticleTOC** (`src/components/article/ArticleTOC.tsx`): Sticky sidebar with CONTENTS label (Teal), section anchor links, active-section highlighting via `IntersectionObserver`.
 - **ArticleBody** (`src/components/article/ArticleBody.tsx`): Section renderer with `<h2>` headings, paragraphs, and optional `<blockquote>` pull quotes (Pink left border, Instrument Serif italic).
 - **ArticleNav** (`src/components/article/ArticleNav.tsx`): Three-slot footer — `← prev title` | `Writing` (back to `/#writing`) | `next title →`.
-- **Static prerendering** (`scripts/prerender.ts`): Post-build SSG using `react-dom/server` + `StaticRouter` from `react-router`. Generates clean HTML for 6 routes (home, Dan Koe case study, 4 article pages). Per-article `<title>` and `<meta>` tags injected into `<head>` via `<!-- HEAD_INJECT -->` marker.
+- **Static prerendering** (`scripts/prerender.ts`): Post-build SSG using `react-dom/server` + `StaticRouter`. Generates clean HTML for **8 routes**: home, all 3 case studies, 4 article pages. Per-page `<title>` and `<meta>` tags + OG tags injected at build time.
 - **AppRoutes** exported from `App.tsx` — routes extracted from BrowserRouter so StaticRouter can wrap them during SSR without conflicts.
 - **Build script**: `tsc -b && vite build && tsx --tsconfig tsconfig.app.json scripts/prerender.ts`
-- **43 tests passing** across 8 test files.
-- **Spec**: `docs/superpowers/specs/2026-03-25-article-pages-design.md`
-- **Plan**: `docs/superpowers/plans/2026-03-25-article-pages.md`
-
-### Phase 7: Dan Koe Case Study
-
-- **All 5 SCQA Acts complete** in `src/pages/DanKoeCaseStudy.tsx` (976 lines).
-  - **Act 01 — Situation / The Profile**: Creator profile card with editorial portrait placeholder, metadata bands (platform, audience size, content format, revenue model).
-  - **Act 02 — Situation Continued / The Diagnosis**: Scaffold visualization showing the structural breakdown of content vs. curriculum.
-  - **Act 03 — Question / The Orbital Gravity Well**: ArchitectureComparison — side-by-side SVG of Current Funnel Model vs. Proposed Orbital Gravity Well (self-drawing with staggered GSAP).
-  - **Act 04 — Answer / The Shift**: Lens (Vesica Piscis with 3.2× LTV multiplier) + DeltaBridge metrics (Repeat Engagement Rate, Content-to-Purchase Velocity, LTV Multiplier).
-  - **Act 05 — Answer Continued / The Reflection**: Closing narrative, back-navigation.
-- **Extra Component Built**: `ArchitectureComparison` — not in original component spec, emerged from case study needs.
+- **51 tests passing** across 9 test files.
 
 ---
 
@@ -114,18 +124,23 @@
 - **GSAP for Radial Motion**: Used for the convergence map's center node spring bounce and case study profile animations.
 - **SVG Ref Management**: Multiple SVG elements managed via `useRef` arrays for performant animation without full re-renders.
 - **ArchitectureComparison unspecced**: This component emerged organically during Phase 7 to show funnel vs. orbital gravity well. Should be added to `COMPONENT_SPEC.md`.
-- **Annotation Thread unbuilt**: Listed in `COMPONENT_SPEC.md` as Component 5. Never built. Evaluate whether needed for remaining case studies.
+- **Annotation Thread unbuilt**: Listed in `COMPONENT_SPEC.md` as Component 5. Never built. Evaluate whether needed for any future case studies.
+- **React 19 + Vite 8**: Upgraded during Phase 8 for `@react-three/fiber` compatibility and native `<title>`/`<meta>` support in components.
 
 ---
 
-## 4. Road Ahead
+## 4. Road Ahead — Phase 10 (TBD)
 
-- **Remaining Case Studies**
-  - Justin Welsh (`/work/justin-welsh-conversion-design`) — placeholder shell only.
-  - Tiago Forte (`/work/tiago-forte-cognitive-interfaces`) — placeholder shell only.
-- **COMPONENT_SPEC.md**
-  - Add ArchitectureComparison spec.
-  - Decide fate of Annotation Thread (Component 5 — never built, evaluate whether needed for remaining case studies).
+Open questions to decide the next phase:
+
+- **Annotation Thread**: Build it or formally remove it from COMPONENT_SPEC.md?
+- **COMPONENT_SPEC.md**: Add ArchitectureComparison spec (it exists, just undocumented).
+- **Contact / Audit Request**: The CTA "Request a Curiosity Audit" is a dead button — wire it to something (form, Calendly, email).
+- **Phase 10 Feature**: No next phase defined yet. Candidates:
+  - A contact / intake form flow
+  - SEO + analytics (Plausible or similar)
+  - A fourth case study
+  - Performance audit + Lighthouse pass
 
 ---
 
