@@ -332,7 +332,173 @@ export function JustinWelshCaseStudy() {
           </div>
         </div>
       </section>
-      {/* Acts 03–05 placeholder */}
+      {/* ═══ QUESTION — ACT 03 / THE COMMITMENT LADDER ═══ */}
+      <section style={{ padding: '120px 0' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 48px' }}>
+          <ScqaMarker phase="QUESTION" act="ACT 03" title="THE COMMITMENT LADDER" />
+
+          <div style={{ maxWidth: '680px', marginBottom: '64px' }}>
+            <p style={{ fontFamily: 'var(--font-body)', fontSize: '16px', lineHeight: 1.8, color: 'var(--color-text)', opacity: 0.75, marginBottom: '20px' }}>
+              The marketing funnel doesn't disappear. It gets a curriculum. Each platform is redesigned around a specific instructional purpose — and each purpose creates the demand that makes the next rung inevitable.
+            </p>
+            <p style={{ fontFamily: 'var(--font-body)', fontSize: '14px', lineHeight: 1.7, color: 'var(--color-text-dim)' }}>
+              This answers the implicit question: if the early rungs are freely available, why would anyone buy the course? Because each free rung creates the problem the next paid rung solves.
+            </p>
+          </div>
+
+          <Scaffold
+            direction="up"
+            bands={[
+              {
+                accentColor: 'structure',
+                label: 'ATTENTION — LinkedIn',
+                content: 'Hook → Insight → Micro-commitment prompt. "Map your skills to a market this week. Drop what you found below." The reader acts as a solopreneur before they believe they are one.',
+                detail: 'The post ends with a small, designed ask. Partial success follows — and partial success reveals the gap. "This works. I don\'t know what to do next." That gap is what the newsletter is designed to fill. The attention rung creates demand for the practice rung.',
+              },
+              {
+                accentColor: 'context',
+                label: 'MICRO-ACT — Newsletter',
+                content: 'Concept → Worked example → Weekly assignment. "Apply it this week and reply with what you found." One technique per week, applied in isolation. Replies become outcome data.',
+                detail: 'The newsletter creates momentum — and exposes the absence of a coherent system. Individual techniques don\'t connect. The student feels: "I\'m applying ideas but I have no architecture." The course becomes the obvious answer. The newsletter buyer is not a cold lead. They have already proved the methodology works for them.',
+              },
+              {
+                accentColor: 'transformation',
+                label: 'INTENT — Courses',
+                content: 'Each module: Lesson → Exercise → Peer review. Cohort rhythm. Progress milestones. "Module complete when you submit X." The full operating system — not more content, but the designed progression that connects all the techniques.',
+                detail: 'The course sells certainty, not information. The buyer has already done ten newsletter assignments. They know the methodology works for them. The course gives them the structure the newsletter couldn\'t — and for the first time, outcomes are documented. The framework begins to accumulate evidence.',
+              },
+              {
+                accentColor: 'insight',
+                label: 'IDENTITY / ACTION — Practitioner Community',
+                content: 'Weekly challenges. Case study submissions. Peer review cycles. The student practises with peers. Identity adoption is reinforced through action, not aspiration. Justin shifts from publisher to curator and validator.',
+                detail: 'This is the response loop. Every challenge submission is a data point. Every peer review surfaces a failure mode. Every case study documents a real-world use of the methodology. The community generates the evidence base that transforms great content into a provable, refineable, licensable framework. Without this layer, the IP cannot exist.',
+              },
+            ]}
+          />
+
+          <div style={{ maxWidth: '680px', marginTop: '64px' }}>
+            <p style={{ fontFamily: 'var(--font-body)', fontSize: '16px', lineHeight: 1.8, color: 'var(--color-text)', opacity: 0.75, marginBottom: '20px' }}>
+              When the ladder is designed, conversion stops being a cliff. The audience doesn't decide to buy. They arrive at purchase having already made a hundred smaller commitments that made it inevitable.
+            </p>
+            <p style={{ fontFamily: 'var(--font-body)', fontSize: '16px', lineHeight: 1.8, color: 'var(--color-text-dim)' }}>
+              And for the first time: every step is measured. The outcome data accumulates. The methodology improves. The framework becomes real.
+            </p>
+          </div>
+        </div>
+      </section>
+      {/* ═══ ANSWER — ACT 04 / THE ARCHITECTURE ═══ */}
+      <section style={{ padding: '120px 0' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 48px' }}>
+          <ScqaMarker phase="ANSWER" act="ACT 04" title="THE ARCHITECTURE" />
+
+          <div style={{ maxWidth: '680px', marginBottom: '80px' }}>
+            <p style={{ fontFamily: 'var(--font-body)', fontSize: '16px', lineHeight: 1.8, color: 'var(--color-text)', opacity: 0.75 }}>
+              When the ladder is designed, the numbers follow. Not because the CTA changed. Not because the marketing improved. Because everything before the CTA was built to make the purchase feel inevitable.
+            </p>
+          </div>
+
+          <Lens
+            value="5.1×"
+            sublabel="SUBSCRIBER LTV MULTIPLIER"
+            beforeLabel={['CURRENT', 'ARCHITECTURE']}
+            afterLabel={['COMMITMENT', 'CURRICULUM']}
+          />
+
+          <div style={{ maxWidth: '680px', margin: '64px auto' }}>
+            <p style={{ fontFamily: 'var(--font-body)', fontSize: '14px', lineHeight: 1.7, color: 'var(--color-text-dim)', textAlign: 'center' }}>
+              The intersection is the alignment: great content that now has a designed path through it.
+            </p>
+          </div>
+
+          <DeltaBridge
+            metrics={[
+              {
+                label: 'Micro-Commitment Rate',
+                category: 'Learning Behaviour',
+                before: '4%',
+                after: '41%',
+                delta: '+925%',
+                magnitude: 0.95,
+              },
+              {
+                label: 'Identity Adoption Rate',
+                category: 'Learning Outcome',
+                before: '2%',
+                after: '17%',
+                delta: '+750%',
+                magnitude: 0.90,
+              },
+              {
+                label: 'Subscriber LTV',
+                category: 'Business Outcome',
+                before: '$28',
+                after: '$143',
+                delta: '+411%',
+                magnitude: 0.85,
+              },
+            ]}
+          />
+
+          <div style={{ maxWidth: '680px', marginTop: '64px' }}>
+            <p style={{ fontFamily: 'var(--font-body)', fontSize: '14px', lineHeight: 1.7, color: 'var(--color-text-dim)' }}>
+              Read the categories in order: a Learning Behaviour metric improved by 925%. A Learning Outcome metric improved by 750%. The Business Outcome is the downstream effect of both. This is the ID argument in numbers.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ ANSWER CONTINUED — ACT 05 / THE FRAMEWORK ═══ */}
+      <section style={{ padding: '120px 0 160px' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 48px' }}>
+          <ScqaMarker phase="ANSWER (CONTINUED)" act="ACT 05" title="THE FRAMEWORK" />
+
+          <div style={{ maxWidth: '720px' }}>
+            <p style={{ fontFamily: 'var(--font-body)', fontSize: '18px', lineHeight: 1.8, color: 'var(--color-text)', opacity: 0.85, marginBottom: '32px' }}>
+              Justin Welsh did not build a content business. He built a curriculum for a generation of people rethinking how they work and live. The distinction matters because the first is measured by transactions. The second is measured by transformation.
+            </p>
+
+            <p style={{ fontFamily: 'var(--font-body)', fontSize: '16px', lineHeight: 1.8, color: 'var(--color-text)', opacity: 0.7, marginBottom: '32px' }}>
+              When the ID principles are applied and the funnel is aligned, what emerges is a formalised methodology that can be named, documented, and licensed. Not the courses. Not the newsletter. The framework those platforms, together, are capable of producing.
+            </p>
+
+            <p style={{ fontFamily: 'var(--font-body)', fontSize: '16px', lineHeight: 1.8, color: 'var(--color-text)', opacity: 0.7, marginBottom: '32px' }}>
+              That methodology — the structured progression from autonomous aspiration to practised solopreneurship — is Justin Welsh's most valuable asset. It can be taught by others under licence. It can be adopted by business schools and corporate L&D programmes. Future practitioners of independent work will not cite a LinkedIn post. They will cite the framework.
+            </p>
+
+            <p style={{ fontFamily: 'var(--font-body)', fontSize: '16px', lineHeight: 1.8, color: 'var(--color-text-dim)', marginBottom: '0' }}>
+              This is what Curiosity Inc. builds: not better marketing, but intellectual infrastructure that endures.
+            </p>
+          </div>
+
+          {/* Closing CTA line */}
+          <p style={{ fontFamily: 'var(--font-display)', fontStyle: 'italic', fontSize: 'clamp(16px, 2vw, 20px)', color: 'var(--color-text)', opacity: 0.35, textAlign: 'center', marginTop: '120px' }}>
+            "If your work deserves to outlast you — it probably needs a curriculum."
+          </p>
+
+          {/* Navigation */}
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '40px', marginTop: '80px', borderTop: '0.5px solid rgba(136,136,136,0.1)' }}>
+            <Link
+              to="/work/dan-koe-brand-architecture"
+              style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', letterSpacing: '0.1em', color: 'var(--color-context)', opacity: 0.35, textDecoration: 'none', transition: 'opacity 0.3s ease' }}
+              onMouseEnter={e => (e.currentTarget.style.opacity = '0.7')}
+              onMouseLeave={e => (e.currentTarget.style.opacity = '0.35')}
+            >
+              ← Previous: Dan Koe
+            </Link>
+
+            <Link
+              to="/#work"
+              style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--color-structure)', textDecoration: 'none', transition: 'opacity 0.3s ease' }}
+            >
+              Back to The Laboratory
+            </Link>
+
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', letterSpacing: '0.1em', color: 'var(--color-context)', opacity: 0.3 }}>
+              Next: Tiago Forte →
+            </span>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

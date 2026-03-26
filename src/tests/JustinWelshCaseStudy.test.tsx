@@ -41,10 +41,10 @@ describe('JustinWelshCaseStudy', () => {
 
   it('renders four commitment ladder bands', () => {
     renderCaseStudy();
-    expect(screen.getByText(/ATTENTION/i)).toBeInTheDocument();
-    expect(screen.getByText(/MICRO-ACT/i)).toBeInTheDocument();
-    expect(screen.getByText(/INTENT/i)).toBeInTheDocument();
-    expect(screen.getByText(/IDENTITY/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/ATTENTION/i).length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByText(/MICRO-ACT/i).length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByText(/INTENT/i).length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByText(/IDENTITY/i).length).toBeGreaterThanOrEqual(1);
   });
 
   it('renders the Lens hero metric', () => {
@@ -56,7 +56,7 @@ describe('JustinWelshCaseStudy', () => {
     renderCaseStudy();
     expect(screen.getByText(/Micro-Commitment Rate/i)).toBeInTheDocument();
     expect(screen.getByText(/Identity Adoption Rate/i)).toBeInTheDocument();
-    expect(screen.getByText(/Subscriber LTV/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/Subscriber LTV/i).length).toBeGreaterThanOrEqual(1);
   });
 
   it('renders the back navigation link', () => {
