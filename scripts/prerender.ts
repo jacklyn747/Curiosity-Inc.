@@ -24,29 +24,63 @@ function buildHeadTags(article: Article): string {
   ].join('\n    ');
 }
 
-type Route = { path: string; article?: Article };
+type WorkMeta = { title: string; description: string; slug: string };
+
+function buildWorkHeadTags(meta: WorkMeta): string {
+  return [
+    `<title>${escapeHtml(meta.title)}</title>`,
+    `<meta name="description" content="${escapeHtml(meta.description)}" />`,
+    `<meta property="og:title" content="${escapeHtml(meta.title)}" />`,
+    `<meta property="og:description" content="${escapeHtml(meta.description)}" />`,
+    `<meta property="og:type" content="website" />`,
+    `<link rel="canonical" href="https://curiosityinc.co/work/${meta.slug}" />`,
+  ].join('\n    ');
+}
+
+type Route = { path: string; article?: Article; workMeta?: WorkMeta };
 
 const routes: Route[] = [
   { path: '/' },
-  { path: '/work/dan-koe-brand-architecture' },
+  {
+    path: '/work/dan-koe-brand-architecture',
+    workMeta: {
+      title: 'Dan Koe — Brand Architecture | Curiosity Inc.',
+      description: 'What if 2.3M followers were students, not subscribers? A learning architecture case study.',
+      slug: 'dan-koe-brand-architecture',
+    },
+  },
+  {
+    path: '/work/justin-welsh-conversion-design',
+    workMeta: {
+      title: 'Justin Welsh — Conversion Design | Curiosity Inc.',
+      description: 'How aligning instructional design principles with the marketing funnel transforms an audience into a learning community — and a creator into a discipline founder.',
+      slug: 'justin-welsh-conversion-design',
+    },
+  },
   ...articles.map(a => ({ path: `/writing/${a.slug}`, article: a })),
 ];
 
 let successCount = 0;
 
-for (const { path, article } of routes) {
+for (const route of routes) {
+  const { path } = route;
+  const { article, workMeta } = route as { path: string; article?: Article; workMeta?: WorkMeta };
   try {
     const rendered = renderToString(
       createElement(StaticRouter, { location: path }, createElement(AppRoutes))
     );
 
-    const headTags = article ? buildHeadTags(article) : '';
+    const headTags = article
+      ? buildHeadTags(article)
+      : workMeta
+        ? buildWorkHeadTags(workMeta)
+        : '';
+
     let output = template
       .replace('<!-- HEAD_INJECT -->', headTags)
       .replace('<div id="root"></div>', `<div id="root">${rendered}</div>`);
 
-    // Remove the default template title when injecting article-specific metadata
-    if (article) {
+    if (article || workMeta) {
       output = output.replace('<title>Curiosity Inc. — Digital Sanctuary</title>', '');
     }
 
