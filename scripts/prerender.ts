@@ -24,16 +24,16 @@ function buildHeadTags(article: Article): string {
   ].join('\n    ');
 }
 
-type WorkMeta = { title: string; description: string; slug: string };
+type WorkMeta = { title: string; description: string };
 
-function buildWorkHeadTags(meta: WorkMeta): string {
+function buildWorkHeadTags(meta: WorkMeta, path: string): string {
   return [
     `<title>${escapeHtml(meta.title)}</title>`,
     `<meta name="description" content="${escapeHtml(meta.description)}" />`,
     `<meta property="og:title" content="${escapeHtml(meta.title)}" />`,
     `<meta property="og:description" content="${escapeHtml(meta.description)}" />`,
     `<meta property="og:type" content="website" />`,
-    `<link rel="canonical" href="https://curiosityinc.co/work/${meta.slug}" />`,
+    `<link rel="canonical" href="https://curiosityinc.co${path}" />`,
   ].join('\n    ');
 }
 
@@ -46,7 +46,6 @@ const routes: Route[] = [
     workMeta: {
       title: 'Dan Koe — Brand Architecture | Curiosity Inc.',
       description: 'What if 2.3M followers were students, not subscribers? A learning architecture case study.',
-      slug: 'dan-koe-brand-architecture',
     },
   },
   {
@@ -54,7 +53,6 @@ const routes: Route[] = [
     workMeta: {
       title: 'Justin Welsh — Conversion Design | Curiosity Inc.',
       description: 'How aligning instructional design principles with the marketing funnel transforms an audience into a learning community — and a creator into a discipline founder.',
-      slug: 'justin-welsh-conversion-design',
     },
   },
   ...articles.map(a => ({ path: `/writing/${a.slug}`, article: a })),
@@ -62,9 +60,7 @@ const routes: Route[] = [
 
 let successCount = 0;
 
-for (const route of routes) {
-  const { path } = route;
-  const { article, workMeta } = route as { path: string; article?: Article; workMeta?: WorkMeta };
+for (const { path, article, workMeta } of routes) {
   try {
     const rendered = renderToString(
       createElement(StaticRouter, { location: path }, createElement(AppRoutes))
@@ -73,7 +69,7 @@ for (const route of routes) {
     const headTags = article
       ? buildHeadTags(article)
       : workMeta
-        ? buildWorkHeadTags(workMeta)
+        ? buildWorkHeadTags(workMeta, path)
         : '';
 
     let output = template
