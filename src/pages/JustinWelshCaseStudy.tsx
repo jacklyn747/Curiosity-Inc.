@@ -15,11 +15,11 @@ if (typeof window !== 'undefined') {
 
 function ScqaMarker({ phase, act, title }: { phase: string; act: string; title: string }) {
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '64px' }}>
+    <div className="cs-scqa-marker">
       <span style={{ fontFamily: 'var(--font-mono)', fontSize: '9px', letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--color-structure)', whiteSpace: 'nowrap', opacity: 0.9 }}>
         {phase}
       </span>
-      <div style={{ flex: 1, height: '0.5px', backgroundColor: 'rgba(58,158,164,0.18)' }} />
+      <div className="cs-scqa-line" />
       <span style={{ fontFamily: 'var(--font-mono)', fontSize: '9px', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--color-context)', opacity: 0.45, whiteSpace: 'nowrap' }}>
         {act} / {title}
       </span>
@@ -29,7 +29,7 @@ function ScqaMarker({ phase, act, title }: { phase: string; act: string; title: 
 
 function EditorialPortrait() {
   return (
-    <div style={{ width: '160px', flexShrink: 0, aspectRatio: '4 / 5', border: '0.5px solid rgba(136,136,136,0.2)', overflow: 'hidden', position: 'relative', backgroundColor: 'rgba(255,255,255,0.015)' }}>
+    <div className="cs-portrait">
       <svg viewBox="0 0 160 200" style={{ width: '100%', height: '100%', display: 'block' }}>
         <defs>
           <linearGradient id="portrait-bg-jw" x1="0" y1="0" x2="0" y2="1">
@@ -81,16 +81,17 @@ export function JustinWelshCaseStudy() {
 
   return (
     <div style={{ backgroundColor: 'var(--color-void)', minHeight: '100vh' }}>
+
       {/* ═══ SITUATION — ACT 01 / THE PROFESSOR ═══ */}
-      <section ref={profileRef} style={{ paddingTop: '80px', paddingBottom: '80px', minHeight: '90vh', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-        <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 48px' }}>
+      <section ref={profileRef} className="cs-act-hero">
+        <div className="cs-section">
 
           {/* Case study identifier row */}
-          <div className="jw-profile-band" style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '40px' }}>
+          <div className="jw-profile-band cs-scqa-marker" style={{ marginBottom: '40px' }}>
             <span style={{ fontFamily: 'var(--font-mono)', fontSize: '9px', letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--color-structure)', whiteSpace: 'nowrap' }}>
               ✦ Curiosity Inc. / Case Study 02
             </span>
-            <div style={{ flex: 1, height: '0.5px', backgroundColor: 'rgba(58,158,164,0.18)' }} />
+            <div className="cs-scqa-line" />
             <span style={{ fontFamily: 'var(--font-mono)', fontSize: '9px', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--color-context)', opacity: 0.4, whiteSpace: 'nowrap' }}>
               Situation — Act 01 / The Professor
             </span>
@@ -100,9 +101,9 @@ export function JustinWelshCaseStudy() {
           <div style={{ border: '0.5px solid rgba(136,136,136,0.14)', backgroundColor: 'rgba(255,255,255,0.018)', overflow: 'hidden' }}>
 
             {/* TOP BAND — Name + Hook + Portrait */}
-            <div className="jw-profile-band" style={{ display: 'grid', gridTemplateColumns: '1fr auto', alignItems: 'start', gap: '48px', padding: '48px 56px', borderBottom: '0.5px solid rgba(136,136,136,0.1)' }}>
+            <div className="jw-profile-band cs-profile-top">
               <div>
-                <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(52px, 8vw, 96px)', fontStyle: 'italic', fontWeight: 400, color: 'var(--color-text)', lineHeight: 1, letterSpacing: '-0.025em', margin: 0, marginBottom: '24px' }}>
+                <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(40px, 8vw, 96px)', fontStyle: 'italic', fontWeight: 400, color: 'var(--color-text)', lineHeight: 1, letterSpacing: '-0.025em', margin: 0, marginBottom: '24px' }}>
                   Justin Welsh
                 </h1>
                 <p style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(15px, 1.8vw, 22px)', fontStyle: 'italic', color: 'var(--color-insight)', lineHeight: 1.45, maxWidth: '560px', margin: 0 }}>
@@ -113,7 +114,7 @@ export function JustinWelshCaseStudy() {
             </div>
 
             {/* MIDDLE BAND — 5-column metadata */}
-            <div className="jw-profile-band" style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', borderBottom: '0.5px solid rgba(136,136,136,0.1)' }}>
+            <div className="jw-profile-band cs-meta-grid">
               {[
                 { label: 'Domain', value: 'Solopreneurship' },
                 { label: 'Approach', value: 'Conversion Design' },
@@ -121,7 +122,7 @@ export function JustinWelshCaseStudy() {
                 { label: 'Est.', value: '2019' },
                 { label: 'Reach', value: '500K+ Followers' },
               ].map((meta, i) => (
-                <div key={i} className="jw-profile-meta-col" style={{ padding: '24px 28px', borderRight: i < 4 ? '0.5px solid rgba(136,136,136,0.08)' : 'none' }}>
+                <div key={i} className="jw-profile-meta-col cs-meta-col">
                   <div style={{ fontFamily: 'var(--font-mono)', fontSize: '9px', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--color-context)', opacity: 0.45, marginBottom: '8px' }}>
                     {meta.label}
                   </div>
@@ -133,9 +134,9 @@ export function JustinWelshCaseStudy() {
             </div>
 
             {/* BOTTOM BAND — Platform Distribution + Target Topology */}
-            <div className="jw-profile-band" style={{ display: 'grid', gridTemplateColumns: '1fr 0.5px 1fr' }}>
+            <div className="jw-profile-band cs-split-grid">
               {/* Platform Distribution */}
-              <div style={{ padding: '32px 40px' }}>
+              <div className="cs-split-col">
                 <div style={{ fontFamily: 'var(--font-mono)', fontSize: '9px', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--color-context)', opacity: 0.45, marginBottom: '20px' }}>
                   Platform Distribution
                 </div>
@@ -160,10 +161,10 @@ export function JustinWelshCaseStudy() {
               </div>
 
               {/* Divider */}
-              <div style={{ backgroundColor: 'rgba(136,136,136,0.09)' }} />
+              <div className="cs-split-divider" />
 
               {/* Target Topology */}
-              <div style={{ padding: '32px 40px' }}>
+              <div className="cs-split-col">
                 <div style={{ fontFamily: 'var(--font-mono)', fontSize: '9px', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--color-context)', opacity: 0.45, marginBottom: '20px' }}>
                   Target Topology
                 </div>
@@ -196,9 +197,10 @@ export function JustinWelshCaseStudy() {
           </div>
         </div>
       </section>
+
       {/* ═══ SITUATION CONTINUED — ACT 02 / THE PLATFORM AUDIT ═══ */}
-      <section ref={auditRef} style={{ padding: '120px 0' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 48px' }}>
+      <section ref={auditRef} className="cs-act">
+        <div className="cs-section">
           <ScqaMarker phase="SITUATION (CONTINUED)" act="ACT 02" title="THE PLATFORM AUDIT" />
 
           <div style={{ maxWidth: '720px', marginBottom: '48px' }}>
@@ -215,67 +217,64 @@ export function JustinWelshCaseStudy() {
             <div style={{ fontFamily: 'var(--font-mono)', fontSize: '9px', letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--color-context)', opacity: 0.5, marginBottom: '24px' }}>
               Section A — Platform Architecture
             </div>
-            {[
-              {
-                platform: 'LinkedIn',
-                funnel: 'TOFU',
-                format: 'Hook → Insight → Takeaway. Self-contained. Nothing asked of the reader.',
-                principles: 'Act. ✓  Demo. ✓',
-                gap: 'Practice never designed. Insight delivered, nothing asked back.',
-                status: 'partial' as const,
-              },
-              {
-                platform: 'Newsletter',
-                funnel: 'MOFU',
-                format: 'One insight expanded. Deep, well-written, passive. No assignment, no reply mechanism.',
-                principles: 'Demo. ✓',
-                gap: 'No designed practice, no outcome measurement.',
-                status: 'partial' as const,
-              },
-              {
-                platform: 'Courses',
-                funnel: 'BOFU',
-                format: 'Video library. Self-paced. No checkpoints, no cohort, no peer review.',
-                principles: 'Partial practice ◐',
-                gap: 'No outcome documentation, zero data flows back.',
-                status: 'partial' as const,
-              },
-              {
-                platform: '— MISSING —',
-                funnel: 'POST-CONVERSION',
-                format: 'Nothing. The learning ends at the transaction.',
-                principles: '—',
-                gap: 'No community, no loop, no IP foundation.',
-                status: 'absent' as const,
-              },
-            ].map((row, i) => (
-              <div key={i} className="jw-audit-row" style={{
-                display: 'grid',
-                gridTemplateColumns: '160px 80px 1fr 160px 1fr',
-                gap: '0',
-                borderBottom: '0.5px solid rgba(136,136,136,0.08)',
-                borderLeft: `4px solid ${row.status === 'absent' ? 'rgba(247,38,88,0.4)' : 'rgba(58,158,164,0.4)'}`,
-                marginBottom: '2px',
-                opacity: 0,
-              }}>
-                {[
-                  { label: 'Platform', value: row.platform, mono: true },
-                  { label: 'Funnel', value: row.funnel, mono: true },
-                  { label: 'Current Format', value: row.format, mono: false },
-                  { label: 'ID Served', value: row.principles, mono: true },
-                  { label: 'Gap', value: row.gap, mono: false },
-                ].map((cell, j) => (
-                  <div key={j} style={{ padding: '16px 20px', borderRight: j < 4 ? '0.5px solid rgba(136,136,136,0.06)' : 'none' }}>
-                    <div style={{ fontFamily: 'var(--font-mono)', fontSize: '8px', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--color-context)', opacity: 0.4, marginBottom: '6px' }}>
-                      {cell.label}
+            <div className="cs-audit-scroll">
+              {[
+                {
+                  platform: 'LinkedIn',
+                  funnel: 'TOFU',
+                  format: 'Hook → Insight → Takeaway. Self-contained. Nothing asked of the reader.',
+                  principles: 'Act. ✓  Demo. ✓',
+                  gap: 'Practice never designed. Insight delivered, nothing asked back.',
+                  status: 'partial' as const,
+                },
+                {
+                  platform: 'Newsletter',
+                  funnel: 'MOFU',
+                  format: 'One insight expanded. Deep, well-written, passive. No assignment, no reply mechanism.',
+                  principles: 'Demo. ✓',
+                  gap: 'No designed practice, no outcome measurement.',
+                  status: 'partial' as const,
+                },
+                {
+                  platform: 'Courses',
+                  funnel: 'BOFU',
+                  format: 'Video library. Self-paced. No checkpoints, no cohort, no peer review.',
+                  principles: 'Partial practice ◐',
+                  gap: 'No outcome documentation, zero data flows back.',
+                  status: 'partial' as const,
+                },
+                {
+                  platform: '— MISSING —',
+                  funnel: 'POST-CONVERSION',
+                  format: 'Nothing. The learning ends at the transaction.',
+                  principles: '—',
+                  gap: 'No community, no loop, no IP foundation.',
+                  status: 'absent' as const,
+                },
+              ].map((row, i) => (
+                <div key={i} className="jw-audit-row cs-audit-row" style={{
+                  borderLeft: `4px solid ${row.status === 'absent' ? 'rgba(247,38,88,0.4)' : 'rgba(58,158,164,0.4)'}`,
+                  opacity: 0,
+                }}>
+                  {[
+                    { label: 'Platform', value: row.platform, mono: true },
+                    { label: 'Funnel', value: row.funnel, mono: true },
+                    { label: 'Current Format', value: row.format, mono: false },
+                    { label: 'ID Served', value: row.principles, mono: true },
+                    { label: 'Gap', value: row.gap, mono: false },
+                  ].map((cell, j) => (
+                    <div key={j} style={{ padding: '16px 20px', borderRight: j < 4 ? '0.5px solid rgba(136,136,136,0.06)' : 'none' }}>
+                      <div style={{ fontFamily: 'var(--font-mono)', fontSize: '8px', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--color-context)', opacity: 0.4, marginBottom: '6px' }}>
+                        {cell.label}
+                      </div>
+                      <div style={{ fontFamily: cell.mono ? 'var(--font-mono)' : 'var(--font-body)', fontSize: cell.mono ? '10px' : '12px', color: row.status === 'absent' ? 'rgba(247,38,88,0.7)' : 'var(--color-text)', lineHeight: 1.5, opacity: row.status === 'absent' ? 1 : 0.75 }}>
+                        {cell.value}
+                      </div>
                     </div>
-                    <div style={{ fontFamily: cell.mono ? 'var(--font-mono)' : 'var(--font-body)', fontSize: cell.mono ? '10px' : '12px', color: row.status === 'absent' ? 'rgba(247,38,88,0.7)' : 'var(--color-text)', lineHeight: 1.5, opacity: row.status === 'absent' ? 1 : 0.75 }}>
-                      {cell.value}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ))}
+                  ))}
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Section B — Merrill's Principles Summary */}
@@ -293,14 +292,8 @@ export function JustinWelshCaseStudy() {
               { principle: 'Feedback', platform: 'Courses', status: 'absent' as const, note: 'No outcome measurement. No correction mechanism.' },
               { principle: 'Integration', platform: 'Practitioner Community (missing)', status: 'absent' as const, note: 'No platform exists for this phase.' },
             ].map((row, i) => (
-              <div key={i} className="jw-audit-row" style={{
-                display: 'flex',
-                alignItems: 'flex-start',
-                gap: '0',
-                padding: '14px 0',
-                borderBottom: '0.5px solid rgba(136,136,136,0.06)',
+              <div key={i} className="jw-audit-row cs-principle-row" style={{
                 borderLeft: `4px solid ${row.status === 'present' ? 'var(--color-structure)' : 'rgba(247,38,88,0.35)'}`,
-                paddingLeft: '20px',
                 opacity: 0,
               }}>
                 <div style={{ width: '140px', flexShrink: 0 }}>
@@ -332,9 +325,10 @@ export function JustinWelshCaseStudy() {
           </div>
         </div>
       </section>
+
       {/* ═══ QUESTION — ACT 03 / THE COMMITMENT LADDER ═══ */}
-      <section style={{ padding: '120px 0' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 48px' }}>
+      <section className="cs-act">
+        <div className="cs-section">
           <ScqaMarker phase="QUESTION" act="ACT 03" title="THE COMMITMENT LADDER" />
 
           <div style={{ maxWidth: '680px', marginBottom: '64px' }}>
@@ -386,9 +380,10 @@ export function JustinWelshCaseStudy() {
           </div>
         </div>
       </section>
+
       {/* ═══ ANSWER — ACT 04 / THE ARCHITECTURE ═══ */}
-      <section style={{ padding: '120px 0' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 48px' }}>
+      <section className="cs-act">
+        <div className="cs-section">
           <ScqaMarker phase="ANSWER" act="ACT 04" title="THE ARCHITECTURE" />
 
           <div style={{ maxWidth: '680px', marginBottom: '80px' }}>
@@ -448,8 +443,8 @@ export function JustinWelshCaseStudy() {
       </section>
 
       {/* ═══ ANSWER CONTINUED — ACT 05 / THE FRAMEWORK ═══ */}
-      <section style={{ padding: '120px 0 160px' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 48px' }}>
+      <section className="cs-act-final">
+        <div className="cs-section">
           <ScqaMarker phase="ANSWER (CONTINUED)" act="ACT 05" title="THE FRAMEWORK" />
 
           <div style={{ maxWidth: '720px' }}>
@@ -476,7 +471,7 @@ export function JustinWelshCaseStudy() {
           </p>
 
           {/* Navigation */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '40px', marginTop: '80px', borderTop: '0.5px solid rgba(136,136,136,0.1)' }}>
+          <div className="cs-nav" style={{ marginTop: '80px' }}>
             <Link
               to="/work/dan-koe-brand-architecture"
               style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', letterSpacing: '0.1em', color: 'var(--color-context)', opacity: 0.35, textDecoration: 'none', transition: 'opacity 0.3s ease' }}

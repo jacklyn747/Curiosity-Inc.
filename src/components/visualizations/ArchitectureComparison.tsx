@@ -80,17 +80,11 @@ export const ArchitectureComparison: React.FC = () => {
     <div
       ref={containerRef as React.RefObject<HTMLDivElement>}
       style={{ width: '100%' }}
+      className="arch-comparison"
     >
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1px 1fr',
-          gap: '0',
-          width: '100%',
-        }}
-      >
+      <div className="arch-comparison-grid">
         {/* ─── LEFT: FUNNEL ─────────────────────────────── */}
-        <div style={{ paddingRight: '40px' }}>
+        <div className="arch-comparison-col">
           <div
             style={{
               ...labelStyle,
@@ -277,16 +271,10 @@ export const ArchitectureComparison: React.FC = () => {
         </div>
 
         {/* Divider */}
-        <div
-          style={{
-            width: '0.5px',
-            backgroundColor: 'rgba(136,136,136,0.12)',
-            margin: '0 auto',
-          }}
-        />
+        <div className="arch-comparison-divider" />
 
         {/* ─── RIGHT: ORBITAL GRAVITY WELL ──────────────── */}
-        <div style={{ paddingLeft: '40px' }}>
+        <div className="arch-comparison-col">
           <div
             style={{
               ...labelStyle,
@@ -490,14 +478,7 @@ export const ArchitectureComparison: React.FC = () => {
       </div>
 
       {/* Explanation captions */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1px 1fr',
-          marginTop: '16px',
-          gap: '0',
-        }}
-      >
+      <div className="arch-comparison-captions">
         <p
           style={{
             fontFamily: 'var(--font-body)',
@@ -505,14 +486,13 @@ export const ArchitectureComparison: React.FC = () => {
             color: 'var(--color-text)',
             opacity: 0.4,
             lineHeight: 1.6,
-            paddingRight: '40px',
             fontStyle: 'italic',
           }}
         >
           Each transition between layers loses the majority of the audience.
           The architecture is optimized for filtering, not for cultivating.
         </p>
-        <div />
+        <div className="arch-comparison-divider" />
         <p
           style={{
             fontFamily: 'var(--font-body)',
@@ -520,7 +500,6 @@ export const ArchitectureComparison: React.FC = () => {
             color: 'var(--color-text)',
             opacity: 0.4,
             lineHeight: 1.6,
-            paddingLeft: '40px',
             fontStyle: 'italic',
           }}
         >

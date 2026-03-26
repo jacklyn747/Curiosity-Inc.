@@ -1,0 +1,345 @@
+/* ═══ CASE STUDY — Responsive Layout Classes ═══
+   Shared between DanKoeCaseStudy, JustinWelshCaseStudy,
+   and ArchitectureComparison.
+   Breakpoint: 768px (matches project convention).
+*/
+
+/* Section container — responsive horizontal padding */
+.cs-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+@media (min-width: 768px) {
+  .cs-section {
+    padding: 0 48px;
+  }
+}
+
+/* Profile top band — name + portrait. Stacks on mobile. */
+.cs-profile-top {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 32px 24px;
+  border-bottom: 0.5px solid rgba(136,136,136,0.1);
+}
+
+@media (min-width: 768px) {
+  .cs-profile-top {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    gap: 48px;
+    padding: 48px 56px;
+  }
+}
+
+/* 5-column metadata grid — 2 cols on mobile, 3 on tablet, 5 on desktop */
+.cs-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  border-bottom: 0.5px solid rgba(136,136,136,0.1);
+}
+
+@media (min-width: 480px) {
+  .cs-meta-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .cs-meta-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+.cs-meta-col {
+  padding: 16px 20px;
+  border-right: 0.5px solid rgba(136,136,136,0.08);
+  border-bottom: 0.5px solid rgba(136,136,136,0.06);
+}
+
+@media (min-width: 768px) {
+  .cs-meta-col {
+    padding: 24px 28px;
+    border-bottom: none;
+  }
+}
+
+/* Remove right border on last col in each row */
+.cs-meta-col:nth-child(2n) {
+  border-right: none;
+}
+
+@media (min-width: 480px) {
+  .cs-meta-col:nth-child(2n) {
+    border-right: 0.5px solid rgba(136,136,136,0.08);
+  }
+  .cs-meta-col:nth-child(3n) {
+    border-right: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .cs-meta-col:nth-child(3n) {
+    border-right: 0.5px solid rgba(136,136,136,0.08);
+  }
+  .cs-meta-col:last-child {
+    border-right: none;
+  }
+}
+
+/* Bottom band — 2-column split. Stacks on mobile. */
+.cs-split-grid {
+  display: flex;
+  flex-direction: column;
+}
+
+.cs-split-divider {
+  height: 0.5px;
+  width: 100%;
+  background-color: rgba(136,136,136,0.09);
+}
+
+@media (min-width: 768px) {
+  .cs-split-grid {
+    display: grid;
+    grid-template-columns: 1fr 0.5px 1fr;
+  }
+
+  .cs-split-divider {
+    height: auto;
+    width: auto;
+  }
+}
+
+.cs-split-col {
+  padding: 24px 20px;
+}
+
+@media (min-width: 768px) {
+  .cs-split-col {
+    padding: 32px 40px;
+  }
+}
+
+/* JW audit grid — horizontal scroll on mobile, grid on desktop */
+.cs-audit-row {
+  display: grid;
+  grid-template-columns: 120px 60px 1fr 120px 1fr;
+  gap: 0;
+  border-bottom: 0.5px solid rgba(136,136,136,0.08);
+  margin-bottom: 2px;
+  min-width: 700px;
+}
+
+@media (min-width: 768px) {
+  .cs-audit-row {
+    grid-template-columns: 160px 80px 1fr 160px 1fr;
+    min-width: 0;
+  }
+}
+
+.cs-audit-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (min-width: 768px) {
+  .cs-audit-scroll {
+    overflow-x: visible;
+  }
+}
+
+/* Merrill's principles row — responsive */
+.cs-principle-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px 0;
+  border-bottom: 0.5px solid rgba(136,136,136,0.06);
+  padding-left: 20px;
+}
+
+@media (min-width: 768px) {
+  .cs-principle-row {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 0;
+  }
+}
+
+/* Navigation footer */
+.cs-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding-top: 40px;
+  border-top: 0.5px solid rgba(136,136,136,0.1);
+}
+
+@media (min-width: 768px) {
+  .cs-nav {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 0;
+  }
+}
+
+/* Section padding — responsive */
+.cs-act {
+  padding: 64px 0;
+}
+
+@media (min-width: 768px) {
+  .cs-act {
+    padding: 120px 0;
+  }
+}
+
+.cs-act-final {
+  padding: 64px 0 100px;
+}
+
+@media (min-width: 768px) {
+  .cs-act-final {
+    padding: 120px 0 160px;
+  }
+}
+
+/* Profile section — hero act */
+.cs-act-hero {
+  padding-top: 72px;
+  padding-bottom: 48px;
+  min-height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .cs-act-hero {
+    padding-top: 80px;
+    padding-bottom: 80px;
+    min-height: 90vh;
+  }
+}
+
+/* Portrait — smaller on mobile */
+.cs-portrait {
+  width: 100px;
+  flex-shrink: 0;
+  aspect-ratio: 4 / 5;
+  border: 0.5px solid rgba(136,136,136,0.2);
+  overflow: hidden;
+  position: relative;
+  background-color: rgba(255,255,255,0.015);
+}
+
+@media (min-width: 768px) {
+  .cs-portrait {
+    width: 160px;
+  }
+}
+
+/* SCQA marker — wraps on mobile */
+.cs-scqa-marker {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+@media (min-width: 768px) {
+  .cs-scqa-marker {
+    gap: 16px;
+    margin-bottom: 64px;
+    flex-wrap: nowrap;
+  }
+}
+
+.cs-scqa-line {
+  flex: 1;
+  height: 0.5px;
+  background-color: rgba(58,158,164,0.18);
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .cs-scqa-line {
+    display: block;
+  }
+}
+
+/* ═══ ARCHITECTURE COMPARISON — Responsive ═══ */
+
+.arch-comparison-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .arch-comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr;
+    gap: 0;
+  }
+}
+
+.arch-comparison-col {
+  padding: 0;
+}
+
+@media (min-width: 768px) {
+  .arch-comparison-col {
+    padding: 0 40px;
+  }
+  .arch-comparison-grid > .arch-comparison-col:first-child {
+    padding-left: 0;
+    padding-right: 40px;
+  }
+  .arch-comparison-grid > .arch-comparison-col:last-child {
+    padding-left: 40px;
+    padding-right: 0;
+  }
+}
+
+.arch-comparison-divider {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .arch-comparison-divider {
+    display: block;
+    width: 0.5px;
+    background-color: rgba(136,136,136,0.12);
+    margin: 0 auto;
+  }
+}
+
+.arch-comparison-captions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+@media (min-width: 768px) {
+  .arch-comparison-captions {
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr;
+    gap: 0;
+  }
+  .arch-comparison-captions > p:first-child {
+    padding-right: 40px;
+  }
+  .arch-comparison-captions > p:last-child {
+    padding-left: 40px;
+  }
+}
