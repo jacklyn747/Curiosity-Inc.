@@ -52,7 +52,7 @@ function EditorialPortrait() {
 
 export function JustinWelshCaseStudy() {
   const profileRef = useRef<HTMLDivElement>(null);
-  const { ref: auditRef, inView: auditInView } = useScrollTrigger(0.15);
+  const { ref: auditRef, inView: auditInView } = useScrollTrigger({ threshold: 0.15 });
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -70,10 +70,13 @@ export function JustinWelshCaseStudy() {
 
   useEffect(() => {
     if (!auditInView) return;
-    gsap.fromTo('.jw-audit-row',
-      { opacity: 0, y: 12 },
-      { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: 'power2.out' }
-    );
+    const ctx = gsap.context(() => {
+      gsap.fromTo('.jw-audit-row',
+        { opacity: 0, y: 12 },
+        { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: 'power2.out' }
+      );
+    }, auditRef);
+    return () => ctx.revert();
   }, [auditInView]);
 
   return (
