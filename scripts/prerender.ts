@@ -41,9 +41,14 @@ for (const { path, article } of routes) {
     );
 
     const headTags = article ? buildHeadTags(article) : '';
-    const output = template
+    let output = template
       .replace('<!-- HEAD_INJECT -->', headTags)
       .replace('<div id="root"></div>', `<div id="root">${rendered}</div>`);
+
+    // Remove the default template title when injecting article-specific metadata
+    if (article) {
+      output = output.replace('<title>Curiosity Inc. — Digital Sanctuary</title>', '');
+    }
 
     const dir = `dist${path === '/' ? '' : path}`;
     mkdirSync(dir, { recursive: true });
