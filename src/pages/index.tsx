@@ -345,22 +345,7 @@ export function CaseStudyPage() {
 /**
  * Article Shell.
  */
-export function ArticlePage() {
-  const { slug } = useParams<{ slug: string }>();
-
-  return (
-    <div className="flex flex-col items-center justify-center min-vh-100 p-8 text-center" style={{ minHeight: '100vh' }}>
-      <DisplayHeading as="h1" accent="Deep Reading" className="mb-8">{`Deep Reading: ${slug || ''}`}</DisplayHeading>
-      <Link 
-        to="/" 
-        className="data-label"
-        style={{ color: 'var(--color-insight)', textDecoration: 'none' }}
-      >
-        ← BACK TO LIBRARY
-      </Link>
-    </div>
-  );
-}
+export { ArticlePage } from './ArticlePage';
 
 /**
  * 404 Page.
