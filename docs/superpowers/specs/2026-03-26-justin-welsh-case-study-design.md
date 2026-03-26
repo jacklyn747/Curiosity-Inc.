@@ -48,14 +48,26 @@ The hook is a "What if" question that poses the case study's central thesis. Thi
 - Justin Welsh: *"What if the ideas Justin Welsh teaches outlive the platforms he teaches them on?"*
 - Tiago Forte: *"What if the Second Brain already had a curriculum — and nobody had built it yet?"*
 
-**Profile card bottom band — Network Bandwidth + Target Topology** (identical structure to DK, different data):
+**Profile card bottom band — Platform Distribution + Target Topology**
 
-Left panel — "Network Bandwidth":
+This band is functionally identical in structure to Dan Koe's "Network Bandwidth + Target Topology" band, but the left panel carries richer semantic content: each platform is labelled with its funnel position AND its current ID principle, making the audit argument visible from the profile card itself.
+
+Left panel — "Platform Distribution":
+
+| Platform | Followers | Funnel Position | Current ID Role |
+|---|---|---|---|
+| LinkedIn | 500,000 | TOFU | Activation + Demonstration |
+| Newsletter | 150,000 | MOFU | Demonstration only |
+| Courses | — | BOFU | Partial Application |
+
+Bar chart proportions (for visual rendering, same bar component as DK):
 ```
 LinkedIn     500,000   pct: 0.76
 Newsletter   150,000   pct: 0.23
-X (Twitter)   35,000   pct: 0.05
+Courses      —         pct: 0.05  (represented symbolically)
 ```
+
+Each platform row gains a small secondary label beneath the bar showing its ID role in monospace, context grey, 8px. This is unique to Justin Welsh's card — it makes the platform audit argument legible from Act 01.
 
 Right panel — "Target Topology":
 > *"The corporate professional who wants to build a one-person business and escape the nine-to-five permanently."*
@@ -86,71 +98,88 @@ Concept study disclaimer (identical to DK):
 
 ---
 
-### Act 02 — Situation Continued / The Curriculum Audit
+### Act 02 — Situation Continued / The Platform Audit
 **SCQA Stage:** Situation (deepening)
-**Purpose:** Map Justin's current content structure against Merrill's First Principles of Instruction. Make the ID gap visible and concrete. Establish Curiosity Inc.'s analytical frame.
+**Purpose:** Map Justin's platform distribution model against Merrill's First Principles — platform by platform. Show not just what ID principles are missing, but *which platform* carries (or fails to carry) each one. This is the clinical audit that makes the case for structural change, not cosmetic improvement.
 
-**Component:** Custom ID Audit Grid (inline JSX — not a reused component). A structured five-row table that feels like a clinical audit document, distinct from the Scaffold used in Act 03.
+**Component:** Custom Platform Audit Grid (inline JSX — not a reused component). Two-section layout: first a per-platform breakdown, then a principles summary. Feels like a formal audit document.
 
-**Why not FlowPulse or Scaffold here:** FlowPulse shows behavioral flow, not structural diagnosis. Using Scaffold in both Acts 02 and 03 would blur the visual distinction between diagnosis and solution.
+**Animation:** Row stagger using `useScrollTrigger`. Import from `'../hooks/useScrollTrigger'`. Use a `useEffect` with GSAP `fromTo` on `.platform-audit-row` class names, triggered when `inView` becomes true.
 
-**Animation:** Row stagger using `useScrollTrigger` hook. Import from `'../hooks/useScrollTrigger'`. The hook handles its own IntersectionObserver internally — no module-level ScrollTrigger registration needed. Use a `useEffect` with GSAP `fromTo` on `.id-audit-row` class names, triggered when `inView` becomes true. Pattern identical to the profile band stagger in `DanKoeCaseStudy.tsx` but scroll-triggered rather than mount-triggered.
+**Section A — Per-Platform Breakdown:**
 
-**ID Audit Grid structure:**
+| Platform | Funnel Stage | Current Content Format | ID Principle Served | Gap |
+|---|---|---|---|---|
+| **LinkedIn** | TOFU | Hook → Insight → Takeaway. Self-contained. Nothing asked of the reader. | Activation ✅, Demonstration ✅ | Application ❌ — insight delivered, practice never designed |
+| **Newsletter** | MOFU | One insight expanded. Deep, well-written, passive. No assignment, no reply mechanism. | Demonstration ✅ | Application ❌, Feedback ❌ — no designed practice, no outcome measurement |
+| **Courses** | BOFU | Video library. Self-paced. No checkpoints, no cohort, no peer review. | Partial Application ⚠️ | Feedback ❌, Integration ❌ — no outcome documentation, zero data flows back |
+| **— MISSING —** | Post-conversion | Nothing. The learning ends at the transaction. | — | Integration ❌, Outcome Documentation ❌ — no community, no feedback loop, no IP foundation |
 
-| Merrill's Principle | What it requires | Justin's current content | Status |
-|---|---|---|---|
-| **Activation** | Connect new knowledge to existing experience and goals | Consistent — relatable solopreneur scenarios anchor every post | ✅ Present |
-| **Demonstration** | Show how the concept works in context with worked examples | Consistent — tactical before/after examples in every post | ✅ Present |
-| **Application** | Prompt the learner to use the knowledge immediately | Almost entirely absent — insight is delivered, practice is never designed | ❌ Absent |
-| **Feedback** | Mechanism for the learner to check and correct understanding | Absent — no designed feedback loop exists in the content architecture | ❌ Absent |
-| **Integration** | Help the learner connect the new skill to their existing world and identity | Absent — no transfer prompts, no "now apply this to your situation" | ❌ Absent |
+**Section B — Merrill's Principles Summary** (the same five-row grid as originally specced, now explicitly connected to the platform above it):
 
-**Visual styling of the grid:**
-- Each row renders as a styled band with a left accent (same 4px border pattern as Scaffold)
-- Teal accent = present, Orange accent = partial, muted (#555) accent = absent
-- Status indicator: small monospace label at right (`PRESENT` in Teal, `ABSENT` in Pink at low opacity)
-- The grid enters with staggered row animation (GSAP, same pattern as profile bands)
-- No hover expand needed — the table is self-contained
+| Merrill's Principle | Platform that should carry it | Current state |
+|---|---|---|
+| **Activation** | LinkedIn | ✅ Present — resonance is high |
+| **Demonstration** | LinkedIn + Newsletter | ✅ Present — tactical examples throughout |
+| **Application** | Newsletter (ideal) | ❌ Absent — no designed practice anywhere |
+| **Feedback** | Courses | ❌ Absent — no outcome measurement, no correction mechanism |
+| **Integration** | Practitioner Community (missing) | ❌ Absent — no platform exists for this phase |
 
-**Narrative above the grid:**
-- Introduce Merrill's First Principles as the framework used
-- One sentence on why it's the right lens: it isolates the phases of instruction that produce durable learning, not just momentary inspiration
-- Frame the audit as recognition, not criticism: "here is the intellectual architecture beneath your content, and here is what's missing for it to endure"
+**Visual styling:**
+- Section A rows: each platform gets a card-style row with left accent bar. Teal = present, Orange = partial, muted = absent/missing. Missing platform row uses dashed border and Pink accent.
+- Section B rows: compact five-row summary grid, same left accent pattern
+- Both sections enter with staggered GSAP animation on scroll trigger
 
-**Narrative below the grid:**
-- The diagnosis in plain language: Justin Welsh has built a world-class lecture. There is no lab. No practicum. No transfer design.
-- The consequence: his audience feels changed after consuming his content. Most of them are not changed. Inspiration without application does not produce behavioral or identity shift.
-- The question this raises: what would his content architecture look like if the missing phases were designed?
+**Narrative above:**
+- Frame as a platform-by-platform audit, not a content quality critique
+- "The question is not whether the content is good. The content is exceptional. The question is whether the platform architecture supports the full learning journey."
+
+**Narrative between sections A and B:**
+- Bridge sentence: "The pattern across every platform is the same. Activation and demonstration are excellent. Application, feedback, and integration don't exist anywhere in the architecture."
+
+**Narrative below:**
+- The diagnosis: Justin Welsh has built a world-class broadcast infrastructure. Every platform delivers content. None of them ask anything back. The learning journey ends at inspiration.
+- The critical consequence: without a feedback loop, there is no outcome data. Without outcome data, there is no framework. Without a framework, there is no licensable IP. The platform architecture isn't just a learning problem — it is what stands between Justin Welsh's ideas and their permanent contribution to the field.
 
 ---
 
 ### Act 03 — Question / The Commitment Ladder
 **SCQA Stage:** Question
-**Purpose:** Show what a designed ID-aligned content architecture looks like for Justin Welsh specifically. The Commitment Ladder bridges the ID framework (Act 02) and the business funnel — demonstrating that alignment, not replacement, is the answer.
+**Purpose:** Show what the redesigned platform architecture looks like when each platform carries its correct ID purpose. Each rung of the ladder maps to a specific platform and a specific content redesign — and critically, each rung creates the demand that makes the next rung inevitable. This answers the implicit question: "if you give away activation and application for free, why would anyone buy the course?"
 
 **Component:** `Scaffold` — four bands, `direction="up"` (bottom to top, foundational first).
 
-**The Commitment Ladder:**
+**The Commitment Ladder — platform-mapped:**
 
-| Band | Level | `accentColor` prop | ID Principle mapped | Current state | Designed state |
-|---|---|---|---|---|---|
-| ATTENTION | `foundational` | `'structure'` (Teal) | Activation — content resonates with who the audience wants to become | ✅ Abundant. Posts consistently name and celebrate the solopreneur identity. | Formalised as the entry point. Every piece of content is an activation event. |
-| MICRO-ACT | `intermediate` | `'context'` (Grey) | Demonstration → Application bridge — small acts of alignment that build toward larger commitment | ⚠️ Accidental. Saves, replies, DMs happen but aren't designed as commitment steps. | Each post ends with a designed micro-commitment: a prompt to act as a solopreneur before believing it fully. |
-| INTENT | `advanced` | `'transformation'` (Orange) | Feedback — the learner creates productive dissonance, recognises the gap between where they are and where the identity requires them to be | ❌ Absent. No designed "I'm seriously considering this" moment exists. | A structured intent signal: a quiz, a self-audit, a diagnostic that makes the audience confront the gap explicitly. |
-| IDENTITY / ACTION | `mastery` | `'insight'` (Pink) | Integration — the learner adopts the identity because the architecture made it feel inevitable, not aspirational | ❌ Absent as designed destination. Purchase happens when someone happens to be in the right mood. | Purchase is the natural confirmation of an identity already in formation. The commitment ladder makes the purchase feel like the next logical step, not a decision. |
+| Band | Level | `accentColor` | Platform | Content redesign | ID Principle | Why it creates demand for the next rung |
+|---|---|---|---|---|---|---|
+| ATTENTION | `foundational` | `'structure'` | LinkedIn | Hook → Insight → **Micro-commitment prompt.** "Map your skills to a market this week. Drop what you found below." | Activation | Creates partial success. The reader acts as a solopreneur before believing it. Partial success reveals the gap: "this works — but I don't know what to do next." |
+| MICRO-ACT | `intermediate` | `'context'` | Newsletter | Concept → Worked example → **Weekly assignment.** "Apply it this week and reply with what you found." | Demonstration → Application | One technique per week in isolation creates momentum and exposes the absence of a coherent system. "I'm applying individual ideas but I have no architecture." The course becomes the obvious answer. |
+| INTENT | `advanced` | `'transformation'` | Courses | Lesson → **Exercise → Peer review.** Cohort rhythm. Progress milestones. Outcome documentation begins. | Application + Feedback | The course isn't more content. It's the designed progression that connects all the isolated techniques into a system. Completion produces documented outcomes — the first data points of the framework. |
+| IDENTITY / ACTION | `mastery` | `'insight'` | Practitioner Community *(new)* | **Weekly challenges. Case study submissions. Peer review cycles.** Justin shifts from publisher to curator and validator. | Integration + Outcome Documentation | The community is where the identity is reinforced through practice with peers — and where the methodology is tested, refined, and validated. This is the feedback loop. This is the IP engine. |
 
-The `Scaffold` component's `ScaffoldBand` interface accepts `accentColor` as `'structure' | 'transformation' | 'insight' | 'context'`. The `level` prop drives the label only; `accentColor` drives the visual border. Use the `accentColor` values above — do NOT pass `'grey'` or any other string.
+**The `Scaffold` `accentColor` prop values:** `'structure' | 'transformation' | 'insight' | 'context'`. Do NOT pass `'grey'`. MICRO-ACT uses `'context'`.
 
-**expandedContent per band:** Each band expands to show a concrete example of what the designed rung looks like in Justin's context — a specific post format, a specific prompt, a specific mechanic.
+**expandedContent per band:** Each band expands to show the specific content redesign for that platform — the before/after of what the creator publishes.
+
+**Critical narrative point — the course question:**
+The case study must address directly: if activation and application are free, why buy the course?
+
+The answer is the ladder itself: **each free rung creates the problem the next rung solves.**
+
+- LinkedIn gives one prompt → partial success → "I need more structure"
+- Newsletter gives one technique per week in isolation → momentum without architecture → "I need a system"
+- The course sells the system: designed progression, scaffolded curriculum, accountability, community access. Not more content. The *structure* that connects the content.
+
+The course buyer is not a cold lead. They have already proved to themselves — through ten newsletter assignments and ten LinkedIn prompts — that the methodology works for them. They are buying certainty, not taking a risk. This is why conversion improves when the ladder is designed: the leap disappears.
 
 **Narrative above the Scaffold:**
-- The bridge sentence: "The marketing funnel doesn't disappear. It gets a curriculum."
-- Frame the ladder as the point where ID principles and the funnel stop working against each other and start reinforcing each other.
+- "The marketing funnel doesn't disappear. It gets a curriculum."
+- Each platform now has a purpose. Each purpose creates the demand for the next.
 
 **Narrative below the Scaffold:**
-- The insight: conversion is not the problem. The absence of designed steps before conversion is the problem.
-- The implication: when each rung is intentional, the audience doesn't decide to buy. They arrive at purchase having already made a hundred smaller commitments that made it inevitable.
+- When the ladder is designed, conversion stops being a cliff. The audience doesn't decide to buy. They arrive at purchase having already made a hundred smaller commitments that made it inevitable.
+- And for the first time: every step is measured. The outcome data accumulates. The methodology improves. The framework becomes real.
 
 ---
 
@@ -416,9 +445,21 @@ This spec establishes the confirmed template for all three case studies. Tiago F
 Before implementation is considered complete, the case study must answer yes to all of the following:
 
 - [ ] Does the case study clearly position Justin Welsh as a professor, not a marketer?
+- [ ] Does the profile card bottom band show platform distribution with ID role labels — not just follower counts?
+- [ ] Does Act 02 audit the platform architecture specifically — not just "content" generically?
 - [ ] Does Act 02 make the ID gap visible without reading as a critique of his work?
+- [ ] Does Act 03 map each rung of the ladder to a specific platform and a specific content redesign?
+- [ ] Does Act 03 explain why each free rung creates demand for the next paid rung?
+- [ ] Does Act 03 answer the implicit question: "if activation and application are free, why buy the course?"
 - [ ] Does Act 03 make the alignment argument — funnel + ID, not funnel vs. ID?
 - [ ] Does Act 04 show learning outcome metrics alongside business metrics, in that order?
+- [ ] Does Act 05 name the Practitioner Community as the feedback loop that makes the IP real?
 - [ ] Does Act 05 name the legacy dimension — what his framework becomes, not just what the business achieves?
 - [ ] Is the implicit CTA ("if your work deserves to outlast you") present and unforced?
 - [ ] Does the case study feel like it was written by a learning architecture firm, not a marketing consultancy?
+
+---
+
+## 8. The Core Argument in One Paragraph
+
+Justin Welsh is a professor of solopreneurship who has built a world-class broadcast infrastructure with no curriculum beneath it. His platforms deliver activation and demonstration exceptionally — and nothing else. The absence of application, feedback, and integration phases means his audience consumes without changing, and his methodology accumulates no outcome data. Without outcome data there is no framework. Without a framework there is no licensable IP. The solution is not a better funnel. It is a platform architecture where each channel carries a specific ID purpose, each purpose creates the demand for the next, and the whole system generates the documented outcomes that transform great content into an enduring methodology. That methodology — properly named, structured, and licensed — is the most valuable asset Justin Welsh will ever build. Not the courses. Not the newsletter. The framework those platforms, together, are capable of producing.
