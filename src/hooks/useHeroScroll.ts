@@ -1,9 +1,6 @@
 // src/hooks/useHeroScroll.ts
 import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
+import gsap from 'gsap';
 
 /**
  * Pins the hero section and calls onProgress(0–1) on each scroll tick.
@@ -22,20 +19,22 @@ export function useHeroScroll(
 
   useEffect(() => {
     if (!containerRef.current) return;
-
-    const trigger = ScrollTrigger.create({
-      trigger: containerRef.current,
-      start: 'top top',
-      end: '+=300%',
-      pin: true,
-      scrub: 1,
-      onUpdate: (self) => {
-        onProgressRef.current(self.progress);
-      },
+    let cleanup: (() => void) | undefined;
+    import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
+      gsap.registerPlugin(ScrollTrigger);
+      if (!containerRef.current) return;
+      const trigger = ScrollTrigger.create({
+        trigger: containerRef.current,
+        start: 'top top',
+        end: '+=300%',
+        pin: true,
+        scrub: 1,
+        onUpdate: (self) => {
+          onProgressRef.current(self.progress);
+        },
+      });
+      cleanup = () => trigger.kill();
     });
-
-    return () => {
-      trigger.kill();
-    };
+    return () => { cleanup?.(); };
   }, [containerRef]);
 }

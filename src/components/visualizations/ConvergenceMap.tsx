@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { gsap } from 'gsap';
+import gsap from 'gsap';
 import { useScrollTrigger } from '../../hooks/useScrollTrigger';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
 

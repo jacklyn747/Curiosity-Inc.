@@ -1,7 +1,6 @@
 // src/components/hero/HeroSection.tsx
 import { useRef, useCallback } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
 import { useHeroScroll } from '../../hooks/useHeroScroll';
 import { ParticleField } from './ParticleField';
@@ -68,7 +67,7 @@ export function HeroSection() {
           // Refresh ScrollTrigger AFTER canvas has committed dimensions to DOM.
           // Must be here (onCreated), not before mount — premature refresh produces
           // wrong pinned-spacer height and corrupts scroll positions for sections below.
-          ScrollTrigger.refresh();
+          import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => ScrollTrigger.refresh());
         }}
         gl={{ antialias: false, powerPreference: 'high-performance' }}
       >

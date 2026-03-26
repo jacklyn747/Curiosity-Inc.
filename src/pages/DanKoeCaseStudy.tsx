@@ -1,13 +1,17 @@
 import { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Scaffold } from '../components/visualizations/Scaffold';
 import { Lens } from '../components/visualizations/Lens';
 import { DeltaBridge } from '../components/visualizations/DeltaBridge';
 import { ArchitectureComparison } from '../components/visualizations/ArchitectureComparison';
 
-gsap.registerPlugin(ScrollTrigger);
+if (typeof window !== 'undefined') {
+  // Dynamic import to avoid SSR issues with gsap/ScrollTrigger named exports
+  import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
+    gsap.registerPlugin(ScrollTrigger);
+  });
+}
 
 /* ─── SCQA Section Marker ─────────────────────────────────── */
 function ScqaMarker({

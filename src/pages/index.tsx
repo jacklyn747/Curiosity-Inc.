@@ -1,7 +1,5 @@
 import { useParams, Link } from 'react-router-dom';
 import { DanKoeCaseStudy } from './DanKoeCaseStudy';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SectionLabel } from '../components/typography/SectionLabel';
 import { DisplayHeading } from '../components/typography/DisplayHeading';
 import { Scaffold } from '../components/visualizations/Scaffold';
@@ -10,7 +8,11 @@ import { GridReveal } from '../components/visualizations/GridReveal';
 import { ConvergenceMap } from '../components/visualizations/ConvergenceMap';
 import { HeroSection } from '../components/hero/HeroSection';
 
-gsap.registerPlugin(ScrollTrigger);
+if (typeof window !== 'undefined') {
+  Promise.all([import('gsap'), import('gsap/ScrollTrigger')]).then(
+    ([{ default: gsap }, { ScrollTrigger }]) => gsap.registerPlugin(ScrollTrigger)
+  );
+}
 
 /**
  * Homepage - Core structural sections for anchor navigation.
