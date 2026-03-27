@@ -9,6 +9,14 @@ interface LayoutProps {
 export function Layout({ children }: LayoutProps) {
   return (
     <div className="layout-root">
+      {/* Skip-to-content — hidden until focused, required for keyboard nav */}
+      <a
+        href="#main-content"
+        className="skip-link"
+      >
+        Skip to content
+      </a>
+
       {/* Navigation Layer */}
       <Navigation />
 

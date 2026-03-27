@@ -110,6 +110,52 @@ input, button, textarea, select {
   border: 0;
 }
 
+/* SKIP LINK — hidden until focused */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  z-index: 9999;
+  padding: 0.75rem 1.25rem;
+  background: var(--color-void);
+  color: var(--color-insight);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid var(--color-insight);
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* FOCUS RINGS — 2px Pink outline, 2px offset (WCAG 2.2 AA) */
+:focus-visible {
+  outline: 2px solid var(--color-insight);
+  outline-offset: 2px;
+}
+
+/* Remove default outline for mouse users — :focus-visible handles keyboard */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Touch targets — minimum 44×44px for all interactive elements (WCAG 2.5.5) */
+button, [role="button"], a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Exception: inline nav links and tiny data labels don't need the full 44px height */
+.nav-link, .data-label, .section-label {
+  min-height: unset;
+  display: unset;
+}
+
 /* LAYOR UTILS */
 .container {
   width: 100%;
@@ -135,7 +181,7 @@ input, button, textarea, select {
 .gap-10 { gap: 2.5rem; }
 .gap-12 { gap: 3rem; }
 
-.min-h-screen { min-vh: 100vh; min-height: 100vh; }
+.min-h-screen { min-height: 100vh; }
 .w-full { width: 100%; }
 .text-center { text-align: center; }
 .uppercase { text-transform: uppercase; }

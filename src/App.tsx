@@ -1,18 +1,54 @@
+import { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Layout } from './components/layout/Layout';
-import { HomePage, CaseStudyPage, ArticlePage, NotFoundPage } from './pages/index';
-import { TestComponents } from './pages/TestComponents';
+
+// Code-split all routes — Three.js and heavy case studies stay out of the main bundle
+const HomePage        = lazy(() => import('./pages/index').then(m => ({ default: m.HomePage })));
+const CaseStudyPage   = lazy(() => import('./pages/index').then(m => ({ default: m.CaseStudyPage })));
+const ArticlePage     = lazy(() => import('./pages/ArticlePage').then(m => ({ default: m.ArticlePage })));
+const NotFoundPage    = lazy(() => import('./pages/index').then(m => ({ default: m.NotFoundPage })));
+const TestComponents  = lazy(() => import('./pages/TestComponents').then(m => ({ default: m.TestComponents })));
+
+// Minimal loading fallback — void screen, no flash
+function PageFallback() {
+  return (
+    <div
+      style={{
+        minHeight: '100vh',
+        backgroundColor: 'var(--color-void)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+      aria-label="Loading"
+    >
+      <span
+        style={{
+          fontFamily: 'var(--font-mono)',
+          fontSize: '10px',
+          letterSpacing: '0.15em',
+          color: 'var(--color-context-dim)',
+          textTransform: 'uppercase',
+        }}
+      >
+        ✦
+      </span>
+    </div>
+  );
+}
 
 export function AppRoutes() {
   return (
     <Layout>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/test-components" element={<TestComponents />} />
-        <Route path="/work/:slug" element={<CaseStudyPage />} />
-        <Route path="/writing/:slug" element={<ArticlePage />} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
+      <Suspense fallback={<PageFallback />}>
+        <Routes>
+          <Route path="/"                element={<HomePage />} />
+          <Route path="/test-components" element={<TestComponents />} />
+          <Route path="/work/:slug"      element={<CaseStudyPage />} />
+          <Route path="/writing/:slug"   element={<ArticlePage />} />
+          <Route path="*"               element={<NotFoundPage />} />
+        </Routes>
+      </Suspense>
     </Layout>
   );
 }
