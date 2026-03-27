@@ -366,13 +366,30 @@ export function DanKoeCaseStudy() {
           </blockquote>
 
           <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '80px' }}>
-            <button
-              style={{ padding: '16px 40px', background: 'transparent', border: '1px solid var(--color-insight)', color: 'var(--color-insight)', fontFamily: 'var(--font-body)', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.15em', cursor: 'pointer', transition: 'background 0.3s ease' }}
-              onMouseEnter={e => (e.currentTarget.style.backgroundColor = 'rgba(247,38,88,0.1)')}
-              onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'transparent')}
+            <Link
+              to="/audit"
+              style={{
+                padding: '16px 40px',
+                background: 'transparent',
+                border: '1px solid var(--color-insight)',
+                color: 'var(--color-insight)',
+                fontFamily: 'var(--font-body)',
+                fontSize: '11px',
+                textTransform: 'uppercase',
+                letterSpacing: '0.15em',
+                cursor: 'pointer',
+                transition: 'background 0.3s ease',
+                textDecoration: 'none',
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: '24px',
+              }}
+              onMouseEnter={e => { e.currentTarget.style.backgroundColor = 'rgba(247,38,88,0.1)'; }}
+              onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'transparent'; }}
             >
               Request a Curiosity Audit
-            </button>
+            </Link>
           </div>
 
           {/* Navigation */}

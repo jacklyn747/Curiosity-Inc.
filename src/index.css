@@ -150,8 +150,8 @@ button, [role="button"], a {
   align-items: center;
 }
 
-/* Exception: inline nav links and tiny data labels don't need the full 44px height */
-.nav-link, .data-label, .section-label {
+/* Exception: inline nav links and article row anchors — they're inside tall containers */
+.nav-link, .data-label, .section-label, .article-row {
   min-height: unset;
   display: unset;
 }

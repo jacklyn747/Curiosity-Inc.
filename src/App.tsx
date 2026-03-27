@@ -8,6 +8,7 @@ const CaseStudyPage   = lazy(() => import('./pages/index').then(m => ({ default:
 const ArticlePage     = lazy(() => import('./pages/ArticlePage').then(m => ({ default: m.ArticlePage })));
 const NotFoundPage    = lazy(() => import('./pages/index').then(m => ({ default: m.NotFoundPage })));
 const TestComponents  = lazy(() => import('./pages/TestComponents').then(m => ({ default: m.TestComponents })));
+const AuditRequest    = lazy(() => import('./pages/AuditRequest').then(m => ({ default: m.AuditRequest })));
 
 // Minimal loading fallback — void screen, no flash
 function PageFallback() {
@@ -43,10 +44,11 @@ export function AppRoutes() {
       <Suspense fallback={<PageFallback />}>
         <Routes>
           <Route path="/"                element={<HomePage />} />
+          <Route path="/audit"           element={<AuditRequest />} />
           <Route path="/test-components" element={<TestComponents />} />
           <Route path="/work/:slug"      element={<CaseStudyPage />} />
           <Route path="/writing/:slug"   element={<ArticlePage />} />
-          <Route path="*"               element={<NotFoundPage />} />
+          <Route path="*"                element={<NotFoundPage />} />
         </Routes>
       </Suspense>
     </Layout>

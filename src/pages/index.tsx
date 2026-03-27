@@ -1,4 +1,4 @@
-import { useParams, Link } from 'react-router-dom';
+import { useNavigate, useParams, Link } from 'react-router-dom';
 import { DanKoeCaseStudy } from './DanKoeCaseStudy';
 import { JustinWelshCaseStudy } from './JustinWelshCaseStudy';
 import { TiagoForteCaseStudy } from './TiagoForteCaseStudy';
@@ -22,7 +22,7 @@ if (typeof window !== 'undefined') {
  * The Homepage IS a Curiosity Loop.
  */
 export function HomePage() {
-
+  const navigate = useNavigate();
   return (
     <div className="homepage-root">
       <HeroSection />
@@ -307,8 +307,9 @@ export function HomePage() {
               cursor: 'pointer',
               transition: 'all 0.3s ease'
             }}
-            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(247, 38, 88, 0.1)'}
-            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+            onClick={() => navigate('/audit')}
+            onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'rgba(247, 38, 88, 0.1)'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'transparent'; }}
           >
             Request a Curiosity Audit
           </button>

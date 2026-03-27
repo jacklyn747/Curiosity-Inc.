@@ -7,6 +7,7 @@ import { DeltaBridge } from '../components/visualizations/DeltaBridge';
 import { Lens } from '../components/visualizations/Lens';
 import { GridReveal } from '../components/visualizations/GridReveal';
 import { ConvergenceMap } from '../components/visualizations/ConvergenceMap';
+import { AnnotationThread } from '../components/visualizations/AnnotationThread';
 
 export const TestComponents: React.FC = () => {
   return (
@@ -201,6 +202,73 @@ export const TestComponents: React.FC = () => {
         </div>
 
         <ConvergenceMap />
+      </section>
+
+      {/* Component 7: THE ANNOTATION THREAD (Phase 11) */}
+      <section className="flex flex-col gap-16">
+        <div className="max-w-[800px]">
+          <SectionLabel>THE ANNOTATION THREAD</SectionLabel>
+          <DisplayHeading as="h2" className="mt-6">
+            How engagement compounds — not linearly, but by design.
+          </DisplayHeading>
+          <p className="body-text mt-6 opacity-70">
+            Grey lines: industry benchmark engagement curves. Pink focal line: the trajectory when instructional design principles are applied.
+          </p>
+        </div>
+
+        <AnnotationThread
+          title="Creator Engagement Trajectory"
+          subtitle="Pink line: Curiosity Inc. methodology applied. Grey lines: industry benchmarks."
+          focalPoints={[
+            { x: 0,    y: 0.15 },
+            { x: 0.1,  y: 0.17 },
+            { x: 0.2,  y: 0.22 },
+            { x: 0.3,  y: 0.28 },   // starts diverging
+            { x: 0.45, y: 0.42 },
+            { x: 0.55, y: 0.56 },   // commitment ladder kicks in
+            { x: 0.65, y: 0.61 },
+            { x: 0.75, y: 0.70 },
+            { x: 0.88, y: 0.78 },
+            { x: 1.0,  y: 0.83 },
+          ]}
+          contextLines={[
+            // Flat industry average
+            [
+              { x: 0, y: 0.15 }, { x: 0.25, y: 0.16 },
+              { x: 0.5, y: 0.17 }, { x: 0.75, y: 0.16 }, { x: 1.0, y: 0.15 },
+            ],
+            // Slight decay curve
+            [
+              { x: 0, y: 0.20 }, { x: 0.3, y: 0.18 },
+              { x: 0.6, y: 0.15 }, { x: 1.0, y: 0.12 },
+            ],
+            // Volatile creator
+            [
+              { x: 0, y: 0.18 }, { x: 0.2, y: 0.24 }, { x: 0.4, y: 0.13 },
+              { x: 0.6, y: 0.21 }, { x: 0.8, y: 0.14 }, { x: 1.0, y: 0.19 },
+            ],
+          ]}
+          annotations={[
+            {
+              pointIndex: 2,
+              label: 'ARCHITECTURE APPLIED',
+              sublabel: 'Month 3',
+              direction: 'up',
+            },
+            {
+              pointIndex: 5,
+              label: 'COMMITMENT LADDER',
+              sublabel: 'Identity signal emerges',
+              direction: 'down',
+            },
+            {
+              pointIndex: 9,
+              label: '+410% ENGAGEMENT',
+              sublabel: 'vs. baseline at Month 12',
+              direction: 'up',
+            },
+          ]}
+        />
       </section>
 
     </div>
