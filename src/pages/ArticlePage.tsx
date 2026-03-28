@@ -38,16 +38,7 @@ export function ArticlePage() {
       <meta property="og:type" content="article" />
       <link rel="canonical" href={`https://curiosityinc.co/writing/${article.slug}`} />
 
-      <article
-        style={{
-          display: 'flex',
-          gap: '48px',
-          maxWidth: '960px',
-          margin: '0 auto',
-          padding: '80px 24px',
-          alignItems: 'flex-start',
-        }}
-      >
+      <article className="article-layout">
         <ArticleTOC
           sections={article.sections}
           category={article.category}

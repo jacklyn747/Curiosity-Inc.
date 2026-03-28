@@ -33,4 +33,16 @@ describe('ArticlePage', () => {
     renderAtSlug('does-not-exist');
     expect(screen.getByText(/Lost in the void/i)).toBeInTheDocument();
   });
+
+  it('article layout uses responsive class', () => {
+    render(
+      <MemoryRouter initialEntries={['/writing/the-accidental-educator']}>
+        <Routes>
+          <Route path="/writing/:slug" element={<ArticlePage />} />
+        </Routes>
+      </MemoryRouter>
+    );
+    expect(document.querySelector('.article-layout')).toBeTruthy();
+    expect(document.querySelector('.article-toc')).toBeTruthy();
+  });
 });

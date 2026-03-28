@@ -31,6 +31,7 @@ export function ArticleTOC({ sections, category, readTime }: ArticleTOCProps) {
 
   return (
     <aside
+      className="article-toc"
       style={{
         position: 'sticky',
         top: '80px',

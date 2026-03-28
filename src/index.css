@@ -394,3 +394,31 @@ button, [role="button"], a {
     gap: 56px;
   }
 }
+
+/* ARTICLE PAGE */
+.article-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: clamp(48px, 8vw, 80px) clamp(20px, 6vw, 24px);
+  align-items: flex-start;
+}
+
+@media (min-width: 768px) {
+  .article-layout {
+    flex-direction: row;
+    gap: 48px;
+  }
+}
+
+.article-toc {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .article-toc {
+    display: block;
+  }
+}
