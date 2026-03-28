@@ -5,8 +5,8 @@
 - **Lint**: `npm run lint`
 - **Component Proofing**: [http://localhost:5173/test-components](http://localhost:5173/test-components)
 
-## Current Status (March 26, 2026)
-**Completed Phase 9**. Phases 1–9 are stable. All 3 case studies live. 51 tests passing across 9 test files.
+## Current Status (March 28, 2026)
+**Completed Phase 11 (polish pass)**. All phases stable. 3 case studies live. **70 tests passing across 12 test files**.
 
 ## Components Built & Proven:
 1.  **The Scaffold** — Staggered Methodology Bands.
@@ -24,9 +24,11 @@
 13. **Tiago Forte Case Study** — Full 5-act SCQA narrative at `/work/tiago-forte-cognitive-interfaces`.
 14. **Article Pages** — 4 articles with TOC sidebar, prev/next nav, static prerendering.
 15. **WebGL Hero** — ParticleField (800 particles, 4-stage morph), HeroSection, HeroFallback.
+16. **Annotation Thread** — Visual annotation/commentary component for case studies.
+17. **Audit Request Form** — Curiosity Audit intake flow at `/audit`.
 
-## Next Mission: Phase 10 (TBD)
-**No phase defined yet.** Candidates: contact/audit form, SEO + analytics, fourth case study, Annotation Thread, performance audit.
+## Next Mission: Phase 12 (TBD)
+**No phase defined yet.** Candidates: fourth case study, Lighthouse CI audit, og:image social card, analytics integration.
 
 ## Style Constraints (The Constitution):
 - **Colors**: Void (#1D1E20), Structure (#3A9EA4), Transformation (#FA7714), Insight (#F72658).

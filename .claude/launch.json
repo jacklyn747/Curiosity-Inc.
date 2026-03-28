@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "brainstorm",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", ".superpowers/brainstorm/2501-1774643765", "--listen", "51337", "--no-clipboard"],
+      "port": 51337
+    },
+    {
+      "name": "dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 5177
+    }
+  ]
+}
