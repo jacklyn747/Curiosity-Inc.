@@ -22,7 +22,7 @@ const S = {
     display: 'flex',
     flexDirection: 'column' as const,
     justifyContent: 'center',
-    padding: '120px 48px 80px',
+    padding: 'clamp(80px, 12vw, 120px) clamp(20px, 6vw, 48px) 80px',
     maxWidth: 760,
     margin: '0 auto',
   } as React.CSSProperties,
@@ -70,14 +70,14 @@ const S = {
   divider: {
     maxWidth: 760,
     margin: '0 auto',
-    padding: '0 48px',
+    padding: '0 clamp(20px, 6vw, 48px)',
     height: 1,
     background: 'rgba(255,255,255,0.06)',
   } as React.CSSProperties,
 
   // Section 02 — Path
   path: {
-    padding: '96px 48px',
+    padding: 'clamp(60px, 10vw, 96px) clamp(20px, 6vw, 48px)',
     maxWidth: 760,
     margin: '0 auto',
   } as React.CSSProperties,
@@ -116,19 +116,14 @@ const S = {
 
   // Section 03 — Reveal
   reveal: {
-    padding: '80px 48px 96px',
+    padding: 'clamp(60px, 8vw, 80px) clamp(20px, 6vw, 48px) clamp(60px, 8vw, 96px)',
     maxWidth: 860,
     margin: '0 auto',
   } as React.CSSProperties,
 
-  revealInner: {
-    display: 'flex',
-    gap: 56,
-    alignItems: 'flex-start',
-  } as React.CSSProperties,
-
   photo: {
-    width: 280,
+    width: '100%',
+    maxWidth: 280,
     height: 340,
     objectFit: 'cover' as const,
     objectPosition: 'center top',
@@ -180,7 +175,7 @@ const S = {
 
   // Section 04 — For Whom
   forWhom: {
-    padding: '80px 48px',
+    padding: 'clamp(60px, 8vw, 80px) clamp(20px, 6vw, 48px)',
     maxWidth: 620,
     margin: '0 auto',
     opacity: 0,         // animated by GSAP
@@ -398,7 +393,7 @@ export const AboutPage: React.FC = () => {
 
       {/* ── Section 03: Reveal ────────────────────────────────── */}
       <section ref={revealRef} style={S.reveal}>
-        <div style={S.revealInner}>
+        <div className="about-reveal-inner">
           <img
             src="/jacklyn-miller.webp"
             alt="Jacklyn Miller"

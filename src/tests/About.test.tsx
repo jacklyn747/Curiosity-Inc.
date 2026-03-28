@@ -68,4 +68,14 @@ describe('AboutPage', () => {
     // Route is functioning if the opening text is present
     expect(screen.getByText(/Here's what I know/i)).toBeInTheDocument();
   });
+
+  it('photo section renders inside a container that can stack', () => {
+    render(
+      <MemoryRouter>
+        <AboutPage />
+      </MemoryRouter>
+    );
+    const revealInner = document.querySelector('.about-reveal-inner');
+    expect(revealInner).toBeTruthy();
+  });
 });
