@@ -156,3 +156,30 @@ for (const { path, article, workMeta } of routes) {
 }
 
 console.log(`\nPrerendered ${successCount} routes.`);
+
+// --- Sitemap ---
+const today = new Date().toISOString().split('T')[0];
+
+const priorityFor = (path: string): string => {
+  if (path === '/') return '1.0';
+  if (path.startsWith('/work/')) return '0.9';
+  if (path.startsWith('/writing/')) return '0.8';
+  return '0.7';
+};
+
+const sitemapXml = [
+  '<?xml version="1.0" encoding="UTF-8"?>',
+  '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+  ...routes.map(({ path }) => [
+    '  <url>',
+    `    <loc>https://curiosityinc.online${path === '/' ? '' : path}</loc>`,
+    `    <lastmod>${today}</lastmod>`,
+    `    <changefreq>${path === '/' ? 'weekly' : 'monthly'}</changefreq>`,
+    `    <priority>${priorityFor(path)}</priority>`,
+    '  </url>',
+  ].join('\n')),
+  '</urlset>',
+].join('\n');
+
+writeFileSync('dist/sitemap.xml', sitemapXml);
+console.log('✓ sitemap.xml');
