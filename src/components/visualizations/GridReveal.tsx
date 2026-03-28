@@ -11,6 +11,7 @@ interface CaseStudyItem {
   title: string;
   subtitle: string;
   link: string;
+  image?: string;
 }
 
 interface GridRevealProps {
@@ -56,7 +57,7 @@ export const GridReveal: React.FC<GridRevealProps> = ({
         <div 
           key={item.id}
           ref={el => { cardRefs.current[i] = el; }}
-          className={`grid-reveal-card relative group p-10 border rounded-lg transition-all duration-700
+          className={`grid-reveal-card relative group p-10 border rounded-lg transition-all duration-700 overflow-hidden
             ${i === 2 && items.length === 3 ? 'md:col-span-1' : ''}`}
           style={{ 
             backgroundColor: 'rgba(232, 230, 224, 0.03)',
@@ -64,9 +65,22 @@ export const GridReveal: React.FC<GridRevealProps> = ({
             opacity: prefersReducedMotion ? 1 : 0
           }}
         >
+          {/* Background Image Layer */}
+          {item.image && (
+            <div 
+              className="absolute inset-0 z-0 opacity-[0.08] group-hover:opacity-[0.14] transition-opacity duration-700 pointer-events-none"
+              style={{
+                backgroundImage: `url(${item.image})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                filter: 'grayscale(100%) brightness(0.8)'
+              }}
+            />
+          )}
+
           <Link to={item.link} className="absolute inset-0 z-10" aria-label={`View case study: ${item.title}`} />
 
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-6 relative z-20">
             <div className="flex justify-between items-start">
               <span className="font-mono text-[12px] text-[var(--color-transformation)]">
                 {item.number}

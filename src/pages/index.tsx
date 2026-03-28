@@ -169,15 +169,17 @@ export function HomePage() {
               category: 'BRAND ARCHITECTURE',
               title: 'Dan Koe',
               subtitle: 'What if 2.3M followers were students, not subscribers?',
-              link: '/work/dan-koe-brand-architecture'
+              link: '/work/dan-koe-brand-architecture',
+              image: '/assets/case-studies/dan-koe-portrait.jpg'
             },
             {
-              id: 'justin-welsh',
+              id: 'just-welsh',
               number: '02',
               category: 'CONVERSION DESIGN',
               title: 'Justin Welsh',
               subtitle: 'Removing the last 1% of friction between insight and action.',
-              link: '/work/justin-welsh-conversion-design'
+              link: '/work/justin-welsh-conversion-design',
+              image: '/assets/case-studies/justin-welsh-portrait.png'
             },
             {
               id: 'tiago-forte',
@@ -185,7 +187,8 @@ export function HomePage() {
               category: 'COGNITIVE INTERFACES',
               title: 'Tiago Forte',
               subtitle: 'The Second Brain already has a curriculum. It just isn\'t built yet.',
-              link: '/work/tiago-forte-cognitive-interfaces'
+              link: '/work/tiago-forte-cognitive-interfaces',
+              image: '/assets/case-studies/tiago-forte-portrait.jpg'
             }
           ]}
         />

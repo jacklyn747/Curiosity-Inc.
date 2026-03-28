@@ -30,22 +30,11 @@ function ScqaMarker({ phase, act, title }: { phase: string; act: string; title: 
 function EditorialPortrait() {
   return (
     <div className="cs-portrait">
-      <svg viewBox="0 0 160 200" style={{ width: '100%', height: '100%', display: 'block' }}>
-        <defs>
-          <linearGradient id="portrait-bg-jw" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#3A9EA4" stopOpacity="0.07" />
-            <stop offset="100%" stopColor="#1D1E20" stopOpacity="0.5" />
-          </linearGradient>
-        </defs>
-        <rect width="160" height="200" fill="url(#portrait-bg-jw)" />
-        <text x="80" y="116" textAnchor="middle" dominantBaseline="middle"
-          style={{ fontFamily: 'Georgia, serif', fontSize: '54px', fontStyle: 'italic', fill: 'rgba(58,158,164,0.22)', letterSpacing: '-0.04em' }}>
-          JW
-        </text>
-        {[40, 55, 70, 140, 155, 170].map((y) => (
-          <line key={y} x1="12" y1={y} x2="148" y2={y} stroke="rgba(58,158,164,0.06)" strokeWidth="0.5" />
-        ))}
-      </svg>
+      <img 
+        src="/assets/case-studies/justin-welsh-portrait.png" 
+        alt="Justin Welsh" 
+        style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'grayscale(100%)', opacity: 0.8 }} 
+      />
     </div>
   );
 }
