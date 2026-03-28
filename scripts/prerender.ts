@@ -45,6 +45,32 @@ function buildWorkHeadTags(meta: WorkMeta, path: string): string {
   ].join('\n    ');
 }
 
+// Strip static homepage meta tags from per-page output to prevent duplicates.
+// The HEAD_INJECT block sits at the top of <head>, so per-page tags are injected
+// first — but the static template tags remain below and would duplicate them.
+// We strip each block that the per-page builders override.
+function stripHomepageMeta(html: string): string {
+  return html
+    // Remove static <title> (already stripped below, but also here for clarity)
+    .replace('\n    <title>Curiosity Inc. \u2014 Digital Sanctuary</title>', '')
+    // Remove static base description
+    .replace('\n    <meta name="description" content="Curiosity Inc. helps creators turn audiences into learners. Design-led instructional architecture for the creator economy." />', '')
+    // Remove static Open Graph comment + tags (keep og:site_name — it's not injected)
+    .replace('\n\n    <!-- Open Graph -->', '')
+    .replace('\n    <meta property="og:type"        content="website" />', '')
+    .replace('\n    <meta property="og:url"         content="https://curiosityinc.co/" />', '')
+    .replace('\n    <meta property="og:title"       content="Curiosity Inc. \u2014 Digital Sanctuary" />', '')
+    .replace('\n    <meta property="og:description" content="Curiosity Inc. helps creators turn audiences into learners. Design-led instructional architecture for the creator economy." />', '')
+    // Remove static Twitter Card comment + tags
+    .replace('\n\n    <!-- Twitter Card -->', '')
+    .replace('\n    <meta name="twitter:card"        content="summary_large_image" />', '')
+    .replace('\n    <meta name="twitter:title"       content="Curiosity Inc. \u2014 Digital Sanctuary" />', '')
+    .replace('\n    <meta name="twitter:description" content="Curiosity Inc. helps creators turn audiences into learners. Design-led instructional architecture for the creator economy." />', '')
+    // Remove static Canonical comment + link
+    .replace('\n\n    <!-- Canonical -->', '')
+    .replace('\n    <link rel="canonical" href="https://curiosityinc.co/" />', '');
+}
+
 type Route = { path: string; article?: Article; workMeta?: WorkMeta };
 
 const routes: Route[] = [
@@ -106,7 +132,7 @@ for (const { path, article, workMeta } of routes) {
       .replace('<div id="root"></div>', `<div id="root">${rendered}</div>`);
 
     if (article || workMeta) {
-      output = output.replace('<title>Curiosity Inc. — Digital Sanctuary</title>', '');
+      output = stripHomepageMeta(output);
     }
 
     const dir = `dist${path === '/' ? '' : path}`;
