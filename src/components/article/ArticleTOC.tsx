@@ -32,6 +32,7 @@ export function ArticleTOC({ sections, category, readTime }: ArticleTOCProps) {
   return (
     <aside
       className="article-toc"
+      aria-label="Table of contents"
       style={{
         position: 'sticky',
         top: '80px',
