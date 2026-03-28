@@ -63,10 +63,6 @@ ul[role='list'], ol[role='list'] {
   list-style: none;
 }
 
-html:focus-within {
-  /* scroll-behavior removed — Lenis handles smooth scroll globally */
-}
-
 body {
   min-height: 100vh;
   text-rendering: optimizeSpeed;
