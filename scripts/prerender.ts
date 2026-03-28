@@ -20,6 +20,10 @@ function buildHeadTags(article: Article): string {
     `<meta property="og:title" content="${escapeHtml(article.title)}" />`,
     `<meta property="og:description" content="${escapeHtml(article.subtitle)}" />`,
     `<meta property="og:type" content="article" />`,
+    `<meta property="og:url" content="https://curiosityinc.co/writing/${article.slug}" />`,
+    `<meta name="twitter:card" content="summary_large_image" />`,
+    `<meta name="twitter:title" content="${escapeHtml(article.title)}" />`,
+    `<meta name="twitter:description" content="${escapeHtml(article.subtitle)}" />`,
     `<link rel="canonical" href="https://curiosityinc.co/writing/${article.slug}" />`,
   ].join('\n    ');
 }
@@ -33,6 +37,10 @@ function buildWorkHeadTags(meta: WorkMeta, path: string): string {
     `<meta property="og:title" content="${escapeHtml(meta.title)}" />`,
     `<meta property="og:description" content="${escapeHtml(meta.description)}" />`,
     `<meta property="og:type" content="website" />`,
+    `<meta property="og:url" content="https://curiosityinc.co${path}" />`,
+    `<meta name="twitter:card" content="summary_large_image" />`,
+    `<meta name="twitter:title" content="${escapeHtml(meta.title)}" />`,
+    `<meta name="twitter:description" content="${escapeHtml(meta.description)}" />`,
     `<link rel="canonical" href="https://curiosityinc.co${path}" />`,
   ].join('\n    ');
 }
@@ -67,6 +75,13 @@ const routes: Route[] = [
     workMeta: {
       title: 'About — Curiosity Inc.',
       description: 'Jacklyn Miller is the founder of Curiosity Inc. — building the instructional architecture the creator economy was missing.',
+    },
+  },
+  {
+    path: '/audit',
+    workMeta: {
+      title: 'Request a Curiosity Audit — Curiosity Inc.',
+      description: 'Start the conversation. A diagnostic session to analyze your content architecture and show you where the learning science breaks down.',
     },
   },
   ...articles.map(a => ({ path: `/writing/${a.slug}`, article: a })),
