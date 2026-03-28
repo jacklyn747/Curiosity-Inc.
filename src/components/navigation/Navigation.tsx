@@ -4,8 +4,9 @@ import { Link, useLocation } from 'react-router-dom';
 const SECTION_LINKS = [
   { label: 'WORK',    href: '#work',    path: '/' },
   { label: 'WRITING', href: '#writing', path: '/' },
-  { label: 'ABOUT',   href: '#about',   path: '/' },
 ];
+
+const ABOUT_LINK = { label: 'ABOUT', path: '/about' };
 
 export const Navigation: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -38,7 +39,7 @@ export const Navigation: React.FC = () => {
       });
     }, options);
 
-    ['hero', 'work', 'writing', 'about'].forEach(id => {
+    ['hero', 'work', 'writing'].forEach(id => {
       const el = document.getElementById(id);
       if (el) observer.observe(el);
     });
@@ -62,11 +63,10 @@ export const Navigation: React.FC = () => {
         <ul className="nav-links">
           {SECTION_LINKS.map(link => {
             const isActive = activeSection === link.href.replace('#', '');
-            
             return (
               <li key={link.label}>
                 {isHome ? (
-                  <a 
+                  <a
                     href={link.href}
                     onClick={(e) => {
                       e.preventDefault();
@@ -85,6 +85,14 @@ export const Navigation: React.FC = () => {
               </li>
             );
           })}
+          <li>
+            <Link
+              to={ABOUT_LINK.path}
+              className={`nav-link ${location.pathname === '/about' ? 'active' : ''}`}
+            >
+              {ABOUT_LINK.label}
+            </Link>
+          </li>
         </ul>
       </div>
     </nav>

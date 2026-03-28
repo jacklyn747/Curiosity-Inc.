@@ -62,6 +62,13 @@ const routes: Route[] = [
       description: 'The Second Brain already has a curriculum. It just isn\'t built yet. A cognitive interface case study.',
     },
   },
+  {
+    path: '/about',
+    workMeta: {
+      title: 'About — Curiosity Inc.',
+      description: 'Jacklyn Miller is the founder of Curiosity Inc. — building the instructional architecture the creator economy was missing.',
+    },
+  },
   ...articles.map(a => ({ path: `/writing/${a.slug}`, article: a })),
 ];
 
