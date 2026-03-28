@@ -2,15 +2,34 @@
 @import "./styles/case-study.css";
 
 :root {
-  /* COLORS — Digital Sanctuary Architecture */
-  --color-void: #1D1E20;
-  --color-structure: #3A9EA4;
-  --color-transformation: #FA7714;
-  --color-insight: #FF2658;
+  /* THE INTELLECTUAL GLAMOUR PALETTE */
+  --palette-muted-black: #1D1D1B;
+  --palette-seashell: #EAE4DA;
+  --palette-mustard: #EAC119;
+  --palette-lavender: #808BC5;
+  --palette-pink-quartz: #EAA7C7;
+  --palette-sky: #9ED6DF;
+  --palette-tea: #245E55;
+  --palette-tangerine: #ED773C;
+  --palette-red-passion: #C63F3E;
+
+  /* FUNCTIONAL MAPPING — Architecture of Attention */
+  --color-void: var(--palette-muted-black);
+  --color-text: var(--palette-seashell);
+  --color-text-dim: rgba(234, 228, 218, 0.55);
+  
+  --color-structure: var(--palette-sky);      /* Primary interface color */
+  --color-transformation: var(--palette-tangerine);
+  --color-insight: var(--palette-red-passion);
+  
   --color-context: #888888;
   --color-context-dim: #8A8A8A;
-  --color-text: #E8E6E0;
-  --color-text-dim: rgba(232, 230, 224, 0.55);
+  
+  /* AUXILIARY TOKENS */
+  --color-tea: var(--palette-tea);
+  --color-lavender: var(--palette-lavender);
+  --color-mustard: var(--palette-mustard);
+  --color-pink: var(--palette-pink-quartz);
 
   /* TYPE — The Information Architecture */
   --font-display: 'Instrument Serif', Georgia, serif;

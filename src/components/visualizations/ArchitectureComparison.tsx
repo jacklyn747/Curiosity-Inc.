@@ -108,7 +108,8 @@ export const ArchitectureComparison: React.FC = () => {
             >
               <path
                 d="M 20 40 L 280 40 L 244 115 L 56 115 Z"
-                fill="rgba(58,158,164,0.08)"
+                fill="var(--color-structure)"
+                fillOpacity="0.08"
                 stroke="var(--color-structure)"
                 strokeWidth="0.75"
               />
@@ -148,7 +149,8 @@ export const ArchitectureComparison: React.FC = () => {
             >
               <path
                 d="M 56 124 L 244 124 L 208 199 L 92 199 Z"
-                fill="rgba(250,119,20,0.07)"
+                fill="var(--color-transformation)"
+                fillOpacity="0.07"
                 stroke="var(--color-transformation)"
                 strokeWidth="0.75"
               />
@@ -188,7 +190,8 @@ export const ArchitectureComparison: React.FC = () => {
             >
               <path
                 d="M 92 208 L 208 208 L 182 274 L 118 274 Z"
-                fill="rgba(247,38,88,0.07)"
+                fill="var(--color-insight)"
+                fillOpacity="0.07"
                 stroke="var(--color-insight)"
                 strokeWidth="0.75"
               />
@@ -353,7 +356,8 @@ export const ArchitectureComparison: React.FC = () => {
               cx="150"
               cy="160"
               r="22"
-              fill="rgba(247,38,88,0.1)"
+              fill="var(--color-insight)"
+              fillOpacity="0.1"
               stroke="var(--color-insight)"
               strokeWidth="1.5"
               style={{ opacity: prefersReducedMotion ? 1 : 0 }}

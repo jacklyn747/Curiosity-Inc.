@@ -9,7 +9,7 @@ export interface ScaffoldBand {
   sublabel?: string;
   content: string;
   detail?: string;
-  accentColor: 'structure' | 'transformation' | 'insight' | 'context';
+  accentColor: 'structure' | 'transformation' | 'insight' | 'context' | 'mustard' | 'lavender' | 'sky' | 'tea' | 'pink' | 'tangerine';
 }
 
 interface ScaffoldProps {
@@ -22,6 +22,12 @@ const COLOR_MAP = {
   transformation: 'var(--color-transformation)',
   insight: 'var(--color-insight)',
   context: 'var(--color-context)',
+  mustard: 'var(--color-mustard)',
+  lavender: 'var(--color-lavender)',
+  sky: 'var(--color-structure)', // Mapping sky to structure functionally
+  tea: 'var(--color-tea)',
+  pink: 'var(--color-pink)',
+  tangerine: 'var(--color-transformation)', // Mapping tangerine to transformation functionally
 };
 
 export const Scaffold: React.FC<ScaffoldProps> = ({ bands, direction = 'up' }) => {

@@ -75,7 +75,7 @@ export function DanKoeCaseStudy() {
           </div>
 
           {/* Profile Card */}
-          <div style={{ border: '0.5px solid rgba(136,136,136,0.14)', backgroundColor: 'rgba(255,255,255,0.018)', overflow: 'hidden' }}>
+          <div style={{ border: '0.5px solid rgba(136,136,136,0.14)', backgroundColor: 'rgba(255, 255, 255, 0.01)', overflow: 'hidden' }}>
 
             {/* TOP BAND — Name + Hook + Portrait */}
             <div className="dk-profile-band cs-profile-top">
@@ -237,25 +237,25 @@ export function DanKoeCaseStudy() {
             bands={[
               {
                 label: 'ATTENTION / RESONANCE — The Outer Orbit',
-                accentColor: 'structure',
+                accentColor: 'sky',
                 content: 'Free content designed as resonance testing. Not entertainment. Not information. Each piece of content is a calibrated question: does this worldview resonate with you? The audience self-selects based on intellectual alignment, not algorithmic exposure.',
                 detail: 'Application for Dan Koe: X posts, YouTube content, and free essays are explicitly framed as orientation questions. The call to action is not "follow me" — it is "if this question matters to you, here is where we go deeper."',
               },
               {
                 label: 'DECISION / CALIBRATION — The Second Orbit',
-                accentColor: 'context',
+                accentColor: 'lavender',
                 content: 'The newsletter becomes a calibration layer. Each issue is a diagnostic: where are you in the transformation process? Readers begin to self-identify their position in the journey. The psychological shift is from passive reader to active student.',
                 detail: 'Application for Dan Koe: 2AM Newsletter issues are restructured around explicit transformation stages. Each issue labels its stage — creating metacognitive awareness in the reader about where they are in the journey.',
               },
               {
                 label: 'INTENTION / SIMULATION — The Third Orbit',
-                accentColor: 'context',
+                accentColor: 'mustard',
                 content: 'The 2-Hour Writer and course content become simulation environments. Not instruction. Simulation. The learner is placed in the role of the transformed person and given tools to practice thinking from that identity before they have fully claimed it.',
                 detail: 'Application for Dan Koe: 2-Hour Writer is repositioned as a ninety-day simulation where participants practice writing as if they were already the person they want to become. The writing is the transformation, not a skill acquisition.',
               },
               {
                 label: 'ACTION / EXECUTION — The Fourth Orbit',
-                accentColor: 'transformation',
+                accentColor: 'tangerine',
                 content: 'Community and accountability structures are designed around visible execution, not social interaction. The Modern Mastery community becomes a publishing collective. Members are not there to learn — they are there to build, in public, with peers who are doing the same.',
                 detail: 'Application for Dan Koe: Modern Mastery community is restructured around a weekly Proof of Work protocol. Each member commits to one public execution per week. Community interaction is post-publication, not pre-publication — feedback on real output, not hypothetical plans.',
               },

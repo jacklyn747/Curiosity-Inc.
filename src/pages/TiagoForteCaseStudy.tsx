@@ -259,7 +259,7 @@ export function TiagoForteCaseStudy() {
                 },
               ].map((row, i) => (
                 <div key={i} className="tf-audit-row cs-audit-row" style={{
-                  borderLeft: `4px solid ${row.status === 'absent' ? 'rgba(247,38,88,0.4)' : 'rgba(58,158,164,0.4)'}`,
+                  borderLeft: `4px solid ${row.status === 'absent' ? 'var(--color-insight)' : 'var(--color-structure)'}`,
                   opacity: 0,
                 }}>
                   {[
@@ -350,25 +350,25 @@ export function TiagoForteCaseStudy() {
             direction="up"
             bands={[
               {
-                accentColor: 'structure',
+                accentColor: 'sky',
                 label: 'CAPTURE — YouTube + Twitter/X',
                 content: 'Reposition free content as diagnostic entry points. Each video and thread ends not with "subscribe" but with a specific PARA-aligned prompt: "What project would change if you organised it this way?" The audience enters the methodology by using it, not by watching someone explain it.',
                 detail: 'The content creates the first cognitive dissonance: "I have information everywhere and no system." This is the activation that makes the newsletter feel necessary — not because it promises more content, but because it promises a way to process the content they already have.',
               },
               {
-                accentColor: 'context',
+                accentColor: 'lavender',
                 label: 'ORGANISE — Newsletter + Blog',
                 content: 'Restructure the weekly newsletter around CODE phases. Each issue is a single phase applied to a single context: "This week: Distill your meeting notes using Progressive Summarisation." The reader practices one technique per week in their own environment.',
                 detail: 'The newsletter stops being a broadcast and becomes a paced curriculum. Replies become outcome data: "I tried Progressive Summarisation on my project notes. Here is what happened." For the first time, the methodology generates evidence from real practice — not from course exercises.',
               },
               {
-                accentColor: 'transformation',
+                accentColor: 'mustard',
                 label: 'DISTILL — BASB Course (Redesigned)',
                 content: 'The course becomes a 12-week structured implementation — not a video library. Each module maps to a PARA layer. Cohort checkpoints replace self-paced isolation. The student builds their actual Second Brain during the course, not after it.',
                 detail: 'The course buyer is no longer cold. They have been practising CODE techniques through the newsletter for weeks. They know the methodology works for them. The course gives them the architectural layer — PARA as a lived system — and for the first time, outcomes are documented and reviewed by peers.',
               },
               {
-                accentColor: 'insight',
+                accentColor: 'tangerine',
                 label: 'EXPRESS — The Cognitive Interface (New)',
                 content: 'A persistent practice layer that connects the methodology to the learner\'s daily workflow. Not another app — a structured protocol within whatever tool the learner already uses. Weekly reviews, monthly architecture audits, quarterly system retrospectives. The Second Brain becomes a living practice, not a one-time setup.',
                 detail: 'This is the missing layer. Tool-agnostic does not have to mean data-blind. The cognitive interface is a structured feedback loop: the learner\'s practice generates data, the data flows back to the methodology, the methodology improves. Every practitioner becomes a proof point. Every proof point strengthens the IP. The interface is where PARA stops being a concept and becomes a measurable, refinable, licensable framework.',

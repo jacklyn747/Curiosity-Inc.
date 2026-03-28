@@ -242,7 +242,7 @@ export function JustinWelshCaseStudy() {
                 },
               ].map((row, i) => (
                 <div key={i} className="jw-audit-row cs-audit-row" style={{
-                  borderLeft: `4px solid ${row.status === 'absent' ? 'rgba(247,38,88,0.4)' : 'rgba(58,158,164,0.4)'}`,
+                  borderLeft: `4px solid ${row.status === 'absent' ? 'var(--color-insight)' : 'var(--color-structure)'}`,
                   opacity: 0,
                 }}>
                   {[
@@ -256,7 +256,7 @@ export function JustinWelshCaseStudy() {
                       <div style={{ fontFamily: 'var(--font-mono)', fontSize: '8px', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--color-context)', opacity: 0.4, marginBottom: '6px' }}>
                         {cell.label}
                       </div>
-                      <div style={{ fontFamily: cell.mono ? 'var(--font-mono)' : 'var(--font-body)', fontSize: cell.mono ? '10px' : '12px', color: row.status === 'absent' ? 'rgba(247,38,88,0.7)' : 'var(--color-text)', lineHeight: 1.5, opacity: row.status === 'absent' ? 1 : 0.75 }}>
+                      <div style={{ fontFamily: cell.mono ? 'var(--font-mono)' : 'var(--font-body)', fontSize: cell.mono ? '10px' : '12px', color: row.status === 'absent' ? 'var(--palette-red-passion)' : 'var(--color-text)', lineHeight: 1.5, opacity: row.status === 'absent' ? 1 : 0.75 }}>
                         {cell.value}
                       </div>
                     </div>
