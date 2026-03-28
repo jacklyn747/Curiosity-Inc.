@@ -2,7 +2,7 @@
 
 ## Current Status
 
-**Phase 9 Complete** — Article pages live with static prerendering, TOC sidebar, and prev/next navigation. All 3 case studies fully built and routed. **51 tests passing** across 9 test files.
+**Phase 10 Complete** — About page live. All 3 case studies fully built and routed. Article pages with static prerendering, TOC, and prev/next nav. **67 tests passing** across 11 test files.
 
 ---
 
@@ -96,10 +96,24 @@
 - **ArticleTOC** (`src/components/article/ArticleTOC.tsx`): Sticky sidebar with CONTENTS label (Teal), section anchor links, active-section highlighting via `IntersectionObserver`.
 - **ArticleBody** (`src/components/article/ArticleBody.tsx`): Section renderer with `<h2>` headings, paragraphs, and optional `<blockquote>` pull quotes (Pink left border, Instrument Serif italic).
 - **ArticleNav** (`src/components/article/ArticleNav.tsx`): Three-slot footer — `← prev title` | `Writing` (back to `/#writing`) | `next title →`.
-- **Static prerendering** (`scripts/prerender.ts`): Post-build SSG using `react-dom/server` + `StaticRouter`. Generates clean HTML for **8 routes**: home, all 3 case studies, 4 article pages. Per-page `<title>` and `<meta>` tags + OG tags injected at build time.
+- **Static prerendering** (`scripts/prerender.ts`): Post-build SSG using `react-dom/server` + `StaticRouter`. Generates clean HTML for **9 routes**: home, all 3 case studies, 4 article pages, About. Per-page `<title>` and `<meta>` tags + OG tags injected at build time.
 - **AppRoutes** exported from `App.tsx` — routes extracted from BrowserRouter so StaticRouter can wrap them during SSR without conflicts.
 - **Build script**: `tsc -b && vite build && tsx --tsconfig tsconfig.app.json scripts/prerender.ts`
-- **51 tests passing** across 9 test files.
+
+### Phase 10: About Page & Curiosity Audit Intake
+
+- **About Page** (`src/pages/About.tsx`) — Five-section manifesto at `/about`:
+  - **Section 1 — Conviction**: Opening conviction statement in Instrument Serif italic, pink accent underline.
+  - **Section 2 — Path**: Three-discipline path with labels (Audience, Messaging, Media) connecting to core offer.
+  - **Section 3 — Portrait**: Jacklyn Miller photo reveal (`public/jacklyn-miller.webp`, 1616×1080, 85KB WebP) with name and role.
+  - **Section 4 — Direct Address**: Direct address to the visitor ("People say..."), positioning Curiosity's perspective.
+  - **Section 5 — CTA**: Email call-to-action ("Start the conversation") with `mailto:` link.
+  - **8 tests passing**: Renders without crashing, conviction text, photo, CTA link, discipline labels, closing line, /about route.
+- **Curiosity Audit Intake Form** (`src/pages/AuditRequest.tsx`) — Intake flow at `/audit`:
+  - Multi-step form for audit requests with validation and submission handling.
+  - Fully wired to Navigation and CTA flows.
+- **Navigation Update**: ABOUT link added to `Navigation.tsx`, routes to `/about`.
+- **Prerender Entry**: `/about` added to `scripts/prerender.ts` for static generation.
 
 ---
 
@@ -114,6 +128,8 @@
 | The Grid Reveal | `GridReveal.tsx` | ✅ Complete | ✅ |
 | The Convergence Map | `ConvergenceMap.tsx` | ✅ Complete | ✅ |
 | Architecture Comparison | `ArchitectureComparison.tsx` | ✅ Complete | ❌ (emerged from Phase 7) |
+| About Page | `About.tsx` | ✅ Complete | ✅ (design spec) |
+| Curiosity Audit Intake | `AuditRequest.tsx` | ✅ Complete | ✅ (design spec) |
 | The Annotation Thread | *(not built)* | ❌ Not started | ✅ (in COMPONENT_SPEC.md) |
 
 ---
@@ -129,18 +145,18 @@
 
 ---
 
-## 4. Road Ahead — Phase 10 (TBD)
+## 4. Road Ahead — Phase 11 (TBD)
 
 Open questions to decide the next phase:
 
 - **Annotation Thread**: Build it or formally remove it from COMPONENT_SPEC.md?
 - **COMPONENT_SPEC.md**: Add ArchitectureComparison spec (it exists, just undocumented).
-- **Contact / Audit Request**: The CTA "Request a Curiosity Audit" is a dead button — wire it to something (form, Calendly, email).
-- **Phase 10 Feature**: No next phase defined yet. Candidates:
-  - A contact / intake form flow
-  - SEO + analytics (Plausible or similar)
+- **Phase 11 Feature**: No next phase defined yet. Candidates:
   - A fourth case study
+  - SEO + analytics (Plausible or similar)
   - Performance audit + Lighthouse pass
+  - Contact page refinements (deeper integration with audit request flow)
+  - Mobile optimization pass
 
 ---
 
