@@ -4,10 +4,10 @@ import { vi, describe, it, expect, beforeEach } from 'vitest';
 
 // ---------- mocks (declared before any imports of tested modules) ----------
 
-const { destroyMock, rafMock, LenisMock, tickerAddMock, tickerRemoveMock, tickerLagMock } =
+const { destroyMock, LenisMock, tickerAddMock, tickerRemoveMock, tickerLagMock } =
   vi.hoisted(() => {
     const destroyMock = vi.fn();
-    const rafMock = vi.fn();
+    const rafMock = vi.fn(); // keep the fn because it's used in Implementation
     const LenisMock = vi.fn().mockImplementation(function () {
       return {
         destroy: destroyMock,
@@ -17,7 +17,7 @@ const { destroyMock, rafMock, LenisMock, tickerAddMock, tickerRemoveMock, ticker
     const tickerAddMock = vi.fn();
     const tickerRemoveMock = vi.fn();
     const tickerLagMock = vi.fn();
-    return { destroyMock, rafMock, LenisMock, tickerAddMock, tickerRemoveMock, tickerLagMock };
+    return { destroyMock, LenisMock, tickerAddMock, tickerRemoveMock, tickerLagMock };
   });
 
 vi.mock('lenis', () => ({ default: LenisMock }));

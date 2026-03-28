@@ -6,7 +6,7 @@
 - **Component Proofing**: [http://localhost:5173/test-components](http://localhost:5173/test-components)
 
 ## Current Status (March 28, 2026)
-**Completed Phase 11 (polish pass)**. All phases stable. 3 case studies live. **70 tests passing across 12 test files**.
+**Phase 11 (Polish) Complete**. ALL visualization components production-ready (7 confirmed). Site live at `curiosityinc.online`. **70 tests passing**. OG image generated and meta tags audited.
 
 ## Components Built & Proven:
 1.  **The Scaffold** — Staggered Methodology Bands.
@@ -27,8 +27,11 @@
 16. **Annotation Thread** — Visual annotation/commentary component for case studies.
 17. **Audit Request Form** — Curiosity Audit intake flow at `/audit`.
 
-## Next Mission: Phase 12 (TBD)
-**No phase defined yet.** Candidates: fourth case study, Lighthouse CI audit, og:image social card, analytics integration.
+## Next Mission: Phase 12 — Global Intelligence
+- **Fourth Case Study**: Sahil Bloom / Dickie Bush candidate.
+- **Lighthouse CI**: Establish baseline 95+ performance target.
+- **Analytics**: Finalize Plausible integration and event tracking for /audit form.
+- **Manual QA**: Full keyboard/screen-reader pass on the production environment.
 
 ## Style Constraints (The Constitution):
 - **Colors**: Void (#1D1E20), Structure (#3A9EA4), Transformation (#FA7714), Insight (#F72658).

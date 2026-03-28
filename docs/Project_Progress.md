@@ -120,7 +120,7 @@
 - **Performance**: `HeroSection` (Three.js 883KB) lazy-loaded via `React.lazy()` + `Suspense`. Three.js chunk now deferred to after initial paint. `HeroFallback` used as Suspense boundary — same designed state as reduced-motion fallback.
 - **Mobile — About page**: Replaced hardcoded `48px` side padding with `clamp(20px, 6vw, 48px)` across all five sections. Portrait + text `revealInner` extracted from inline style to `.about-reveal-inner` CSS class — stacks vertically on mobile (< 640px), rows on desktop.
 - **Mobile — Article pages**: `ArticlePage` `<article>` converted from inline flex style to `.article-layout` CSS class. TOC sidebar (`.article-toc`) hidden on mobile via `display: none` at < 768px. `aria-label="Table of contents"` added to `<aside>`. Side padding fixed to `clamp(20px, 5vw, 48px)`.
-- **SEO**: Domain unified to `curiosityinc.co` across `index.html`, `prerender.ts`. Per-page prerender now injects `og:url` + full `twitter:card` set. Static homepage meta tags stripped from per-page output to prevent duplicates. `/audit` route added (10 routes total, was 9).
+- **SEO**: Domain unified to `curiosityinc.online` across `index.html`, `prerender.ts`. Per-page prerender now injects `og:url` + full `twitter:card` set. Static homepage meta tags stripped from per-page output to prevent duplicates. `/audit` route added (10 routes total, was 9).
 - **Favicon**: `index.html` updated to reference existing `/favicon.svg` (was broken `/vite.svg` reference).
 - **AnnotationThread**: Component confirmed complete in `AnnotationThread.tsx` — progress doc corrected.
 - **Tests**: 70 passing across 12 test files (was 67/11). New: `Homepage.test.tsx`, updated `About.test.tsx`, `ArticlePage.test.tsx`.
@@ -137,7 +137,7 @@
 | The Lens | `Lens.tsx` | ✅ Complete | ✅ |
 | The Grid Reveal | `GridReveal.tsx` | ✅ Complete | ✅ |
 | The Convergence Map | `ConvergenceMap.tsx` | ✅ Complete | ✅ |
-| Architecture Comparison | `ArchitectureComparison.tsx` | ✅ Complete | ❌ (emerged from Phase 7) |
+| Architecture Comparison | `ArchitectureComparison.tsx` | ✅ Complete | ✅ |
 | About Page | `About.tsx` | ✅ Complete | ✅ (design spec) |
 | Curiosity Audit Intake | `AuditRequest.tsx` | ✅ Complete | ✅ (design spec) |
 | The Annotation Thread | `AnnotationThread.tsx` | ✅ Complete | ✅ |

@@ -45,7 +45,7 @@ ul[role='list'], ol[role='list'] {
 }
 
 html:focus-within {
-  scroll-behavior: smooth;
+  /* scroll-behavior removed — Lenis handles smooth scroll globally */
 }
 
 body {

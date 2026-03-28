@@ -1,6 +1,6 @@
 # Awwwards Polish — Design Spec
 **Date:** 2026-03-28
-**Status:** Approved
+**Status:** Approved (post-review)
 
 ## Overview
 
@@ -19,122 +19,243 @@ Six presentation-layer features that bring the site to Awwwards submission quali
 
 ---
 
-## 1. New Files
+## 1. Shared Infrastructure
+
+### `src/context/PageTransitionContext.tsx`
+
+Required to wire the curtain panel (in `App.tsx`) with the navigation hook (in `Navigation.tsx`) without prop drilling.
+
+```ts
+interface PageTransitionContextValue {
+  triggerTransition: (path: string) => void
+}
+export const PageTransitionContext = createContext<PageTransitionContextValue>({
+  triggerTransition: () => {}
+})
+```
+
+`<PageTransition />` provides this context. Any component can call `triggerTransition(path)` to start the animation and navigate.
+
+### Lenis instance exposure
+
+Lenis is initialized in `App.tsx` and stored in a module-level ref (not state) so Navigation can call `lenis.scrollTo()` without a React context dependency:
+
+```ts
+// src/lib/lenis.ts
+export let lenisInstance: Lenis | null = null
+export function setLenis(l: Lenis | null) { lenisInstance = l }
+```
+
+`App.tsx` calls `setLenis(lenis)` on init and `setLenis(null)` on cleanup.
+`Navigation.tsx` replaces `scrollIntoView` / `window.scrollTo` calls with `lenisInstance?.scrollTo(...)`.
+
+---
+
+## 2. New Files
 
 ### `src/components/cursor/Cursor.tsx`
 
 A single global cursor component mounted once in `Layout.tsx`.
 
-- Renders two absolutely-positioned divs: `.cursor-dot` (6px, filled `#3A9EA4`) and `.cursor-ring` (28px, `1px solid rgba(58,158,164,0.6)`)
-- Both use `position: fixed`, `pointer-events: none`, `z-index: 9999`
-- `.cursor-dot` follows `mousemove` exactly via `left/top` style updates in a `requestAnimationFrame` loop
-- `.cursor-ring` follows with `transition: left 0.12s ease, top 0.12s ease`
-- On hover over any `a`, `button`, `[role="button"]`: ring expands to 44px, lightens to `rgba(58,158,164,0.9)` via a CSS class `.cursor-ring--hover`
-- Hover detection: single `mouseover`/`mouseout` listener on `document` checking `e.target.closest('a, button, [role="button"]')`
-- Hidden entirely on `@media (pointer: coarse)` — CSS only, no JS check needed
-- `body { cursor: none }` added inside a `@media (pointer: fine)` block in `index.css`
+- Renders two `position: fixed; pointer-events: none; z-index: 9999` divs:
+  - `.cursor-dot` — 6px, filled `var(--color-structure)`, moves exactly with pointer via `requestAnimationFrame` + `left/top`
+  - `.cursor-ring` — 28px, `1px solid rgba(58,158,164,0.6)`, follows with `transition: left 0.12s ease, top 0.12s ease`
+- Hover state: single `mouseover`/`mouseout` listener on `document` checking `e.target.closest('a, button, [role="button"]')`. Adds `.cursor-ring--hover` class which expands ring to 44px and raises opacity to 0.9.
+- **Media query guard:** entire component renders `null` when `window.matchMedia('(pointer: coarse)').matches`. Check runs once on mount inside `useState` initializer. This is intentionally static — hybrid pointer devices (e.g. Surface) that switch input types mid-session are not supported and do not need to be.
+- `body { cursor: none }` scoped to `@media (pointer: fine)` in `index.css`. Windows High Contrast mode will override this back to system defaults — that is the correct behaviour, no action needed.
 
 ### `src/components/preloader/Preloader.tsx`
 
 Full-screen overlay shown once per session.
 
-- `position: fixed; inset: 0; z-index: 2000; background: #1D1E20`
-- Props: `onComplete: () => void`
-- Renders an SVG constellation matching the ConvergenceMap visual language:
-  - Center node (10px, teal, with outer glow rings) appears at 0.3s
-  - 6 outer nodes (6px, alternating teal/orange/pink) stagger in from 0.9s–2.5s with `cubic-bezier(0.34,1.56,0.64,1)` pop
-  - SVG lines trace from center to each node immediately after each node appears (stroke-dasharray animation)
-- `✦ CURIOSITY INC.` in JetBrains Mono 10px, centered at bottom, fades in at 0.5s
-- At 3.2s: entire overlay fades out + scales to 1.08 over 800ms, then `onComplete()` fires and component unmounts
-- `sessionStorage.setItem('preloader_shown', '1')` written before `onComplete()`
-- Respects `prefers-reduced-motion`: if set, skips straight to `onComplete()` after 0ms
+Props: `onComplete: () => void`
+
+Structure:
+```
+<div role="status" aria-label="Loading Curiosity Inc." style="position:fixed;inset:0;z-index:2000;background:#1D1E20">
+  <svg aria-hidden="true">  ← constellation </svg>
+  <span>✦ CURIOSITY INC.</span>
+</div>
+```
+
+Animation sequence (CSS keyframes + inline `animationDelay`):
+- 0.3s — center node (10px, `var(--color-structure)`, glow rings) pops in
+- 0.9s–2.5s — 6 outer nodes stagger in (`cubic-bezier(0.34,1.56,0.64,1)` pop)
+- Each node's connecting line traces immediately after via `stroke-dasharray` animation
+- 0.5s — `✦ CURIOSITY INC.` fades in at bottom
+- 3.2s — entire overlay fades out + scales to 1.08 over 0.8s
+
+On animation end: call `onComplete()` via `onAnimationEnd` on the fade-out element (the named keyframe `preloaderFadeOut` applied to the root div at 3.2s). Do NOT use `setTimeout` — it throttles under tab-switching. The `onAnimationEnd` handler checks `e.animationName === 'preloaderFadeOut'` to ignore earlier child animation events bubbling up.
+
+**Reduced motion:** if `prefers-reduced-motion: reduce`, skip all animation and call `onComplete()` in a `useEffect` with 0ms delay.
+
+**Session guard:** `Layout.tsx` is the sole authority on whether to mount `<Preloader>` — it reads `sessionStorage` once and only mounts the component if the session is fresh (see Layout section). `Preloader.tsx` itself has no `sessionStorage` logic. It always renders and always calls `onComplete` when its animation finishes.
+
+`sessionStorage.setItem('preloader_shown', '1')` is called inside `onComplete` in `Layout.tsx` (not inside the Preloader component) to keep concerns separate.
 
 ### `src/components/transitions/PageTransition.tsx`
 
-Wraps route changes with the void curtain animation.
+Void curtain component. Provides `PageTransitionContext`.
 
-- Renders a `position: fixed; inset: 0; z-index: 1000; background: #1D1E20` panel, initially `translateX(-100%)`
-- Exports a `usePageTransition()` hook that wraps `useNavigate()`:
-  - On call: plays curtain IN (GSAP `to({ x: '0%' }, { duration: 0.55, ease: 'power3.inOut' })`)
-  - At 50% (0.275s): shows `✦` at center with a quick opacity flash
-  - Calls actual `navigate(path)` at 0.5s (page loads underneath)
-  - Plays curtain OUT at 0.6s (`to({ x: '100%' }, { duration: 0.55, ease: 'power3.inOut' })`)
-  - Resets to `translateX(-100%)` after animation completes
-- `Navigation.tsx` links updated to use `usePageTransition()` hook instead of `<Link>` where appropriate
-- Back/forward browser navigation does NOT trigger the curtain (only interceptable clicks do)
+State:
+- `curtainRef` — ref to the panel div
+- `timelineRef` — ref to current GSAP timeline (enables kill-on-interrupt)
+- Internal `navigate = useNavigate()`
+
+`triggerTransition(path)`:
+1. Kill any in-progress timeline: `timelineRef.current?.kill()`
+2. Reset curtain to `translateX(-100%)` immediately
+3. Create new GSAP timeline:
+   - `to(curtain, { x: '0%', duration: 0.55, ease: 'power3.inOut' })` — curtain IN
+   - At 0.5s: show `✦` mark with opacity flash
+   - At 0.5s: call `navigate(path)` (page loads under curtain)
+4. Curtain OUT fires **only when `navigation.state === 'idle'`** (React Router v7):
+   ```ts
+   // In a useEffect watching navigation.state:
+   if (navigation.state === 'idle' && curtainIsIn) {
+     gsap.to(curtain, { x: '100%', duration: 0.55, ease: 'power3.inOut',
+       onComplete: () => { resetCurtain(); setIsMidTransition(false) }
+     })
+   }
+   ```
+   This prevents the curtain from revealing a `PageFallback` skeleton on slow connections.
+
+Panel HTML:
+```
+<div ref={curtainRef} style="position:fixed;inset:0;z-index:1000;background:#1D1E20;transform:translateX(-100%)">
+  <span className="transition-mark">✦</span>  ← centered, teal, opacity toggled
+</div>
+```
+
+**Navigation hook usage — which links get it:**
+- `Navigation.tsx` logo link (when not on homepage) — YES, use `triggerTransition('/')`
+- `Navigation.tsx` section anchors (`#work`, `#writing`, `#contact`) — NO, these scroll within the page, leave as `<a href="#">` + lenis.scrollTo()
+- `Navigation.tsx` `/about` link — YES, use `triggerTransition('/about')`
+- All case study `<Link>` components in `GridReveal.tsx` — YES, replace with `onClick={() => triggerTransition(item.link)}`
+- Article `<Link>` components — YES
 
 ---
 
-## 2. Modified Files
+## 3. Modified Files
 
 ### `src/App.tsx`
 
-- Install Lenis in a `useEffect` inside `App()`:
-  ```ts
+Install Lenis with captured ticker ref for correct cleanup:
+```ts
+useEffect(() => {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
   const lenis = new Lenis({ lerp: 0.08, duration: 1.2 })
-  gsap.ticker.add((time) => lenis.raf(time * 1000))
+  setLenis(lenis)  // module-level ref
+  const tickerFn = (time: number) => lenis.raf(time * 1000)
+  gsap.ticker.add(tickerFn)
   gsap.ticker.lagSmoothing(0)
-  return () => { lenis.destroy(); gsap.ticker.remove(...) }
-  ```
-- Disable Lenis when `prefers-reduced-motion: reduce` is set
-- Mount `<PageTransition />` inside `<Router>` but outside `<AppRoutes />`
+  return () => {
+    lenis.destroy()
+    setLenis(null)
+    gsap.ticker.remove(tickerFn)  // same ref captured above
+  }
+}, [])
+```
+
+Mount `<PageTransition />` inside `<Router>` wrapping `<AppRoutes />`.
 
 ### `src/components/layout/Layout.tsx`
 
-- Mount `<Cursor />` as first child of `layout-root`
-- Mount `<Preloader onComplete={() => setLoaded(true)} />` when `!sessionStorage.getItem('preloader_shown')` and `!loaded`
-- When preloader is active, `<main>` has `visibility: hidden` (prevents FOUC, layout is still calculated)
+```tsx
+const [preloaderDone, setPreloaderDone] = useState(() => {
+  try { return !!sessionStorage.getItem('preloader_shown') }
+  catch { return true }
+})
+
+function handlePreloaderComplete() {
+  try { sessionStorage.setItem('preloader_shown', '1') } catch {}
+  setPreloaderDone(true)
+}
+
+return (
+  <div className="layout-root">
+    <Cursor />
+    {!preloaderDone && <Preloader onComplete={handlePreloaderComplete} />}
+    <a href="#main-content" className="skip-link">Skip to content</a>
+    <Navigation />
+    <main id="main-content" style={!preloaderDone ? { visibility: 'hidden' } : undefined}>
+      {children}
+    </main>
+    <Footer />
+  </div>
+)
+```
+
+`Layout.tsx` is the sole authority on `sessionStorage` for the preloader. `Preloader.tsx` has no `sessionStorage` logic — it always renders and always fires `onComplete` when done.
 
 ### `src/components/visualizations/GridReveal.tsx`
 
-- Add `onMouseMove` handler to each card `<div>`:
-  ```ts
-  const r = el.getBoundingClientRect()
-  const x = (e.clientX - r.left) / r.width
-  const y = (e.clientY - r.top) / r.height
-  el.style.transform = `perspective(500px) rotateX(${(y-0.5)*-10}deg) rotateY(${(x-0.5)*12}deg)`
-  el.style.setProperty('--sheen-x', `${x*100}%`)
-  el.style.setProperty('--sheen-y', `${y*100}%`)
-  ```
-- Add `onMouseLeave`: reset transform to identity over 400ms (GSAP `to`)
-- Add `.card-sheen` child div: `position: absolute; inset: 0; background: radial-gradient(circle at var(--sheen-x) var(--sheen-y), rgba(58,158,164,0.08), transparent 60%); opacity: 0; transition: opacity 0.3s; pointer-events: none`
-- On `mouseenter`: set `.card-sheen { opacity: 1 }`
-- Guard entire tilt logic with `window.matchMedia('(pointer: coarse)').matches` check — skip on touch
+Add to each card `<div>`:
+- `onMouseMove`: calculate normalised cursor position within card, apply `perspective(500px) rotateX() rotateY()` (max ±10° / ±12°), update `--sheen-x` and `--sheen-y` CSS custom properties
+- `onMouseLeave`: GSAP `to(el, { rotateX: 0, rotateY: 0, duration: 0.4, ease: 'power2.out' })`
+- Add `.card-sheen` child: `position: absolute; inset: 0; background: radial-gradient(circle at var(--sheen-x,50%) var(--sheen-y,50%), rgba(58,158,164,0.08), transparent 60%); opacity: 0; transition: opacity 0.3s; pointer-events: none`
+- `onMouseEnter`: set sheen opacity to 1
+- Guard: `if (window.matchMedia('(pointer: coarse)').matches) return` before attaching handlers
 
 ### `src/index.css`
 
-- Add `@media (pointer: fine) { body { cursor: none; } }`
-- Add `.cursor-dot` and `.cursor-ring` base styles
-- Add `.cursor-ring--hover` expanded state styles
-- Add `.card-sheen` base styles
+Changes:
+1. Remove `scroll-behavior: smooth` from the `html:focus-within` rule (conflicts with Lenis)
+2. Add `@media (pointer: fine) { body { cursor: none; } }`
+3. Add `.cursor-dot`, `.cursor-ring`, `.cursor-ring--hover` styles
+4. Add `.card-sheen` base styles
+5. Add `.transition-mark` styles (centered ✦, teal, hidden by default)
+
+### `src/components/navigation/Navigation.tsx`
+
+- Replace `el.scrollIntoView({ behavior: 'smooth' })` with `lenisInstance?.scrollTo(el)`
+- Replace `window.scrollTo({ top: 0, behavior: 'smooth' })` with `lenisInstance?.scrollTo(0)`
+- Logo link: if on homepage, scrolls to top via Lenis; if not on homepage, calls `triggerTransition('/')`
+- Section anchor links: call `lenisInstance?.scrollTo('#work')` etc. — do NOT use `triggerTransition`
+- `/about` link: call `triggerTransition('/about')` via context
 
 ---
 
-## 3. Dependency
+## 4. Dependency
 
 ```bash
 npm install lenis
 ```
 
-Lenis is a smooth scroll library (~3KB gzipped). No other new dependencies.
+Lenis ~3KB gzipped. No other new dependencies.
 
 ---
 
-## 4. Testing
+## 5. Testing
 
-Three new smoke tests in `src/tests/`:
+### New test files
 
-- `Cursor.test.tsx` — renders without crashing; cursor elements not present when `pointer: coarse` media query active
-- `Preloader.test.tsx` — renders without crashing; calls `onComplete` immediately when `prefers-reduced-motion: reduce`
-- `PageTransition.test.tsx` — renders without crashing; curtain div present in DOM
+**`src/tests/Cursor.test.tsx`**
+- Renders without crashing
+- Returns null when `window.matchMedia('(pointer: coarse)').matches` is true
+  - Requires `window.matchMedia` mock: `vi.fn().mockReturnValue({ matches: true, addEventListener: vi.fn(), removeEventListener: vi.fn() })`
 
-Existing 70 tests remain unchanged.
+**`src/tests/Preloader.test.tsx`**
+- Renders without crashing
+- Calls `onComplete` immediately when `prefers-reduced-motion: reduce` is active
+- Does NOT call `onComplete` synchronously on first render without reduced motion
+- `sessionStorage` is mocked in tests via `vi.stubGlobal`
+
+**`src/tests/PageTransition.test.tsx`**
+- Curtain div is present in DOM
+- `triggerTransition` does not fire when called with a hash-only path (`#work`)
+- Lenis ticker callback is a captured ref (verifiable by checking `gsap.ticker.remove` is called with the same function ref on unmount — mock `gsap.ticker`)
+
+**`src/tests/LenisSetup.test.tsx`**
+- `lenis.destroy()` is called when App component unmounts (mock Lenis constructor)
+- Lenis is NOT initialised when `prefers-reduced-motion: reduce` is set
 
 ---
 
-## 5. Out of Scope
+## 6. Out of Scope
 
 - Scroll-linked parallax effects
 - Custom scrollbar styling
 - Any changes to page content or copy
 - Safari-specific WebGL fixes (separate concern)
+- Swipe gesture navigation on mobile

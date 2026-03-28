@@ -139,6 +139,29 @@ const S = {
     paddingTop: 12,
   } as React.CSSProperties,
 
+  // Section 03.5 — Philosophy (The "True" About content)
+  philosophy: {
+    padding: '0 clamp(20px, 6vw, 48px) 80px',
+    maxWidth: 760,
+    margin: '0 auto',
+  } as React.CSSProperties,
+
+  philosophyHeading: {
+    fontFamily: 'var(--font-mono)',
+    fontSize: 10,
+    letterSpacing: '0.15em',
+    color: 'var(--color-insight)',
+    marginBottom: 24,
+    textTransform: 'uppercase' as const,
+  } as React.CSSProperties,
+
+  philosophyText: {
+    fontSize: 18,
+    lineHeight: 1.85,
+    color: 'var(--color-text-dim)',
+    marginBottom: 28,
+  } as React.CSSProperties,
+
   revealName: {
     fontFamily: 'var(--font-display)',
     fontStyle: 'italic',
@@ -267,6 +290,7 @@ const DISCIPLINES = [
 export const AboutPage: React.FC = () => {
   const openingRef = useRef<HTMLElement>(null);
   const { ref: pathRef, inView: pathInView } = useScrollTrigger({ threshold: 0.15 });
+  const { ref: philosophyRef, inView: philosophyInView } = useScrollTrigger({ threshold: 0.2 });
   const { ref: revealRef, inView: revealInView } = useScrollTrigger({ threshold: 0.15 });
   const { ref: forWhomRef, inView: forWhomInView } = useScrollTrigger({ threshold: 0.2 });
   const { ref: ctaRef, inView: ctaInView } = useScrollTrigger({ threshold: 0.3 });
@@ -301,6 +325,18 @@ export const AboutPage: React.FC = () => {
     }, pathRef);
     return () => ctx.revert();
   }, [pathInView]);
+
+  // Section 02.5 — philosophy (scroll)
+  useEffect(() => {
+    if (!philosophyInView) return;
+    const ctx = gsap.context(() => {
+      gsap.fromTo('.about-philosophy',
+        { opacity: 0, y: 16 },
+        { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }
+      );
+    }, philosophyRef);
+    return () => ctx.revert();
+  }, [philosophyInView]);
 
   // Section 03 — reveal (scroll)
   useEffect(() => {
@@ -391,12 +427,28 @@ export const AboutPage: React.FC = () => {
 
       <div style={S.divider} aria-hidden="true" />
 
+      {/* ── Section 02.5: Philosophy ───────────────────────────── */}
+      <section ref={philosophyRef} className="about-philosophy" style={S.philosophy}>
+        <p style={S.philosophyHeading}>The Architecture of Care</p>
+        <p style={S.philosophyText}>
+          Most educational content is built for efficiency. Curiosity Inc. is built for transformation. 
+          We believe that the order in which information is delivered determines whether it becomes 
+          wisdom or noise.
+        </p>
+        <p style={S.philosophyText}>
+          Our work is about removing the last 1% of cognitive friction between what you know 
+          and what your audience can actually do. If you have the reach, we give you the rigor.
+        </p>
+      </section>
+
+      <div style={S.divider} aria-hidden="true" />
+
       {/* ── Section 03: Reveal ────────────────────────────────── */}
       <section ref={revealRef} style={S.reveal}>
         <div className="about-reveal-inner">
           <img
             src="/jacklyn-miller.webp"
-            alt="Jacklyn Miller"
+            alt="Jacqueline Miller"
             className="about-photo"
             style={S.photo}
             width={280}

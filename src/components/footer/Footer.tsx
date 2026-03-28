@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export const Footer: React.FC = () => {
   return (
@@ -11,9 +12,9 @@ export const Footer: React.FC = () => {
             ✦ CURIOSITY INC.
           </div>
           
-          <button className="footer-btn">
-            JOIN THE COLLECTIVE
-          </button>
+          <Link to="/audit" className="footer-btn" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            REQUEST A CURIOSITY AUDIT
+          </Link>
         </div>
 
         <div className="footer-credits">
