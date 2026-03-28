@@ -20,13 +20,13 @@ function buildHeadTags(article: Article): string {
     `<meta property="og:title" content="${escapeHtml(article.title)}" />`,
     `<meta property="og:description" content="${escapeHtml(article.subtitle)}" />`,
     `<meta property="og:type" content="article" />`,
-    `<meta property="og:url" content="https://curiosityinc.co/writing/${article.slug}" />`,
-    `<meta property="og:image" content="https://curiosityinc.co/og-image.png" />`,
+    `<meta property="og:url" content="https://curiosityinc.online/writing/${article.slug}" />`,
+    `<meta property="og:image" content="https://curiosityinc.online/og-image.png" />`,
     `<meta name="twitter:card" content="summary_large_image" />`,
     `<meta name="twitter:title" content="${escapeHtml(article.title)}" />`,
     `<meta name="twitter:description" content="${escapeHtml(article.subtitle)}" />`,
-    `<meta name="twitter:image" content="https://curiosityinc.co/og-image.png" />`,
-    `<link rel="canonical" href="https://curiosityinc.co/writing/${article.slug}" />`,
+    `<meta name="twitter:image" content="https://curiosityinc.online/og-image.png" />`,
+    `<link rel="canonical" href="https://curiosityinc.online/writing/${article.slug}" />`,
   ].join('\n    ');
 }
 
@@ -39,13 +39,13 @@ function buildWorkHeadTags(meta: WorkMeta, path: string): string {
     `<meta property="og:title" content="${escapeHtml(meta.title)}" />`,
     `<meta property="og:description" content="${escapeHtml(meta.description)}" />`,
     `<meta property="og:type" content="website" />`,
-    `<meta property="og:url" content="https://curiosityinc.co${path}" />`,
-    `<meta property="og:image" content="https://curiosityinc.co/og-image.png" />`,
+    `<meta property="og:url" content="https://curiosityinc.online${path}" />`,
+    `<meta property="og:image" content="https://curiosityinc.online/og-image.png" />`,
     `<meta name="twitter:card" content="summary_large_image" />`,
     `<meta name="twitter:title" content="${escapeHtml(meta.title)}" />`,
     `<meta name="twitter:description" content="${escapeHtml(meta.description)}" />`,
-    `<meta name="twitter:image" content="https://curiosityinc.co/og-image.png" />`,
-    `<link rel="canonical" href="https://curiosityinc.co${path}" />`,
+    `<meta name="twitter:image" content="https://curiosityinc.online/og-image.png" />`,
+    `<link rel="canonical" href="https://curiosityinc.online${path}" />`,
   ].join('\n    ');
 }
 
@@ -62,10 +62,10 @@ function stripHomepageMeta(html: string): string {
     // Remove static Open Graph comment + tags (keep og:site_name — it's not injected)
     .replace('\n\n    <!-- Open Graph -->', '')
     .replace('\n    <meta property="og:type"        content="website" />', '')
-    .replace('\n    <meta property="og:url"         content="https://curiosityinc.co/" />', '')
+    .replace('\n    <meta property="og:url"         content="https://curiosityinc.online/" />', '')
     .replace('\n    <meta property="og:title"       content="Curiosity Inc. \u2014 Digital Sanctuary" />', '')
     .replace('\n    <meta property="og:description" content="Curiosity Inc. helps creators turn audiences into learners. Design-led instructional architecture for the creator economy." />', '')
-    .replace('\n    <meta property="og:image"       content="https://curiosityinc.co/og-image.png" />', '')
+    .replace('\n    <meta property="og:image"       content="https://curiosityinc.online/og-image.png" />', '')
     .replace('\n    <meta property="og:image:width" content="1200" />', '')
     .replace('\n    <meta property="og:image:height" content="630" />', '')
     // Remove static Twitter Card comment + tags
@@ -73,10 +73,10 @@ function stripHomepageMeta(html: string): string {
     .replace('\n    <meta name="twitter:card"        content="summary_large_image" />', '')
     .replace('\n    <meta name="twitter:title"       content="Curiosity Inc. \u2014 Digital Sanctuary" />', '')
     .replace('\n    <meta name="twitter:description" content="Curiosity Inc. helps creators turn audiences into learners. Design-led instructional architecture for the creator economy." />', '')
-    .replace('\n    <meta name="twitter:image"       content="https://curiosityinc.co/og-image.png" />', '')
+    .replace('\n    <meta name="twitter:image"       content="https://curiosityinc.online/og-image.png" />', '')
     // Remove static Canonical comment + link
     .replace('\n\n    <!-- Canonical -->', '')
-    .replace('\n    <link rel="canonical" href="https://curiosityinc.co/" />', '');
+    .replace('\n    <link rel="canonical" href="https://curiosityinc.online/" />', '');
 }
 
 type Route = { path: string; article?: Article; workMeta?: WorkMeta };

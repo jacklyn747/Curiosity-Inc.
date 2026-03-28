@@ -36,7 +36,7 @@ export function ArticlePage() {
       <meta property="og:title" content={article.title} />
       <meta property="og:description" content={article.subtitle} />
       <meta property="og:type" content="article" />
-      <link rel="canonical" href={`https://curiosityinc.co/writing/${article.slug}`} />
+      <link rel="canonical" href={`https://curiosityinc.online/writing/${article.slug}`} />
 
       <article className="article-layout">
         <ArticleTOC
