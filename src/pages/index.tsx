@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { DanKoeCaseStudy } from './DanKoeCaseStudy';
 import { JustinWelshCaseStudy } from './JustinWelshCaseStudy';
@@ -8,7 +9,10 @@ import { Scaffold } from '../components/visualizations/Scaffold';
 import { FlowPulse } from '../components/visualizations/FlowPulse';
 import { GridReveal } from '../components/visualizations/GridReveal';
 import { ConvergenceMap } from '../components/visualizations/ConvergenceMap';
-import { HeroSection } from '../components/hero/HeroSection';
+import { HeroFallback } from '../components/hero/HeroFallback';
+const HeroSection = lazy(() =>
+  import('../components/hero/HeroSection').then(m => ({ default: m.HeroSection }))
+);
 
 if (typeof window !== 'undefined') {
   Promise.all([import('gsap'), import('gsap/ScrollTrigger')]).then(
@@ -25,7 +29,9 @@ export function HomePage() {
   const navigate = useNavigate();
   return (
     <div className="homepage-root">
-      <HeroSection />
+      <Suspense fallback={<HeroFallback />}>
+        <HeroSection />
+      </Suspense>
 
       {/* 
         SECTION 1: ATTENTION — The Pattern
@@ -318,6 +324,8 @@ export function HomePage() {
     </div>
   );
 }
+
+export default HomePage;
 
 /**
  * Case Study Router — dispatches to the correct case study page by slug.
