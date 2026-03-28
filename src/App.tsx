@@ -1,6 +1,10 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Lenis from 'lenis';
+import gsap from 'gsap';
+import { setLenis } from './lib/lenis';
 import { Layout } from './components/layout/Layout';
+import { PageTransition } from './components/transitions/PageTransition';
 
 // Code-split all routes — Three.js and heavy case studies stay out of the main bundle
 const HomePage        = lazy(() => import('./pages/index').then(m => ({ default: m.HomePage })));
@@ -50,7 +54,7 @@ export function AppRoutes() {
           <Route path="/test-components" element={<TestComponents />} />
           <Route path="/work/:slug"      element={<CaseStudyPage />} />
           <Route path="/writing/:slug"   element={<ArticlePage />} />
-          <Route path="*"                element={<NotFoundPage />} />
+          <Route path="*"               element={<NotFoundPage />} />
         </Routes>
       </Suspense>
     </Layout>
@@ -58,9 +62,30 @@ export function AppRoutes() {
 }
 
 function App() {
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const lenis = new Lenis({ lerp: 0.08, duration: 1.2 });
+    setLenis(lenis);
+
+    // Capture tickerFn in a const so the SAME ref is passed to both add and remove
+    const tickerFn = (time: number) => lenis.raf(time * 1000);
+    gsap.ticker.add(tickerFn);
+    gsap.ticker.lagSmoothing(0);
+
+    return () => {
+      lenis.destroy();
+      setLenis(null);
+      gsap.ticker.remove(tickerFn);
+    };
+  }, []);
+
   return (
     <Router>
-      <AppRoutes />
+      {/* PageTransition wraps AppRoutes so its context is available to all children */}
+      <PageTransition>
+        <AppRoutes />
+      </PageTransition>
     </Router>
   );
 }
