@@ -170,9 +170,9 @@ const FlowPath: React.FC<{
   return (
     <div className="flow-path-container flex flex-col gap-6 w-full max-w-[500px]">
       <div className="flex flex-col gap-1">
-        <h4 className="font-display text-[20px] font-normal italic text-[var(--color-text)]">
+        <p className="font-display text-[20px] font-normal italic text-[var(--color-text)]">
           {flow.label}
-        </h4>
+        </p>
       </div>
 
       <svg 

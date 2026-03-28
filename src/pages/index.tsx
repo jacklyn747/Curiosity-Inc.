@@ -258,7 +258,7 @@ export function HomePage() {
                 <h3 className="group-hover:text-[var(--color-insight)]" style={{ fontFamily: 'var(--font-display)', fontSize: '28px', fontStyle: 'italic', transition: 'color 0.3s ease', color: 'var(--color-text)' }}>
                   {article.title}
                 </h3>
-                <p className="mt-2" style={{ fontFamily: 'var(--font-body)', fontSize: '15px', color: 'var(--color-text-dim)', opacity: 0.7 }}>
+                <p className="mt-2" style={{ fontFamily: 'var(--font-body)', fontSize: '15px', color: 'var(--color-text-dim)' }}>
                   {article.description}
                 </p>
               </div>

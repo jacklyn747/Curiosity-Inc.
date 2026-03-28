@@ -31,13 +31,21 @@
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <!-- Google Fonts — preconnect before stylesheet for fastest load -->
+    <!-- Google Fonts — non-blocking load, preconnect for fastest DNS resolution -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
+      rel="preload"
+      as="style"
       href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400&family=JetBrains+Mono:wght@300;400&display=swap"
-      rel="stylesheet"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400&family=JetBrains+Mono:wght@300;400&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
 
     <!-- Organization structured data -->
     <script type="application/ld+json">

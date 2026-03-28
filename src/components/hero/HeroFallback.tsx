@@ -91,7 +91,7 @@ export function HeroFallback() {
           fontSize: 'clamp(22px, 3.5vw, 40px)',
           fontStyle: 'italic',
           color: 'var(--color-text-dim)',
-          opacity: reduced ? 0.8 : 0,
+          opacity: reduced ? 1 : 0,
           animation: reduced ? 'none' : `fadeIn 600ms ease forwards ${TEXT_LINE_2_DELAY_MS}ms`,
         }}>
           You just haven't designed what they're learning.

@@ -130,9 +130,9 @@ const DeltaRow: React.FC<{
         <span className="font-mono text-[10px] uppercase tracking-wider opacity-40 text-[var(--color-context)]">
           {metric.category}
         </span>
-        <h4 className="font-body text-[15px] font-normal leading-tight text-[var(--color-text)]">
+        <p className="font-body text-[15px] font-normal leading-tight text-[var(--color-text)]">
           {metric.label}
-        </h4>
+        </p>
       </div>
 
       {/* SVG Bridge */}

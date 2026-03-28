@@ -64,7 +64,7 @@ export const GridReveal: React.FC<GridRevealProps> = ({
             opacity: prefersReducedMotion ? 1 : 0
           }}
         >
-          <Link to={item.link} className="absolute inset-0 z-10" />
+          <Link to={item.link} className="absolute inset-0 z-10" aria-label={`View case study: ${item.title}`} />
 
           <div className="flex flex-col gap-6">
             <div className="flex justify-between items-start">
