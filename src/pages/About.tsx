@@ -251,7 +251,7 @@ const DISCIPLINES = [
       <>
         {/* \u2060 Word Joiner prevents getByText(/Creative Writing/i) from matching
             both this paragraph and the discipline label span above it in tests */}
-        A degree in creative{'\u2060'}writing taught me that sequence is a form of care.{' '}
+        A degree in creative {'\u2060'}writing taught me that sequence is a form of care.{' '}
         <em style={{ fontStyle: 'italic', color: 'var(--color-text)' }}>The order you give someone information is a decision about what they're ready to hold.</em>{' '}
         Most people who are trying to teach never think about that second part.
       </>
