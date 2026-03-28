@@ -61,6 +61,8 @@ export function AppRoutes() {
   );
 }
 
+import { ScrollToTop } from './components/transitions/ScrollToTop';
+
 function App() {
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -83,6 +85,7 @@ function App() {
 
   return (
     <Router>
+      <ScrollToTop />
       {/* PageTransition wraps AppRoutes so its context is available to all children */}
       <PageTransition>
         <AppRoutes />
