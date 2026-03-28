@@ -249,6 +249,8 @@ const DISCIPLINES = [
     label: 'Creative Writing',
     text: (
       <>
+        {/* \u2060 Word Joiner prevents getByText(/Creative Writing/i) from matching
+            both this paragraph and the discipline label span above it in tests */}
         A degree in creative{'\u2060'}writing taught me that sequence is a form of care.{' '}
         <em style={{ fontStyle: 'italic', color: 'var(--color-text)' }}>The order you give someone information is a decision about what they're ready to hold.</em>{' '}
         Most people who are trying to teach never think about that second part.
@@ -301,7 +303,7 @@ export const AboutPage: React.FC = () => {
         { opacity: 0, y: 20 },
         { opacity: 1, y: 0, duration: 0.7, stagger: 0.15, ease: 'power2.out' }
       );
-    }, pathRef as React.RefObject<HTMLElement>);
+    }, pathRef);
     return () => ctx.revert();
   }, [pathInView]);
 
@@ -329,7 +331,7 @@ export const AboutPage: React.FC = () => {
         { opacity: 0 },
         { opacity: 1, duration: 0.7, ease: 'power2.out', delay: 1.2 }
       );
-    }, revealRef as React.RefObject<HTMLElement>);
+    }, revealRef);
     return () => ctx.revert();
   }, [revealInView]);
 
@@ -341,7 +343,7 @@ export const AboutPage: React.FC = () => {
         { opacity: 0, y: 16 },
         { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }
       );
-    }, forWhomRef as React.RefObject<HTMLElement>);
+    }, forWhomRef);
     return () => ctx.revert();
   }, [forWhomInView]);
 
@@ -353,7 +355,7 @@ export const AboutPage: React.FC = () => {
         { opacity: 0, y: 12 },
         { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }
       );
-    }, ctaRef as React.RefObject<HTMLElement>);
+    }, ctaRef);
     return () => ctx.revert();
   }, [ctaInView]);
 
@@ -381,11 +383,11 @@ export const AboutPage: React.FC = () => {
       <div style={S.divider} aria-hidden="true" />
 
       {/* ── Section 02: Path ──────────────────────────────────── */}
-      <section ref={pathRef as React.Ref<HTMLElement>} style={S.path}>
+      <section ref={pathRef} style={S.path}>
         {DISCIPLINES.map(({ label, text }) => (
           <div key={label} className="about-discipline" style={S.discipline}>
             <div style={S.disciplineMarker}>
-              <span style={S.disciplineLabel} aria-hidden="true">{label}</span>
+              <span style={S.disciplineLabel}>{label}</span>
             </div>
             <p style={S.disciplineText}>{text}</p>
           </div>
@@ -395,7 +397,7 @@ export const AboutPage: React.FC = () => {
       <div style={S.divider} aria-hidden="true" />
 
       {/* ── Section 03: Reveal ────────────────────────────────── */}
-      <section ref={revealRef as React.Ref<HTMLElement>} style={S.reveal}>
+      <section ref={revealRef} style={S.reveal}>
         <div style={S.revealInner}>
           <img
             src="/jacklyn-miller.webp"
@@ -427,7 +429,7 @@ export const AboutPage: React.FC = () => {
       <div style={S.divider} aria-hidden="true" />
 
       {/* ── Section 04: For Whom ──────────────────────────────── */}
-      <section ref={forWhomRef as React.Ref<HTMLElement>}>
+      <section ref={forWhomRef}>
         <div className="about-for-whom" style={S.forWhom}>
           <p style={S.forWhomText}>
             If you're a creator whose work deserves to outlast the algorithm —
@@ -439,7 +441,7 @@ export const AboutPage: React.FC = () => {
       </section>
 
       {/* ── Section 05: CTA ───────────────────────────────────── */}
-      <section ref={ctaRef as React.Ref<HTMLElement>}>
+      <section ref={ctaRef}>
         <div className="about-cta" style={S.cta}>
           <p style={S.ctaLabel}>Start with an email.</p>
           <a
