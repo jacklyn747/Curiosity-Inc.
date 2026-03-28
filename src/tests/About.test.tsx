@@ -70,12 +70,7 @@ describe('AboutPage', () => {
   });
 
   it('photo section renders inside a container that can stack', () => {
-    render(
-      <MemoryRouter>
-        <AboutPage />
-      </MemoryRouter>
-    );
-    const revealInner = document.querySelector('.about-reveal-inner');
-    expect(revealInner).toBeTruthy();
+    const { container } = renderAbout();
+    expect(container.querySelector('.about-reveal-inner')).not.toBeNull();
   });
 });
