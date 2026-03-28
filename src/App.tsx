@@ -65,7 +65,8 @@ function App() {
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    const lenis = new Lenis({ lerp: 0.08, duration: 1.2 });
+    // autoRaf: false — GSAP ticker drives the loop, not Lenis's own rAF
+    const lenis = new Lenis({ lerp: 0.08, duration: 1.2, autoRaf: false });
     setLenis(lenis);
 
     // Capture tickerFn in a const so the SAME ref is passed to both add and remove
