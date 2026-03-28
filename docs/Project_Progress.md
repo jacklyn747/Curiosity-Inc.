@@ -2,7 +2,7 @@
 
 ## Current Status
 
-**Phase 10 Complete** — About page live. All 3 case studies fully built and routed. Article pages with static prerendering, TOC, and prev/next nav. **67 tests passing** across 11 test files.
+**Phase 11 Complete** — Phase 6 polish pass done. Lazy-load perf, mobile layouts (About + ArticlePage), SEO/meta completeness, brand favicon, duplicate meta fix. AnnotationThread confirmed built. **70 tests passing** across 12 test files.
 
 ---
 
@@ -115,6 +115,16 @@
 - **Navigation Update**: ABOUT link added to `Navigation.tsx`, routes to `/about`.
 - **Prerender Entry**: `/about` added to `scripts/prerender.ts` for static generation.
 
+### Phase 11: Polish (Phase 6 from blueprint)
+
+- **Performance**: `HeroSection` (Three.js 883KB) lazy-loaded via `React.lazy()` + `Suspense`. Three.js chunk now deferred to after initial paint. `HeroFallback` used as Suspense boundary — same designed state as reduced-motion fallback.
+- **Mobile — About page**: Replaced hardcoded `48px` side padding with `clamp(20px, 6vw, 48px)` across all five sections. Portrait + text `revealInner` extracted from inline style to `.about-reveal-inner` CSS class — stacks vertically on mobile (< 640px), rows on desktop.
+- **Mobile — Article pages**: `ArticlePage` `<article>` converted from inline flex style to `.article-layout` CSS class. TOC sidebar (`.article-toc`) hidden on mobile via `display: none` at < 768px. `aria-label="Table of contents"` added to `<aside>`. Side padding fixed to `clamp(20px, 5vw, 48px)`.
+- **SEO**: Domain unified to `curiosityinc.co` across `index.html`, `prerender.ts`. Per-page prerender now injects `og:url` + full `twitter:card` set. Static homepage meta tags stripped from per-page output to prevent duplicates. `/audit` route added (10 routes total, was 9).
+- **Favicon**: `index.html` updated to reference existing `/favicon.svg` (was broken `/vite.svg` reference).
+- **AnnotationThread**: Component confirmed complete in `AnnotationThread.tsx` — progress doc corrected.
+- **Tests**: 70 passing across 12 test files (was 67/11). New: `Homepage.test.tsx`, updated `About.test.tsx`, `ArticlePage.test.tsx`.
+
 ---
 
 ## 2. Component Library Status
@@ -130,7 +140,7 @@
 | Architecture Comparison | `ArchitectureComparison.tsx` | ✅ Complete | ❌ (emerged from Phase 7) |
 | About Page | `About.tsx` | ✅ Complete | ✅ (design spec) |
 | Curiosity Audit Intake | `AuditRequest.tsx` | ✅ Complete | ✅ (design spec) |
-| The Annotation Thread | *(not built)* | ❌ Not started | ✅ (in COMPONENT_SPEC.md) |
+| The Annotation Thread | `AnnotationThread.tsx` | ✅ Complete | ✅ |
 
 ---
 
@@ -140,23 +150,23 @@
 - **GSAP for Radial Motion**: Used for the convergence map's center node spring bounce and case study profile animations.
 - **SVG Ref Management**: Multiple SVG elements managed via `useRef` arrays for performant animation without full re-renders.
 - **ArchitectureComparison unspecced**: This component emerged organically during Phase 7 to show funnel vs. orbital gravity well. Should be added to `COMPONENT_SPEC.md`.
-- **Annotation Thread unbuilt**: Listed in `COMPONENT_SPEC.md` as Component 5. Never built. Evaluate whether needed for any future case studies.
+- **Annotation Thread confirmed built**: `AnnotationThread.tsx` exists and is fully implemented with GSAP animations, scroll triggers, and reduced-motion support. Was incorrectly marked as unbuilt.
 - **React 19 + Vite 8**: Upgraded during Phase 8 for `@react-three/fiber` compatibility and native `<title>`/`<meta>` support in components.
 
 ---
 
-## 4. Road Ahead — Phase 11 (TBD)
+## 4. Road Ahead — Phase 12 (TBD)
 
 Open questions to decide the next phase:
 
-- **Annotation Thread**: Build it or formally remove it from COMPONENT_SPEC.md?
+- **og:image**: No OG social card image asset exists yet. Requires designing a 1200×630 card. High impact for social sharing — `summary_large_image` Twitter cards show blank without it.
+- **Email domain**: `About.tsx` has `mailto:jacklyn@curiosityinc.online` — confirm whether this should be `@curiosityinc.co` to match the website domain.
 - **COMPONENT_SPEC.md**: Add ArchitectureComparison spec (it exists, just undocumented).
-- **Phase 11 Feature**: No next phase defined yet. Candidates:
+- **Phase 12 Feature**: No next phase defined yet. Candidates:
   - A fourth case study
-  - SEO + analytics (Plausible or similar)
-  - Performance audit + Lighthouse pass
-  - Contact page refinements (deeper integration with audit request flow)
-  - Mobile optimization pass
+  - Lighthouse CI audit (establish baseline score, target 95+)
+  - Analytics (Plausible or similar)
+  - Full WCAG 2.2 AA manual keyboard pass
 
 ---
 
