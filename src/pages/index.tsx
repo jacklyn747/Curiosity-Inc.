@@ -34,7 +34,7 @@ export function HomePage() {
       </Suspense>
 
       <section 
-        className="mx-auto" 
+        className="mx-auto border-t border-[rgba(255,255,255,0.05)]" 
       >
         <div className="max-w-[1200px] mx-auto px-6 md:px-12 py-32 text-left">
           <SectionLabel>THE PATTERN</SectionLabel>
@@ -88,7 +88,7 @@ export function HomePage() {
         Loop stage: Decision.
       */}
       <section 
-        className="max-w-[1200px] mx-auto px-6 md:px-12 py-40 flex flex-col items-center gap-16 text-center"
+        className="max-w-[1200px] mx-auto px-6 md:px-12 py-40 flex flex-col items-center gap-16 text-center border-t border-[rgba(255,255,255,0.05)] relative"
         style={{ minHeight: '100vh' }}
       >
         <div className="max-w-[800px]">
@@ -143,7 +143,7 @@ export function HomePage() {
       */}
       <section 
         id="work" 
-        className="w-full relative block pt-40 pb-20"
+        className="w-full relative block pt-40 pb-20 border-t border-[rgba(255,255,255,0.05)]"
       >
         <div className="max-w-[1200px] mx-auto px-6 md:px-12 mb-16">
           <SectionLabel>THE LABORATORY</SectionLabel>
@@ -197,7 +197,7 @@ export function HomePage() {
       */}
       <section
         id="writing"
-        className="max-w-[1200px] mx-auto px-6 md:px-12 py-40 flex flex-col gap-16"
+        className="max-w-[1200px] mx-auto px-6 md:px-12 py-40 flex flex-col gap-16 border-t border-[rgba(255,255,255,0.05)] relative"
         style={{ minHeight: '80vh' }}
       >
         <div className="max-w-[800px]">
@@ -278,7 +278,7 @@ export function HomePage() {
       */}
       <section 
         id="about" 
-        className="max-w-[1200px] mx-auto px-6 md:px-12 py-40 flex flex-col items-center gap-16"
+        className="max-w-[1200px] mx-auto px-6 md:px-12 py-40 flex flex-col items-center gap-16 border-t border-[rgba(255,255,255,0.05)] relative"
         style={{ minHeight: '100vh' }}
       >
         <div className="max-w-[700px] text-center">

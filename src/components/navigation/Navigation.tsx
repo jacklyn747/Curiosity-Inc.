@@ -50,8 +50,8 @@ export const Navigation: React.FC = () => {
   }, [isHome]);
 
   return (
-    <nav className={`nav-root ${scrolled ? 'scrolled' : ''}`}>
-      <div className="nav-inner">
+    <nav className={`nav-root border-b border-[rgba(255,255,255,0.05)] ${scrolled ? 'scrolled' : ''}`}>
+      <div className="nav-inner flex w-full max-w-[1440px] justify-between pl-6 md:pl-12">
         <Link 
           to="/" 
           className="nav-logo"
@@ -72,12 +72,11 @@ export const Navigation: React.FC = () => {
           <span className="menu-text">{isMenuOpen ? 'CLOSE' : 'MENU'}</span>
         </button>
 
-        {/* DESKTOP LINKS */}
-        <ul className="nav-links hidden md:flex">
+        <ul className="nav-links hidden md:flex items-center h-full border-l border-[rgba(255,255,255,0.05)]">
           {SECTION_LINKS.map(link => {
             const isActive = activeSection === link.href.replace('#', '');
             return (
-              <li key={link.label}>
+              <li key={link.label} className="h-full flex items-center border-r border-[rgba(255,255,255,0.05)] px-8">
                 {isHome ? (
                   <a
                     href={link.href}
@@ -98,7 +97,7 @@ export const Navigation: React.FC = () => {
               </li>
             );
           })}
-          <li>
+          <li className="h-full flex items-center border-r border-[rgba(255,255,255,0.05)] px-8">
             <Link
               to={ABOUT_LINK.path}
               className={`nav-link ${location.pathname === '/about' ? 'active' : ''}`}
