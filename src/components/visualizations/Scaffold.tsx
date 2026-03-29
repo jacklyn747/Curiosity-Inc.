@@ -100,14 +100,27 @@ export const Scaffold: React.FC<ScaffoldProps> = ({ bands }) => {
 
               <div className="p-8 md:p-16 flex flex-col md:flex-row gap-12 relative z-10 h-full">
                 
-                {/* Left Column: Number & Label */}
+                {/* Left Column: Accent marker + Label */}
                 <div className="w-full md:w-1/3 flex flex-col gap-6">
-                  <span 
-                    className="font-display text-[80px] md:text-[120px] leading-none opacity-20"
-                    style={{ color: color }}
-                  >
-                    0{i + 1}
-                  </span>
+                  {/* Visual accent replaces 01/02/03 numbering */}
+                  <div className="flex items-center gap-4">
+                    <div
+                      style={{
+                        width: '40px',
+                        height: '2px',
+                        backgroundColor: color,
+                      }}
+                    />
+                    <div
+                      style={{
+                        width: '6px',
+                        height: '6px',
+                        borderRadius: '50%',
+                        backgroundColor: color,
+                        opacity: 0.8,
+                      }}
+                    />
+                  </div>
                   
                   <div className="flex flex-col gap-2">
                     {band.sublabel && (
@@ -115,12 +128,8 @@ export const Scaffold: React.FC<ScaffoldProps> = ({ bands }) => {
                         {band.sublabel}
                       </span>
                     )}
-                    <h3 className="font-display text-[32px] md:text-[40px] font-normal leading-tight text-[var(--color-text)]">
-                      {band.label.split('/')[0]}
-                      <br/>
-                      <span style={{ color: color, fontStyle: 'italic' }}>
-                        {band.label.split('/')[1] || ''}
-                      </span>
+                    <h3 className="font-display text-[32px] md:text-[44px] font-normal leading-tight text-[var(--color-text)]">
+                      <span style={{ color: color }}>{band.label}</span>
                     </h3>
                   </div>
                 </div>
@@ -133,7 +142,7 @@ export const Scaffold: React.FC<ScaffoldProps> = ({ bands }) => {
                   
                   {band.detail && (
                     <div className="pt-8 border-t border-[rgba(232,230,224,0.1)]">
-                      <p className="font-mono text-[11px] uppercase tracking-[0.1em] text-[var(--color-context)] leading-relaxed">
+                      <p className="font-mono text-[13px] uppercase tracking-[0.1em] text-[var(--color-context)] leading-relaxed">
                         {band.detail}
                       </p>
                     </div>
