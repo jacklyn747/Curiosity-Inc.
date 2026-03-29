@@ -12,6 +12,7 @@ export interface ScaffoldBand {
 
 interface ScaffoldProps {
   bands: ScaffoldBand[];
+  direction?: 'up' | 'down';
 }
 
 const COLOR_MAP = {

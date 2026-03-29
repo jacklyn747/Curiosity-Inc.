@@ -347,7 +347,6 @@ export function TiagoForteCaseStudy() {
           </div>
 
           <Scaffold
-            direction="up"
             bands={[
               {
                 accentColor: 'sky',

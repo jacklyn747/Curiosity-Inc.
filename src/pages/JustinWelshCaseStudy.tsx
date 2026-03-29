@@ -330,7 +330,6 @@ export function JustinWelshCaseStudy() {
           </div>
 
           <Scaffold
-            direction="up"
             bands={[
               {
                 accentColor: 'structure',
