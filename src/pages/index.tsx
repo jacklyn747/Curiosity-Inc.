@@ -246,32 +246,32 @@ export function HomePage() {
             <Link 
               key={article.number}
               to={article.link}
-              className="article-row group py-12 flex flex-col md:flex-row md:items-center gap-6 md:gap-12"
-              style={{ 
-                borderTop: '0.5px solid rgba(136, 136, 136, 0.1)',
-                textDecoration: 'none',
-                transition: 'background 0.3s ease'
-              }}
+              className="article-row group py-12 flex flex-col md:flex-row md:items-center gap-6 md:gap-12 relative overflow-hidden"
+              style={{ textDecoration: 'none' }}
             >
-              <div className="flex items-center gap-6 md:w-1/4">
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--color-transformation)' }}>{article.number}</span>
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--color-structure)', letterSpacing: '0.1em' }}>{article.category}</span>
+              {/* Bespoke active line (Humanization) */}
+              <div className="absolute top-0 left-0 w-full h-[1px] bg-[rgba(136,136,136,0.1)] group-hover:bg-[rgba(136,136,136,0.4)] transition-colors duration-500" />
+              <div className="absolute top-0 left-0 w-0 h-[1px] bg-[var(--color-insight)] group-hover:w-full transition-all duration-700 ease-[var(--ease-out)]" />
+
+              <div className="flex items-center gap-6 md:w-1/4 transform group-hover:translate-x-4 transition-transform duration-500 ease-[var(--ease-out)]">
+                <span className="font-mono text-[11px] text-[var(--color-transformation)]">{article.number}</span>
+                <span className="font-mono text-[10px] text-[var(--color-structure)] tracking-[0.1em]">{article.category}</span>
               </div>
-              <div className="md:w-1/2">
-                <h3 className="group-hover:text-[var(--color-insight)]" style={{ fontFamily: 'var(--font-display)', fontSize: '28px', fontStyle: 'italic', transition: 'color 0.3s ease', color: 'var(--color-text)' }}>
+              <div className="md:w-1/2 transform group-hover:translate-x-2 transition-transform duration-700 ease-[var(--ease-out)]">
+                <h3 className="font-display text-[28px] font-italic text-[var(--color-text)] group-hover:text-[var(--color-insight)] transition-colors duration-300">
                   {article.title}
                 </h3>
-                <p className="mt-2" style={{ fontFamily: 'var(--font-body)', fontSize: '15px', color: 'var(--color-text-dim)' }}>
+                <p className="mt-2 font-body text-[15px] text-[var(--color-text-dim)] group-hover:text-[var(--color-text)] transition-colors duration-500">
                   {article.description}
                 </p>
               </div>
-              <div className="md:w-1/4 flex items-center justify-between md:justify-end gap-12">
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--color-context-dim)' }}>{article.time}</span>
-                <span className="group-hover:translate-x-2" style={{ color: 'var(--color-insight)', fontSize: '20px', transition: 'transform 0.3s ease' }}>→</span>
+              <div className="md:w-1/4 flex items-center justify-between md:justify-end gap-12 transform group-hover:-translate-x-4 transition-transform duration-500 ease-[var(--ease-out)]">
+                <span className="font-mono text-[10px] text-[var(--color-context-dim)] group-hover:text-[var(--color-insight)] transition-colors duration-300">{article.time}</span>
+                <span className="text-[var(--color-insight)] text-[20px] transform group-hover:translate-x-2 transition-transform duration-500">→</span>
               </div>
             </Link>
           ))}
-          <div style={{ borderTop: '0.5px solid rgba(136, 136, 136, 0.1)' }}></div>
+          <div className="w-full h-[1px] bg-[rgba(136,136,136,0.1)]"></div>
         </div>
       </section>
 
@@ -306,25 +306,14 @@ export function HomePage() {
           </p>
           
           <button 
-            className="cta-button"
-            style={{
-              padding: '16px 32px',
-              background: 'transparent',
-              border: '1px solid var(--color-insight)',
-              borderRadius: '24px',
-              color: 'var(--color-insight)',
-              fontFamily: 'var(--font-body)',
-              fontSize: '11px',
-              textTransform: 'uppercase',
-              letterSpacing: '0.15em',
-              cursor: 'pointer',
-              transition: 'all 0.3s ease'
-            }}
+            className="group relative inline-flex items-center justify-center overflow-hidden border border-[rgba(247,38,88,0.2)] rounded-none px-10 py-5 transition-all duration-500 hover:border-[var(--color-insight)] bg-transparent"
             onClick={() => navigate('/audit')}
-            onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'rgba(247, 38, 88, 0.1)'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'transparent'; }}
           >
-            Request a Curiosity Audit
+            <div className="absolute inset-0 w-0 bg-[var(--color-insight)] transition-all duration-500 ease-[var(--ease-out)] group-hover:w-full" />
+            <span className="relative z-10 font-mono text-[11px] tracking-[0.2em] text-[var(--color-insight)] uppercase group-hover:text-white transition-colors duration-500 inline-flex items-center gap-4">
+              Request a Curiosity Audit
+              <span className="transform group-hover:translate-x-2 transition-transform duration-500">→</span>
+            </span>
           </button>
         </div>
       </section>
