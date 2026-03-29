@@ -38,7 +38,7 @@ export const HorizontalGallery: React.FC<HorizontalGalleryProps> = ({ items }) =
           trigger: containerRef.current,
           pin: true,
           scrub: 1,
-          start: "center center",
+          start: "top top",
           end: () => `+=${window.innerWidth * cards.length}`,
           invalidateOnRefresh: true,
         }
@@ -51,7 +51,7 @@ export const HorizontalGallery: React.FC<HorizontalGalleryProps> = ({ items }) =
           ease: "none",
           scrollTrigger: {
             trigger: containerRef.current,
-            start: "center center",
+            start: "top top",
             end: () => `+=${window.innerWidth * cards.length}`,
             scrub: 1,
             invalidateOnRefresh: true

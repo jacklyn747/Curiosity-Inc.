@@ -143,18 +143,19 @@ export function HomePage() {
       */}
       <section 
         id="work" 
-        className="max-w-[1200px] mx-auto px-6 md:px-12 py-40 flex flex-col gap-16"
-        style={{ minHeight: '100vh' }}
+        className="w-full relative block pt-40 pb-20"
       >
-        <div className="max-w-[800px]">
+        <div className="max-w-[1200px] mx-auto px-6 md:px-12 mb-16">
           <SectionLabel>THE LABORATORY</SectionLabel>
-          <DisplayHeading as="h2" accent="Experiments" className="mt-6">
+          <DisplayHeading as="h2" accent="Experiments" className="mt-6 max-w-[800px]">
             Selected Experiments.
           </DisplayHeading>
-          <p className="body-text mt-8 opacity-70">
+          <p className="font-body text-[18px] mt-8 opacity-70 max-w-[800px] leading-relaxed">
             Each project applies learning science to a real creator's content architecture. We diagnose where the educational structure breaks. Then we show what restructuring it would do to every metric that matters.
           </p>
         </div>
+
+        <div className="w-full">
 
         <HorizontalGallery 
           items={[
@@ -187,6 +188,7 @@ export function HomePage() {
             }
           ]}
         />
+        </div>
       </section>
 
       {/* 
