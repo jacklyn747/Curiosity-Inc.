@@ -127,6 +127,97 @@ input, button, textarea, select {
   100% { transform: translate(5%, 0); }
 }
 
+/* ABOUT PAGE — Architecture of the Founder */
+.about-inner {
+  max-width: var(--layout-max-width);
+  margin: 0 auto;
+  padding: 0 var(--spacing-edge);
+}
+
+.about-opening {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: clamp(120px, 15vw, 180px) 0 80px;
+}
+
+.about-intro-lead {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.about-discipline-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 2rem;
+  margin: clamp(80px, 10vw, 120px) 0;
+}
+
+.about-discipline-item {
+  grid-column: span 12;
+}
+
+@media (min-width: 768px) {
+  .about-discipline-item:nth-child(odd) {
+    grid-column: 1 / span 7;
+  }
+  .about-discipline-item:nth-child(even) {
+    grid-column: 6 / span 7;
+  }
+}
+
+.discipline-tag {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--color-insight);
+  display: block;
+  margin-bottom: 1.5rem;
+}
+
+.discipline-body {
+  font-size: clamp(16px, 1.2vw, 18px);
+  line-height: 1.8;
+  color: var(--color-text-dim);
+}
+
+.about-photo-reveal {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  aspect-ratio: 4/5;
+  margin: clamp(40px, 8vw, 80px) auto;
+  overflow: hidden;
+  clip-path: inset(100% 0 0 0);
+}
+
+.about-photo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.1);
+  transition: transform 0.6s var(--ease-out), filter 0.6s var(--ease-out);
+}
+
+.about-photo-reveal:hover .about-photo-img {
+  transform: scale(1.05);
+  filter: grayscale(0.2) contrast(1.05);
+}
+
+.about-cta-sanctuary {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  padding: clamp(60px, 8vw, 100px);
+  border-radius: 8px;
+  text-align: center;
+  margin-top: clamp(80px, 12vw, 160px);
+}
+
 /* ACCESSIBILITY */
 @media (prefers-reduced-motion: reduce) {
   html:focus-within {
