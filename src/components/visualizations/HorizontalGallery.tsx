@@ -82,14 +82,13 @@ export const HorizontalGallery: React.FC<HorizontalGalleryProps> = ({ items }) =
       <div className="hg-container w-full h-screen overflow-hidden bg-[var(--color-void)] flex items-center justify-start" style={{ position: 'sticky', top: 0 }}>
         <div 
           ref={scrollRef} 
-          className="hg-scroll-wrapper flex items-center h-[70vh] px-[10vw] gap-24"
-          style={{ width: 'fit-content' }}
+          className="hg-scroll-wrapper flex flex-nowrap items-center h-[70vh] px-[10vw] gap-24 w-max"
         >   
         {items.map((item) => (
           <div 
             key={item.id} 
             className="hg-card relative shrink-0 flex items-center justify-center p-8 overflow-hidden rounded-xl border border-[rgba(232,230,224,0.1)]"
-            style={{ width: '80vw', maxWidth: '1000px', height: '100%' }}
+            style={{ width: 'min(45vw, 600px)', height: '60vh', maxHeight: '700px' }}
           >
             {/* Constrained Background Image Layer (No Full Bleed) */}
             <div className="absolute inset-0 overflow-hidden grayscale-[0.8]">
@@ -122,11 +121,11 @@ export const HorizontalGallery: React.FC<HorizontalGalleryProps> = ({ items }) =
                 </span>
               </div>
 
-              <h3 className="font-display text-[64px] md:text-[90px] leading-tight text-white m-0">
+              <h3 className="font-display text-[48px] md:text-[60px] leading-tight text-white m-0">
                 {item.title}
               </h3>
               
-              <p className="font-body text-[18px] md:text-[22px] font-light text-[rgba(255,255,255,0.7)] leading-relaxed max-w-[600px]">
+              <p className="font-body text-[16px] md:text-[18px] font-light text-[rgba(255,255,255,0.7)] leading-relaxed max-w-[500px]">
                 {item.subtitle}
               </p>
             </div>
