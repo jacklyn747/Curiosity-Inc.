@@ -48,6 +48,10 @@
   --opacity-structural: 0.40;
   --opacity-active: 0.80;
   --opacity-focal: 1.0;
+
+  /* LAYOUT — The Curated Sanctuary */
+  --layout-max-width: 1200px;
+  --spacing-edge: clamp(20px, 5vw, 64px);
 }
 
 /* RESET & CORE STYLES */
