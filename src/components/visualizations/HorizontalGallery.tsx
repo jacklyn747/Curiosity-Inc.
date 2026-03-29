@@ -39,8 +39,8 @@ export const HorizontalGallery: React.FC<HorizontalGalleryProps> = ({ items }) =
         }
       });
       
-      // Initial dead-zone so Dan Koe stays completely frozen on entry
-      tl.to({}, { duration: 0.15 });
+      // Extended Initial dead-zone so Dan Koe stays completely frozen on entry for 35% of the entire section duration
+      tl.to({}, { duration: 0.35 });
       
       // The actual horizontal move
       tl.fromTo(scrollRef.current, 
@@ -48,11 +48,11 @@ export const HorizontalGallery: React.FC<HorizontalGalleryProps> = ({ items }) =
         {
           x: () => -(scrollRef.current!.scrollWidth - window.innerWidth),
           ease: "none",
-          duration: 0.7 // takes up 70% of the total 400vh scroll
+          duration: 0.5 // takes up 50% of the total 400vh scroll
         }
       );
       
-      // Final dead-zone so Tiago Forte doesn't instantly rip away
+      // Final dead-zone
       tl.to({}, { duration: 0.15 });
 
       // Subtle internal parallax for the images inside the bounded containers
@@ -99,7 +99,7 @@ export const HorizontalGallery: React.FC<HorizontalGalleryProps> = ({ items }) =
           <div 
             key={item.id} 
             className="hg-card relative shrink-0 flex items-center justify-center p-8 overflow-hidden rounded-xl border border-[rgba(232,230,224,0.1)]"
-            style={{ width: 'min(45vw, 600px)', height: '60vh', maxHeight: '700px' }}
+            style={{ width: 'min(70vw, 450px)', height: '55vh', maxHeight: '600px' }}
           >
             {/* Constrained Background Image Layer (No Full Bleed) */}
             <div className="absolute inset-0 overflow-hidden grayscale-[0.8]">
