@@ -265,29 +265,22 @@ export function HeroSection() {
               overflow: 'hidden',
             }}
           >
-            {/* Each line in its own overflow:hidden container for reveal wipe */}
             <div style={{ overflow: 'hidden' }}>
               <span className="hero-line" style={{ display: 'block' }}>
-                Your audience
+                You've been
               </span>
             </div>
             <div style={{ overflow: 'hidden' }}>
               <span className="hero-line" style={{ display: 'block' }}>
-                can't{' '}
                 <em style={{
                   fontStyle: 'normal',
-                  color: 'var(--color-transformation)',
-                }}>retain</em>
+                  color: 'var(--color-accent)',
+                }}>teaching</em>
               </span>
             </div>
             <div style={{ overflow: 'hidden' }}>
               <span className="hero-line" style={{ display: 'block' }}>
-                what they
-              </span>
-            </div>
-            <div style={{ overflow: 'hidden' }}>
-              <span className="hero-line" style={{ display: 'block' }}>
-                can't learn.
+                this whole time.
               </span>
             </div>
           </h1>
@@ -305,16 +298,17 @@ export function HeroSection() {
           pointerEvents: 'none',
         }}>
           {/* Left meta */}
-          <div ref={metaLeftRef} style={{ maxWidth: '260px' }}>
+          <div ref={metaLeftRef} style={{ maxWidth: '320px' }}>
             <p style={{
               fontFamily: 'var(--font-body)',
-              fontSize: 'clamp(13px, 1.1vw, 15px)',
-              lineHeight: 1.55,
-              color: 'rgba(232,230,224,0.45)',
+              fontSize: 'clamp(16px, 1.2vw, 18px)',
+              lineHeight: 1.6,
+              color: 'rgba(234,228,218,0.5)',
               margin: 0,
               fontWeight: 300,
             }}>
-              We restructure how creators teach — so their audience doesn't just follow, they transform.
+              Nobody told you. That's the whole problem.
+              <br />We fix what nobody showed you how to build.
             </p>
           </div>
 

@@ -128,19 +128,16 @@ export const HorizontalGallery: React.FC<HorizontalGalleryProps> = ({ items }) =
               {/* Text Overlay pinned to bottom left */}
               <div className="relative z-20 w-full h-full flex flex-col justify-end items-start text-left pb-4 pointer-events-none mt-auto">
                 <div className="flex flex-col items-start gap-2 mb-4">
-                  <span className="font-mono text-[14px] text-[var(--color-transformation)] block">
-                    {item.number}
-                  </span>
-                  <span className="font-mono text-[11px] tracking-[0.2em] uppercase opacity-70 text-[var(--color-context)] block">
+                  <span className="font-mono text-[12px] tracking-[0.18em] uppercase opacity-80 text-[var(--color-accent)] block">
                     {item.category}
                   </span>
                 </div>
 
-                <h3 className="font-display text-[40px] leading-tight text-white m-0 tracking-tight">
+                <h3 className="font-display text-[44px] leading-tight text-white m-0 tracking-tight">
                   {item.title}
                 </h3>
                 
-                <p className="font-body text-[16px] font-light text-[rgba(255,255,255,0.7)] leading-relaxed max-w-[90%] mt-2">
+                <p className="font-body text-[18px] font-light text-[rgba(255,255,255,0.7)] leading-relaxed max-w-[90%] mt-2">
                   {item.subtitle}
                 </p>
               </div>
