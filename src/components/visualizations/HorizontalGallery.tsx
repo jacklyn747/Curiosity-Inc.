@@ -33,14 +33,15 @@ export const HorizontalGallery: React.FC<HorizontalGalleryProps> = ({ items }) =
         scrollTrigger: {
           trigger: containerRef.current,
           start: "top top",
-          end: "bottom bottom",
+          end: "+=3000", // 3000px of scrolling for the pan
           scrub: 1,
+          pin: true, // Use GSAP pin instead of CSS sticky
           invalidateOnRefresh: true,
         }
       });
       
       // Extended Initial dead-zone so Dan Koe stays completely frozen on entry for 35% of the entire section duration
-      tl.to({}, { duration: 0.35 });
+      tl.to({}, { duration: 0.25 });
       
       // The actual horizontal move
       tl.fromTo(scrollRef.current, 
@@ -48,7 +49,8 @@ export const HorizontalGallery: React.FC<HorizontalGalleryProps> = ({ items }) =
         {
           x: () => -(scrollRef.current!.scrollWidth - window.innerWidth),
           ease: "none",
-          duration: 0.5 // takes up 50% of the total 400vh scroll
+          duration: 0.6, // takes up 60% of the total 3000px scroll
+          immediateRender: true
         }
       );
       
@@ -89,8 +91,8 @@ export const HorizontalGallery: React.FC<HorizontalGalleryProps> = ({ items }) =
   }
 
   return (
-    <section ref={containerRef} className="w-full relative" style={{ height: '400vh' }}>
-      <div className="hg-container w-full h-screen overflow-hidden bg-[var(--color-void)] flex items-center justify-start" style={{ position: 'sticky', top: 0 }}>
+    <section ref={containerRef} className="w-full relative bg-[var(--color-void)]">
+      <div className="hg-container w-full h-screen overflow-hidden flex items-center justify-start">
         <div 
           ref={scrollRef} 
           className="hg-scroll-wrapper shrink-0 flex flex-nowrap items-center h-[70vh] gap-24 w-max"
