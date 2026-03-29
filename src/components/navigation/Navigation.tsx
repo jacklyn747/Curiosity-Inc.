@@ -129,6 +129,7 @@ interface MobileMenuProps {
 const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, activeSection, isHome }) => {
   const overlayRef = React.useRef<HTMLDivElement>(null);
   const linksRef = React.useRef<(HTMLDivElement | null)[]>([]);
+  const location = useLocation();
 
   useEffect(() => {
     if (isOpen) {
@@ -176,7 +177,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, activeSection,
           {MENU_ITEMS.map((item, i) => {
             const isActive = isHome 
               ? activeSection === item.href.replace('#', '')
-              : window.location.pathname === item.path;
+              : location.pathname === item.path;
 
             const isExternal = !item.href.startsWith('#');
 
