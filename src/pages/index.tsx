@@ -374,21 +374,3 @@ export function CaseStudyPage() {
  * Article Shell.
  */
 export { ArticlePage } from './ArticlePage';
-
-/**
- * 404 Page.
- */
-export function NotFoundPage() {
-  return (
-    <div className="flex flex-col items-center justify-center min-vh-100 p-8 text-center" style={{ minHeight: '100vh' }}>
-      <DisplayHeading as="h1">Lost in the void.</DisplayHeading>
-      <Link 
-        to="/" 
-        className="data-label"
-        style={{ color: 'var(--color-insight)', textDecoration: 'none', marginTop: '3rem' }}
-      >
-        RETURN TO SANCTUARY →
-      </Link>
-    </div>
-  );
-}

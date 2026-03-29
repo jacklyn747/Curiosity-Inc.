@@ -10,10 +10,10 @@ import { PageTransition } from './components/transitions/PageTransition';
 const HomePage        = lazy(() => import('./pages/index').then(m => ({ default: m.HomePage })));
 const CaseStudyPage   = lazy(() => import('./pages/index').then(m => ({ default: m.CaseStudyPage })));
 const ArticlePage     = lazy(() => import('./pages/ArticlePage').then(m => ({ default: m.ArticlePage })));
-const NotFoundPage    = lazy(() => import('./pages/NotFoundPage').then(m => ({ default: m.NotFoundPage })));
+const NotFoundPage    = lazy(() => import('./pages/NotFoundPage'));
 const TestComponents  = lazy(() => import('./pages/TestComponents').then(m => ({ default: m.TestComponents })));
 const AuditRequest    = lazy(() => import('./pages/AuditRequest').then(m => ({ default: m.AuditRequest })));
-const AboutPage       = lazy(() => import('./pages/About').then(m => ({ default: m.AboutPage })));
+const AboutPage       = lazy(() => import('./pages/About'));
 
 // Minimal loading fallback — void screen, no flash
 function PageFallback() {
