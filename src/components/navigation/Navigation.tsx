@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import gsap from 'gsap';
 
 const SECTION_LINKS = [
   { label: 'WORK',    href: '#work',    path: '/' },
