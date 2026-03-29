@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface DisplayHeadingProps {
-  children: string;
+  children: React.ReactNode;
   accent?: string;
   className?: string;
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
@@ -13,7 +13,7 @@ export const DisplayHeading: React.FC<DisplayHeadingProps> = ({
   className = '', 
   as: Component = 'h2' 
 }) => {
-  if (!accent) {
+  if (!accent || typeof children !== 'string') {
     return (
       <Component className={`display-heading ${className}`}>
         {children}
