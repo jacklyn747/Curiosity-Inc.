@@ -1,51 +1,122 @@
-import { useRef, useEffect } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+// src/components/hero/HeroSection.tsx
+import { useRef, useCallback } from 'react';
+import { Canvas } from '@react-three/fiber';
+import { useReducedMotion } from '../../hooks/useReducedMotion';
+import { useHeroScroll } from '../../hooks/useHeroScroll';
+import { ParticleField } from './ParticleField';
+import { HeroFallback } from './HeroFallback';
+
+/**
+ * Check WebGL support synchronously before mounting the canvas.
+ * More reliable than detecting failure inside r3f's onCreated,
+ * which only fires on success.
+ */
+function supportsWebGL(): boolean {
+  if (typeof window === 'undefined') return false;
+  try {
+    const canvas = document.createElement('canvas');
+    return !!(canvas.getContext('webgl2') || canvas.getContext('webgl'));
+  } catch {
+    return false;
+  }
+}
+
+function isTouchDevice() {
+  return typeof window !== 'undefined' &&
+    window.matchMedia('(pointer: coarse)').matches;
+}
 
 export function HeroSection() {
+  const reduced = useReducedMotion();
   const containerRef = useRef<HTMLDivElement>(null);
-  const textRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-    
-    // Tilton-style Hero Mask Reveal
-    const ctx = gsap.context(() => {
-      gsap.to(textRef.current, {
-        opacity: 0,
-        y: -100,
-        scale: 0.9,
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "center center",
-          end: "bottom top",
-          scrub: true,
-        }
-      });
-    }, containerRef);
+  // Progress lives in a ref — no React state, no re-renders from scroll.
+  const progressRef = useRef(0);
 
-    return () => ctx.revert();
+  // Text elements updated directly via DOM refs to avoid React re-renders.
+  const text1Ref = useRef<HTMLParagraphElement>(null);
+  const text2Ref = useRef<HTMLParagraphElement>(null);
+
+  const handleProgress = useCallback((p: number) => {
+    progressRef.current = p;
+    if (text1Ref.current) text1Ref.current.style.opacity = p >= 0.85 ? '1' : '0';
+    if (text2Ref.current) text2Ref.current.style.opacity = p >= 0.9 ? '0.8' : '0';
   }, []);
+
+  // useHeroScroll is called unconditionally (hooks must not be conditional).
+  // On the fallback path, containerRef.current is null and the hook safely no-ops.
+  useHeroScroll(containerRef, handleProgress);
+
+  const useFallback = reduced || isTouchDevice() || !supportsWebGL();
+
+  if (useFallback) {
+    return <HeroFallback />;
+  }
 
   return (
     <div
       ref={containerRef}
       id="hero"
-      className="w-full h-screen relative flex items-center justify-center bg-[#171716] overflow-hidden"
+      style={{ width: '100%', height: '100vh', position: 'relative', backgroundColor: 'var(--color-void)' }}
     >
-      <div 
-        className="absolute inset-0 z-0 opacity-20 pointer-events-none"
-        style={{ backgroundImage: 'radial-gradient(circle at center, var(--color-insight) 0%, transparent 60%)' }}
-      />
-      
-      <div 
-        ref={textRef}
-        className="relative z-10 flex flex-col items-center justify-center px-6 md:px-12 text-center max-w-[1000px] w-full"
+      <Canvas
+        frameloop="demand"
+        camera={{ position: [0, 0, 6], fov: 60 }}
+        style={{ position: 'absolute', inset: 0 }}
+        onCreated={() => {
+          // Refresh ScrollTrigger AFTER canvas has committed dimensions to DOM.
+          // Must be here (onCreated), not before mount — premature refresh produces
+          // wrong pinned-spacer height and corrupts scroll positions for sections below.
+          import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => ScrollTrigger.refresh());
+        }}
+        gl={{ antialias: false, powerPreference: 'high-performance' }}
       >
-        <p className="font-display text-[40px] md:text-[80px] leading-[1.1] font-normal text-[var(--color-text)] tracking-tight">
+        {/* Explicit dark background aligned perfectly to the site's void color to prevent seam mismatch */}
+        <color attach="background" args={['#171716']} />
+        <ParticleField progressRef={progressRef} />
+      </Canvas>
+
+      {/* Text overlay — opacity driven imperatively via text1Ref/text2Ref, not React state */}
+      <div style={{
+        position: 'absolute',
+        inset: 0,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        pointerEvents: 'none',
+        padding: '0 24px',
+        textAlign: 'center',
+        margin: '0 auto',
+        left: 0, right: 0,
+        // Smooth radial blend so the text is legible over the dots, while letting them shine at the edges
+        background: 'radial-gradient(ellipse at center, rgba(23, 23, 22, 0.95) 0%, rgba(23, 23, 22, 0.6) 40%, transparent 70%)'
+      }}>
+        <p
+          ref={text1Ref}
+          style={{
+            fontFamily: 'var(--font-display)',
+            fontSize: 'clamp(24px, 4vw, 48px)',
+            fontStyle: 'italic',
+            color: 'var(--color-text)',
+            opacity: 0,
+            transition: 'opacity 600ms ease',
+            marginBottom: '1rem',
+          }}
+        >
           Your audience is learning from you.
         </p>
-        <p className="font-display text-[32px] md:text-[64px] leading-[1.1] font-italic text-[var(--color-text-dim)] mt-4">
+        <p
+          ref={text2Ref}
+          style={{
+            fontFamily: 'var(--font-display)',
+            fontSize: 'clamp(24px, 4vw, 48px)',
+            fontStyle: 'italic',
+            color: 'var(--color-text-dim)',
+            opacity: 0,
+            transition: 'opacity 600ms ease',
+          }}
+        >
           You just haven't designed what they're learning.
         </p>
       </div>

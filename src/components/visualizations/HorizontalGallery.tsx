@@ -78,7 +78,7 @@ export const HorizontalGallery: React.FC<HorizontalGalleryProps> = ({ items }) =
   }
 
   return (
-    <section ref={containerRef} className="hg-container w-full h-screen overflow-hidden bg-[#171716] relative flex">
+    <section ref={containerRef} className="hg-container w-full h-screen overflow-hidden bg-[var(--color-void)] relative flex">
       <div 
         ref={scrollRef} 
         className="hg-scroll-wrapper flex h-full w-[300vw]"
@@ -88,8 +88,8 @@ export const HorizontalGallery: React.FC<HorizontalGalleryProps> = ({ items }) =
             key={item.id} 
             className="hg-card relative w-screen h-full shrink-0 flex items-center justify-center p-6 md:p-24"
           >
-            {/* Background Image Parallax layer */}
-            <div className="absolute inset-x-6 md:inset-x-24 inset-y-12 md:inset-y-24 overflow-hidden border border-[rgba(232,230,224,0.1)] grayscale-[0.8]">
+            {/* Background Image Parallax layer (Full Bleed) */}
+            <div className="absolute inset-0 overflow-hidden grayscale-[0.8]">
               {item.image ? (
                 <div 
                   className="hg-image-inner absolute top-0 bottom-0 left-[-15%] w-[130%] bg-cover bg-center"
@@ -98,13 +98,13 @@ export const HorizontalGallery: React.FC<HorizontalGalleryProps> = ({ items }) =
               ) : (
                 <div className="absolute inset-0 bg-[#111]" />
               )}
-              {/* Dark overlay for text legibility */}
-              <div className="absolute inset-0 bg-black/60 pointer-events-none" />
+              {/* Dark overlay for text legibility seamlessly blending to void */}
+              <div className="absolute inset-0 bg-black/50 pointer-events-none" />
             </div>
 
             <Link 
               to={item.link} 
-              className="absolute inset-x-6 md:inset-x-24 inset-y-12 md:inset-y-24 z-30 focus:outline-none focus-visible:ring-2 ring-[var(--color-insight)] ring-inset" 
+              className="absolute inset-0 z-30 focus:outline-none focus-visible:ring-2 ring-[var(--color-insight)] ring-inset" 
               aria-label={`View case study: ${item.title}`}
             />
 

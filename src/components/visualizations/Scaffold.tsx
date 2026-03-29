@@ -77,14 +77,14 @@ export const Scaffold: React.FC<ScaffoldProps> = ({ bands }) => {
             className="scaffold-band-sticky w-full origin-top"
             style={{ 
               position: 'sticky',
-              top: `calc(15vh + ${i * 40}px)`,
-              marginBottom: i === bands.length - 1 ? '0' : '80vh', // Massive scroll spacer
+              top: '0', 
+              height: '100vh',
+              marginBottom: i === bands.length - 1 ? '0' : '50vh', // smooth scrolling overlap
               zIndex: i + 1,
             }}
           >
             <div 
-              className="w-full bg-[#0a0a0a] border border-[rgba(232,230,224,0.1)] rounded-lg shadow-2xl overflow-hidden relative"
-              style={{ minHeight: '400px', backgroundColor: '#0a0a0a' }}
+              className="w-full h-full bg-[var(--color-void)] relative flex flex-col justify-center px-6 md:px-12"
             >
               {/* Noise Substrate */}
                <div 
