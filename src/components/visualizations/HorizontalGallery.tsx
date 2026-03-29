@@ -96,58 +96,59 @@ export const HorizontalGallery: React.FC<HorizontalGalleryProps> = ({ items }) =
         <div 
           ref={scrollRef} 
           className="hg-scroll-wrapper shrink-0 flex flex-nowrap items-center h-[70vh] gap-24 w-max"
-          style={{ 
-            paddingLeft: 'calc(50vw - min(35vw, 225px))', 
-            paddingRight: 'calc(50vw - min(35vw, 225px))' 
-          }}
-        >   
-        {items.map((item) => (
-          <div 
-            key={item.id} 
-            className="hg-card relative shrink-0 flex items-center justify-center p-8 overflow-hidden rounded-xl border border-[rgba(232,230,224,0.1)]"
-            style={{ width: 'min(70vw, 450px)', height: '55vh', maxHeight: '600px' }}
-          >
-            {/* Constrained Background Image Layer (No Full Bleed) */}
-            <div className="absolute inset-0 overflow-hidden grayscale-[0.8]">
-              {item.image ? (
-                <div 
-                  className="hg-image-inner absolute top-0 bottom-0 left-[-10%] w-[120%] bg-cover bg-center"
-                  style={{ backgroundImage: `url(${item.image})` }}
-                />
-              ) : (
-                <div className="absolute inset-0 bg-[#0a0a0a]" />
-              )}
-              {/* Opacity mask */}
-              <div className="absolute inset-0 bg-black/60 pointer-events-none" />
-            </div>
+        >
+          {/* Physical Start Spacer to rigorously enforce 50vw center lock against Blink/Safari padding layout collapse */}
+          <div className="shrink-0 w-[calc(50vw-225px)] h-px pointer-events-none" />
 
-            <Link 
-              to={item.link} 
-              className="absolute inset-0 z-30 focus:outline-none focus-visible:ring-2 ring-[var(--color-insight)] ring-inset" 
-              aria-label={`View case study: ${item.title}`}
-            />
-
-            {/* Text Overlay centered in the card */}
-            <div className="relative z-20 w-full max-w-[800px] flex flex-col items-center text-center gap-8 pointer-events-none">
-              <div className="flex flex-col items-center gap-2">
-                <span className="font-mono text-[14px] text-[var(--color-transformation)] block">
-                  {item.number}
-                </span>
-                <span className="font-mono text-[11px] tracking-[0.2em] uppercase opacity-70 text-[var(--color-context)] block">
-                  {item.category}
-                </span>
+          {items.map((item) => (
+            <div 
+              key={item.id} 
+              className="hg-card relative shrink-0 flex items-center justify-center p-8 overflow-hidden rounded-xl border border-[rgba(232,230,224,0.1)] w-[85vw] max-w-[450px] h-[50vh] min-h-[500px] max-h-[600px]"
+            >
+              {/* Constrained Background Image Layer (No Full Bleed) */}
+              <div className="absolute inset-0 overflow-hidden grayscale-[0.8]">
+                {item.image ? (
+                  <div 
+                    className="hg-image-inner absolute top-0 bottom-0 left-[-10%] w-[120%] bg-cover bg-center"
+                    style={{ backgroundImage: `url(${item.image})` }}
+                  />
+                ) : (
+                  <div className="absolute inset-0 bg-[#0a0a0a]" />
+                )}
+                {/* Opacity mask */}
+                <div className="absolute inset-0 bg-black/60 pointer-events-none" />
               </div>
 
-              <h3 className="font-display text-[48px] md:text-[60px] leading-tight text-white m-0">
-                {item.title}
-              </h3>
-              
-              <p className="font-body text-[16px] md:text-[18px] font-light text-[rgba(255,255,255,0.7)] leading-relaxed max-w-[500px]">
-                {item.subtitle}
-              </p>
+              <Link 
+                to={item.link} 
+                className="absolute inset-0 z-30 focus:outline-none focus-visible:ring-2 ring-[var(--color-insight)] ring-inset" 
+                aria-label={`View case study: ${item.title}`}
+              />
+
+              {/* Text Overlay pinned to bottom left */}
+              <div className="relative z-20 w-full h-full flex flex-col justify-end items-start text-left pb-4 pointer-events-none mt-auto">
+                <div className="flex flex-col items-start gap-2 mb-4">
+                  <span className="font-mono text-[14px] text-[var(--color-transformation)] block">
+                    {item.number}
+                  </span>
+                  <span className="font-mono text-[11px] tracking-[0.2em] uppercase opacity-70 text-[var(--color-context)] block">
+                    {item.category}
+                  </span>
+                </div>
+
+                <h3 className="font-display text-[40px] leading-tight text-white m-0 tracking-tight">
+                  {item.title}
+                </h3>
+                
+                <p className="font-body text-[16px] font-light text-[rgba(255,255,255,0.7)] leading-relaxed max-w-[90%] mt-2">
+                  {item.subtitle}
+                </p>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+
+          {/* Physical End Spacer */}
+          <div className="shrink-0 w-[calc(50vw-225px)] h-px pointer-events-none" />
         </div>
       </div>
     </section>
