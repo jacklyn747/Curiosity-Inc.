@@ -7,7 +7,7 @@ import { SectionLabel } from '../components/typography/SectionLabel';
 import { DisplayHeading } from '../components/typography/DisplayHeading';
 import { Scaffold } from '../components/visualizations/Scaffold';
 import { FlowPulse } from '../components/visualizations/FlowPulse';
-import { GridReveal } from '../components/visualizations/GridReveal';
+import { HorizontalGallery } from '../components/visualizations/HorizontalGallery';
 import { ConvergenceMap } from '../components/visualizations/ConvergenceMap';
 import { HeroFallback } from '../components/hero/HeroFallback';
 const HeroSection = lazy(() =>
@@ -161,7 +161,7 @@ export function HomePage() {
           </p>
         </div>
 
-        <GridReveal 
+        <HorizontalGallery 
           items={[
             {
               id: 'dan-koe',
