@@ -2,7 +2,7 @@
 @import "./styles/case-study.css";
 
 :root {
-  /* THE INTELLECTUAL GLAMOUR PALETTE */
+  /* THE PALETTE — exact values from the brand swatch */
   --palette-muted-black: #1D1D1B;
   --palette-seashell: #EAE4DA;
   --palette-mustard: #EAC119;
@@ -13,17 +13,33 @@
   --palette-tangerine: #ED773C;
   --palette-red-passion: #C63F3E;
 
-  /* FUNCTIONAL MAPPING — Architecture of Attention */
+  /* FUNCTIONAL MAPPING
+     Each color has one job. One accent per section, never mixed.
+     accent      = Tangerine  — "come with me", CTAs, the click moment
+     energy      = Mustard    — "I see you", eyebrows, active nav
+     intellect   = Lavender   — writing, the cerebral sections
+     method      = Tea        — process, architecture, systems
+     human       = Pink Quartz — empathy, personal copy
+     clarity     = Sky        — the answer arriving (sparingly)
+     conviction  = Red Passion — one unmissable statement per page */
   --color-void: var(--palette-muted-black);
   --color-text: var(--palette-seashell);
-  --color-text-dim: rgba(234, 228, 218, 0.55);
-  
-  --color-structure: var(--palette-sky);      /* Primary interface color */
+  --color-text-dim: rgba(234, 228, 218, 0.5);
+
+  --color-accent: var(--palette-tangerine);
+  --color-energy: var(--palette-mustard);
+  --color-intellect: var(--palette-lavender);
+  --color-method: var(--palette-tea);
+  --color-human: var(--palette-pink-quartz);
+  --color-clarity: var(--palette-sky);
+  --color-conviction: var(--palette-red-passion);
+
+  /* Legacy aliases — unchanged so no component breaks */
   --color-transformation: var(--palette-tangerine);
-  --color-insight: var(--palette-red-passion);
-  
-  --color-context: #888888;
-  --color-context-dim: #8A8A8A;
+  --color-insight: var(--palette-tangerine);   /* was red — now tangerine sitewide */
+  --color-structure: var(--palette-mustard);   /* was sky/teal — now mustard */
+  --color-context: rgba(234, 228, 218, 0.4);
+  --color-context-dim: rgba(234, 228, 218, 0.3);
   
   /* AUXILIARY TOKENS */
   --color-tea: var(--palette-tea);
@@ -74,7 +90,7 @@ body {
   background-color: var(--color-void);
   color: var(--color-text);
   font-family: var(--font-body);
-  font-size: 16px;
+  font-size: 20px;  /* floor: respect the reader's time */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -100,7 +116,7 @@ input, button, textarea, select {
 
 /* SELECTION — Point of Insight */
 ::selection {
-  background-color: rgba(247, 38, 88, 0.3);
+  background-color: rgba(237, 119, 60, 0.35);
   color: var(--color-text);
 }
 
@@ -175,7 +191,7 @@ input, button, textarea, select {
 
 .discipline-tag {
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: 12px;  /* floor: never below 12px */
   text-transform: uppercase;
   letter-spacing: 0.2em;
   color: var(--color-insight);
@@ -184,7 +200,7 @@ input, button, textarea, select {
 }
 
 .discipline-body {
-  font-size: clamp(16px, 1.2vw, 18px);
+  font-size: clamp(18px, 1.4vw, 20px);
   line-height: 1.8;
   color: var(--color-text-dim);
 }
@@ -415,7 +431,7 @@ button, [role="button"], a {
 
 .nav-link:hover, .nav-link.active {
   opacity: 1;
-  color: var(--color-insight);
+  color: var(--color-energy);
 }
 
 /* MENU TRIGGER */
@@ -568,7 +584,7 @@ button, [role="button"], a {
 
 .body-text {
   font-family: var(--font-body);
-  font-size: clamp(16px, 2vw, 18px);
+  font-size: clamp(20px, 2vw, 22px);
   line-height: 1.7;
   color: var(--color-text);
   max-width: 680px;
