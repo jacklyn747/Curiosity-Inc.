@@ -44,16 +44,14 @@ export const Scaffold: React.FC<ScaffoldProps> = ({ bands }) => {
         const nextBand = bandRefs.current[i + 1];
         if (!nextBand) return;
 
-        // As the next block reaches the sticky top threshold of this block, scale this block down
+        // As the next block reaches the sticky top threshold of this block, scale this block down slightly for a 3D effect without losing legibility
         gsap.to(band, {
-          scale: 0.92 - (bands.length - 1 - i) * 0.02,
-          opacity: 0.4,
-          filter: "blur(4px)",
+          scale: 0.95,
           ease: "none",
           scrollTrigger: {
             trigger: nextBand,
-            start: "top 60%", // Start fading when next band hits 60% of viewport
-            end: "top 20%", // Finish fading by the time it reaches the top
+            start: "top 70%", // Start subtle slide when next band approaches
+            end: "top 30%", 
             scrub: true,
           }
         });
@@ -85,8 +83,8 @@ export const Scaffold: React.FC<ScaffoldProps> = ({ bands }) => {
             }}
           >
             <div 
-              className="w-full bg-[#111111] border border-[rgba(232,230,224,0.1)] rounded-lg shadow-2xl overflow-hidden relative"
-              style={{ minHeight: '400px' }}
+              className="w-full bg-[#0a0a0a] border border-[rgba(232,230,224,0.1)] rounded-lg shadow-2xl overflow-hidden relative"
+              style={{ minHeight: '400px', backgroundColor: '#0a0a0a' }}
             >
               {/* Noise Substrate */}
                <div 
