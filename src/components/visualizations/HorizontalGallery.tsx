@@ -34,10 +34,9 @@ export const HorizontalGallery: React.FC<HorizontalGalleryProps> = ({ items }) =
         ease: "none",
         scrollTrigger: {
           trigger: containerRef.current,
-          pin: true,
-          scrub: 1,
           start: "top top",
-          end: () => `+=${scrollRef.current!.scrollWidth - window.innerWidth}`,
+          end: "bottom bottom",
+          scrub: 1,
           invalidateOnRefresh: true,
         }
       });
@@ -50,7 +49,7 @@ export const HorizontalGallery: React.FC<HorizontalGalleryProps> = ({ items }) =
           scrollTrigger: {
             trigger: containerRef.current,
             start: "top top",
-            end: () => `+=${scrollRef.current!.scrollWidth - window.innerWidth}`,
+            end: "bottom bottom",
             scrub: 1,
             invalidateOnRefresh: true
           }
@@ -76,12 +75,13 @@ export const HorizontalGallery: React.FC<HorizontalGalleryProps> = ({ items }) =
   }
 
   return (
-    <section ref={containerRef} className="hg-container w-full h-screen overflow-hidden bg-[var(--color-void)] relative flex items-center">
-      <div 
-        ref={scrollRef} 
-        className="hg-scroll-wrapper flex items-center h-[70vh] px-[10vw] gap-24"
-        style={{ width: 'fit-content' }}
-      >   
+    <section ref={containerRef} className="w-full relative" style={{ height: '400vh' }}>
+      <div className="hg-container w-full h-screen overflow-hidden bg-[var(--color-void)] flex items-center" style={{ position: 'sticky', top: 0 }}>
+        <div 
+          ref={scrollRef} 
+          className="hg-scroll-wrapper flex items-center h-[70vh] px-[10vw] gap-24"
+          style={{ width: 'fit-content' }}
+        >   
         {items.map((item) => (
           <div 
             key={item.id} 
@@ -129,6 +129,7 @@ export const HorizontalGallery: React.FC<HorizontalGalleryProps> = ({ items }) =
             </div>
           </div>
         ))}
+        </div>
       </div>
     </section>
   );
