@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect } from 'react';
+import { lazy, Suspense, useEffect, useRef } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Lenis from 'lenis';
 import gsap from 'gsap';
@@ -90,7 +90,57 @@ function App() {
       <PageTransition>
         <AppRoutes />
       </PageTransition>
+      <SoftCursor />
+      <div className="noise-overlay" aria-hidden="true" />
     </Router>
+  );
+}
+
+/**
+ * A minimal, high-fidelity cursor orb that provides kinetic feedback 
+ * on desktop hover interactions.
+ */
+function SoftCursor() {
+  const cursorRef = useRef<HTMLDivElement>(null);
+  const isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches;
+
+  useEffect(() => {
+    if (isMobile) return;
+
+    const onMove = (e: MouseEvent) => {
+      gsap.to(cursorRef.current, {
+        x: e.clientX,
+        y: e.clientY,
+        duration: 0.6,
+        ease: 'power3.out'
+      });
+    };
+
+    window.addEventListener('mousemove', onMove);
+    return () => window.removeEventListener('mousemove', onMove);
+  }, [isMobile]);
+
+  if (isMobile) return null;
+
+  return (
+    <div 
+      ref={cursorRef}
+      className="soft-cursor"
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '40px',
+        height: '40px',
+        margin: '-20px 0 0 -20px',
+        borderRadius: '50%',
+        backgroundColor: 'var(--color-insight)',
+        opacity: 0.08,
+        pointerEvents: 'none',
+        zIndex: 9999,
+        filter: 'blur(10px)',
+      }}
+    />
   );
 }
 
