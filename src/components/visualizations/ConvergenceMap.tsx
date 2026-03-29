@@ -168,7 +168,9 @@ export const ConvergenceMap: React.FC<ConvergenceMapProps> = ({
                 tabIndex={0}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {
-                    setHoveredNode(node.id);
+                    e.preventDefault();
+                    setHoveredNode(node.id); // Highlight for focus
+                    if (onNodeClick) onNodeClick(node);
                   }
                 }}
               >

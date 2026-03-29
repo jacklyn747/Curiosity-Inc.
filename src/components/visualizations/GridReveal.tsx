@@ -57,7 +57,7 @@ export const GridReveal: React.FC<GridRevealProps> = ({
         <div 
           key={item.id}
           ref={el => { cardRefs.current[i] = el; }}
-          className={`grid-reveal-card relative group p-10 border rounded-lg transition-all duration-700 overflow-hidden
+          className={`grid-reveal-card relative group p-10 border rounded-lg transition-all duration-700 overflow-hidden focus-within:ring-2 focus-within:ring-[var(--color-insight)] focus-within:ring-offset-2
             ${i === 2 && items.length === 3 ? 'md:col-span-1' : ''}`}
           style={{ 
             backgroundColor: 'rgba(232, 230, 224, 0.03)',
@@ -78,9 +78,13 @@ export const GridReveal: React.FC<GridRevealProps> = ({
             />
           )}
 
-          <Link to={item.link} className="absolute inset-0 z-10" aria-label={`View case study: ${item.title}`} />
+          <Link 
+            to={item.link} 
+            className="absolute inset-0 z-30" 
+            aria-label={`View case study: ${item.title}`} 
+          />
 
-          <div className="flex flex-col gap-6 relative z-20">
+          <div className="flex flex-col h-full gap-6 relative z-20 pointer-events-none">
             <div className="flex justify-between items-start">
               <span className="font-mono text-[12px] text-[var(--color-transformation)]">
                 {item.number}
@@ -91,7 +95,7 @@ export const GridReveal: React.FC<GridRevealProps> = ({
             </div>
 
             <div className="flex flex-col gap-3">
-              <h3 className="font-display text-[28px] font-normal leading-tight text-[var(--color-text)]">
+              <h3 className="font-display text-[28px] font-normal leading-tight text-[var(--color-text)] group-hover:text-[var(--color-insight)] transition-colors">
                 {item.title}
               </h3>
               <p className="font-body text-[14px] font-light text-[var(--color-text-dim)] leading-relaxed max-w-[320px]">

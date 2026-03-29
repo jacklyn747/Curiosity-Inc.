@@ -15,6 +15,7 @@ interface AuditFormState {
 export const AuditRequest: React.FC = () => {
   const navigate = useNavigate();
   const [submitted, setSubmitted] = useState(false);
+  const [errors, setErrors] = useState<Partial<Record<keyof AuditFormState, string>>>({});
   const [form, setForm] = useState<AuditFormState>({
     name: '',
     email: '',
@@ -29,14 +30,28 @@ export const AuditRequest: React.FC = () => {
   ) => {
     const { name, value } = event.target;
     setForm(prev => ({ ...prev, [name]: value }));
+    // Clear error when user types
+    if (errors[name as keyof AuditFormState]) {
+      setErrors(prev => ({ ...prev, [name]: undefined }));
+    }
   };
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
-    if (!form.name || !form.email || !form.currentBottleneck || !form.goal) {
-      // Minimal guardrail; future: replace with inline validation UI.
-      window.alert('Please fill in name, email, bottleneck, and goal.');
+    const newErrors: Partial<Record<keyof AuditFormState, string>> = {};
+    if (!form.name) newErrors.name = 'Required';
+    if (!form.email) newErrors.email = 'Required';
+    else if (!/\S+@\S+\.\S+/.test(form.email)) newErrors.email = 'Invalid email';
+    if (!form.currentBottleneck) newErrors.currentBottleneck = 'Required';
+    if (!form.goal) newErrors.goal = 'Required';
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      // Find first error and focus it
+      const firstError = Object.keys(newErrors)[0];
+      const el = document.getElementsByName(firstError)[0];
+      if (el) el.focus();
       return;
     }
 
@@ -138,11 +153,15 @@ export const AuditRequest: React.FC = () => {
             <input
               id="name"
               name="name"
+              autoFocus
               value={form.name}
               onChange={handleChange}
               required
-              className="bg-transparent border-b border-[rgba(232,230,224,0.2)] px-0 py-3 focus:outline-none focus:border-[var(--color-insight)] transition-colors font-body text-white"
+              aria-invalid={!!errors.name}
+              aria-describedby={errors.name ? 'name-error' : undefined}
+              className={`bg-transparent border-b px-0 py-3 focus:outline-none focus:border-[var(--color-insight)] transition-colors font-body text-white ${errors.name ? 'border-[var(--color-insight)]' : 'border-[rgba(232,230,224,0.2)]'}`}
             />
+            {errors.name && <span id="name-error" className="font-mono text-[9px] text-[var(--color-insight)] uppercase">{errors.name}</span>}
           </div>
           <div className="flex flex-col gap-3">
             <label className="data-label text-[10px]" htmlFor="email">
@@ -155,8 +174,11 @@ export const AuditRequest: React.FC = () => {
               value={form.email}
               onChange={handleChange}
               required
-              className="bg-transparent border-b border-[rgba(232,230,224,0.2)] px-0 py-3 focus:outline-none focus:border-[var(--color-insight)] transition-colors font-body text-white"
+              aria-invalid={!!errors.email}
+              aria-describedby={errors.email ? 'email-error' : undefined}
+              className={`bg-transparent border-b px-0 py-3 focus:outline-none focus:border-[var(--color-insight)] transition-colors font-body text-white ${errors.email ? 'border-[var(--color-insight)]' : 'border-[rgba(232,230,224,0.2)]'}`}
             />
+            {errors.email && <span id="email-error" className="font-mono text-[9px] text-[var(--color-insight)] uppercase">{errors.email}</span>}
           </div>
         </div>
 
@@ -200,8 +222,11 @@ export const AuditRequest: React.FC = () => {
             value={form.currentBottleneck}
             onChange={handleChange}
             required
-            className="bg-transparent border border-[rgba(232,230,224,0.15)] px-4 py-4 focus:outline-none focus:border-[var(--color-insight)] transition-colors font-body text-white leading-relaxed"
+            aria-invalid={!!errors.currentBottleneck}
+            aria-describedby={errors.currentBottleneck ? 'bottleneck-error' : undefined}
+            className={`bg-transparent border px-4 py-4 focus:outline-none focus:border-[var(--color-insight)] transition-colors font-body text-white leading-relaxed ${errors.currentBottleneck ? 'border-[var(--color-insight)]' : 'border-[rgba(232,230,224,0.15)]'}`}
           />
+          {errors.currentBottleneck && <span id="bottleneck-error" className="font-mono text-[9px] text-[var(--color-insight)] uppercase">{errors.currentBottleneck}</span>}
         </div>
 
         <div className="flex flex-col gap-3">
@@ -215,8 +240,11 @@ export const AuditRequest: React.FC = () => {
             value={form.goal}
             onChange={handleChange}
             required
-            className="bg-transparent border border-[rgba(232,230,224,0.15)] px-4 py-4 focus:outline-none focus:border-[var(--color-insight)] transition-colors font-body text-white leading-relaxed"
+            aria-invalid={!!errors.goal}
+            aria-describedby={errors.goal ? 'goal-error' : undefined}
+            className={`bg-transparent border px-4 py-4 focus:outline-none focus:border-[var(--color-insight)] transition-colors font-body text-white leading-relaxed ${errors.goal ? 'border-[var(--color-insight)]' : 'border-[rgba(232,230,224,0.15)]'}`}
           />
+          {errors.goal && <span id="goal-error" className="font-mono text-[9px] text-[var(--color-insight)] uppercase">{errors.goal}</span>}
         </div>
 
         <button

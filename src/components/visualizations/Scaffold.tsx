@@ -98,6 +98,16 @@ export const Scaffold: React.FC<ScaffoldProps> = ({ bands, direction = 'up' }) =
             ref={(el) => { bandRefs.current[i] = el; }}
             className="scaffold-band relative overflow-hidden transition-colors duration-500 cursor-pointer"
             onClick={() => toggleExpand(i)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggleExpand(i);
+              }
+            }}
+            role={band.detail ? "button" : "presentation"}
+            tabIndex={band.detail ? 0 : -1}
+            aria-expanded={band.detail ? isExpanded : undefined}
+            aria-controls={band.detail ? `scaffold-detail-${i}` : undefined}
             style={{ 
               backgroundColor: 'rgba(255, 255, 255, 0.03)',
               borderBottom: '0.5px solid rgba(136, 136, 136, 0.1)', // var(--color-context) at 10%
@@ -140,9 +150,11 @@ export const Scaffold: React.FC<ScaffoldProps> = ({ bands, direction = 'up' }) =
                 {band.content}
               </div>
 
-              {/* Detail Content */}
               <div 
+                id={`scaffold-detail-${i}`}
                 className="overflow-hidden transition-all duration-500 ease-out"
+                role="region"
+                aria-label={`Detailed information for ${band.label}`}
                 style={{ 
                   maxHeight: isExpanded ? '600px' : '0px',
                   opacity: isExpanded ? 1 : 0,
