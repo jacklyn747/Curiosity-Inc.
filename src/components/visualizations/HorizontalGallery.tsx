@@ -29,17 +29,20 @@ export const HorizontalGallery: React.FC<HorizontalGalleryProps> = ({ items }) =
     gsap.registerPlugin(ScrollTrigger);
 
     const ctx = gsap.context(() => {
-      gsap.to(scrollRef.current, {
-        x: () => -(scrollRef.current!.scrollWidth - window.innerWidth),
-        ease: "none",
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top top",
-          end: "bottom bottom",
-          scrub: 1,
-          invalidateOnRefresh: true,
+      gsap.fromTo(scrollRef.current, 
+        { x: 0 },
+        {
+          x: () => -(scrollRef.current!.scrollWidth - window.innerWidth),
+          ease: "none",
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top top",
+            end: "bottom bottom",
+            scrub: 1,
+            invalidateOnRefresh: true,
+          }
         }
-      });
+      );
 
       // Subtle internal parallax for the images inside the bounded containers
       gsap.utils.toArray('.hg-image-inner').forEach((image: any) => {
@@ -76,7 +79,7 @@ export const HorizontalGallery: React.FC<HorizontalGalleryProps> = ({ items }) =
 
   return (
     <section ref={containerRef} className="w-full relative" style={{ height: '400vh' }}>
-      <div className="hg-container w-full h-screen overflow-hidden bg-[var(--color-void)] flex items-center" style={{ position: 'sticky', top: 0 }}>
+      <div className="hg-container w-full h-screen overflow-hidden bg-[var(--color-void)] flex items-center justify-start" style={{ position: 'sticky', top: 0 }}>
         <div 
           ref={scrollRef} 
           className="hg-scroll-wrapper flex items-center h-[70vh] px-[10vw] gap-24"
