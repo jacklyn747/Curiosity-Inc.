@@ -29,20 +29,31 @@ export const HorizontalGallery: React.FC<HorizontalGalleryProps> = ({ items }) =
     gsap.registerPlugin(ScrollTrigger);
 
     const ctx = gsap.context(() => {
-      gsap.fromTo(scrollRef.current, 
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top top",
+          end: "bottom bottom",
+          scrub: 1,
+          invalidateOnRefresh: true,
+        }
+      });
+      
+      // Initial dead-zone so Dan Koe stays completely frozen on entry
+      tl.to({}, { duration: 0.15 });
+      
+      // The actual horizontal move
+      tl.fromTo(scrollRef.current, 
         { x: 0 },
         {
           x: () => -(scrollRef.current!.scrollWidth - window.innerWidth),
           ease: "none",
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: "top top",
-            end: "bottom bottom",
-            scrub: 1,
-            invalidateOnRefresh: true,
-          }
+          duration: 0.7 // takes up 70% of the total 400vh scroll
         }
       );
+      
+      // Final dead-zone so Tiago Forte doesn't instantly rip away
+      tl.to({}, { duration: 0.15 });
 
       // Subtle internal parallax for the images inside the bounded containers
       gsap.utils.toArray('.hg-image-inner').forEach((image: any) => {
