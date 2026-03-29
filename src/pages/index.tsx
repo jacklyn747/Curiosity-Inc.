@@ -9,6 +9,7 @@ import { Scaffold } from '../components/visualizations/Scaffold';
 import { FlowPulse } from '../components/visualizations/FlowPulse';
 import { HorizontalGallery } from '../components/visualizations/HorizontalGallery';
 import { ConvergenceMap } from '../components/visualizations/ConvergenceMap';
+import { Marquee } from '../components/visualizations/Marquee';
 import { HeroFallback } from '../components/hero/HeroFallback';
 const HeroSection = lazy(() =>
   import('../components/hero/HeroSection').then(m => ({ default: m.HeroSection }))
@@ -197,15 +198,19 @@ export function HomePage() {
       */}
       <section
         id="writing"
-        className="max-w-[1200px] mx-auto px-6 md:px-12 py-40 flex flex-col gap-16 border-t border-[rgba(255,255,255,0.05)] relative"
+        className="w-full relative overflow-hidden border-t border-[rgba(255,255,255,0.05)]"
         style={{ minHeight: '80vh' }}
       >
-        <div className="max-w-[800px]">
-          <SectionLabel>THE LIBRARY</SectionLabel>
-          <DisplayHeading as="h2">Deep Readings.</DisplayHeading>
-        </div>
-
-        <div className="article-list w-full flex flex-col">
+        {/* Massive kinetic typography background */}
+        <Marquee text="THE LIBRARY" speed={1} />
+        
+        <div className="max-w-[1200px] mx-auto px-6 md:px-12 py-40 flex flex-col gap-16 relative z-10 w-full">
+          <div className="max-w-[800px]">
+            <SectionLabel>THE LIBRARY</SectionLabel>
+            <DisplayHeading as="h2">Deep Readings.</DisplayHeading>
+          </div>
+  
+          <div className="article-list w-full flex flex-col">
           {[
             {
               number: '01',
@@ -269,6 +274,7 @@ export function HomePage() {
             </Link>
           ))}
           <div className="w-full h-[1px] bg-[rgba(136,136,136,0.1)]"></div>
+        </div>
         </div>
       </section>
 
