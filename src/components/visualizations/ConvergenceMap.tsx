@@ -7,26 +7,29 @@ interface Node {
   id: string;
   label: string;
   description: string;
+  target?: string; // e.g. /work/dan-koe-brand-architecture
 }
 
 interface ConvergenceMapProps {
   nodes?: Node[];
   centerLabel?: string;
+  onNodeClick?: (node: Node) => void;
 }
 
 export const ConvergenceMap: React.FC<ConvergenceMapProps> = ({
   nodes = [
-    { id: 'flow', label: 'Flow Theory', description: "Csíkszentmihályi's conditions for total absorption in a task" },
-    { id: 'cog', label: 'Cognitive Load', description: "Why your audience forgets — and how to fix it" },
-    { id: 'loop', label: 'Curiosity Loop', description: "Five stages from attention to capability" },
-    { id: 'semi', label: 'Semiotics', description: "How signs, symbols, and visuals carry meaning without words" },
-    { id: 'design', label: 'Design Systems', description: "Repeatable visual patterns that scale without losing coherence" },
-    { id: 'kinetic', label: 'Kinetic Type', description: "Typography that moves to teach — timing as a pedagogical tool" },
-    { id: 'space', label: 'Negative Space', description: "What you leave out creates space for the audience to think" },
-    { id: 'inst', label: 'Instructional Design', description: "The science of structuring information for permanent behavior change" },
-    { id: 'identity', label: 'Identity Theory', description: "People don't buy products. They buy the person they're becoming." },
+    { id: 'flow', label: 'Flow Theory', description: "Csíkszentmihályi's conditions for total absorption in a task", target: '/writing/the-curiosity-loop-protocol' },
+    { id: 'cog', label: 'Cognitive Load', description: "Why your audience forgets — and how to fix it", target: '/work/justin-welsh-conversion-design' },
+    { id: 'loop', label: 'Curiosity Loop', description: "Five stages from attention to capability", target: '/writing/the-curiosity-loop-protocol' },
+    { id: 'semi', label: 'Semiotics', description: "How signs, symbols, and visuals carry meaning without words", target: '/writing/negative-space-as-active-agent' },
+    { id: 'design', label: 'Design Systems', description: "Repeatable visual patterns that scale without losing coherence", target: '/work/dan-koe-brand-architecture' },
+    { id: 'kinetic', label: 'Kinetic Type', description: "Typography that moves to teach — timing as a pedagogical tool", target: '/writing/negative-space-as-active-agent' },
+    { id: 'space', label: 'Negative Space', description: "What you leave out creates space for the audience to think", target: '/writing/negative-space-as-active-agent' },
+    { id: 'inst', label: 'Instructional Design', description: "The science of structuring information for permanent behavior change", target: '/work/dan-koe-brand-architecture' },
+    { id: 'identity', label: 'Identity Theory', description: "People don't buy products. They buy the person they're becoming.", target: '/work/tiago-forte-cognitive-interfaces' },
   ],
   centerLabel = "CURIOSITY INC.",
+  onNodeClick,
 }) => {
   const { ref: containerRef, inView } = useScrollTrigger({ threshold: 0.2 });
   const isReducedMotion = useReducedMotion();
@@ -158,6 +161,7 @@ export const ConvergenceMap: React.FC<ConvergenceMapProps> = ({
                 className="node-group"
                 onMouseEnter={() => setHoveredNode(node.id)}
                 onMouseLeave={() => setHoveredNode(null)}
+                onClick={() => onNodeClick && onNodeClick(node)}
                 style={{ cursor: 'pointer' }}
                 role="button"
                 aria-label={`${node.label}: ${node.description}`}
@@ -242,23 +246,47 @@ export const ConvergenceMap: React.FC<ConvergenceMapProps> = ({
         </g>
       </svg>
 
-      {/* Description caption — renders below the SVG, avoids SVG text overflow */}
-      <p
-        style={{
-          fontFamily: 'var(--font-body)',
-          fontSize: '13px',
-          color: 'var(--color-insight)',
-          textAlign: 'center',
-          maxWidth: '480px',
-          minHeight: '2.5em',
-          opacity: hoveredNodeData ? 1 : 0,
-          transition: 'opacity 0.3s ease',
-          pointerEvents: 'none',
-        }}
-        aria-live="polite"
-      >
-        {hoveredNodeData?.description ?? ''}
-      </p>
+      {/* Description caption */}
+      <div className="flex flex-col items-center gap-4">
+        <p
+          style={{
+            fontFamily: 'var(--font-body)',
+            fontSize: '13px',
+            color: 'var(--color-insight)',
+            textAlign: 'center',
+            maxWidth: '480px',
+            minHeight: '2.5em',
+            opacity: hoveredNodeData ? 1 : 0,
+            transition: 'opacity 0.3s ease',
+            pointerEvents: 'none',
+          }}
+          aria-live="polite"
+        >
+          {hoveredNodeData?.description ?? ''}
+        </p>
+        
+        {hoveredNodeData && (
+          <button 
+            onClick={() => onNodeClick && onNodeClick(hoveredNodeData)}
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '9px',
+              color: 'var(--color-insight)',
+              background: 'transparent',
+              border: '0.5px solid var(--color-insight)',
+              padding: '6px 12px',
+              borderRadius: '12px',
+              textTransform: 'uppercase',
+              letterSpacing: '0.1em',
+              cursor: 'pointer',
+              opacity: hoveredNodeData ? 1 : 0,
+              transition: 'opacity 0.3s ease'
+            }}
+          >
+            Study this Discipline →
+          </button>
+        )}
+      </div>
     </div>
   );
 };

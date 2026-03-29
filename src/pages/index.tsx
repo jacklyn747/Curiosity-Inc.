@@ -294,7 +294,11 @@ export function HomePage() {
           </p>
         </div>
 
-        <ConvergenceMap />
+        <ConvergenceMap 
+          onNodeClick={(node) => {
+            if (node.target) navigate(node.target);
+          }}
+        />
 
         <div className="max-w-[800px] text-center mt-12 flex flex-col items-center gap-12">
           <p className="body-text" style={{ fontSize: '20px', fontStyle: 'italic' }}>
