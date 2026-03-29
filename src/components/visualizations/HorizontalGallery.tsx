@@ -93,7 +93,7 @@ export const HorizontalGallery: React.FC<HorizontalGalleryProps> = ({ items }) =
       <div className="hg-container w-full h-screen overflow-hidden bg-[var(--color-void)] flex items-center justify-start" style={{ position: 'sticky', top: 0 }}>
         <div 
           ref={scrollRef} 
-          className="hg-scroll-wrapper flex flex-nowrap items-center h-[70vh] gap-24 w-max"
+          className="hg-scroll-wrapper shrink-0 flex flex-nowrap items-center h-[70vh] gap-24 w-max"
           style={{ 
             paddingLeft: 'calc(50vw - min(35vw, 225px))', 
             paddingRight: 'calc(50vw - min(35vw, 225px))' 
