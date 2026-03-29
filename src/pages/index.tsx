@@ -33,58 +33,53 @@ export function HomePage() {
         <HeroSection />
       </Suspense>
 
-      {/* 
-        SECTION 1: ATTENTION — The Pattern
-        Loop stage: Attention.
-      */}
       <section 
-        className="max-w-[1200px] mx-auto px-6 md:px-12 py-40 flex flex-col gap-12"
-        style={{ minHeight: '80vh' }}
+        className="mx-auto" 
       >
-        <div className="max-w-[800px] text-left">
+        <div className="max-w-[1200px] mx-auto px-6 md:px-12 py-32 text-left">
           <SectionLabel>THE PATTERN</SectionLabel>
-          <DisplayHeading as="h2" className="mt-6">
+          <DisplayHeading as="h2" className="mt-6 max-w-[800px]">
             You have an audience. You don't have a learning experience.
           </DisplayHeading>
+          <p 
+            style={{ 
+              fontFamily: 'var(--font-body)', 
+              fontSize: '20px', 
+              color: 'var(--color-text-dim)',
+              fontStyle: 'italic',
+              marginTop: '2rem',
+              maxWidth: '600px',
+              opacity: 0.8
+            }}
+          >
+            These aren't marketing problems. They're architecture problems. See how the architecture fails below.
+          </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
-          <div className="md:col-span-8">
-            <Scaffold 
-              bands={[
-                {
-                  label: 'ATTENTION / TRANSFORMATION',
-                  accentColor: 'structure',
-                  content: "Your audience watches. They nod. They save your post. They don't change. You're producing content. You're not producing transformation.",
-                  detail: "Architecture: Content without transformation is just noise. We restructure information to produce behavior change via active intent."
-                },
-                {
-                  label: 'DECISION / CULTIVATION',
-                  accentColor: 'context',
-                  content: "Your monetization feels extractive because it is. The funnel was designed to capture people, not cultivate them. Your audience can tell the difference.",
-                  detail: "Architecture: The funnel model fails because it assumes transaction is the goal. For high-leverage creators, the goal is capability."
-                },
-                {
-                  label: 'INTENTION / DEPTH',
-                  accentColor: 'transformation',
-                  content: "Your growth plateaued because algorithms reward novelty. Your audience needs depth. You keep feeding the algorithm. Your audience stays hungry.",
-                  detail: "Architecture: Depth creates defensibility. We build systems that reward deep engagement over shallow reach, creating compound value."
-                }
-              ]} 
-            />
-          </div>
-          <div className="md:col-span-4 self-end">
-            <p 
-              style={{ 
-                fontFamily: 'var(--font-body)', 
-                fontSize: '14px', 
-                color: 'var(--color-text-dim)',
-                fontStyle: 'italic'
-              }}
-            >
-              These aren't marketing problems. They're architecture problems.
-            </p>
-          </div>
+        {/* Full Width Sticky Stack */}
+        <div className="w-full px-6 md:px-12 max-w-[1400px] mx-auto pb-40">
+          <Scaffold 
+            bands={[
+              {
+                label: 'ATTENTION / TRANSFORMATION',
+                accentColor: 'structure',
+                content: "Your audience watches. They nod. They save your post. They don't change. You're producing content. You're not producing transformation.",
+                detail: "Architecture: Content without transformation is just noise. We restructure information to produce behavior change via active intent."
+              },
+              {
+                label: 'DECISION / CULTIVATION',
+                accentColor: 'context',
+                content: "Your monetization feels extractive because it is. The funnel was designed to capture people, not cultivate them. Your audience can tell the difference.",
+                detail: "Architecture: The funnel model fails because it assumes transaction is the goal. For high-leverage creators, the goal is capability."
+              },
+              {
+                label: 'INTENTION / DEPTH',
+                accentColor: 'transformation',
+                content: "Your growth plateaued because algorithms reward novelty. Your audience needs depth. You keep feeding the algorithm. Your audience stays hungry.",
+                detail: "Architecture: Depth creates defensibility. We build systems that reward deep engagement over shallow reach, creating compound value."
+              }
+            ]} 
+          />
         </div>
       </section>
 

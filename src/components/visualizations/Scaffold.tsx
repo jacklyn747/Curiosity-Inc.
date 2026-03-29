@@ -52,8 +52,8 @@ export const Scaffold: React.FC<ScaffoldProps> = ({ bands }) => {
           ease: "none",
           scrollTrigger: {
             trigger: nextBand,
-            start: "top " + (window.innerHeight * 0.2 + (i + 1) * 30), // Start fading when next band hits its sticky top
-            end: "top " + (window.innerHeight * 0.1), // Finish fading slightly higher
+            start: "top 60%", // Start fading when next band hits 60% of viewport
+            end: "top 20%", // Finish fading by the time it reaches the top
             scrub: true,
           }
         });
@@ -79,8 +79,8 @@ export const Scaffold: React.FC<ScaffoldProps> = ({ bands }) => {
             className="scaffold-band-sticky w-full origin-top"
             style={{ 
               position: 'sticky',
-              top: `calc(20vh + ${i * 30}px)`,
-              marginBottom: i === bands.length - 1 ? '0' : '40vh', // Create scroll space between cards
+              top: `calc(15vh + ${i * 40}px)`,
+              marginBottom: i === bands.length - 1 ? '0' : '80vh', // Massive scroll spacer
               zIndex: i + 1,
             }}
           >
