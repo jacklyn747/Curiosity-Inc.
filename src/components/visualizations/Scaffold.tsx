@@ -1,7 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import gsap from 'gsap';
-import { useScrollTrigger } from '../../hooks/useScrollTrigger';
-import { useStagger } from '../../hooks/useStagger';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
 
 export interface ScaffoldBand {
@@ -14,7 +12,6 @@ export interface ScaffoldBand {
 
 interface ScaffoldProps {
   bands: ScaffoldBand[];
-  direction?: 'up' | 'down'; // Default 'up' per spec entry logic
 }
 
 const COLOR_MAP = {
@@ -24,146 +21,126 @@ const COLOR_MAP = {
   context: 'var(--color-context)',
   mustard: 'var(--color-mustard)',
   lavender: 'var(--color-lavender)',
-  sky: 'var(--color-structure)', // Mapping sky to structure functionally
+  sky: 'var(--color-structure)',
   tea: 'var(--color-tea)',
   pink: 'var(--color-pink)',
-  tangerine: 'var(--color-transformation)', // Mapping tangerine to transformation functionally
+  tangerine: 'var(--color-transformation)',
 };
 
-export const Scaffold: React.FC<ScaffoldProps> = ({ bands, direction = 'up' }) => {
-  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
-  const { ref: containerRef, inView } = useScrollTrigger();
-  const prefersReducedMotion = useReducedMotion();
+export const Scaffold: React.FC<ScaffoldProps> = ({ bands }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
   const bandRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
-    if (!inView || prefersReducedMotion) return;
-
-    // Staggered entry: bottom-to-top means reverse the array if direction is 'up'
-    const orderedBands = direction === 'up' ? [...bandRefs.current].reverse() : bandRefs.current;
+    if (prefersReducedMotion || !containerRef.current) return;
     
-    // translateY: 20px → 0, opacity 0 → 1, 150ms stagger
-    const staggerVal = useStagger(1, 150) / 1000;
+    // Tilton-style Sticky Stack Depth Animation
+    const ctx = gsap.context(() => {
+      bandRefs.current.forEach((band, i) => {
+        if (!band || i === bands.length - 1) return; // Don't animate the last card, it always stays full size
+        
+        const nextBand = bandRefs.current[i + 1];
+        if (!nextBand) return;
 
-    gsap.fromTo(orderedBands, 
-      { opacity: 0, y: 20 },
-      { 
-        opacity: 1, 
-        y: 0, 
-        duration: 0.8, 
-        stagger: staggerVal, 
-        ease: 'var(--ease-out)',
-        delay: 0.2
-      }
-    );
-
-    // Left-border accent draws downward
-    orderedBands.forEach((band, i) => {
-      const border = band?.querySelector('.scaffold-accent-line');
-      const idx = direction === 'up' ? (bands.length - 1 - i) : i;
-      const borderDelay = (useStagger(idx, 150) / 1000) + 0.4;
-
-      if (border) {
-        gsap.fromTo(border,
-          { scaleY: 0 },
-          { 
-            scaleY: 1, 
-            duration: 1.2, 
-            ease: 'power3.inOut', 
-            delay: borderDelay
+        // As the next block reaches the sticky top threshold of this block, scale this block down
+        gsap.to(band, {
+          scale: 0.92 - (bands.length - 1 - i) * 0.02,
+          opacity: 0.4,
+          filter: "blur(4px)",
+          ease: "none",
+          scrollTrigger: {
+            trigger: nextBand,
+            start: "top " + (window.innerHeight * 0.2 + (i + 1) * 30), // Start fading when next band hits its sticky top
+            end: "top " + (window.innerHeight * 0.1), // Finish fading slightly higher
+            scrub: true,
           }
-        );
-      }
+        });
+      });
     });
-  }, [inView, bands.length, direction, prefersReducedMotion]);
 
-  const toggleExpand = (index: number) => {
-    if (!bands[index].detail) return;
-    setExpandedIndex(expandedIndex === index ? null : index);
-  };
+    return () => ctx.revert();
+  }, [prefersReducedMotion, bands.length]);
 
   return (
     <div 
-      ref={containerRef as any} 
-      className="scaffold-root w-full flex flex-col"
-      style={{ opacity: inView || prefersReducedMotion ? 1 : 0 }}
+      ref={containerRef} 
+      className="scaffold-root w-full relative"
+      style={{ paddingBottom: '10vh' }}
     >
       {bands.map((band, i) => {
-        const isExpanded = (expandedIndex === i || prefersReducedMotion) && !!band.detail;
         const color = COLOR_MAP[band.accentColor];
         
         return (
           <div 
             key={i}
             ref={(el) => { bandRefs.current[i] = el; }}
-            className="scaffold-band relative overflow-hidden transition-colors duration-500 cursor-pointer"
-            onClick={() => toggleExpand(i)}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                toggleExpand(i);
-              }
-            }}
-            role={band.detail ? "button" : "presentation"}
-            tabIndex={band.detail ? 0 : -1}
-            aria-expanded={band.detail ? isExpanded : undefined}
-            aria-controls={band.detail ? `scaffold-detail-${i}` : undefined}
+            className="scaffold-band-sticky w-full origin-top"
             style={{ 
-              backgroundColor: 'rgba(255, 255, 255, 0.03)',
-              borderBottom: '0.5px solid rgba(136, 136, 136, 0.1)', // var(--color-context) at 10%
-              opacity: inView || prefersReducedMotion ? 1 : 0,
-              transform: inView || prefersReducedMotion ? 'translateY(0)' : 'translateY(20px)'
+              position: 'sticky',
+              top: `calc(20vh + ${i * 30}px)`,
+              marginBottom: i === bands.length - 1 ? '0' : '40vh', // Create scroll space between cards
+              zIndex: i + 1,
             }}
           >
-            {/* Left Accent (3px) */}
             <div 
-              className="scaffold-accent-line absolute top-0 left-0 w-[3px] h-full origin-top"
-              style={{ backgroundColor: color }}
-            />
+              className="w-full bg-[#111111] border border-[rgba(232,230,224,0.1)] rounded-lg shadow-2xl overflow-hidden relative"
+              style={{ minHeight: '400px' }}
+            >
+              {/* Noise Substrate */}
+               <div 
+                className="absolute inset-0 opacity-[0.03] z-0 pointer-events-none"
+                style={{ backgroundImage: 'url("https://grainy-gradients.vercel.app/noise.svg")' }}
+              />
 
-            <div className="py-6 px-10">
-              <div className="flex items-center justify-between gap-4">
-                <div className="flex flex-col gap-1">
-                  {band.sublabel && (
-                    <span className="font-mono text-[10px] tracking-[0.1em] uppercase opacity-60 text-[var(--color-context)]">
-                      {band.sublabel}
-                    </span>
-                  )}
-                  <h3 className="font-body text-[16px] font-normal leading-tight text-[var(--color-text)]">
-                    {band.label}
-                  </h3>
-                </div>
-                
-                {band.detail && (
-                  <div 
-                    className="scaffold-chevron opacity-30 transition-transform duration-500"
-                    style={{ transform: isExpanded ? 'rotate(90deg)' : 'rotate(0deg)' }}
-                  >
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                      <path d="M4 3L8 6L4 9" stroke="var(--color-context)" strokeWidth="1" />
-                    </svg>
-                  </div>
-                )}
-              </div>
-
-              <div className="mt-2 font-body text-[14px] font-light text-[var(--color-text-dim)] leading-relaxed max-w-[640px]">
-                {band.content}
-              </div>
-
+              {/* Accent Header */}
               <div 
-                id={`scaffold-detail-${i}`}
-                className="overflow-hidden transition-all duration-500 ease-out"
-                role="region"
-                aria-label={`Detailed information for ${band.label}`}
-                style={{ 
-                  maxHeight: isExpanded ? '600px' : '0px',
-                  opacity: isExpanded ? 1 : 0,
-                  marginTop: isExpanded ? '1.5rem' : '0'
-                }}
-              >
-                <div className="pt-4 border-t border-white/[0.05] font-body text-[14px] leading-relaxed text-[var(--color-text)] italic opacity-90">
-                  {band.detail}
+                className="h-[6px] w-full absolute top-0 left-0 z-10"
+                style={{ backgroundColor: color }}
+              />
+
+              <div className="p-8 md:p-16 flex flex-col md:flex-row gap-12 relative z-10 h-full">
+                
+                {/* Left Column: Number & Label */}
+                <div className="w-full md:w-1/3 flex flex-col gap-6">
+                  <span 
+                    className="font-display text-[80px] md:text-[120px] leading-none opacity-20"
+                    style={{ color: color }}
+                  >
+                    0{i + 1}
+                  </span>
+                  
+                  <div className="flex flex-col gap-2">
+                    {band.sublabel && (
+                      <span className="font-mono text-[10px] tracking-[0.2em] uppercase opacity-70 text-[var(--color-context)]">
+                        {band.sublabel}
+                      </span>
+                    )}
+                    <h3 className="font-display text-[32px] md:text-[40px] font-normal leading-tight text-[var(--color-text)]">
+                      {band.label.split('/')[0]}
+                      <br/>
+                      <span style={{ color: color, fontStyle: 'italic' }}>
+                        {band.label.split('/')[1] || ''}
+                      </span>
+                    </h3>
+                  </div>
                 </div>
+
+                {/* Right Column: Narrative Content */}
+                <div className="w-full md:w-2/3 flex flex-col justify-center gap-8 md:pl-12 md:border-l border-[rgba(232,230,224,0.1)]">
+                  <p className="font-body text-[18px] md:text-[22px] font-light leading-relaxed text-[var(--color-text)]">
+                    {band.content}
+                  </p>
+                  
+                  {band.detail && (
+                    <div className="pt-8 border-t border-[rgba(232,230,224,0.1)]">
+                      <p className="font-mono text-[11px] uppercase tracking-[0.1em] text-[var(--color-context)] leading-relaxed">
+                        {band.detail}
+                      </p>
+                    </div>
+                  )}
+                </div>
+
               </div>
             </div>
           </div>
@@ -172,3 +149,4 @@ export const Scaffold: React.FC<ScaffoldProps> = ({ bands, direction = 'up' }) =
     </div>
   );
 };
+
