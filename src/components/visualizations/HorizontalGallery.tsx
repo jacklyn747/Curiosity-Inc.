@@ -29,22 +29,20 @@ export const HorizontalGallery: React.FC<HorizontalGalleryProps> = ({ items }) =
     gsap.registerPlugin(ScrollTrigger);
 
     const ctx = gsap.context(() => {
-      const cards = gsap.utils.toArray('.hg-card');
-      
-      gsap.to(cards, {
-        xPercent: -100 * (cards.length - 1),
+      gsap.to(scrollRef.current, {
+        x: () => -(scrollRef.current!.scrollWidth - window.innerWidth),
         ease: "none",
         scrollTrigger: {
           trigger: containerRef.current,
           pin: true,
           scrub: 1,
           start: "top top",
-          end: () => `+=${window.innerWidth * cards.length}`,
+          end: () => `+=${scrollRef.current!.scrollWidth - window.innerWidth}`,
           invalidateOnRefresh: true,
         }
       });
 
-      // Subtle internal parallax for the images
+      // Subtle internal parallax for the images inside the bounded containers
       gsap.utils.toArray('.hg-image-inner').forEach((image: any) => {
         gsap.to(image, {
           xPercent: 15,
@@ -52,7 +50,7 @@ export const HorizontalGallery: React.FC<HorizontalGalleryProps> = ({ items }) =
           scrollTrigger: {
             trigger: containerRef.current,
             start: "top top",
-            end: () => `+=${window.innerWidth * cards.length}`,
+            end: () => `+=${scrollRef.current!.scrollWidth - window.innerWidth}`,
             scrub: 1,
             invalidateOnRefresh: true
           }
@@ -78,28 +76,30 @@ export const HorizontalGallery: React.FC<HorizontalGalleryProps> = ({ items }) =
   }
 
   return (
-    <section ref={containerRef} className="hg-container w-full h-screen overflow-hidden bg-[var(--color-void)] relative flex">
+    <section ref={containerRef} className="hg-container w-full h-screen overflow-hidden bg-[var(--color-void)] relative flex items-center">
       <div 
         ref={scrollRef} 
-        className="hg-scroll-wrapper flex h-full w-[300vw]"
+        className="hg-scroll-wrapper flex items-center h-[70vh] px-[10vw] gap-24"
+        style={{ width: 'fit-content' }}
       >   
         {items.map((item) => (
           <div 
             key={item.id} 
-            className="hg-card relative w-screen h-full shrink-0 flex items-center justify-center p-6 md:p-24"
+            className="hg-card relative shrink-0 flex items-center justify-center p-8 overflow-hidden rounded-xl border border-[rgba(232,230,224,0.1)]"
+            style={{ width: '80vw', maxWidth: '1000px', height: '100%' }}
           >
-            {/* Background Image Parallax layer (Full Bleed) */}
+            {/* Constrained Background Image Layer (No Full Bleed) */}
             <div className="absolute inset-0 overflow-hidden grayscale-[0.8]">
               {item.image ? (
                 <div 
-                  className="hg-image-inner absolute top-0 bottom-0 left-[-15%] w-[130%] bg-cover bg-center"
+                  className="hg-image-inner absolute top-0 bottom-0 left-[-10%] w-[120%] bg-cover bg-center"
                   style={{ backgroundImage: `url(${item.image})` }}
                 />
               ) : (
-                <div className="absolute inset-0 bg-[#111]" />
+                <div className="absolute inset-0 bg-[#0a0a0a]" />
               )}
-              {/* Dark overlay for text legibility seamlessly blending to void */}
-              <div className="absolute inset-0 bg-black/50 pointer-events-none" />
+              {/* Opacity mask */}
+              <div className="absolute inset-0 bg-black/60 pointer-events-none" />
             </div>
 
             <Link 
