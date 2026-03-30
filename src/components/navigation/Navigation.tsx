@@ -105,6 +105,26 @@ export const Navigation: React.FC = () => {
               {ABOUT_LINK.label}
             </Link>
           </li>
+          <li className="h-full flex items-center px-8">
+            <Link
+              to="/audit"
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '11px',
+                letterSpacing: '0.15em',
+                textTransform: 'uppercase',
+                color: 'var(--color-accent)',
+                textDecoration: 'none',
+                opacity: 0.85,
+                transition: 'opacity 0.2s ease',
+                whiteSpace: 'nowrap',
+              }}
+              onMouseEnter={e => (e.currentTarget.style.opacity = '1')}
+              onMouseLeave={e => (e.currentTarget.style.opacity = '0.85')}
+            >
+              Let's talk →
+            </Link>
+          </li>
         </ul>
       </div>
 
