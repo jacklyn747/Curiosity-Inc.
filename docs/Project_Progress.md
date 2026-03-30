@@ -2,7 +2,56 @@
 
 ## Current Status
 
-**Phase 11 Complete** — Phase 6 polish pass done. Lazy-load perf, mobile layouts (About + ArticlePage), SEO/meta completeness, brand favicon, duplicate meta fix. AnnotationThread confirmed built. **70 tests passing** across 12 test files.
+**Phase 12 In Progress** — Narrative Overhaul + Awwwards Audit. Working through the Awwwards Playbook phase by phase. Phase 0 (dead zone) and Phase 1 (hero subtitle) complete. Docs updated. **70 tests passing** across 12 test files.
+
+---
+
+## 2. Phase 12 — Narrative Overhaul & Awwwards Audit
+*Started: 2026-03-30*
+
+### Problem identified
+The site had the right bones but diverged from its own narrative thesis. Visually inconsistent, numbered sections (01/02/03), and a ~4-screen dead scroll zone between the hero and the LXD reveal. The Awwwards Playbook was used as a structured audit framework.
+
+### Changes applied
+
+#### `src/components/visualizations/Scaffold.tsx`
+- **Removed `01 02 03` giant numbers** — replaced with a colored accent line + dot marker. Label renders in the accent color at 44px. No more template feel.
+- **Cut `marginBottom` from `50vh` → `5vh`** — this was creating ~4 screens of empty scroll space between the Scaffold bands. Bands now stack tightly; the sticky effect is preserved.
+
+#### `src/components/visualizations/HorizontalGallery.tsx`
+- **Tightened pin scrub** from `+=3000` → `+=2000` (2000px total for 3 cards)
+- **Reduced dead zones**: initial pause 0.25 → 0.12; trailing pause 0.15 → 0.12; horizontal move gets 0.76 of the total
+- **Embedded section header inside pin zone**: `— THE WORK` label and italic headline are now `absolute` inside the pinned section, visible throughout the gallery scroll instead of disappearing above it
+
+#### `src/pages/index.tsx`
+- **Removed the standalone THE WORK section header** that lived above the gallery — content moved inside the gallery component itself, eliminating the gap between header and cards
+
+#### `src/components/hero/HeroSection.tsx`
+- **Subtitle rewritten**: `"Nobody told you. That's the whole problem. We fix what nobody showed you how to build."` → `"There's a name for what you should have been doing. Nobody brought it to you until now."` — aligns with the LXD reveal thesis from the creative brief
+
+#### `docs/HOMEPAGE_COPY.md`
+- **Full rewrite** — replaced stale pre-overhaul copy (THE PATTERN / THE INSIGHT / THE LABORATORY) with actual deployed copy in the LXD Reveal narrative structure
+
+#### `docs/Project_Memory___Workflow_Rules.md`
+- **Full rewrite** — updated to reflect current narrative, color system, voice rules, component status, and open issues
+
+### Awwwards Phase Audit Status
+
+| Phase | Status | Key finding |
+|---|---|---|
+| Phase 0 — What Wins | ✅ Done | Dead zone (800–2800px void) was the #1 issue |
+| Phase 1 — Strategic Discovery | ✅ Done | Hero subtitle didn't match experience thesis — fixed |
+| Phase 2 — Conceptual Direction | ⏳ Next | |
+| Phase 3 through 12 | — | Pending |
+
+### Open issues logged
+
+| Priority | Issue |
+|---|---|
+| 🟠 | Card accent colors — Tangerine/Lavender/Tea per card per brief. Currently uniform tangerine. |
+| 🟠 | No CTA above the fold — door is at the bottom only |
+| 🟡 | og:image — no social card asset (1200×630 needed) |
+| 🟡 | Three.js bundle monitoring — chunk >500kB (lazy-loaded; watch Lighthouse) |
 
 ---
 

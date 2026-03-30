@@ -1,75 +1,181 @@
-# Project Memory & Workflow Rules
+# Project Memory & Workflow Rules — Curiosity Inc.
+> Last updated: 2026-03-30
+
+---
 
 ## Project Context
-Building the Curiosity Inc. "Digital Sanctuary" for intellectual creators. High-end, modernist, and Awwwards-ready. Curiosity Inc. is a design-led instructional agency for the creator economy — applying adult learning principles to help "accidental educator" creators restructure their content from marketing funnels to identity-shifting learning experiences.
+
+Curiosity Inc. is a **Learning Experience Design (LXD) consultancy** for intellectual content creators — the first to bring a 40-year-old discipline (LXD) from corporate training/academia into the creator economy.
+
+**The site IS the proof.** It must demonstrate LXD principles by how it's experienced, not just describe them in copy. No funnel logic, no manipulative language, no corporate hedging.
+
+**The client:** Jacklyn Miller — street smart, speaks fluent nerd. The site represents her as a person, not a pitch deck. The voice is a blend of Ash Ambirge, Harry Dry, and Shia LaBeouf's unguarded directness.
+
+---
+
+## Narrative Architecture
+
+The site runs a single argument in 5 acts:
+
+| Act | Section | Goal |
+|---|---|---|
+| 1 | Hero | Feel seen immediately |
+| 2 | THE HONEST PART + Scaffold | Validate the frustration, name the gap |
+| 3 | THE THING NOBODY TOLD YOU | Drop the curtain — reveal LXD |
+| 4 | THE WORK | Proof — structural diagnoses, not case studies |
+| 5 | THE DOOR | Invitation to conversation, not a funnel |
+
+**Not a funnel. A revelation.**
+
+---
 
 ## Guiding Principles
 
-**Spec-Driven Development:** This project is spec-anchored. Refer to `SPEC.md` for architectural decisions and `VISUAL_LANGUAGE.md` for all design and visualization decisions.
+**Respect the viewer's time above all else.**
+Not one word that doesn't earn its place. The point is the first thing. Everything else is support.
 
-**Plan-Act-Reflect:** Propose a modular plan in Plan Mode before executing code. Reflect after each Act to summarize success and blockers.
+**No numbers in micro-copy.**
+Sections are never `01 · 02 · 03`. Typography hierarchy does this work — size, weight, color.
 
-**Museum Standard:** If an element doesn't serve the intellectual message, it doesn't belong. Prioritize negative space and typographic clarity. 40–60% of any composition should be Curiosity Black (#1D1E20) — silence before signal.
+**One accent color per section.**
+The 9-color palette is a system, not a buffet. Each section gets one accent. No mixing.
 
-**Accessibility:** WCAG 2.2 AA is a baseline requirement, not an afterthought. See VISUAL_LANGUAGE.md §9 for contrast ratios per color token.
+**The site must be the example.**
+The experience of visiting should feel categorically different from every marketing site they've ever seen. They should feel it before they can name it.
 
-## Visual Design System
+---
 
-All visual decisions are governed by `VISUAL_LANGUAGE.md`. The canonical sources in priority order:
+## Color System
 
-1. `VISUAL_LANGUAGE.md` — The binding design spec. Seven named components, color semantic system, stroke grammar, motion system, substrate layer, typography rules.
-2. `SPEC.md` — Architectural and structural decisions.
-3. `Curiosity_Inc__Visual_Language__A_Research-Backed_System_in_Seven_Components.md` — Background research. Do not implement directly; use VISUAL_LANGUAGE.md as the implementation source.
+| Color | Hex | Name | Role |
+|---|---|---|---|
+| ⬛ | `#1D1D1B` | Muted Black / Void | All backgrounds |
+| 🟫 | `#EAE4DA` | Seashell | All primary text |
+| 🟡 | `#EAC119` | Mustard | Energy — section headers, "I see you" moments |
+| 🟠 | `#ED773C` | Tangerine | Urgency — CTAs, transformative statements, hero accent |
+| 🟣 | `#808BC5` | Lavender | Thinking — cerebral sections, writing, constellation |
+| 🟢 | `#245E55` | Tea | Method — how we work, structure, architecture |
+| 🩷 | `#EAA7C7` | Pink Quartz | Human — empathy moments, testimonials |
+| 🩵 | `#9ED6DF` | Sky | Clarity — used when the answer arrives |
+| 🔴 | `#C63F3E` | Red Passion | Conviction — the one statement of no return per page |
 
-**The three laws (from VISUAL_LANGUAGE.md §1):**
-1. The ground is silent. #1D1E20 is not a background. It is the absence of noise.
-2. Color is earned. Eureka Pink (#F72658) appears only at the point of insight.
-3. Everything draws itself. No element appears instantaneously.
+**CSS tokens in `src/index.css`:**
+- `--color-void`: `#1D1D1B`
+- `--color-text`: `#EAE4DA`
+- `--color-accent`: `#ED773C` (tangerine)
+- `--color-energy`: `#EAC119` (mustard)
+- `--color-intellect`: `#808BC5` (lavender)
+- `--color-structure`: `#3A9EA4` (legacy teal — deprecated, being phased out)
+- `--color-transformation`: `#ED773C` (mapped to tangerine)
 
-**Color tokens:**
-- `--color-void`: #1D1E20 — dominant ground
-- `--color-structure`: #3A9EA4 — before-state, architecture
-- `--color-transformation`: #FA7714 — after-state, energy
-- `--color-insight`: #F72658 — eureka moment, CTA (10–15% max)
-- `--color-context`: #666–#999 — supporting data, labels
+---
 
-**Seven visualization components** (full specs in VISUAL_LANGUAGE.md §4):
-- The Convergence Map — content architecture, system maps
-- The Delta Bridge — before/after transformation metrics
-- The Scaffold — learning progression, methodology stages
-- The Flow Pulse — audience behavior, engagement flows
-- The Annotation Thread — time-series narratives
-- The Grid Reveal — comparative analysis
-- The Lens — hero statistics, singular insight callouts
+## Typography Rules
 
-**Visual verification standard:** Audit all UI against VISUAL_LANGUAGE.md and the 20-image inspiration set (images numbered in §7 reference map). Primary references: Image 3 (Tufte — master aesthetic standard), Image 4 (convergence hourglass — color + geometry), Image 14 (Scaffold cone — mastery visualization), Image 20 (Lemniscate — The Lens in motion).
+| Role | Minimum | Font | Style |
+|---|---|---|---|
+| Body / paragraph | `20px` | DM Sans or Instrument Serif | Normal, 1.7 line-height |
+| Labels / eyebrows | `12px` | JetBrains Mono | Uppercase, 0.18em tracked |
+| Section headers | `52px` | Instrument Serif | Italic |
+| Page headlines | `80px` | Instrument Serif | Italic |
+| Hero | `clamp(64px, 9vw, 150px)` | Instrument Serif | Italic |
 
-## Tech Stack & Commands
+**The "gong" rule:** One thing on every page that is unmissably large. The hero headline is the hero's gong.
 
-**Framework:** Vite + React + TypeScript  
-**Dev:** `npm run dev` | **Build:** `npm run build` | **Test:** `npm test`
+---
 
-**Animation stack:** GSAP + ScrollTrigger (primary), D3.js transitions (data-driven), Framer Motion / Motion (React layer), CSS scroll-driven animations (native, simple cases), WebGL/Three.js (hero section only)
+## Voice Rules
 
-**Self-drawing lines:** SVG `stroke-dasharray` / `stroke-dashoffset` pattern throughout. All primary data elements draw themselves — no exceptions.
+**Not** corporate: ~~"We leverage behavioral science frameworks..."~~
+**Not** dumbed-down: ~~"Want your audience to learn? Here's a tip!"~~
+**Exactly this:** *"Your audience can tell the difference between content that performs and content that changes them. Most of it just performs. Let's fix that."*
 
-## Code Style
+Voice principles:
+1. Name the thing they already know but haven't said out loud
+2. Never explain what you're about to say — just say it
+3. Short sentences earn the long ones
+4. Confident ≠ arrogant — confidence is specific
+5. Billboard test: if it needs a footnote, rewrite it
 
-**Structure:** Functional components with CSS Variables mapped directly to design tokens from VISUAL_LANGUAGE.md §2.
+---
 
-**Types:** Strict TypeScript; no `any` types.
+## Tech Stack
 
-**Animation rule:** Every animation serves narrative or comprehension. If it cannot be justified against VISUAL_LANGUAGE.md §6, remove it.
+**Framework:** Vite + React 19 + TypeScript (strict)
+**Styling:** Tailwind utility classes + CSS custom properties (no Tailwind in visualization components)
+**Animations:** GSAP + ScrollTrigger (primary), CSS transitions (micro-interactions)
+**3D / particles:** Three.js + @react-three/fiber (hero only, lazy-loaded)
+**Routing:** React Router v6 with SSG prerender script
 
-**Motion values:**
-- Primary easing: `cubic-bezier(0.25, 0.46, 0.45, 0.94)`
-- Stagger base: 80ms
-- Spring: stiffness 200, damping 20
-- `prefers-reduced-motion`: static fully-drawn fallback required on all components
+**Commands:**
+- Dev: `npm run dev`
+- Build + prerender: `npm run build`
+- Test: `npm test`
+
+**Deployment:** Vercel (auto-deploy on push to `main`)
+**Repos:** `jacklyn747/Curiosity-Inc.` (GitHub) + `jacklyn747/curiosityinc.online` (mirror)
+**Live URL:** https://curiosityinc.online
+
+---
+
+## Component Library (current state)
+
+| Component | File | Status |
+|---|---|---|
+| Scaffold | `Scaffold.tsx` | ✅ Sticky-stack bands — numbers removed, accent line+dot marker |
+| FlowPulse | `FlowPulse.tsx` | ✅ Funnel vs. LXD comparison visualization |
+| HorizontalGallery | `HorizontalGallery.tsx` | ✅ Pin-scroll case study cards — header embedded |
+| ConvergenceMap | `ConvergenceMap.tsx` | ✅ Radial discipline constellation |
+| DeltaBridge | `DeltaBridge.tsx` | ✅ Before/after metrics |
+| Lens | `Lens.tsx` | ✅ Vesica Piscis callout |
+| GridReveal | `GridReveal.tsx` | ✅ Comparative grid |
+| ArchitectureComparison | `ArchitectureComparison.tsx` | ✅ Funnel vs. orbital gravity |
+| AnnotationThread | `AnnotationThread.tsx` | ✅ Time-series narrative |
+| HeroSection | `HeroSection.tsx` | ✅ Particle field + GSAP text animation |
+| Navigation | `Navigation.tsx` | ✅ Anchor-link + blur transition |
+| Marquee | `Marquee.tsx` | ✅ Section divider |
+
+---
+
+## Open Issues (as of 2026-03-30)
+
+### 🔴 In progress — Awwwards Phase Audit
+
+Working through the Awwwards Playbook phase by phase:
+
+| Phase | Status | Notes |
+|---|---|---|
+| Phase 0 — What Wins | ✅ Audited | Dead zone identified and fixed |
+| Phase 1 — Strategic Discovery | ✅ Audited | Hero subtitle rewritten to match experience thesis |
+| Phase 2 — Conceptual Direction | ⏳ Next | |
+| Phase 3+ | — | Pending |
+
+**Fixes applied this session:**
+- `Scaffold.tsx`: Removed `01 02 03` numbers → replaced with accent line + dot marker
+- `Scaffold.tsx`: `marginBottom` cut 50vh → 5vh (eliminates ~4-screen dead scroll zone)
+- `HorizontalGallery.tsx`: Tightened pin scrub 3000 → 2000px; embedded section header inside pin zone
+- `HeroSection.tsx`: Subtitle rewritten — "There's a name for what you should have been doing. Nobody brought it to you until now."
+- `index.tsx`: Removed now-redundant THE WORK section header (moved inside gallery)
+
+### 🟠 Pending fixes
+
+- **Card accent colors:** Brief specifies Tangerine / Lavender / Tea per card. Currently uniform tangerine.
+- **No CTA above the fold:** The door is at the bottom only. Consider a subtle nav-level or hero-level CTA.
+- **og:image:** No social card image. Needs a 1200×630 asset.
+- **Three.js bundle:** Chunk > 500kB — already lazy-loaded but worth monitoring Lighthouse.
+
+### 🟡 Known stale docs (prior to this update)
+- `HOMEPAGE_COPY.md` — ✅ Updated this session
+- `Project_Memory___Workflow_Rules.md` — ✅ Updated this session (this file)
+- `Project_Progress.md` — ✅ Updated this session
+
+---
 
 ## Operational Boundaries
 
-- Keep `CLAUDE.md` and `SPEC.md` under 200 lines to maintain context accuracy.
-- Use the "One Thumb, One Eyeball" test for all mobile implementations.
-- Never install dependencies without confirmation.
-- Substrate textures (zentangle/sacred geometry): 8–12% opacity maximum, 0.3–0.5px stroke, #E8E6E0 only. See VISUAL_LANGUAGE.md §5.
+- Never install dependencies without confirmation
+- No numbered micro-copy anywhere on the site (no 01, 02, 03)
+- No funnel language (no "convert", no "nurture sequences", no "lead magnet")
+- No teal (`#3A9EA4`) in new UI — it's a legacy token being phased out
+- `prefers-reduced-motion` must be respected by every animated component
+- Body text floor: 20px minimum, no exceptions
