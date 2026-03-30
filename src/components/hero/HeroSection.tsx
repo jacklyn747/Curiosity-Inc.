@@ -307,8 +307,8 @@ export function HeroSection() {
               margin: 0,
               fontWeight: 300,
             }}>
-              Nobody told you. That's the whole problem.
-              <br />We fix what nobody showed you how to build.
+              There's a name for what you should have been doing.
+              <br />Nobody brought it to you until now.
             </p>
           </div>
 
