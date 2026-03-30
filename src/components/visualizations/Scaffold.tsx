@@ -65,7 +65,7 @@ export const Scaffold: React.FC<ScaffoldProps> = ({ bands }) => {
     <div 
       ref={containerRef} 
       className="scaffold-root w-full relative"
-      style={{ paddingBottom: '10vh' }}
+      style={{ paddingBottom: '2vh' }}
     >
       {bands.map((band, i) => {
         const color = COLOR_MAP[band.accentColor];
@@ -79,7 +79,7 @@ export const Scaffold: React.FC<ScaffoldProps> = ({ bands }) => {
               position: 'sticky',
               top: '0', 
               height: '100vh',
-              marginBottom: i === bands.length - 1 ? '0' : '50vh', // smooth scrolling overlap
+              marginBottom: i === bands.length - 1 ? '0' : '5vh', // tight stack — cards overlap quickly
               zIndex: i + 1,
             }}
           >
