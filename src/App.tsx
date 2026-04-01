@@ -8,7 +8,6 @@ const HomePage        = lazy(() => import('./pages/index').then(m => ({ default:
 const CaseStudyPage   = lazy(() => import('./pages/index').then(m => ({ default: m.CaseStudyPage })));
 const ArticlePage     = lazy(() => import('./pages/ArticlePage').then(m => ({ default: m.ArticlePage })));
 const NotFoundPage    = lazy(() => import('./pages/NotFoundPage'));
-const TestComponents  = lazy(() => import('./pages/TestComponents').then(m => ({ default: m.TestComponents })));
 const AuditRequest    = lazy(() => import('./pages/AuditRequest').then(m => ({ default: m.AuditRequest })));
 const AboutPage       = lazy(() => import('./pages/About'));
 
@@ -48,7 +47,6 @@ export function AppRoutes() {
           <Route path="/"                element={<HomePage />} />
           <Route path="/audit"           element={<AuditRequest />} />
           <Route path="/about"           element={<AboutPage />} />
-          <Route path="/test-components" element={<TestComponents />} />
           <Route path="/work/:slug"      element={<CaseStudyPage />} />
           <Route path="/writing/:slug"   element={<ArticlePage />} />
           <Route path="*"               element={<NotFoundPage />} />
