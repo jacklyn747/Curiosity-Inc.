@@ -80,7 +80,7 @@
   --spacing-edge: clamp(var(--space-md), 5vw, var(--space-2xl));
 }
 
-/* THE ASYMMETRIC GRID — stable and spacious */
+/* THE CENTERED GRID — simple and predictable */
 .grid-architectural {
   display: grid;
   grid-template-columns: 
@@ -88,7 +88,6 @@
     [content-start narrow-start wide-start] 1fr 
     [narrow-end wide-end content-end] 1.5rem 
     [bleed-end];
-  column-gap: var(--space-lg);
   width: 100%;
 }
 
@@ -96,19 +95,16 @@
   .grid-architectural {
     grid-template-columns: 
       [bleed-start] 1fr 
-      [content-start narrow-start] 40rem [narrow-end wide-start] 
-      20rem 
-      [content-end wide-end] 
+      [content-start narrow-start wide-start] min(1200px, 64rem) 
+      [narrow-end wide-end content-end]
       1fr [bleed-end];
-    column-gap: 4rem;
   }
 }
 
 .col-full   { grid-column: bleed-start / bleed-end; }
-.col-wide   { grid-column: content-start / wide-end; }
-.col-narrow { grid-column: narrow-start / narrow-end; }
-.col-content { grid-column: content-start / content-end; }
-.col-offset { grid-column: wide-start / wide-end; }
+.col-wide, .col-narrow, .col-content, .col-offset { 
+  grid-column: content-start / content-end; 
+}
 
 /* RESET & CORE STYLES */
 *, *::before, *::after {
