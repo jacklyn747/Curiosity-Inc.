@@ -166,6 +166,7 @@ export const ConvergenceMap: React.FC<ConvergenceMapProps> = ({
                 role="button"
                 aria-label={`${node.label}: ${node.description}`}
                 tabIndex={0}
+                data-magnetic="1.5"
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();

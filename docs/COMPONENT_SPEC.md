@@ -455,6 +455,33 @@ const ArchitectureComparison: React.FC = () => { ... }
 
 ---
 
+## Component 9: The Signature Cursor
+
+**Purpose:** Site-wide identity element. Provides sensory feedback and magnetic interaction for navigation.
+
+```typescript
+// Rendered globally in Layout.tsx
+export const CustomCursor: React.FC = () => { ... }
+```
+
+**Visual Structure:**
+- **The Ring:** 10px diameter (un-hovered), 1px border. Low opacity (30%).
+- **The Dot:** 1.5px diameter. Solid Accent color (#ED773C). Mix-blend-difference mode.
+- **The Label:** Monospace 9px text, Accent color. Appears inside the ring on [data-cursor-text] hover.
+
+**Dynamics:**
+- **Tracking:** ring follows with 0.12 damping (lag), dot follows with 0.35 damping (crisp).
+- **Hover expansion:** ring scales 1.6x on standard links.
+- **Label reveal:** ring scales 2.2x and fills with Void (#181817) to create a centered background for the label.
+- **Magnetic pull:** cursor 'tugs' at [data-magnetic] targets when within 100px radius. Target moves toward cursor with 0.35 strength.
+
+**Implementation Details:**
+- Uses `gsap.set` and `requestAnimationFrame` for high-performance tracking.
+- Implements `MutationObserver` to auto-bind to dynamic DOM changes.
+- Disables native `cursor: none` site-wide on desktop.
+
+---
+
 ## Global Rules
 
 1. **Every SVG element** uses `stroke-dasharray` + `stroke-dashoffset` for self-drawing. No exceptions for primary data elements.
@@ -464,3 +491,7 @@ const ArchitectureComparison: React.FC = () => { ... }
 5. **All SVG text** carries `aria-label` or lives inside a `<title>` element.
 6. **Touch devices** get tap-to-toggle instead of hover states.
 7. **No component renders without data** — if a prop array is empty, render nothing (not an empty container).
+8. **Atmospheric Transitions:** Global `--color-void` must be transitioned via ScrollTrigger across major sections to signal narrative 'Acts'.
+9. **Magnetic Targets:** All high-intent navigation items (Nav links, CTAs) must include the `data-magnetic` attribute for sensory reward.
+10. **Custom Cursor Labels:** Use `data-cursor-text` to provide localized context (e.g., "EXPLORE", "READ", "TALK") for deeper engagement.
+

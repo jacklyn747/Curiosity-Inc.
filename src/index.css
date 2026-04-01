@@ -4,6 +4,8 @@
 :root {
   /* THE PALETTE — exact values from the brand swatch */
   --palette-muted-black: #1D1D1B;
+  --palette-deep-black: #181817;
+  --palette-abyss: #121211;
   --palette-seashell: #EAE4DA;
   --palette-mustard: #EAC119;
   --palette-lavender: #808BC5;
@@ -13,16 +15,12 @@
   --palette-tangerine: #ED773C;
   --palette-red-passion: #C63F3E;
 
-  /* FUNCTIONAL MAPPING
-     Each color has one job. One accent per section, never mixed.
-     accent      = Tangerine  — "come with me", CTAs, the click moment
-     energy      = Mustard    — "I see you", eyebrows, active nav
-     intellect   = Lavender   — writing, the cerebral sections
-     method      = Tea        — process, architecture, systems
-     human       = Pink Quartz — empathy, personal copy
-     clarity     = Sky        — the answer arriving (sparingly)
-     conviction  = Red Passion — one unmissable statement per page */
-  --color-void: var(--palette-muted-black);
+  /* VOID VARIATIONS for Phase 7 Atmosphere */
+  --void-structural: var(--palette-muted-black);
+  --void-deep: var(--palette-deep-black);
+  --void-abyss: var(--palette-abyss);
+
+  --color-void: var(--void-structural);
   --color-text: var(--palette-seashell);
   --color-text-dim: rgba(234, 228, 218, 0.5);
 
@@ -67,8 +65,50 @@
 
   /* LAYOUT — The Curated Sanctuary */
   --layout-max-width: 1200px;
-  --spacing-edge: clamp(20px, 5vw, 64px);
+  
+  /* SPACING SCALE — mathematical 4px base */
+  --space-2xs: 0.25rem;   /* 4px   — hairline gaps */
+  --space-xs:  0.50rem;   /* 8px   — tight element spacing */
+  --space-sm:  0.75rem;   /* 12px  — compact grouping */
+  --space-md:  1.00rem;   /* 16px  — default body rhythm */
+  --space-lg:  1.50rem;   /* 24px  — section element spacing */
+  --space-xl:  2.50rem;   /* 40px  — content block separation */
+  --space-2xl: 4.00rem;   /* 64px  — major section breaks */
+  --space-3xl: 6.00rem;   /* 96px  — dramatic breathing room */
+  --space-4xl: 10.00rem;  /* 160px — hero-level negative space */
+
+  --spacing-edge: clamp(var(--space-md), 5vw, var(--space-2xl));
 }
+
+/* THE ASYMMETRIC GRID — felt, not seen */
+.grid-architectural {
+  display: grid;
+  grid-template-columns: 
+    [bleed-start] var(--space-md) 
+    [content-start narrow-start wide-start] 1fr 
+    [narrow-end wide-end content-end] var(--space-md) 
+    [bleed-end];
+  column-gap: var(--space-lg);
+  width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .grid-architectural {
+    grid-template-columns: 
+      [bleed-start] 1fr 
+      [content-start narrow-start] 15rem [narrow-end wide-start] 
+      45rem 
+      [content-end] 15rem [wide-end] 
+      1fr [bleed-end];
+    column-gap: var(--space-xl);
+  }
+}
+
+.col-full   { grid-column: bleed-start / bleed-end; }
+.col-wide   { grid-column: content-start / wide-end; }
+.col-narrow { grid-column: narrow-start / narrow-end; }
+.col-content { grid-column: content-start / content-end; }
+.col-offset { grid-column: wide-start / wide-end; }
 
 /* RESET & CORE STYLES */
 *, *::before, *::after {
@@ -122,29 +162,33 @@ input, button, textarea, select {
 
 .noise-overlay {
   position: fixed;
-  top: -100%;
-  left: -100%;
-  width: 300%;
-  height: 300%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background-image: url("https://grainy-gradients.vercel.app/noise.svg");
   pointer-events: none;
   z-index: 9998;
-  opacity: 0.04;
-  animation: noise 0.2s infinite;
+  opacity: 0.02;
 }
 
-@keyframes noise {
-  0% { transform: translate(0, 0); }
-  10% { transform: translate(-5%, -5%); }
-  20% { transform: translate(-10%, 5%); }
-  30% { transform: translate(5%, -10%); }
-  40% { transform: translate(-5%, 15%); }
-  50% { transform: translate(-10%, 5%); }
-  60% { transform: translate(15%, 0); }
-  70% { transform: translate(0, 10%); }
-  80% { transform: translate(-15%, 0); }
-  90% { transform: translate(10%, 5%); }
-  100% { transform: translate(5%, 0); }
+/* PERFORMANCE CORE — Awwwards Standards */
+.gpu-accel {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
+
+section {
+  contain: layout style;
+}
+
+[id] {
+  scroll-margin-top: 80px;
+}
+
+.below-fold {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 800px;
 }
 
 /* ABOUT PAGE — Architecture of the Founder */
@@ -658,4 +702,14 @@ button, [role="button"], a {
   .article-toc {
     display: block;
   }
+}
+
+@keyframes flow-travel {
+  from { offset-distance: 0%; }
+  to { offset-distance: 100%; }
+}
+
+/* DEFAULT CURSOR RESTORED */
+a, button, [role="button"], .card-interactive {
+  cursor: pointer;
 }

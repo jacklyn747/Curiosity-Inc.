@@ -54,6 +54,7 @@ There's a name for what you should have been doing.
 **Body (22px):**
 - It's called **Learning Experience Design.** *(LXD in lavender)*
 - For forty years it lived in corporate training rooms, business schools, and university curricula. The people who had access to it used it to engineer actual, measurable behavior change in their audiences. Not views. Not downloads. Change.
+- *To the purists: No, there is no LMS here. No compliance drills. Just the same core science of behavior change, finally applied to fix the cheap, scammy reputation of the internet.*
 - Nobody brought it to you. The internet kept using the funnel instead — a tool designed for a world where information was scarce. That world ended a while ago.
 - We're the first to bring *these principles* to creators who are already trying to do what the principles were always meant to produce. You were just doing it without the map.
 

@@ -74,28 +74,44 @@ export function HeroFallback() {
         ))}
       </svg>
 
-      <div style={{ textAlign: 'center', maxWidth: '640px' }}>
-        <p style={{
+      <div style={{ textAlign: 'center', maxWidth: '800px', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+        <h1 style={{
           fontFamily: 'var(--font-display)',
-          fontSize: 'clamp(22px, 3.5vw, 40px)',
+          fontSize: 'clamp(40px, 6vw, 80px)',
           fontStyle: 'italic',
           color: 'var(--color-text)',
-          marginBottom: '1rem',
-          animation: reduced ? 'none' : `fadeIn 600ms ease forwards ${TEXT_LINE_1_DELAY_MS}ms`,
+          margin: 0,
+          lineHeight: 1,
+          animation: reduced ? 'none' : `fadeIn 800ms ease forwards 200ms`,
           opacity: reduced ? 1 : 0,
         }}>
-          Your audience is learning from you.
-        </p>
-        <p style={{
-          fontFamily: 'var(--font-display)',
-          fontSize: 'clamp(22px, 3.5vw, 40px)',
-          fontStyle: 'italic',
-          color: 'var(--color-text-dim)',
-          opacity: reduced ? 1 : 0,
-          animation: reduced ? 'none' : `fadeIn 600ms ease forwards ${TEXT_LINE_2_DELAY_MS}ms`,
-        }}>
-          You just haven't designed what they're learning.
-        </p>
+          You've been <span style={{ color: 'var(--color-accent)' }}>teaching</span> this whole time.
+        </h1>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+          <p style={{
+            fontFamily: 'var(--font-display)',
+            fontSize: 'clamp(20px, 3.5vw, 32px)',
+            fontStyle: 'italic',
+            color: 'var(--color-text)',
+            margin: 0,
+            animation: reduced ? 'none' : `fadeIn 600ms ease forwards ${TEXT_LINE_1_DELAY_MS}ms`,
+            opacity: reduced ? 1 : 0,
+          }}>
+            Your audience is learning from you.
+          </p>
+          <p style={{
+            fontFamily: 'var(--font-display)',
+            fontSize: 'clamp(20px, 3.5vw, 32px)',
+            fontStyle: 'italic',
+            color: 'var(--color-text-dim)',
+            margin: 0,
+            opacity: reduced ? 1 : 0,
+            animation: reduced ? 'none' : `fadeIn 600ms ease forwards ${TEXT_LINE_2_DELAY_MS}ms`,
+          }}>
+            You just haven't designed what they're learning.
+          </p>
+        </div>
       </div>
     </div>
   );

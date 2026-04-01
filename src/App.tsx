@@ -1,10 +1,7 @@
-import { lazy, Suspense, useEffect, useRef } from 'react';
+import { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Lenis from 'lenis';
-import gsap from 'gsap';
-import { setLenis } from './lib/lenis';
 import { Layout } from './components/layout/Layout';
-import { PageTransition } from './components/transitions/PageTransition';
+import { ScrollToTop } from './components/transitions/ScrollToTop';
 
 // Code-split all routes — Three.js and heavy case studies stay out of the main bundle
 const HomePage        = lazy(() => import('./pages/index').then(m => ({ default: m.HomePage })));
@@ -61,86 +58,12 @@ export function AppRoutes() {
   );
 }
 
-import { ScrollToTop } from './components/transitions/ScrollToTop';
-
 function App() {
-  useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    // autoRaf: false — GSAP ticker drives the loop, not Lenis's own rAF
-    const lenis = new Lenis({ lerp: 0.08, duration: 1.2, autoRaf: false });
-    setLenis(lenis);
-
-    // Capture tickerFn in a const so the SAME ref is passed to both add and remove
-    const tickerFn = (time: number) => lenis.raf(time * 1000);
-    gsap.ticker.add(tickerFn);
-    gsap.ticker.lagSmoothing(0);
-
-    return () => {
-      lenis.destroy();
-      setLenis(null);
-      gsap.ticker.remove(tickerFn);
-    };
-  }, []);
-
   return (
     <Router>
       <ScrollToTop />
-      {/* PageTransition wraps AppRoutes so its context is available to all children */}
-      <PageTransition>
-        <AppRoutes />
-      </PageTransition>
-      <SoftCursor />
-      <div className="noise-overlay" aria-hidden="true" />
+      <AppRoutes />
     </Router>
-  );
-}
-
-/**
- * A minimal, high-fidelity cursor orb that provides kinetic feedback 
- * on desktop hover interactions.
- */
-function SoftCursor() {
-  const cursorRef = useRef<HTMLDivElement>(null);
-  const isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches;
-
-  useEffect(() => {
-    if (isMobile) return;
-
-    const onMove = (e: MouseEvent) => {
-      gsap.to(cursorRef.current, {
-        x: e.clientX,
-        y: e.clientY,
-        duration: 0.6,
-        ease: 'power3.out'
-      });
-    };
-
-    window.addEventListener('mousemove', onMove);
-    return () => window.removeEventListener('mousemove', onMove);
-  }, [isMobile]);
-
-  if (isMobile) return null;
-
-  return (
-    <div 
-      ref={cursorRef}
-      className="soft-cursor"
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '40px',
-        height: '40px',
-        margin: '-20px 0 0 -20px',
-        borderRadius: '50%',
-        backgroundColor: 'var(--color-insight)',
-        opacity: 0.08,
-        pointerEvents: 'none',
-        zIndex: 9999,
-        filter: 'blur(10px)',
-      }}
-    />
   );
 }
 

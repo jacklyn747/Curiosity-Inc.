@@ -38,20 +38,25 @@ The site had the right bones but diverged from its own narrative thesis. Visuall
 ### Awwwards Phase Audit Status
 
 | Phase | Status | Key finding |
-|---|---|---|
-| Phase 0 — What Wins | ✅ Done | Dead zone (800–2800px void) was the #1 issue |
-| Phase 1 — Strategic Discovery | ✅ Done | Hero subtitle didn't match experience thesis — fixed |
-| Phase 2 — Conceptual Direction | ⏳ Next | |
-| Phase 3 through 12 | — | Pending |
+| :--- | :--- | :--- |
+| Phase 0 — What Wins | ✅ Done | Dead zone (800–2800px void) removed; section logic tightened |
+| Phase 1 — Strategic Discovery | ✅ Done | Subtitle fixed; competitive gap identified; nav CTA added |
+| Phase 2 — Conceptual Direction | ✅ Done | Signature Cursor + Noise textures + Pulse animations |
+| Phase 3 — Design System | ✅ Done | 4px-based spacing scale + Color system (Teal/Orange/Pink) strictly enforced |
+| Phase 4 — Spatial Composition | ✅ Done | Asymmetric 'grid-architectural' implemented (Mobile-first) |
+| Phase 5 — Interactivity | ✅ Done | Letter-spacing reveals + Scaffold/FlowPulse hover sensory feedback |
+| Phase 6 — Sensory Overload | ✅ Done | HeroSection refactored to Grid-Architectural foundation |
+| Phase 7 — Behavioral Psych | ⏳ Next | Choice Architecture + Narrative Friction |
+| Phase 8 through 12 | — | Pending |
 
 ### Open issues logged
 
 | Priority | Issue |
-|---|---|
-| 🟠 | Card accent colors — Tangerine/Lavender/Tea per card per brief. Currently uniform tangerine. |
-| 🟠 | No CTA above the fold — door is at the bottom only |
+| :--- | :--- |
 | 🟡 | og:image — no social card asset (1200×630 needed) |
 | 🟡 | Three.js bundle monitoring — chunk >500kB (lazy-loaded; watch Lighthouse) |
+| 🟢 | Card accent colors — (Done in Phase 2) |
+| 🟢 | No CTA above the fold — (Done in Phase 1) |
 
 ---
 

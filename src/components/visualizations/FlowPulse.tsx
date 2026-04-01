@@ -31,7 +31,19 @@ const COLOR_MAP = {
   structure: 'var(--color-structure)',
   transformation: 'var(--color-transformation)',
   insight: 'var(--color-insight)',
+  conviction: 'var(--color-conviction)',
 };
+
+const NoiseFilter = () => (
+  <filter id="flow-noise">
+    <feTurbulence type="fractalNoise" baseFrequency="0.6" numOctaves="3" stitchTiles="stitch" />
+    <feColorMatrix type="saturate" values="0" />
+    <feComponentTransfer>
+      <feFuncA type="linear" slope="0.05" />
+    </feComponentTransfer>
+    <feComposite operator="in" in2="SourceGraphic" />
+  </filter>
+);
 
 export const FlowPulse: React.FC<FlowPulseProps> = ({ flows }) => {
   const { ref: containerRef, inView } = useScrollTrigger();
@@ -43,6 +55,9 @@ export const FlowPulse: React.FC<FlowPulseProps> = ({ flows }) => {
       className={`flow-pulse-root w-full flex flex-col md:flex-row gap-16 md:gap-24 py-12 md:py-16 items-start justify-center transition-opacity duration-1000
         ${inView || prefersReducedMotion ? 'opacity-100' : 'opacity-0'}`}
     >
+      <svg style={{ position: 'absolute', width: 0, height: 0 }}>
+        <NoiseFilter />
+      </svg>
       {flows.map((flow, i) => (
         <React.Fragment key={flow.id}>
           <FlowPath 
@@ -71,11 +86,12 @@ const FlowPath: React.FC<{
   const svgRef = useRef<SVGSVGElement>(null);
   const pathRef = useRef<SVGPathElement>(null);
   const annotationsRef = useRef<SVGGElement>(null);
+  const breatheAnim = useRef<gsap.core.Tween | null>(null);
 
   useEffect(() => {
     if (!inView || prefersReducedMotion) return;
 
-    // Clip-reveal: 800ms per flow, staggered between flows
+    // Clip-reveal
     const clipPath = svgRef.current?.querySelector('.flow-clip-rect');
     if (clipPath) {
       gsap.fromTo(clipPath, 
@@ -89,12 +105,12 @@ const FlowPath: React.FC<{
       );
     }
 
-    // Breathing animation: oscillates 50% to 70%, 3s cycle
+    // Breathing animation
     const path = pathRef.current;
     if (path) {
-      gsap.to(path, {
+      breatheAnim.current = gsap.to(path, {
         opacity: 0.7,
-        duration: 1.5,
+        duration: 2.5,
         repeat: -1,
         yoyo: true,
         ease: 'sine.inOut',
@@ -102,10 +118,8 @@ const FlowPath: React.FC<{
       });
     }
 
-    // Drop-off annotations: 400ms AFTER flow completes
     const annotations = annotationsRef.current;
     if (annotations) {
-      // 0.8 + 0.4 = 1.2s delay from start of flow, which is index*0.4
       const annotationDelay = (index * 0.4) + 1.2;
       gsap.fromTo(annotations,
         { opacity: 0 },
@@ -117,9 +131,26 @@ const FlowPath: React.FC<{
         }
       );
     }
+
+    return () => {
+      breatheAnim.current?.kill();
+    };
   }, [inView, index, prefersReducedMotion]);
 
-  // Path Generation Logic (cubic beziers per segment)
+  const handleMouseEnter = () => {
+    if (breatheAnim.current) {
+      gsap.to(breatheAnim.current, { timeScale: 2.5, duration: 0.5 });
+      gsap.to(pathRef.current, { strokeWidth: 1.5, opacity: 0.9, duration: 0.5 });
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (breatheAnim.current) {
+      gsap.to(breatheAnim.current, { timeScale: 1.0, duration: 0.8 });
+      gsap.to(pathRef.current, { strokeWidth: 0.5, opacity: 0.5, duration: 0.8 });
+    }
+  };
+
   const generatePath = () => {
     const W = 600;
     const H = 200;
@@ -136,10 +167,8 @@ const FlowPath: React.FC<{
       points.push({ x, y1: centerY - h / 2, y2: centerY + h / 2 });
     });
 
-    // Final output extension
     points.push({ x: W - 100, y1: points[points.length - 1].y1, y2: points[points.length - 1].y2 });
 
-    // Build the Top Edge
     pathData += `M ${points[0].x} ${points[0].y1}`;
     for (let i = 0; i < points.length - 1; i++) {
         const p1 = points[i];
@@ -149,10 +178,8 @@ const FlowPath: React.FC<{
         pathData += ` C ${cp1x} ${p1.y1}, ${cp2x} ${p2.y1}, ${p2.x} ${p2.y1}`;
     }
 
-    // Build the Right Edge
     pathData += ` L ${points[points.length - 1].x} ${points[points.length - 1].y2}`;
 
-    // Build the Bottom Edge
     for (let i = points.length - 2; i >= 0; i--) {
         const p1 = points[i + 1];
         const p2 = points[i];
@@ -168,9 +195,13 @@ const FlowPath: React.FC<{
   const mainColor = COLOR_MAP[flow.color];
 
   return (
-    <div className="flow-path-container flex flex-col gap-6 w-full max-w-[500px]">
+    <div 
+      className="flow-path-container flex flex-col gap-6 w-full max-w-[500px] group/flow"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       <div className="flex flex-col gap-1">
-        <p className="font-display text-[20px] font-normal italic text-[var(--color-text)]">
+        <p className="font-display text-[20px] font-normal italic text-[var(--color-text)] transition-colors duration-500 group-hover/flow:text-[var(--color-text)] opacity-60 group-hover/flow:opacity-100">
           {flow.label}
         </p>
       </div>
@@ -198,7 +229,11 @@ const FlowPath: React.FC<{
           stroke={mainColor}
           strokeWidth="0.5"
           clipPath={`url(#clip-${flow.id})`}
-          style={{ opacity: prefersReducedMotion ? 0.6 : 0.5 }}
+          className="transition-all duration-700 ease-[var(--ease-out)]"
+          style={{ 
+            opacity: prefersReducedMotion ? 0.6 : 0.5,
+            filter: 'url(#flow-noise)'
+          }}
         />
 
         {/* Labels */}
@@ -218,7 +253,8 @@ const FlowPath: React.FC<{
           <text 
             x="505" y="104" 
             fill={mainColor} 
-            style={{ opacity: 1, letterSpacing: '0.05em' }}
+            className="transition-all duration-500"
+            style={{ opacity: 1, letterSpacing: '0.05em', fontWeight: 600 }}
             dominantBaseline="middle"
           >
             {flow.outputLabel}
@@ -233,16 +269,16 @@ const FlowPath: React.FC<{
             const ySurface = 125;
             
             return (
-              <g key={i}>
+              <g key={i} className="transition-all duration-500 group-hover/flow:opacity-100">
                 <line 
                   x1={x} y1={ySurface} x2={x + 16} y2={ySurface + 24}
-                  stroke="var(--color-insight)" strokeWidth="0.8" strokeDasharray="3 3"
+                  stroke={COLOR_MAP.conviction} strokeWidth="1" strokeDasharray="3 3"
                 />
-                <circle cx={x} cy={ySurface} r="2.5" fill="var(--color-insight)" />
+                <circle cx={x} cy={ySurface} r="3" fill={COLOR_MAP.conviction} />
                 <text 
                   x={x + 22} y={ySurface + 34} 
                   className="font-mono text-[10px] tracking-tight"
-                  fill="var(--color-insight)"
+                  fill={COLOR_MAP.conviction}
                 >
                   {drop.label}
                 </text>
@@ -250,6 +286,18 @@ const FlowPath: React.FC<{
             );
           })}
         </g>
+
+        {!prefersReducedMotion && inView && (
+          <circle
+            r="4"
+            fill={mainColor}
+            style={{ 
+              offsetPath: `path("${generatePath()}")`,
+              animation: `flow-travel 5s linear infinite`,
+              filter: 'blur(1px)'
+            }}
+          />
+        )}
       </svg>
     </div>
   );

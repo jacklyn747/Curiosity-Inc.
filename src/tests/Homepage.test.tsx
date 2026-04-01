@@ -1,24 +1,48 @@
-// src/tests/Homepage.test.tsx
+import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { act } from 'react';
-import { MemoryRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
+import { HomePage } from '../pages/index';
 
-// Mock HeroSection so Suspense resolves immediately in jsdom
-vi.mock('../components/hero/HeroSection', () => ({
-  HeroSection: () => <div data-testid="hero-section">hero</div>,
-}));
+describe('✦ Intellectual Glamour: Homepage Integrity', () => {
+  it('should render the primary narrative hook: "You\'ve been teaching this whole time."', () => {
+    render(
+      <BrowserRouter>
+        <HomePage />
+      </BrowserRouter>
+    );
+    // Check for the H1 content specifically
+    const h1 = screen.getByRole('heading', { level: 1 });
+    expect(h1.textContent).toContain("You've been");
+    expect(h1.textContent).toContain("teaching");
+  });
 
-import HomePage from '../pages/index';
+  it('should anchor the experience with the Curiosity Audit CTA', () => {
+    render(
+      <BrowserRouter>
+        <HomePage />
+      </BrowserRouter>
+    );
+    expect(screen.getByLabelText(/Request a Curiosity Audit/i)).toBeDefined();
+  });
 
-describe('HomePage', () => {
-  it('resolves and renders HeroSection via Suspense', async () => {
-    await act(async () => {
-      render(
-        <MemoryRouter>
-          <HomePage />
-        </MemoryRouter>
-      );
-    });
-    expect(screen.getByTestId('hero-section')).toBeTruthy();
+  it('should maintain the "Sensory Interaction" layer: No literal cursor labels', () => {
+    const { container } = render(
+      <BrowserRouter>
+        <HomePage />
+      </BrowserRouter>
+    );
+    // Explicitly check for REMOVAL of the old SaaS-style literal labels
+    const labels = container.querySelectorAll('[data-cursor-text]');
+    expect(labels.length).toBe(0);
+  });
+
+  it('should present the curated "Article Library" for high-intent visitors', () => {
+    render(
+      <BrowserRouter>
+        <HomePage />
+      </BrowserRouter>
+    );
+    expect(screen.getByText(/Things worth your time/i)).toBeDefined();
+    expect(screen.getByText(/The Accidental Educator/i)).toBeDefined();
   });
 });

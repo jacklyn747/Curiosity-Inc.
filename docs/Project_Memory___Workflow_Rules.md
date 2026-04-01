@@ -1,5 +1,5 @@
-# Project Memory & Workflow Rules — Curiosity Inc.
-> Last updated: 2026-03-30
+# Project Memory & Workflow Rules — Curiosity Inc
+> Last updated: 2026-03-31
 
 ---
 
@@ -132,7 +132,8 @@ Voice principles:
 | ArchitectureComparison | `ArchitectureComparison.tsx` | ✅ Funnel vs. orbital gravity |
 | AnnotationThread | `AnnotationThread.tsx` | ✅ Time-series narrative |
 | HeroSection | `HeroSection.tsx` | ✅ Particle field + GSAP text animation |
-| Navigation | `Navigation.tsx` | ✅ Anchor-link + blur transition |
+| Navigation | `Navigation.tsx` | ✅ Anchor-link + entrance choreography |
+| CustomCursor | `CustomCursor.tsx` | ✅ Magnetic + site-wide signature |
 | Marquee | `Marquee.tsx` | ✅ Section divider |
 
 ---
@@ -147,8 +148,15 @@ Working through the Awwwards Playbook phase by phase:
 |---|---|---|
 | Phase 0 — What Wins | ✅ Audited | Dead zone identified and fixed |
 | Phase 1 — Strategic Discovery | ✅ Audited | Hero subtitle rewritten to match experience thesis |
-| Phase 2 — Conceptual Direction | ⏳ Next | |
-| Phase 3+ | — | Pending |
+| Phase 2 — Conceptual Direction | ✅ Completed | Signature Cursor implemented |
+| Phase 3-6 — Visual Development | ✅ Completed | Grid Architectural migration done |
+| Phase 7 — Motion & Interaction | ✅ Completed | Atmosphere + Magnetic interactions |
+| Phase 8-10 — Systems & Layout | ✅ Completed | Refinement of Component density |
+| Phase 11 — Polish & Refinement | ✅ Completed | Magnetic CTAs + Performance |
+| Phase 12 — Pre-Launch Audit | 🟡 In Progress | Final SEO/Meta check |
+| Phase 8-10 — Systems & Layout | ✅ Completed | Refinement of Component density |
+| Phase 11 — Polish & Refinement | ✅ Completed | Magnetic CTAs + Performance |
+| Phase 12 — Pre-Launch Audit | 🟡 In Progress | Final SEO/Meta check |
 
 **Fixes applied this session:**
 - `Scaffold.tsx`: Removed `01 02 03` numbers → replaced with accent line + dot marker
@@ -159,10 +167,8 @@ Working through the Awwwards Playbook phase by phase:
 
 ### 🟠 Pending fixes
 
-- **Card accent colors:** Brief specifies Tangerine / Lavender / Tea per card. Currently uniform tangerine.
-- **No CTA above the fold:** The door is at the bottom only. Consider a subtle nav-level or hero-level CTA.
-- **og:image:** No social card image. Needs a 1200×630 asset.
 - **Three.js bundle:** Chunk > 500kB — already lazy-loaded but worth monitoring Lighthouse.
+- **Favicon:** Standard favicon.svg is 9kB, check if .ico is needed for legacy.
 
 ### 🟡 Known stale docs (prior to this update)
 - `HOMEPAGE_COPY.md` — ✅ Updated this session
