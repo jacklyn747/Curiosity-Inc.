@@ -38,29 +38,29 @@ export const AboutPage: React.FC = () => {
       <div className="about-inner">
         
         {/* SECTION 01: THE OPENING */}
-        <section className="about-opening py-40 flex flex-col justify-center">
+        <section className="about-opening py-40 flex flex-col justify-center items-center text-center">
           <div className="mb-6">
             <span className="font-mono text-[10px] tracking-[0.2em] text-[var(--color-energy)] uppercase">
               Founder Narrative
             </span>
           </div>
-          <div>
+          <div className="max-w-[860px]">
             <DisplayHeading as="h1" className="mb-8">
               The difference between content that moves people and content that actually changes them is structure.
             </DisplayHeading>
           </div>
-          <div>
-            <p className="font-body text-[20px] leading-relaxed text-[var(--color-text-dim)] max-w-[640px]">
+          <div className="max-w-[640px]">
+            <p className="font-body text-[20px] leading-relaxed text-[var(--color-text-dim)]">
               The kind that universities have been using quietly for decades — the architecture of how people actually learn — and the creator world has never been given access to. 
               <span className="block mt-6 italic text-[var(--color-text)]">I went and got that structure.</span>
             </p>
           </div>
         </section>
 
-        {/* SECTION 02: THE PATH (ASYMETRIC GRID) */}
+        {/* SECTION 02: THE PATH */}
         <section className="grid grid-cols-1 md:grid-cols-3 gap-12 py-24 border-t border-white/5">
           {DISCIPLINES.map((item, i) => (
-            <div key={i} className="flex flex-col gap-6">
+            <div key={i} className="flex flex-col gap-6 items-center text-center">
               <span className="font-mono text-[11px] tracking-widest text-[var(--color-accent)] uppercase">
                 0{i + 1} — {item.label}
               </span>
@@ -70,22 +70,22 @@ export const AboutPage: React.FC = () => {
         </section>
 
         {/* SECTION 03: THE REVEAL */}
-        <section className="flex flex-col md:flex-row items-center gap-12 py-32 border-t border-white/5">
-          <div className="w-full max-w-[400px] aspect-[4/5] overflow-hidden bg-[rgba(255,255,255,0.02)]">
+        <section className="flex flex-col md:flex-row items-center justify-center gap-12 py-32 border-t border-white/5">
+          <div className="w-full max-w-[320px] aspect-[4/5] overflow-hidden bg-[rgba(255,255,255,0.02)]">
             <img 
               src="/jacklyn-miller.webp" 
               alt="Jacklyn Miller" 
               className="w-full h-full object-cover grayscale opacity-80 hover:opacity-100 transition-opacity"
             />
           </div>
-          <div className="max-w-[440px]">
+          <div className="max-w-[440px] text-center md:text-left">
             <p className="font-display italic text-[32px] mb-2 leading-tight">
               Jacklyn Miller
             </p>
             <p className="font-mono text-[10px] tracking-[0.2em] text-[var(--color-energy)] uppercase mb-8">
               Instructional Architect / Founder
             </p>
-            <p className="text-[var(--color-text-dim)] text-[20px] leading-relaxed italic border-l border-[var(--color-accent)] pl-6">
+            <p className="text-[var(--color-text-dim)] text-[20px] leading-relaxed italic border-l border-[var(--color-accent)] pl-6 text-left">
               "Curiosity Inc. is what I built once I had the words for what I'd been seeing. The architecture that was missing."
             </p>
           </div>
