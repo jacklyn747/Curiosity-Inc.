@@ -144,12 +144,12 @@ export function HomePage() {
             <Link 
               key={study.id} 
               to={study.link}
-              className="group p-8 border border-[rgba(255,255,255,0.05)] hover:border-[rgba(255,255,255,0.2)] transition-all duration-500"
+              className="flex flex-col group p-8 border border-[rgba(255,255,255,0.05)] hover:border-[rgba(255,255,255,0.2)] transition-all duration-500"
             >
               <span className="font-mono text-[10px] uppercase tracking-widest opacity-50 block mb-4" style={{ color: study.accentColor }}>
                 {study.category}
               </span>
-              <h3 className="font-display text-[32px] italic mb-4">{study.title}</h3>
+              <h3 className="font-display text-[40px] italic mb-4 leading-tight">{study.title}</h3>
               <p className="font-body text-[16px] text-[var(--color-text-dim)]">{study.subtitle}</p>
             </Link>
           ))}

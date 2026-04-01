@@ -341,7 +341,14 @@ section {
 }
 
 /* Touch targets — minimum 44×44px for all interactive elements (WCAG 2.5.5) */
-button, [role="button"], a {
+button, [role="button"] {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* For links, we only apply min-height where it won't break text wrapping */
+a.btn, a.nav-link {
   min-height: 44px;
   display: inline-flex;
   align-items: center;
