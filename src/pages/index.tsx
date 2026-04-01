@@ -70,7 +70,7 @@ export function HomePage() {
   return (
     <div className="homepage-root">
       {/* ── 1. HERO ─────────────────────────────────────────────────────── */}
-      <section id="hero" className="grid-architectural min-h-[80vh] flex flex-col justify-center py-40">
+      <section id="hero" className="grid-architectural min-h-[80vh] items-center py-40">
         <div className="col-narrow">
           <SectionLabel>CURIOSITY INC.</SectionLabel>
           <DisplayHeading as="h1" className="mt-8 text-[clamp(48px,8vw,120px)] leading-[0.9] italic">
@@ -189,8 +189,8 @@ export function HomePage() {
       </section>
 
       {/* ── 6. THE DOOR ───────────────────────────────────────────────────── */}
-      <section id="door" className="grid-architectural w-full py-60 border-t border-[rgba(255,255,255,0.05)] text-center">
-        <div className="col-narrow flex flex-col items-center">
+      <section id="door" className="grid-architectural w-full py-60 border-t border-[rgba(255,255,255,0.05)]">
+        <div className="col-content flex flex-col items-center text-center">
           <SectionLabel>GET STARTED</SectionLabel>
           <DisplayHeading as="h2" className="mt-8">
             Let's look at what you've built.
