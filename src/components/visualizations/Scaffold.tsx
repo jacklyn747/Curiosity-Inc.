@@ -40,54 +40,54 @@ export const Scaffold: React.FC<ScaffoldProps> = ({ bands }) => {
     gsap.registerPlugin(ScrollTrigger);
 
     const ctx = gsap.context(() => {
-      // Pin the entire container for the duration of the revelation
-      // Increased to 1500px per pillar to resolve reported 'covering' issue
-      const cardDistance = 1500;
+      const cardDistance = 1200; // Adjusted for better scroll feel
       const pinDistance = bands.length * cardDistance;
-
-      ScrollTrigger.create({
-        trigger: containerRef.current,
-        start: "top top",
-        end: `+=${pinDistance}`,
-        pin: true,
-        scrub: 1,
-        anticipatePin: 1,
+      
+      const masterTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top top",
+          end: `+=${pinDistance}`,
+          pin: true,
+          scrub: 1,
+          anticipatePin: 1,
+        }
       });
 
-      // Animate the internal segments (the "Unfolding")
-      bandRefs.current.forEach((band, i) => {
+      bands.forEach((_, i) => {
+        const band = bandRefs.current[i];
         if (!band) return;
 
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: () => `top+=${i * cardDistance} top`,
-            end: () => `top+=${(i + 1) * cardDistance} top`,
-            scrub: 1,
-          }
-        });
+        // Label for this band's sequence
+        const startLabel = `band-${i}`;
+        masterTl.add(startLabel, i * cardDistance);
 
-        // Entrance
+        // Sequence for each band:
+        // 1. Entrance (except first one, which is visible)
         if (i > 0) {
-          tl.fromTo(band, 
+          masterTl.fromTo(band, 
             { yPercent: 100, opacity: 0, pointerEvents: 'none' }, 
-            { yPercent: 0, opacity: 1, pointerEvents: 'auto', duration: 0.4, ease: "none" }
+            { yPercent: 0, opacity: 1, pointerEvents: 'auto', duration: 0.5, ease: "none" },
+            startLabel
           );
+        } else {
+          // Ensure first card stays visible until it's time to exit
+          masterTl.set(band, { opacity: 1, yPercent: 0, pointerEvents: 'auto' }, 0);
         }
 
-        // Mid-point interaction — The "Stay" duration
-        tl.to(band, { opacity: 1, duration: 0.8 });
+        // 2. Main display (hold)
+        masterTl.to(band, { opacity: 1, duration: 1 }, `+=${0.1}`);
 
-        // Exit / Collapse (Scales it back like Tilton site)
+        // 3. Exit (except last one)
         if (i < bands.length - 1) {
-          tl.to(band, { 
-            scale: 0.9, 
+          masterTl.to(band, { 
+            scale: 0.95, 
             opacity: 0, 
             pointerEvents: 'none',
-            y: -50,
+            y: -30,
             duration: 0.4, 
-            ease: "none" 
-          });
+            ease: "power1.in" 
+          }, `>${0.3}`);
         }
       });
     });
