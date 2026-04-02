@@ -1,6 +1,9 @@
 import { useNavigate, Link, useParams } from 'react-router-dom';
 import { SectionLabel } from '../components/typography/SectionLabel';
 import { DisplayHeading } from '../components/typography/DisplayHeading';
+import { DanKoeCaseStudy } from './DanKoeCaseStudy';
+import { JustinWelshCaseStudy } from './JustinWelshCaseStudy';
+import { TiagoForteCaseStudy } from './TiagoForteCaseStudy';
 
 const ARTICLES = [
   {
@@ -215,8 +218,21 @@ export default HomePage;
 
 export function CaseStudyPage() {
   const { slug } = useParams<{ slug: string }>();
+
+  if (slug === 'dan-koe-brand-architecture') {
+    return <DanKoeCaseStudy />;
+  }
+
+  if (slug === 'justin-welsh-conversion-design') {
+    return <JustinWelshCaseStudy />;
+  }
+
+  if (slug === 'tiago-forte-cognitive-interfaces') {
+    return <TiagoForteCaseStudy />;
+  }
+
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-8 text-center">
+    <div className="min-h-screen flex flex-col items-center justify-center p-8 text-center bg-[var(--color-void)]">
       <DisplayHeading as="h1" className="mb-8">{`Case Study: ${slug || ''}`}</DisplayHeading>
       <p className="font-body text-[20px] text-[var(--color-text-dim)] mb-8 opacity-60">
         This one's still being built.
