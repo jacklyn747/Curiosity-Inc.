@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 const SECTION_LINKS = [
   { label: 'WORK',    href: '#work',    path: '/' },
+  { label: 'WRITING', href: 'https://read.curiosityinc.online', path: 'https://read.curiosityinc.online' },
   { label: 'LIBRARY', href: '#library', path: '/' },
 ];
 
@@ -49,9 +50,19 @@ export const Navigation: React.FC = () => {
 
         <ul className="nav-links hidden md:flex items-center h-full border-l border-[rgba(255,255,255,0.05)]">
           {SECTION_LINKS.map(link => {
+            const isExternal = link.href.startsWith('http');
             return (
               <li key={link.label} className="h-full flex items-center border-r border-[rgba(255,255,255,0.05)] px-8">
-                {isHome ? (
+                {isExternal ? (
+                  <a 
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="nav-link nav-item"
+                  >
+                    {link.label}
+                  </a>
+                ) : isHome ? (
                   <a
                     href={link.href}
                     aria-label={`Navigate to ${link.label} section`}
@@ -111,21 +122,36 @@ export const Navigation: React.FC = () => {
         <div className="mobile-menu-overlay" style={{ pointerEvents: 'auto' }}>
           <div className="mobile-menu-content">
             <div className="mobile-menu-links">
-              {SECTION_LINKS.map(link => (
-                <div key={link.label} className="mobile-menu-item">
-                   <Link 
-                    to={link.path}
-                    className="mobile-menu-link"
-                    onClick={() => {
-                        setIsMenuOpen(false);
-                        const el = document.querySelector(link.href);
-                        if (el) setTimeout(() => el.scrollIntoView({ behavior: 'smooth' }), 100);
-                    }}
-                  >
-                    {link.label}
-                  </Link>
-                </div>
-              ))}
+              {SECTION_LINKS.map(link => {
+                const isExternal = link.href.startsWith('http');
+                return (
+                  <div key={link.label} className="mobile-menu-item">
+                     {isExternal ? (
+                       <a 
+                         href={link.href}
+                         target="_blank"
+                         rel="noopener noreferrer"
+                         className="mobile-menu-link"
+                         onClick={() => setIsMenuOpen(false)}
+                       >
+                         {link.label}
+                       </a>
+                     ) : (
+                       <Link 
+                        to={link.path}
+                        className="mobile-menu-link"
+                        onClick={() => {
+                            setIsMenuOpen(false);
+                            const el = document.querySelector(link.href);
+                            if (el) setTimeout(() => el.scrollIntoView({ behavior: 'smooth' }), 100);
+                        }}
+                      >
+                        {link.label}
+                      </Link>
+                     )}
+                  </div>
+                );
+              })}
               <div className="mobile-menu-item">
                 <Link to="/about" className="mobile-menu-link" onClick={() => setIsMenuOpen(false)}>ABOUT</Link>
               </div>

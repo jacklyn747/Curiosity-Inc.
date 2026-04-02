@@ -22,7 +22,14 @@ export const Footer: React.FC = () => {
           
           <nav className="flex gap-12" aria-label="Footer navigation">
             <Link to="/" className="font-mono text-[11px] tracking-[0.2em] uppercase opacity-40 hover:opacity-100 transition-opacity duration-500">WORK</Link>
-            <Link to="/" className="font-mono text-[11px] tracking-[0.2em] uppercase opacity-40 hover:opacity-100 transition-opacity duration-500">WRITING</Link>
+            <a 
+              href="https://read.curiosityinc.online" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="font-mono text-[11px] tracking-[0.2em] uppercase opacity-40 hover:opacity-100 transition-opacity duration-500"
+            >
+              WRITING
+            </a>
             <Link to="/about" className="font-mono text-[11px] tracking-[0.2em] uppercase opacity-40 hover:opacity-100 transition-opacity duration-500">ABOUT</Link>
           </nav>
 
