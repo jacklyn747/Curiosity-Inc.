@@ -7,11 +7,9 @@ import { Lens } from '../components/visualizations/Lens';
 import { DeltaBridge } from '../components/visualizations/DeltaBridge';
 import { ArchitectureComparison } from '../components/visualizations/ArchitectureComparison';
 
-if (typeof window !== 'undefined') {
-  import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
-    gsap.registerPlugin(ScrollTrigger);
-  });
-}
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 function ScqaMarker({ phase, act, title }: { phase: string; act: string; title: string }) {
   return (

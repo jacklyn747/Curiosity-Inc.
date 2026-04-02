@@ -70,8 +70,8 @@ export const Scaffold: React.FC<ScaffoldProps> = ({ bands }) => {
         // Entrance
         if (i > 0) {
           tl.fromTo(band, 
-            { yPercent: 100, opacity: 0 }, 
-            { yPercent: 0, opacity: 1, duration: 0.4, ease: "none" }
+            { yPercent: 100, opacity: 0, pointerEvents: 'none' }, 
+            { yPercent: 0, opacity: 1, pointerEvents: 'auto', duration: 0.4, ease: "none" }
           );
         }
 
@@ -82,7 +82,8 @@ export const Scaffold: React.FC<ScaffoldProps> = ({ bands }) => {
         if (i < bands.length - 1) {
           tl.to(band, { 
             scale: 0.9, 
-            opacity: 0, // Fade out so it doesn't distract from next point
+            opacity: 0, 
+            pointerEvents: 'none',
             y: -50,
             duration: 0.4, 
             ease: "none" 
@@ -116,8 +117,12 @@ export const Scaffold: React.FC<ScaffoldProps> = ({ bands }) => {
             <div 
               key={i}
               ref={(el) => { bandRefs.current[i] = el; }}
-              className="absolute inset-0 w-full h-full flex flex-col justify-center px-6 md:px-12 z-10"
-              style={{ zIndex: i + 1 }}
+              className="absolute inset-0 w-full h-full flex flex-col justify-center px-6 md:px-12"
+              style={{ 
+                zIndex: i + 1,
+                opacity: i === 0 ? 1 : 0, 
+                pointerEvents: i === 0 ? 'auto' : 'none'
+              }}
             >
               <div 
                 className="w-full h-full max-h-[85vh] bg-[var(--color-void)] border border-[rgba(255,255,255,0.05)] shadow-2xl relative flex flex-col justify-center px-6 md:px-12 rounded-xl group overflow-hidden"
