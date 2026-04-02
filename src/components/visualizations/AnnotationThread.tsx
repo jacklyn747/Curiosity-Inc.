@@ -116,10 +116,9 @@ export const AnnotationThread: React.FC<AnnotationThreadProps> = ({
     const tl = gsap.timeline();
 
     // 1 — Context lines fade in
-    tl.fromTo(
+    tl.from(
       contextLineRefs.current.filter(Boolean),
-      { opacity: 0 },
-      { opacity: 0.3, duration: 0.4, stagger: 0.08, ease: 'power2.out' },
+      { opacity: 0, duration: 0.4, stagger: 0.08, ease: 'power2.out' },
       0
     );
 
@@ -141,26 +140,23 @@ export const AnnotationThread: React.FC<AnnotationThreadProps> = ({
       // Delay proportional to how far along the focal line the point is
       const delay = 0.3 + pointX * 1.6 - 0.1; // slightly before line arrives
 
-      tl.fromTo(
+      tl.from(
         dotRefs.current[i],
-        { scale: 0, opacity: 0, transformOrigin: 'center center' },
-        { scale: 1, opacity: 1, duration: 0.5, ease: 'elastic.out(1.2, 0.6)' },
+        { scale: 0, opacity: 0, duration: 0.5, ease: 'elastic.out(1.2, 0.6)', transformOrigin: 'center center' },
         delay
       );
 
       // 4 — Leader lines draw after dot
-      tl.fromTo(
+      tl.from(
         leaderRefs.current[i],
-        { opacity: 0 },
-        { opacity: 0.5, duration: 0.3, ease: 'power2.out' },
+        { opacity: 0, duration: 0.3, ease: 'power2.out' },
         delay + 0.15
       );
 
       // 5 — Labels fade in after leader
-      tl.fromTo(
+      tl.from(
         labelRefs.current[i],
-        { opacity: 0, y: 4 },
-        { opacity: 1, y: 0, duration: 0.35, ease: 'power2.out' },
+        { opacity: 0, y: 4, duration: 0.35, ease: 'power2.out' },
         delay + 0.25
       );
     });
@@ -226,7 +222,7 @@ export const AnnotationThread: React.FC<AnnotationThreadProps> = ({
             fill="none"
             stroke="var(--color-context)"
             strokeWidth="0.5"
-            style={{ opacity: isReducedMotion ? 0.3 : 0 }}
+            style={{ opacity: 0.3 }}
           />
         ))}
 
@@ -239,7 +235,6 @@ export const AnnotationThread: React.FC<AnnotationThreadProps> = ({
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          style={{ opacity: isReducedMotion ? 1 : 0 }}
         />
 
         {/* Annotation markers */}
@@ -264,7 +259,6 @@ export const AnnotationThread: React.FC<AnnotationThreadProps> = ({
                 r="4"
                 fill="var(--color-insight)"
                 style={{
-                  opacity: isReducedMotion ? 1 : 0,
                   transformOrigin: `${cx}px ${cy}px`,
                 }}
               />
@@ -279,13 +273,12 @@ export const AnnotationThread: React.FC<AnnotationThreadProps> = ({
                 stroke="var(--color-context)"
                 strokeWidth="0.5"
                 strokeDasharray="3 3"
-                style={{ opacity: isReducedMotion ? 0.5 : 0 }}
+                style={{ opacity: 0.5 }}
               />
 
               {/* Label group */}
               <g
                 ref={el => { labelRefs.current[i] = el; }}
-                style={{ opacity: isReducedMotion ? 1 : 0 }}
               >
                 <text
                   x={cx}

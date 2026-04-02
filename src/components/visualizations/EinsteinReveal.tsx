@@ -19,14 +19,14 @@ export const EinsteinReveal: React.FC<EinsteinRevealProps> = ({ imagePath }) => 
 
     const tl = gsap.timeline();
 
-    tl.to(
+    tl.from(
       imageRef.current,
-      { opacity: 1, y: 0, scale: 1, duration: 1.2, ease: 'expo.out' }
+      { opacity: 0, y: 40, scale: 0.95, duration: 1.2, ease: 'expo.out' }
     );
 
-    tl.to(
+    tl.from(
       textRef.current,
-      { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' },
+      { opacity: 0, y: 40, duration: 0.8, ease: 'power2.out' },
       '-=0.6'
     );
   }, [inView]);
@@ -37,7 +37,7 @@ export const EinsteinReveal: React.FC<EinsteinRevealProps> = ({ imagePath }) => 
         {/* Left Side: The Thesis Image */}
         <div 
           ref={imageRef}
-          className="relative group cursor-crosshair overflow-hidden rounded-lg border border-[rgba(255,255,255,0.1)] aspect-square opacity-0 transform translate-y-10 scale-95"
+          className="relative group cursor-crosshair overflow-hidden rounded-lg border border-[rgba(255,255,255,0.1)] aspect-square"
         >
           {/* Blueprint Grid Overlay (Visible on Hover) */}
           <div className="absolute inset-0 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none mix-blend-screen overflow-hidden">
@@ -67,7 +67,7 @@ export const EinsteinReveal: React.FC<EinsteinRevealProps> = ({ imagePath }) => 
         </div>
 
         {/* Right Side: The Thesis Narrative */}
-        <div ref={textRef} className="opacity-0 transform translate-y-10">
+        <div ref={textRef}>
           <SectionLabel>THE THESIS</SectionLabel>
           <DisplayHeading as="h3" className="mt-6 text-[32px] md:text-[42px] leading-[1.1] font-medium">
             Systems built for attention will always distort things built for truth.

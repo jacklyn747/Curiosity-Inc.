@@ -43,13 +43,11 @@ export function TiagoForteCaseStudy() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo('.tf-profile-band',
-        { opacity: 0, y: 18 },
-        { opacity: 1, y: 0, duration: 0.9, stagger: 0.14, ease: 'power2.out', delay: 0.4 }
+      gsap.from('.tf-profile-band',
+        { opacity: 0, y: 18, duration: 0.9, stagger: 0.14, ease: 'power2.out', delay: 0.4 }
       );
-      gsap.fromTo('.tf-profile-meta-col',
-        { opacity: 0 },
-        { opacity: 1, duration: 0.5, stagger: 0.08, ease: 'power2.out', delay: 0.9 }
+      gsap.from('.tf-profile-meta-col',
+        { opacity: 0, duration: 0.5, stagger: 0.08, ease: 'power2.out', delay: 0.9 }
       );
     }, profileRef);
     return () => ctx.revert();
@@ -58,9 +56,8 @@ export function TiagoForteCaseStudy() {
   useEffect(() => {
     if (!auditInView) return;
     const ctx = gsap.context(() => {
-      gsap.fromTo('.tf-audit-row',
-        { opacity: 0, y: 12 },
-        { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: 'power2.out' }
+      gsap.from('.tf-audit-row',
+        { opacity: 0, y: 12, duration: 0.6, stagger: 0.1, ease: 'power2.out' }
       );
     }, auditRef);
     return () => ctx.revert();
@@ -257,8 +254,7 @@ export function TiagoForteCaseStudy() {
                 },
               ].map((row, i) => (
                 <div key={i} className="tf-audit-row cs-audit-row" style={{
-                  borderLeft: `4px solid ${row.status === 'absent' ? 'var(--color-insight)' : 'var(--color-structure)'}`,
-                  opacity: 0,
+                  borderLeft: `4px solid ${row.status === 'absent' ? 'var(--color-insight)' : 'var(--color-structure)'}`
                 }}>
                   {[
                     { label: 'Platform', value: row.platform, mono: true },
@@ -297,8 +293,7 @@ export function TiagoForteCaseStudy() {
               { principle: 'Integration', platform: '— Missing —', status: 'absent' as const, note: 'No platform bridges the methodology to daily practice. Tool-agnostic = data-blind.' },
             ].map((row, i) => (
               <div key={i} className="tf-audit-row cs-principle-row" style={{
-                borderLeft: `4px solid ${row.status === 'present' ? 'var(--color-structure)' : 'rgba(247,38,88,0.35)'}`,
-                opacity: 0,
+                borderLeft: `4px solid ${row.status === 'present' ? 'var(--color-structure)' : 'rgba(247,38,88,0.35)'}`
               }}>
                 <div style={{ width: '140px', flexShrink: 0 }}>
                   <div style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', letterSpacing: '0.1em', textTransform: 'uppercase', color: row.status === 'present' ? 'var(--color-structure)' : 'rgba(247,38,88,0.7)', marginBottom: '2px' }}>

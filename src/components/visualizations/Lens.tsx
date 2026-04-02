@@ -43,23 +43,20 @@ export const Lens: React.FC<LensProps> = ({
     });
 
     // 2. Intersection gradient fill fades in
-    tl.fromTo(intersectionRef.current,
-      { opacity: 0 },
-      { opacity: 1, duration: 0.6, ease: 'power2.out' },
+    tl.from(intersectionRef.current,
+      { opacity: 0, duration: 0.6, ease: 'power2.out' },
       "+=0.4"
     );
 
     // 3. Pink value text fade in
-    tl.fromTo(valueRef.current,
-      { opacity: 0, scale: 0.8 },
-      { opacity: 1, scale: 1, duration: 0.6, ease: 'back.out(1.7)' },
+    tl.from(valueRef.current,
+      { opacity: 0, scale: 0.8, duration: 0.6, ease: 'back.out(1.7)' },
       "-=0.4"
     );
 
     // 4. Sublabel fades in
-    tl.fromTo(sublabelRef.current,
-      { opacity: 0, y: 5 },
-      { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' },
+    tl.from(sublabelRef.current,
+      { opacity: 0, y: 5, duration: 0.4, ease: 'power2.out' },
       "-=0.2"
     );
 
@@ -68,8 +65,7 @@ export const Lens: React.FC<LensProps> = ({
   return (
     <div 
       ref={containerRef as any}
-      className={`lens-root w-full flex justify-center py-12 transition-opacity duration-1000
-        ${inView || prefersReducedMotion ? 'opacity-100' : 'opacity-0'}`}
+      className="lens-root w-full flex justify-center py-12 transition-opacity duration-1000"
     >
       <svg 
         viewBox="0 0 480 220" 
@@ -93,7 +89,6 @@ export const Lens: React.FC<LensProps> = ({
           cx="200" cy="110" r="90" 
           fill="url(#grad-lens-intersection)" 
           clipPath="url(#clip-lens-intersection)"
-          style={{ opacity: prefersReducedMotion ? 1 : 0 }}
         />
 
         {/* Left Circle */}
@@ -135,7 +130,6 @@ export const Lens: React.FC<LensProps> = ({
             x="240" y="115"
             className="font-display text-[32px] font-normal"
             fill="var(--color-insight)"
-            style={{ opacity: prefersReducedMotion ? 1 : 0 }}
           >
             {value}
           </text>
@@ -144,7 +138,6 @@ export const Lens: React.FC<LensProps> = ({
             x="240" y="135"
             className="font-mono text-[9px] uppercase tracking-[0.1em] opacity-60"
             fill="var(--color-text)"
-            style={{ opacity: prefersReducedMotion ? 1 : 0 }}
           >
             {sublabel}
           </text>

@@ -42,13 +42,11 @@ export function DanKoeCaseStudy() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo('.dk-profile-band',
-        { opacity: 0, y: 18 },
-        { opacity: 1, y: 0, duration: 0.9, stagger: 0.14, ease: 'power2.out', delay: 0.4 }
+      gsap.from('.dk-profile-band',
+        { opacity: 0, y: 18, duration: 0.9, stagger: 0.14, ease: 'power2.out', delay: 0.4 }
       );
-      gsap.fromTo('.dk-profile-meta-col',
-        { opacity: 0 },
-        { opacity: 1, duration: 0.5, stagger: 0.08, ease: 'power2.out', delay: 0.9 }
+      gsap.from('.dk-profile-meta-col',
+        { opacity: 0, duration: 0.5, stagger: 0.08, ease: 'power2.out', delay: 0.9 }
       );
     }, profileRef);
     return () => ctx.revert();

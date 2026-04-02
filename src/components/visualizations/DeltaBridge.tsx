@@ -27,8 +27,7 @@ export const DeltaBridge: React.FC<DeltaBridgeProps> = ({
   return (
     <div 
       ref={containerRef as any}
-      className={`delta-bridge-root w-full flex flex-col gap-12 transition-opacity duration-1000
-        ${inView || prefersReducedMotion ? 'opacity-100' : 'opacity-0'}`}
+      className="delta-bridge-root w-full flex flex-col gap-12 transition-opacity duration-1000"
     >
       {metrics.map((metric, i) => (
         <DeltaRow 
@@ -65,15 +64,13 @@ const DeltaRow: React.FC<{
     const tl = gsap.timeline({ delay: rowDelay });
 
     // 1. Row fades in
-    tl.fromTo(rowRef.current, 
-      { opacity: 0, y: 16 },
-      { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }
+    tl.from(rowRef.current, 
+      { opacity: 0, y: 16, duration: 0.8, ease: 'power2.out' }
     );
 
     // 2. Teal dot appears
-    tl.fromTo(tealDotRef.current,
-      { opacity: 0, scale: 0.6 },
-      { opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(2)' },
+    tl.from(tealDotRef.current,
+      { opacity: 0, scale: 0.6, duration: 0.4, ease: 'back.out(2)' },
       "-=0.4"
     );
 
@@ -89,16 +86,14 @@ const DeltaRow: React.FC<{
     }
 
     // 4. Pink delta text fades in at apex
-    tl.fromTo(deltaTextRef.current,
-      { opacity: 0, y: 5 },
-      { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' },
+    tl.from(deltaTextRef.current,
+      { opacity: 0, y: 5, duration: 0.6, ease: 'power2.out' },
       "-=0.6"
     );
 
     // 5. Orange dot appears
-    tl.fromTo(orangeDotRef.current,
-      { opacity: 0, scale: 0.6 },
-      { opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(2)' },
+    tl.from(orangeDotRef.current,
+      { opacity: 0, scale: 0.6, duration: 0.4, ease: 'back.out(2)' },
       "-=0.2"
     );
 
@@ -180,13 +175,11 @@ const DeltaRow: React.FC<{
             ref={tealDotRef}
             cx={tealX} cy={centerY} r="3" 
             fill="var(--color-structure)"
-            style={{ opacity: prefersReducedMotion ? 1 : 0 }}
           />
           <circle 
             ref={orangeDotRef}
             cx={orangeX} cy={centerY} r="3" 
             fill="var(--color-transformation)"
-            style={{ opacity: prefersReducedMotion ? 1 : 0 }}
           />
 
           {/* Delta Text at apex */}
@@ -196,7 +189,6 @@ const DeltaRow: React.FC<{
             textAnchor="middle" dominantBaseline="auto"
             className="font-mono text-[11px] font-medium"
             fill="var(--color-insight)"
-            style={{ opacity: prefersReducedMotion ? 1 : 0 }}
           >
             {metric.delta}
           </text>

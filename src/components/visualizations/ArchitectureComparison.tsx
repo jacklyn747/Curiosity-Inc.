@@ -30,17 +30,13 @@ export const ArchitectureComparison: React.FC = () => {
     const tl = gsap.timeline({ delay: 0.3 });
 
     // Funnel layers stagger top-to-bottom
-    tl.fromTo(
+    tl.from(
       [funnelLayer1Ref.current, funnelLayer2Ref.current, funnelLayer3Ref.current],
-      { opacity: 0, y: -8 },
-      { opacity: 1, y: 0, duration: 0.55, stagger: 0.2, ease: 'power2.out' }
+      { opacity: 0, y: -8, duration: 0.55, stagger: 0.2, ease: 'power2.out' }
     );
-
-    // Drop-off annotations appear after funnel
-    tl.fromTo(
+    tl.from(
       dropoffRef.current,
-      { opacity: 0 },
-      { opacity: 1, duration: 0.4, ease: 'power2.out' },
+      { opacity: 0, duration: 0.4, ease: 'power2.out' },
       '-=0.1'
     );
 
@@ -59,10 +55,9 @@ export const ArchitectureComparison: React.FC = () => {
     });
 
     // Arrows and labels after rings
-    tl.fromTo(
+    tl.from(
       [arrowsRef.current, ringLabelsRef.current],
-      { opacity: 0 },
-      { opacity: 1, duration: 0.5, stagger: 0.12, ease: 'power2.out' },
+      { opacity: 0, duration: 0.5, stagger: 0.12, ease: 'power2.out' },
       '+=0.2'
     );
   }, [inView, prefersReducedMotion]);
@@ -104,7 +99,6 @@ export const ArchitectureComparison: React.FC = () => {
             {/* Layer 1 — Free Content */}
             <g
               ref={funnelLayer1Ref}
-              style={{ opacity: prefersReducedMotion ? 1 : 0 }}
             >
               <path
                 d="M 20 40 L 280 40 L 244 115 L 56 115 Z"
@@ -145,7 +139,6 @@ export const ArchitectureComparison: React.FC = () => {
             {/* Layer 2 — Newsletter */}
             <g
               ref={funnelLayer2Ref}
-              style={{ opacity: prefersReducedMotion ? 1 : 0 }}
             >
               <path
                 d="M 56 124 L 244 124 L 208 199 L 92 199 Z"
@@ -186,7 +179,6 @@ export const ArchitectureComparison: React.FC = () => {
             {/* Layer 3 — Course / Product */}
             <g
               ref={funnelLayer3Ref}
-              style={{ opacity: prefersReducedMotion ? 1 : 0 }}
             >
               <path
                 d="M 92 208 L 208 208 L 182 274 L 118 274 Z"
@@ -227,7 +219,6 @@ export const ArchitectureComparison: React.FC = () => {
             {/* Drop-off annotations */}
             <g
               ref={dropoffRef}
-              style={{ opacity: prefersReducedMotion ? 1 : 0 }}
             >
               <line
                 x1="244"
@@ -321,7 +312,6 @@ export const ArchitectureComparison: React.FC = () => {
               stroke="var(--color-structure)"
               strokeWidth="1"
               strokeOpacity="0.22"
-              style={{ opacity: prefersReducedMotion ? 1 : 0 }}
             />
 
             {/* Ring 3 — Engagement */}
@@ -334,7 +324,6 @@ export const ArchitectureComparison: React.FC = () => {
               stroke="var(--color-structure)"
               strokeWidth="1"
               strokeOpacity="0.48"
-              style={{ opacity: prefersReducedMotion ? 1 : 0 }}
             />
 
             {/* Ring 2 — Learning */}
@@ -347,7 +336,6 @@ export const ArchitectureComparison: React.FC = () => {
               stroke="var(--color-transformation)"
               strokeWidth="1"
               strokeOpacity="0.7"
-              style={{ opacity: prefersReducedMotion ? 1 : 0 }}
             />
 
             {/* Ring 1 — Identity (innermost) */}
@@ -360,13 +348,11 @@ export const ArchitectureComparison: React.FC = () => {
               fillOpacity="0.1"
               stroke="var(--color-insight)"
               strokeWidth="1.5"
-              style={{ opacity: prefersReducedMotion ? 1 : 0 }}
             />
 
             {/* Ring labels — positioned at 12 o'clock of each ring */}
             <g
               ref={ringLabelsRef}
-              style={{ opacity: prefersReducedMotion ? 1 : 0 }}
             >
               <text
                 x="150"
@@ -430,7 +416,6 @@ export const ArchitectureComparison: React.FC = () => {
             {/* Inward arrows at compass points — between Awareness and Engagement rings */}
             <g
               ref={arrowsRef}
-              style={{ opacity: prefersReducedMotion ? 1 : 0 }}
             >
               {/* North */}
               <line
