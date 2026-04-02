@@ -1,4 +1,7 @@
 {
+  "redirects": [
+    { "source": "/writing", "destination": "https://read.curiosityinc.online", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ]
