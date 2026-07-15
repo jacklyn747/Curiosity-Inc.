@@ -1,3 +1,5 @@
+> **Home is GitHub — the laptop and iCloud are backups.** This project's single source of truth is its GitHub repo. The laptop working copy and any iCloud copy are backup / working resources, never the home. Work exists only once committed and pushed to GitHub; if two copies ever disagree, GitHub wins.
+
 # Curiosity Inc. Digital Sanctuary — Development Guide
 
 ## Quick Start
